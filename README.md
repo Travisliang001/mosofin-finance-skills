@@ -187,6 +187,16 @@ live data, the output says so in the filename and on the first page.
 | `credit-limit-and-customer-risk` | 53% | Recommend a limit and terms from your own payment experience |
 | `debt-and-covenant-tracking` | 47% | Debt schedule and covenants on the agreement's own definitions |
 
+**Wave 7** — stock, costing, credit policy, audit preparation and what-if analysis, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `inventory-obsolescence-and-reserve` | 67% | Slow and obsolete stock, the value test, and the reserve |
+| `customer-credit-and-collections-policy` | 67% | Design the credit rules and collections cadence on the real customer base |
+| `standard-costing-and-variance-analysis` | 66% | Variances and the cost bridge; stale standard or real performance |
+| `scenario-and-sensitivity-analysis` | 51% | Scenarios, tornado and breakeven, with ranges from observed history |
+| `audit-prep-pbc-list` | 47% | Build the PBC list, score readiness, track owners and dates |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
