@@ -197,6 +197,16 @@ live data, the output says so in the filename and on the first page.
 | `scenario-and-sensitivity-analysis` | 51% | Scenarios, tornado and breakeven, with ranges from observed history |
 | `audit-prep-pbc-list` | 47% | Build the PBC list, score readiness, track owners and dates |
 
+**Wave 8** — controls, audit, treasury, bad debt and the chart of accounts, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `chart-of-accounts-designer` | 68% | Design or clean up the chart, with usage measured and old-to-new mapping |
+| `bad-debt-and-write-offs` | 56% | Allowance from your own loss history; write-off candidates and entries |
+| `cash-management-and-treasury` | 51% | Map every cash account; structure, liquidity and payment-control policies |
+| `sox-controls-design-and-testing` | 46% | Risk and control matrix; controls tested at full population where traced |
+| `internal-audit-workpaper` | 41% | Audit program, workpapers, findings and report |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
