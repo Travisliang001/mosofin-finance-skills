@@ -207,6 +207,16 @@ live data, the output says so in the filename and on the first page.
 | `sox-controls-design-and-testing` | 46% | Risk and control matrix; controls tested at full population where traced |
 | `internal-audit-workpaper` | 41% | Audit program, workpapers, findings and report |
 
+**Wave 9** — the quarter and year-end closes, planning models and foreign currency, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `three-statement-financial-model` | 62% | Linked income statement, balance sheet and cash flow, with drivers measured from history |
+| `multicurrency-fx-revaluation` | 60% | Revalue foreign balances at period end; translation and proposed entries |
+| `quarter-end-close` | 53% | The monthly close plus the quarter's own tasks, and late-posting checks |
+| `year-end-close` | 51% | Annual procedures, filings, closing the year and verifying it stayed locked |
+| `budget-builder` | 51% | Annual operating budget by month, every line traced to a driver |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
