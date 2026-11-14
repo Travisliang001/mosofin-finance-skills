@@ -167,6 +167,16 @@ live data, the output says so in the filename and on the first page.
 |---|---:|---|
 | `merchant-and-payment-processor-rec` | 64% | Tie Stripe, Square or PayPal payouts to the books; catch revenue recorded net of fees |
 
+**Wave 5** — analysis and reporting read straight from the books, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `intercompany-reconciliation` | 68% | Match both sides of every entity pair; settlements and eliminations |
+| `cash-flow-statement-indirect-method` | 63% | Statement of cash flows, tied exactly to the change in cash |
+| `bank-fee-and-interest-analysis` | 63% | Categorise bank charges, cost per transaction, sized savings |
+| `working-capital-optimization` | 61% | Cash conversion cycle, where cash is trapped, each lever sized |
+| `kpi-dashboard-builder` | 60% | Choose, define and compute the KPIs; list what the books cannot supply |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
