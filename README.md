@@ -177,6 +177,16 @@ live data, the output says so in the filename and on the first page.
 | `working-capital-optimization` | 61% | Cash conversion cycle, where cash is trapped, each lever sized |
 | `kpi-dashboard-builder` | 60% | Choose, define and compute the KPIs; list what the books cannot supply |
 
+**Wave 6** — forecasting, customer economics, credit, debt and fraud risk, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `cohort-and-unit-economics` | 66% | Retention by cohort, CAC, LTV on margin, payback |
+| `rolling-forecast` | 59% | Lock actuals, refresh the horizon, score the last forecast |
+| `fraud-detection-and-forensics` | 56% | Red-flag tests across the population; patterns, never accusations |
+| `credit-limit-and-customer-risk` | 53% | Recommend a limit and terms from your own payment experience |
+| `debt-and-covenant-tracking` | 47% | Debt schedule and covenants on the agreement's own definitions |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
