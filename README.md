@@ -276,6 +276,17 @@ live data, the output says so in the filename and on the first page.
 | `construction-percentage-of-completion` | 48% | Revenue over time on contracts; loss provisions and contract balances |
 | `government-fund-accounting-gasb` | 46% | Fund statements, government-wide statements and the reconciliation |
 
+**Wave 15** — skills released from review items R3 and R4, and the two that sit beside an existing skill, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `quickbooks-ar-aging-collections` | 64% | Receivables ageing and collections plan for a QuickBooks Online file |
+| `ar-cash-application-lockbox` | 64% | Apply a lockbox or bank file to open invoices; companion to cash-application |
+| `vendor-onboarding-and-w9-tin` | 56% | Vendor master audit and tax-form validation, identifiers masked |
+| `ap-invoice-processing-and-3way-match` | 52% | The whole AP invoice process; wider than three-way-match |
+| `aml-kyc-procedures` | 48% | AML and KYC framework documents and review lists for the responsible officer |
+| `restructuring-and-severance-asc420` | 38% | Restructuring accrual and reserve roll-forward, by cost type not by name |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
