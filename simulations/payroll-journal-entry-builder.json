@@ -1,0 +1,34 @@
+{
+ "skill": "payroll-journal-entry-builder",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "September tax liability 19,274 (8,472 + 5,401 + 5,401) is 12,626 (39.6%) below the 31,900 deposited for each of July and August; at 27.3% that implies about 116,850 gross a month vs 70,599",
+  "Income tax, employee and employer social security all share 2160 Payroll Tax Payable, so employer/employee liabilities cannot be separated in the ledger",
+  "Chart lacks payroll tax expense, employer match expense, net pay payable and accrued payroll accounts; employer tax debited to 6000, accrual would use 2100",
+  "Admin and Management departments each have one employee, so department totals would disclose individual pay; combined in the allocation",
+  "Period-end accrual blocked: register carries no pay period or pay date",
+  "Employer 401(k) match not booked: no plan terms supplied"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Payroll data is personal': requires presenting at account and department level but gives no rule for a department with one employee, where the department total is that person's pay.",
+  "SKILL.md 'Gate 2 — Discover enabled tools': 'There is no payroll register, no rate table and no benefit schedule on this surface', yet 'Step 3 — Build the employer cost entry' needs employer rates whenever the register lacks employer columns; there is no instruction to request a rate card on the upload path.",
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user': the inputs table strikes through the chart of accounts as 'Now [auto]', so on a manual run there is no listed upload for the chart, the department dimension or prior runs; the run relies on the generic 'This skill has no upload checklist of its own' rule.",
+  "SKILL.md 'Step 7 — Validate the entries': the run-over-run comparison and prior-accrual reversal are written only as '[auto]' with no upload-path fallback (e.g. prior deposits or prior registers).",
+  "SKILL.md 'Step 3': no rounding convention for employer contributions (per employee vs on total), which changes the result by 1 here."
+ ],
+ "sample_defects": [
+  "payroll_tax_rules_SAMPLE.md deposits of 31,900 for July and August do not fit a September liability of 8,472 + 5,401 + 5,401 = 19,274 (difference 12,626); not mentioned in expect.",
+  "Employer social security rounded per employee sums to 5,400; on the total 70,599 x 7.65% = 5,400.82 -> 5,401. Expect's 76,000 requires the on-total (or mirror-of-employee) figure; neither is stated as the convention.",
+  "payroll_register_2025-09.csv has no pay period or pay date, so Step 6 (accrual) can never be exercised, and no prior run exists for Step 7's comparison.",
+  "Key arithmetic checks out: 8,472 + 5,401 + 2,824 + 53,902 = 70,599; 70,599 + 5,401 = 76,000; every row foots."
+ ],
+ "summary": "PASS: rota rejected on content; balanced entries with employer SS 5,401 and total expense 76,000; also flagged 19,274 vs 31,900 deposit gap and shared 2160 account."
+}

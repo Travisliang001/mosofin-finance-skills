@@ -1,0 +1,30 @@
+{
+ "skill": "intangibles-and-amortization",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Implied goodwill 750,000 (consideration 1,580,000 less fair value net assets 830,000) routed to the goodwill impairment test, not amortised",
+  "Deferred tax tie-out: uplifts 450,000 x 20% = 90,000 as stated",
+  "No investment in Harlow (1,580,000) and no 180,000 earnout liability in the TB: the acquisition is not recorded in any form, or only in a consolidation workpaper",
+  "Deal costs 46,000 exceed 6400 Professional Fees 36,500, so at least 9,500 is untraced",
+  "Private-company alternatives (amortise goodwill; subsume customer-related intangibles) raised as an unconfirmed election that would change the 260,000 and 750,000",
+  "Trade name flagged as finite-or-indefinite; if indefinite, mandatory annual impairment test not evidenced"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' upload checklist asks for a register, ledger detail, development spend and policies, but not for the purchase price allocation / valuation report, which is the source of every acquired intangible in references/method.md 'Step 1 — Identify intangible asset categories' (Acquired intangibles). A user with no register but a recent acquisition is not prompted for the one document that evidences cost and acquisition date.",
+  "references/method.md 'Step 2 — Determine useful life' and 'Step 1' do not mention the US GAAP private-company alternatives (goodwill amortisation; not separately recognising customer-related intangibles that cannot be sold or licensed independently). For a private-company user under US GAAP this changes which intangibles exist at all; the skill should ask whether the election was made.",
+  "references/method.md 'Step 10 — Roll-forward and tie-out' assumes the intangibles sit in the entity's own ledger; it gives no guidance for a share acquisition where acquired intangibles appear only on consolidation or push-down, so 'not in the TB' cannot be distinguished from 'correctly held elsewhere'."
+ ],
+ "sample_defects": [
+  "trial_balance_2025-09-30.csv shows no trace of the Harlow deal at all: no investment (1,400,000 cash + 180,000 earnout = 1,580,000), no earnout liability 180,000, and bank still 1,002,979 after a 1,400,000 cash payment. For a 100% share acquisition the parent-only TB would never carry customer relationships 260,000 or trade name 90,000 even if correctly accounted, so the expected finding is ambiguous between 'not recorded' and 'held on consolidation'.",
+  "Deal costs 46,000 exceed 6400 Professional Fees 36,500 in the TB (46,000 - 36,500 = 9,500), an unintended inconsistency the sample does not use."
+ ],
+ "summary": "Shift rota rejected on content; 2 of 2 hit: 260,000 + 90,000 intangibles absent from the TB, no lives so no amortisation computed. Goodwill 750,000 routed out. Nothing posted."
+}

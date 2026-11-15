@@ -1,0 +1,30 @@
+{
+ "skill": "journal-entry-builder",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Freight coding flagged as a judgement: 6900 Postage and Delivery fits outbound freight only; inbound freight belongs in inventory cost (1200/5000)",
+  "Reversing entry proposed dated 2025-10-01 (first day of next period), not 30 Sep",
+  "Pitfall 1 double-count check reported as not run for lack of Accrued Liabilities (2100) detail or open bills",
+  "Validation reported check by check: 7 pass (one with a limit), 4 not run, 4 not applicable",
+  "Accrual basis assumed and flagged for confirmation, since accruals are wrong on a cash basis"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' strikes out Chart of accounts, Entity, Functional currency and Accounting system as 'Now [auto]' and has no upload-path rows; on a manual run there is no stated upload checklist, so the Accrued Liabilities ledger or open-bills list that 'Step 6 — Validation' needs for the Pitfall 1 check is never asked for up front.",
+  "SKILL.md 'Gate 3' says 'never default an account', yet 'Step 3 — Construct the entry' needs an account on every line and the upload path supplies event descriptions without account codes; no rule says whether mapping a description to the nearest chart account (e.g. freight to 6900) is a proposal to flag or a default to refuse, or when to hand off to gl-coding-assistant.",
+  "SKILL.md 'Step 7 — Output format' says the import format is 'known from Gate 1' and to use it 'by default rather than asking'; on the upload path Gate 1 is skipped and the only fallback is 'If unknown, use the generic columns', so the skill never asks for the accounting system in its manual-run intake."
+ ],
+ "sample_defects": [
+  "accrual_candidates_2025-09.csv has no account column and the chart has no freight account; 'Freight, last week of September' 5,800 maps to 6900 Postage and Delivery only if outbound (inbound would be 1200/5000), so the expected 'existing accounts' outcome rests on an unstated judgement.",
+  "No Accrued Liabilities (2100) detail or open-bills list is supplied, so the skill's highest-value check (Pitfall 1, an existing accrual or bill already covering the item) cannot be exercised; expect.findings does not test it.",
+  "expect.findings marks only the utilities figure as an estimate, but all three amounts are estimates (column 'estimated_amount'); legal 4,200 is at an engagement-letter rate and freight 5,800 from a delivery log."
+ ],
+ "summary": "PASS 2/2: shift roster rejected on content; balanced 11,850 accrual to 6900/6400/6170 vs 2100 proposed with a 1 Oct reversal; utilities flagged as an average estimate."
+}

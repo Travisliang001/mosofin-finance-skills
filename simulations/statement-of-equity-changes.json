@@ -1,0 +1,30 @@
+{
+ "skill": "statement-of-equity-changes",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Stock-based compensation appears unrecorded: 20,000 options x 1.10 = 22,000 over 48 months, 6/48 = 2,750 by 30 Sep 2025, and no APIC or stock-comp account in the TB; the 60,000 opening options also have no APIC behind them",
+  "Equity ledger codes the dividend and the 7,500 adjustment to 3100, but the Sep 2025 TB holds 3100 unchanged at 1,378,654 and the 67,500 in 3200 Dividends and Adjustments",
+  "Test 0b passed with figures: Dec 2024 pre-close RE 763,715 + FY2024 NI 614,939 = 1,378,654 = 2025 opening RE",
+  "Par value not supplied; 250,000 / 1,000,000 shares implies 0.25, asked rather than assumed",
+  "Comparative period unanswered; FY2024 shown as provisional and the user asked whether a nine-months-to-Sep-2024 comparative is wanted"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' table has no question for par value by class, yet method.md 'Step 2 — Build the roll-forward grid' says the par/APIC split needs 'the share count and the par value' and 'Seed to evolved' item 3 persists 'Par values by class'. Add par value to question D.",
+  "method.md 'Step 4 — Share count roll-forward (corporations)' is written only for Mosofin ('[manual], in full. There is no cap table on this surface ... Present the empty schedule'); on the upload path the cap table is an upload checklist item and the schedule can be filled. Say so, or the run reads as contradicting the card.",
+  "SKILL.md 'Stage 1' question B 'Which comparative?' with 'Never default the period', while method.md 'Step 6 — Comparative period' requires a comparative; for an interim period the skill does not say whether the comparative is the prior year-end or the prior-year interim, so an unanswered B leaves Step 6 undefined."
+ ],
+ "sample_defects": [
+  "equity_accounts_ledger_2025.csv posts 'Dividend declared and paid' 60,000 and 'Adjustment' 7,500 to account 3100, but trial_balance_2025-09-30.csv shows 3100 Retained Earnings unchanged at 1,378,654 Cr and 3200 Dividends and Adjustments at 67,500 Dr (60,000 + 7,500). The ledger should code them to 3200, or the TB should net them into 3100.",
+  "cap_table.csv gives a 2025 option grant with fair value (20,000 x 1.10 = 22,000; 6/48 vested by 30 Sep = 2,750) but neither TB has APIC or a stock-comp expense account. If unrecorded SBC is intended, add it to expect.findings; if not, the grant-date fair value invites a finding the key does not score.",
+  "cap_table.csv carries no par value; Share Capital 250,000 / 1,000,000 common shares = 0.25 implied only."
+ ],
+ "summary": "Sep 2024 TB rejected on content; equity rolled 1,628,654 to 2,155,395 with the 60,000 March dividend and an unexplained 7,500 RE entry; options 60,000 to 80,000. Nothing posted."
+}
