@@ -264,6 +264,18 @@ live data, the output says so in the filename and on the first page.
 | `equity-compensation-accounting` | 41% | Stock compensation expense schedule from the cap table you supply |
 | `esg-sustainability-reporting` | 39% | Scope, metric catalogue and data pipeline for ESG figures |
 
+**Wave 14** — sector-specific accounting, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `healthcare-revenue-cycle-accounting` | 61% | Net patient revenue and reserves; billing tied to the ledger, totals only |
+| `grant-accounting-nonprofit-restricted-funds` | 56% | Each grant's restrictions, budget, allowable costs and reporting dates |
+| `real-estate-and-property-accounting` | 56% | Classify and measure property; rental income and sales |
+| `nonprofit-fund-accounting` | 51% | Net assets by restriction, releases and the functional expense statement |
+| `insurance-accounting-overview` | 51% | Close map for premium, claims, reinsurance and commissions |
+| `construction-percentage-of-completion` | 48% | Revenue over time on contracts; loss provisions and contract balances |
+| `government-fund-accounting-gasb` | 46% | Fund statements, government-wide statements and the reconciliation |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
