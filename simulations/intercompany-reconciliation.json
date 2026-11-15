@@ -1,0 +1,24 @@
+{
+  "skill": "intercompany-reconciliation",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 3,
+  "findings_total": 3,
+  "missed": [],
+  "unexpected": [
+    "Difference 4,189.40 split: timing 4,191.00 (IC-097) + closing-vs-transaction FX 1.89 (IC-071) + rate used by US side −3.49; true mismatch 0.00",
+    "Implied US booking rates 1.26984 / 1.26973 / 1.27119 against sheet rates 1.2698 / 1.27 / 1.27",
+    "Ageing: IC-071 82 days, nothing settled in three months; settlement of agreed GBP 29,920.00 proposed",
+    "Eliminations E1 (38,000.00 vs 37,998.40, 1.60 carried to CTA) and E2 (IC-097 in transit 4,191.00) as proposals; unrealised inventory profit not computable"
+  ],
+  "skill_defects": [
+    "Minor: references/method.md 'Step 3 — Reconcile balances by entity pair' asks to split each difference into 'timing, FX, and true mismatch', and 'Step 5 — Currency handling' says 'After conversion, mismatches should be only timing-related, not FX-related'. Neither says where to put a small difference that comes from one side booking at a rate different from the supplied sheet (here −3.49). It is not translation FX and not clearly a true mismatch, so the agent had to invent a sub-category.",
+    "Minor: SKILL.md 'Stage 1 — Intake' upload checklist requires 'date, reference, amount, currency and counterparty per transaction', but nothing in the protocol or method says how to treat a ledger with no counterparty column (the counterparty is only in the description, as in both sample ledgers). The validation rules cover missing company or period, not missing required columns."
+  ],
+  "sample_defects": [],
+  "summary": "Rota rejected on content. IC-097 GBP 3,300 is on the UK side only. Small rate differences on 071/082/093. Difference 4,189.40 (UK 42,189.40 vs US 38,000), of which IC-097 is 4,191.00. Nothing posted."
+}

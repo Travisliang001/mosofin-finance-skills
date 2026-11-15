@@ -141,7 +141,7 @@ not infer a billed unit price beyond saying what the totals imply.
 | 6 | **Item on PO not invoiced** | PO line has no matching invoice line | Low (open commitment) | `[auto]` |
 | 7 | **Item received not billed** | GRN line has no matching invoice line | **Information → see below** | **`[auto]` — needs the receipt leg** |
 | 8 | **Item billed not received** | Invoice + PO line but no GRN | **High — possible fraud or vendor error** | **`[auto]` — needs the receipt leg** |
-| 9 | **Duplicate against prior invoice** | Same vendor + PO line + amount paid already | **Critical** | `[auto]` — see `duplicate-invoice-detection` |
+| 9 | **Duplicate invoice** | Same vendor (or a likely duplicate vendor record) + same amount + same or normalised invoice number, whether the other copy is paid or still open | **Critical** | `[auto]` — see `duplicate-invoice-detection` |
 | 10 | **Currency mismatch** | Different currency on any document | High | `[auto]` |
 | 11 | **PO not approved** | PO lacks approval signature / status | **Critical** | **`[auto]` if approval status is exposed** |
 | 12 | **Approved by wrong authority** | PO total exceeds approver's limit per the matrix | **Critical** | `[auto]` **given the matrix and the approver identity** |

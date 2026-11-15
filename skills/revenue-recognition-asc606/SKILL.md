@@ -66,7 +66,8 @@ question at a time. Ask only what you cannot already see.
 |---|---|---|
 | **The contract**, or a summary of its key terms | Required | PDF or pasted |
 | **Invoices and payments** on the contract to date | Required | XLSX or CSV |
-| **Revenue and deferred revenue ledger detail** for the customer | Recommended, for the mid-contract position | XLSX or CSV |
+| **Revenue and deferred revenue ledger detail** for the customer | Recommended. Without it Step 0 (how the books recognise revenue) cannot run, and the output says so | XLSX or CSV |
+| **Chart of accounts** | Required for the proposed entries. Without it entries use descriptive account names, labelled as such | XLSX or CSV |
 | Standalone selling prices with sources | Required for more than one obligation | Type it in the chat |
 
 **Read back before starting, then wait for a yes:**

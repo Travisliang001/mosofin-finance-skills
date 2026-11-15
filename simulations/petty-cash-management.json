@@ -1,0 +1,24 @@
+{
+  "skill": "petty-cash-management",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 4,
+  "findings_total": 4,
+  "missed": [],
+  "unexpected": [
+    "Netting voucher 105 in would wrongly reduce the shortage to 5.00; stated explicitly",
+    "No approver recorded on any voucher; flagged because the approval policy is unstated",
+    "Replenishment 258.10 proposed (227.10 if voucher 102 is held); tin after top-up 440.50 plus 30.00 IOU, still 29.50 short",
+    "Imprest test, replenishment history and Cash Over and Short trend not run: no 1010 / 6950 ledger detail uploaded"
+  ],
+  "skill_defects": [
+    "Minor: references/method.md 'Step 5 — Replenishment' defines 'Replenishment amount = sum of **approved** vouchers' while SKILL.md 'Stage 1 — Intake' never asks for the voucher approval policy (row F asks custodian, receipt threshold, tolerance only). On upload the agent cannot tell which vouchers are 'approved'.",
+    "Minor: SKILL.md 'Stage 3 — Read the books and test the float' points to Steps 0–0b, which are written for the Mosofin path only (tool calls, 'Pull at least twelve months'); there is no upload-path line saying that Step 0b runs on uploaded 1010 ledger detail or is listed as not done."
+  ],
+  "sample_defects": [],
+  "summary": "Rota rejected on content. Shortage 29.50 (182.40 + 258.10 + 30.00 vs 500). Voucher 105 deferred to October, 102 flagged with no receipt, IOU coded to 1160. Nothing posted."
+}

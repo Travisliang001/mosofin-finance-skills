@@ -136,7 +136,8 @@ than generic. See that skill.
 **When the custodian requests replenishment** — typically when cash drops below a threshold:
 
 ```
-Replenishment amount = sum of approved vouchers in the period
+Replenishment amount = sum of approved vouchers in the period. With no approval policy supplied, treat a voucher as approved
+if it has a receipt or is under the receipt threshold, and list the others as held pending approval
 ```
 
 **GL posting at replenishment** — hand off to `journal-entry-builder`. `DR` is a debit, `CR` a credit.

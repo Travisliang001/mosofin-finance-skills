@@ -8,7 +8,7 @@ All eleven preserved, in order.
 
 **Multiple POs combined on one invoice**: **split the invoice virtually and match per PO. Each invoice line maps to one PO.** `[auto]`.
 
-**Service POs with no GRN**: **substitute a service-completion confirmation, signed by the service receiver. Treat the confirmation as the GRN equivalent.** `[manual]` — a signed confirmation is not usually in the accounting system. **And this is two-way by design**, per the Inputs note.
+**Service POs with no GRN**: **substitute a service-completion confirmation, signed by the service receiver. Treat the confirmation as the GRN equivalent.** `[manual]` — a signed confirmation is not usually in the accounting system. **And this is two-way by design**, per the Inputs note. **If the policy requires a signed confirmation and none was supplied, the match is two-way by omission, not by design**, and the bill is held until the confirmation arrives.
 
 **Blanket POs with releases**: **match against the release, not the blanket. Roll up to the blanket for commitment tracking.** `[auto]` where releases are recorded; **matching an invoice to a blanket PO's total will pass almost anything**, which is why the release is the right unit.
 

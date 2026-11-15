@@ -1,0 +1,24 @@
+{
+  "skill": "revenue-recognition-asc606",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 3,
+  "findings_total": 3,
+  "missed": [],
+  "unexpected": [
+    "Flags accounting_policies.md 'Revenue: recognised when goods are delivered' as inconsistent with over-time ASC 606 recognition for this contract (Step 0 could not test it without the ledger)",
+    "Flags a significant financing component timing gap: 60,000 upfront against 36 months of service, liability unwinds beyond one year",
+    "Shows a third scenario (licence point in time at 1 Jul): revenue 127,083.33, contract asset 59,583.33",
+    "RPO at 30 Sep: 114,583.33 (A) / 137,500.00 (B), including 82,500 unbilled"
+  ],
+  "skill_defects": [
+    "Minor: SKILL.md 'Stage 1 — Intake', upload checklist omits a chart of accounts, while references/method.md 'Inputs' marks 'Chart of accounts' as **Required**; the run had to fall back on the protocol rule 'The method needs something the checklist did not ask for' and use captions instead of account codes.",
+    "Minor: references/method.md 'Step 0 — Test whether the books apply the standard at all' and references/output.md 'Section C' give no upload-path wording; Step 0 needs revenue/deferred revenue ledger detail that the SKILL.md checklist marks only 'Recommended', so on a typical upload Step 0 (described as 'the most important output') silently cannot run."
+  ],
+  "sample_defects": [],
+  "summary": "Rota rejected on content; allocation 100k/25k/25k, 35,416.67 recognised, liability 32,083.33 and both distinct/not-distinct schedules shown; nothing posted."
+}
