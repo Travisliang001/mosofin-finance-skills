@@ -242,6 +242,10 @@ PO allocation = Transaction price x (SSP of this PO / Sum of all POs' SSPs)
 
 `[auto]` for shipment and invoice dates where the surface holds them; `[manual]` for title, risk and acceptance, which are contractual.
 
+**While a judgment is still open** — distinct or not, over time or at a point in time — build the
+schedule under each answer, show the difference in revenue and in the contract balances, and ask which
+applies. Never pick one silently.
+
 **Build the recognition schedule:**
 
 | Period | PO | Method | Progress % (if over time) | Cumulative Revenue | Period Revenue |

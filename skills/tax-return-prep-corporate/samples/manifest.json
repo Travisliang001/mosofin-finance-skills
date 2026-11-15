@@ -1,9 +1,9 @@
 {
  "skill": "tax-return-prep-corporate",
  "company": "Northbrook Trading Ltd",
- "period": "September 2025",
+ "period": "tax year 2024",
  "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
- "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Tax year 2024, 'Sampleland'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: tax year 2024. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Jurisdiction 'Sampleland'.",
  "inputs": [
   {
    "file": "trial_balance_2024-12-31.csv",

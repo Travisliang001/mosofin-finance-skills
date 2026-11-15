@@ -1,0 +1,37 @@
+{
+ "skill": "journal-entry-review",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "JE-0903 accrued wages 12,400 exceeds the 10,000 approval threshold with no approval evidence",
+  "JE-0902 'Prepaid insurance release' debited to 6100 Rent (memo/account mismatch; chart has no insurance account)",
+  "JE-0906 loan interest 1,900 credited to 2500 Term Loan principal rather than an accrual",
+  "JE-0905 and JE-0907 were also posted on Saturdays (20 Sep, 4 Oct)",
+  "JE-0904 is 60% of month's journal value (50,000 of 83,799); 72% of value has blank/generic memo",
+  "All six 30-Sep entries posted 1-4 Oct (after period end); September close date unknown"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 3 — Score and flag entries': 'say what the weighting was' but no weights or score bands are defined, so scores and the 'high priority' cut-off are invented per run and not comparable between runs.",
+  "SKILL.md 'Step 2 — Timing': 'Back-dated entries — posting date later than effective date' fires on every routine close entry (6 of 7 here, posted 1-4 Oct for 30 Sep); no window is given and the 'Legitimate period-end entries' edge case does not say how to separate them without a baseline.",
+  "SKILL.md 'Gate 3' table has no question for the period close dates, yet 'Entries to prior closed periods' and 'after the close cutoff' ([auto]) cannot run without them; the sample only works because intake volunteers the August close date.",
+  "SKILL.md 'Step 1' and 'Output Quality Standards' require a baseline 'derived from prior periods' and a manual-vs-system split, but the manual upload checklist ('Ask the user to upload the data') never asks for prior periods or a source field; no fallback wording for a single-period upload.",
+  "SKILL.md 'Gate 3': 'Authorization thresholds — Required for the just-below test' but 'just below' is not quantified (within 1%? 5%?).",
+  "SKILL.md 'Step 8' Sheet 9 / 'Grounding' ('every flagged entry traces to a tool result') and the description ('from their Mosofin workspace') are Mosofin-only; the manual-mode section says 'every step is [manual]' while Part B labels still read [auto], which is confusing on upload.",
+  "SKILL.md is a single 59 KB file with Gates 0-2, write guardrails and Step 9 interleaved; the upload path must skip roughly 40% of it, and 'Gate 3' asks ~12 questions with no stated default for most ('Where the files do not answer ... apply its stated default' has nothing to apply for known risk areas, topside entries, who may see the output)."
+ ],
+ "sample_defects": [
+  "Key ignores other anomalies the data supports: JE-0903 12,400 > 10,000 approval threshold with no approver column; JE-0902 'Prepaid insurance release' posted to 6100 Rent; JE-0906 interest credited to 2500 Term Loan. If these are unintended, the sample data is noisier than the key; if intended, the key is incomplete.",
+  "JE-0905 (posted Sat 2025-09-20) and JE-0907 (posted Sat 2025-10-04) are weekend postings too, so 'posted on a Sunday' is not unique to JE-0904 as the key implies.",
+  "No approver, source (manual/system) or timestamp column and only one period, so 4 approval indicators, baseline and reversal tests are structurally untestable; the key does not say the run should report them NOT RUN.",
+  "a.reyes is not identified in any file of this sample (role appears only in the three-way-match sample's matrix); 'unusual poster' rests on 1-of-7 frequency alone.",
+  "Arithmetic check: debits = credits = 4,200+1,500+12,400+50,000+3,800+1,900+9,999 = 83,799; all 7 entries balance."
+ ],
+ "summary": "PASS 3/3; rota rejected on content. Main gap: skill defines no scoring weights or close-date question, and the key omits three further anomalies in the data.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

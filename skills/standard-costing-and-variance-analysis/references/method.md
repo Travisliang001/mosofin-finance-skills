@@ -149,6 +149,7 @@ Efficiency variance:  (Actual hours - Standard hours allowed) x Standard rate
 > Bridge from standard cost of production to actual cost:
 > - **Start with standard cost** — based on standard inputs and **actual output quantity**
 > - **Add variances by category**
+> - **Add the stock build or draw at standard** where the price variance is taken on quantity purchased and the quantity purchased differs from the quantity used
 > - **Tie to actual costs incurred**
 
 **Why this tie-out means something.** Most reconciliations in this pack tie one part of a ledger to another part of the same ledger, and tie by construction (see `financial-statement-builder`). **This one does not.** The standard cost comes from the BOM and routings — **outside** the accounting system — and the actual cost comes from the ledger. **If the two ends meet, something real has been demonstrated:** that the standards, the quantities and the recorded costs are mutually consistent.
@@ -224,7 +225,7 @@ All four of the original's outputs preserved, plus two Mosofin additions. Delive
 **Sheet 1: Variance Report by Product / Line / Plant**
 | Level | Standard cost | Actual cost | PPV | Usage | Rate | Efficiency | Var OH spend | Var OH eff | Fixed OH spend | Fixed OH volume | Total |
 
-`[auto]` given standards and quantities. **Direction and amount only — no favourable/adverse verdict colouring**, per the first near-substitute. **Fixed OH volume variance is shown in its own block**, separated from the spending variances, so it is not read as a cost-control result.
+`[auto]` given standards and quantities. **State each variance as favourable or unfavourable with its amount, and add no performance verdict** — whether a variance reflects performance or a stale standard is Step 0's question, per the first near-substitute. **Fixed OH volume variance is shown in its own block**, separated from the spending variances, so it is not read as a cost-control result.
 
 **Sheet 2: Explanations and Root-Cause Hypotheses**
 `[manual]` for conclusions; **`[auto]` for the supplier price analysis, mix shift and volume effect**, each with its figures. **Labelled hypotheses**, as the original does — the word is well chosen and is preserved.

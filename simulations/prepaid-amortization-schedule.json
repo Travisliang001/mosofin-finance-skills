@@ -1,0 +1,34 @@
+{
+ "skill": "prepaid-amortization-schedule",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Daily proration would give 18,012.33 (12.33 variance); whole-month ties exactly",
+  "No renewal captured for the Orchard Packaging maintenance contract after 30 Sep",
+  "Trade show 'deposit' may be a refundable deposit rather than a prepaid; whole 4,500 falls in November",
+  "Trial balance has no Insurance or Maintenance expense account, so the proposed entry leaves two debit accounts to be confirmed",
+  "GL already equals the post-September schedule, so the September entry appears already booked",
+  "Step 0 tests, roll-forward, lumpiness scan and tax test not run for lack of ledger detail"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Read the profile, then interview for what remains' items 2-3 and 'Step 4 — Compute monthly amortization': no stated default for an unanswered convention (whole-month vs daily) or materiality threshold. Step 4 says 'Default method: straight-line' but then offers both formulas and says 'Pick one'. An agent told to 'apply the stated default' has to invent one; here the choice changes the tie-out (0 vs 12.33).",
+  "SKILL.md 'Inputs' table does not list the prepaid account transaction detail or an opening balance, yet 'Step 0' (24 months of detail) and 'Step 8 — Roll-forward and tie-out' need them. Under 'After an upload, validate the input before any work' ('If a required input is rejected or missing, stop and ask') it is unclear whether their absence is a hard stop or an 'accepted with a limit'.",
+  "SKILL.md 'Step 3': 'Ask for them, one item at a time' contradicts the shared block 'Ask for the whole set up front, as a checklist, not drip-fed'.",
+  "SKILL.md is ~72 KB with the whole upload path buried between Mosofin gates; Steps 0-9 are written around [auto] ledger reads with no statement of what each step becomes on an upload (only the generic gate table). The manual-run output shape (Sheets 3, 6, 7 sections B-C) is undefined when there is no capability map.",
+  "SKILL.md 'Step 10': 'using the file name given for this skill' and then 'File naming: Prepaid_Schedule_[YYYY-MM].xlsx' — fine, but 'Sheet 7 Section A/B' demand workspace name and tool policies that do not exist on a manual run; no manual variant given."
+ ],
+ "sample_defects": [
+  "Neither accepted file names the entity or the currency inside it (trial balance has only account,name,debit,credit; date only in the file name). The validation question 'right company and period?' cannot be answered from content, only from the file name and the user's assertion — which is exactly what the skill says not to rely on.",
+  "trial_balance_2025-09-30.csv has no Insurance or Repairs/Maintenance expense account, although the schedule implies 13,500 of insurance and 4,500 of maintenance were expensed Jan-Sep 2025. The amortization debits have no home in the sample chart.",
+  "Answer key expects only a closing tie-out (18,000 = 18,000). The sample supplies no opening balance or 1300 movement, so the skill's central Step 0 / Step 8 roll-forward and its warning that 'a tie-out with no roll-forward is not a reconciliation' are untested; a run that wrongly called this a full reconciliation would still pass.",
+  "Key says the trade show deposit 'has not started amortising' and counts it in the 18,000; the item is labelled 'deposit' and the skill's Step 1 says deposits are flagged as possibly not prepaid. The key does not say whether flagging it is expected."
+ ],
+ "summary": "PASS 3/3: rota rejected on content, 18,000 schedule ties to 1300; skill gives no default for convention or materiality and sample lacks ledger detail for a roll-forward.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

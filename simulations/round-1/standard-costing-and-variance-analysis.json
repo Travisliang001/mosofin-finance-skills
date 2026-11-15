@@ -1,0 +1,40 @@
+{
+ "skill": "standard-costing-and-variance-analysis",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Purchase listing shows only 5,500 SB-20 units (4,000 @ 22.15 + 1,500 @ 23.40 = 123,700), not 11,000: PPV on the listing is 13,700, not 27,500",
+  "Variance account shows 18,900 for September, equal to neither 27,500 nor 13,700",
+  "Material usage variance 10,400 (10,920 used vs 10,400 allowed at 20.00)",
+  "Labour rate 4,992 and efficiency (4,576) quantified; total computed 38,316",
+  "Bridge 322,400 + 38,316 + 1,600 stock build = 362,316 ties, but only within the summary file",
+  "C-12 and FX-01 purchases have no standard; no variance computed",
+  "SB-20 price rose 22.15 to 23.40 within September",
+  "Overhead variances and accounting treatment not run"
+ ],
+ "skill_defects": [
+  "references/method.md 'Outputs — Sheet 1' and 'Quality checks' say 'Direction and amount only — no favourable/adverse verdict' ('per the first near-substitute', which lives in overview.md, not a file the card tells you to read for the work), while 'Step 0 — Test 0c' models the finding as 'PPV has been unfavourable in 22 of the last 24 months' and 'Step 2' uses 'an adverse variance'. An agent cannot tell whether to write 'unfavourable'. I wrote direction and amount only; the answer key expects the words.",
+  "SKILL.md 'Stage 1' row F default: 'Report overhead as one total variance' assumes overhead actuals and an absorbed amount exist. Nothing says what to do when no overhead data is uploaded at all (I reported it as not run). Same for row E: 'list the treatment review as not run' — but method.md 'Step 5' and 'Outputs — Sheet 4' still demand proposed entries.",
+  "references/method.md 'Step 3 — Build a variance bridge': 'Tie to actual costs incurred' does not handle PPV being on quantity purchased while standard cost of production is on quantity used; the bridge only ties after adding the stock build at standard (here 80 x 20.00 = 1,600). The step should name that line, otherwise the 'residual' table sends the agent hunting.",
+  "references/method.md 'Step 0' Tests 0b/0c do not say how to treat a history file that does not state whether figures are monthly movements or balances, or its sign convention; the conclusion (not clearing vs one-sided) differs. The upload checklist should ask for both.",
+  "The upload checklist in SKILL.md 'Stage 1' lists 'Actual costs for the period' as Required but does not say what to do when two uploads give conflicting actuals (summary vs transaction listing). mosofin-protocol.md says 'challenge it where it does not tie' but not which figure heads the report.",
+  "references/method.md 'Step 4' is built on vendor-level price evidence; no fallback wording for an upload with no vendor column.",
+  "File naming 'Standard_Costing_Variances_[YYYY-MM]_[EntityName].xlsx' with a company name containing spaces; coverage sheet Sections A-B assume a workspace and tool map with no manual variant."
+ ],
+ "sample_defects": [
+  "standard_costs.csv says 'Units purchased 11,000' at actual 22.5, but inventory_purchases_2025-09.csv holds only 5,500 SB-20 units (4,000 + 1,500) at a weighted 22.4909 (123,700 / 5,500). On the listing PPV = 4,000 x 2.15 + 1,500 x 3.40 = 8,600 + 5,100 = 13,700, exactly half the quantity behind the key's 27,500. The key's finding 1 is supported only by the summary row and is contradicted by the transaction file.",
+  "variance_account_history.csv shows 18,900 for 2025-09. Neither 27,500 (key) nor 13,700 (listing) equals it; 18,900 / 2.50 = 7,560 units, which matches nothing. The manifest calls the column a 'monthly balance posted', which is ambiguous between movement and balance; the file does not state sign or account.",
+  "inventory_purchases_2025-09.csv includes C-12 and FX-01 with no standard anywhere, and total quantity 6,190, so '11,000 units purchased' cannot be reached under any reading. The key is silent on what the file is for.",
+  "Key expects no usage variance although the data supports one: (2.1 − 2.0) x 5,200 x 20.00 = 10,400, larger than either labour variance. A run that skipped usage would still pass.",
+  "Key finding 3 has no figures: rate (46 − 44) x 2,496 = 4,992; efficiency (2,496 − 2,600) x 44 = (4,576). A run using planned rather than actual hours would pass.",
+  "Sample is 'Northbrook Trading Ltd', a trading company in the other samples, here given production units and labour hours; no file names the company or currency, and there is no overhead data, so half of the skill's eight variances are untestable."
+ ],
+ "summary": "PASS 3/3: rota rejected; PPV 27,500, stale 2023 standard, labour rate/efficiency found. Sample's purchase listing (5,500 units, PPV 13,700) and ledger (18,900) contradict the key's 27,500.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

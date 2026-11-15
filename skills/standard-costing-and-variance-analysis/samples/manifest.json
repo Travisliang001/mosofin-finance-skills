@@ -11,7 +11,7 @@
   },
   {
    "file": "variance_account_history.csv",
-   "is": "Monthly balance posted to the purchase price variance account, last twelve months"
+   "is": "Purchase price variance posted each month (movement, unfavourable), last twelve months"
   },
   {
    "file": "inventory_purchases_2025-09.csv",
@@ -35,7 +35,8 @@
   "findings": [
    "Purchase price variance 27,500 unfavourable (11,000 units at 2.50 over standard)",
    "The variance is one-sided and growing for twelve months: the 2023 standard is stale",
-   "Labour rate variance unfavourable, efficiency favourable"
+   "Material usage variance 10,400 unfavourable ((2.1 - 2.0) x 5,200 x 20.00)",
+   "Labour rate variance 4,992 unfavourable; efficiency 4,576 favourable (2,496 actual hours against 2,600 standard)"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

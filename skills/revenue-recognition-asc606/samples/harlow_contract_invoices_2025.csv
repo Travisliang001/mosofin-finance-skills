@@ -1,0 +1,5 @@
+invoice,date,description,amount,paid_on
+INV-20901,2025-07-01,On signing,60000,2025-07-15
+INV-20934,2025-07-31,Monthly instalment 1 of 36,2500,2025-08-20
+INV-20961,2025-08-31,Monthly instalment 2 of 36,2500,2025-09-22
+INV-20977,2025-09-30,Monthly instalment 3 of 36,2500,

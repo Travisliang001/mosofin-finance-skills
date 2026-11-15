@@ -172,6 +172,8 @@ is readable (*`search_journal_entries`*). **List them separately** — they are 
 
 - **Convert each entity's IC balance to the group reporting currency** using the **period-end rate** for
   balance sheet items or the **transaction-date rate** for P&L items
+- **For line-by-line matching**, convert each line at **its own transaction-date rate**; where a line's rate was
+  not supplied, use the closing rate and say so. Compare balances at the closing rate.
 - **After conversion, mismatches should be only timing-related, not FX-related**
 
 **If using different FX rates between sides causes a mismatch, the resolution is NOT to force a match by

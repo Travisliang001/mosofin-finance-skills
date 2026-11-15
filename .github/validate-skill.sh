@@ -148,6 +148,12 @@ for f in "$DIR"/*/SKILL.md; do
       "Is it necessary"
   reqn "$t" "$name: work may start before the upload is validated" \
       "Do not start the work until the validation has been shown"
+  reqn "$t" "$name: upload validation has no rules for partial or mismatched inputs" \
+      "Rules for the common cases"
+  reqn "$t" "$name: a missing input for one item stops the whole run" \
+      "blocks that item, not the run"
+  reqn "$t" "$name: no coverage sheet for a manual run" \
+      "The coverage sheet on a manual run"
 
   # 8e. every approved=true instruction, anywhere in the skill, is limited to reads.
   #     The policy-table row was checked before; Step 0's envelope list carried the

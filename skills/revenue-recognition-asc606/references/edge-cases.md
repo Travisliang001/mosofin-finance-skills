@@ -10,7 +10,7 @@ All seventeen preserved, in order.
 
 **Free trial periods**: typically **no revenue during the trial** unless the customer is contractually committed. Where trial-to-paid conversion is highly probable, consideration may need allocating across the full period. `[manual]`.
 
-**Implementation fees on a SaaS contract**: assess whether implementation is **distinct** from the ongoing service. **Often it is not** — in which case recognise it as part of the subscription over the term. Where clearly distinct (the customer could use a third party), it is a separate PO recognised on delivery. `[manual]`, and one of the most consequential judgments in software revenue.
+**Implementation fees on a SaaS contract**: assess whether implementation is **distinct** from the ongoing service. **It may or may not be: that is the user's judgment, and the schedule is shown both ways until it is made.** Where it is not distinct — in which case recognise it as part of the subscription over the term. Where clearly distinct (the customer could use a third party), it is a separate PO recognised on delivery. `[manual]`, and one of the most consequential judgments in software revenue.
 
 **Setup fees with no separate performance**: typically a **customer option to renew** — recognise ratably over the **expected customer life**, which may exceed the initial contract term. `[manual]`; `[auto]` in part for churn history, which informs expected life.
 

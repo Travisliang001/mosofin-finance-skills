@@ -14,4 +14,4 @@ Deal costs (legal and advisory): 46,000.
 | Customer relationships | — | 260,000 |
 | Trade name | — | 90,000 |
 | Payables and accruals | (240,000) | (240,000) |
-| Deferred tax on fair value uplifts (20%, sample) | — | (88,000) |
+| Deferred tax on fair value uplifts (20% of 450,000, sample) | — | (90,000) |

@@ -1,0 +1,34 @@
+{
+ "skill": "business-combinations-asc805",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Deferred tax line 88,000 does not tie to 20% of total uplifts (90,000); goodwill would be 750,000",
+  "Business-versus-asset screen figures: largest asset class 35.3% of gross assets",
+  "Measurement period closes no later than 1 July 2026; all amounts provisional",
+  "Earnout remeasurement and step-up amortisation due at 30 September 2025 but not computable (no lives, no updated fair value)",
+  "Payables fair value equals book: asked whether conclusion or default",
+  "Common control and prior interest not addressed in the file",
+  "Goodwill would be 794,000 if deal costs were wrongly capitalised"
+ ],
+ "skill_defects": [
+  "SKILL.md Stage 1 row D: 'Do you have the valuation report ...' If unanswered: 'Blocking. Lay out the schedule at book values, marked provisional.' It does not say what to do when the fair values arrive as a table quoted in a summary and the report itself (listed as 'Required, PDF' in the upload checklist) is absent. I treated it as 'accepted with a limit' and used the quoted values; a stricter reading would stop or fall back to book values and miss all three figures.",
+  "SKILL.md upload checklist lists three separate Required uploads (purchase agreement, valuation report, target's balance sheet) but only the agreement row says 'or a summary of terms'. references/mosofin-protocol.md 'After an upload, validate the input before any work' says 'If a required input is rejected or missing, stop and ask ... do not rebuild it from the other files'. Whether one combined summary can satisfy all three is not stated.",
+  "references/method.md Step 7 'Measurement period' says 'up to one year from the acquisition date' without saying whether the stated end date is the anniversary (1 July 2026) or the day before (30 June 2026); Step 10 Sheet 8 requires 'the end date of the measurement period stated'.",
+  "references/method.md Step 8 'Subsequent accounting' gives no upload-path instruction when the run period (30 September 2025) is after the acquisition date: whether the skill should compute first-quarter amortisation and earnout remeasurement or hand off. I listed them as due but not computed.",
+  "references/method.md Step 10 and references/output.md are written almost entirely for the Mosofin path (display_name, Gate 2, tool policy, mock); there is no statement of which output-quality lines apply on an upload run."
+ ],
+ "sample_defects": [
+  "Deferred tax (88,000) does not equal 20% of the uplifts in the same table: uplifts are receivables -5,000, inventory +15,000, fixed assets +90,000, customer relationships +260,000, trade name +90,000 = 450,000; x 20% = 90,000. 88,000 = 20% x 440,000 (fixed assets + intangibles only). The key's 832,000 and 748,000 rest on the 88,000; with 90,000 they would be 830,000 and 750,000. The key does not list this as a finding, so it looks like an unintended error in the sample.",
+  "The single input file stands in for three uploads the skill marks Required (agreement, valuation report, target balance sheet); the key anticipates this ('noting any that only partly covers a required upload') but the valuation report is not actually present, which collides with the skill's 'Blocking' default for intake question D.",
+  "Intake answers give a 'period' of September 2025, which has no defined role in this skill (it is a point-in-time acquisition on 1 July 2025); the key expects nothing for 30 September."
+ ],
+ "summary": "PASS 3/3: 832,000 / 1,580,000 / 748,000, deal costs expensed, earnout as liability; sample's deferred tax of 88,000 does not tie to 20% of uplifts (90,000).",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

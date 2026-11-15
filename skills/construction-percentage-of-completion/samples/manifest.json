@@ -26,7 +26,8 @@
   ],
   "findings": [
    "C-11 is 43.1% complete: revenue to date 387,500 against 380,000 billed",
-   "C-12 is a loss contract: estimated cost 480,000 against price 450,000, loss 30,000 provided in full",
+   "C-12 is a loss contract: estimated cost 480,000 against price 450,000; the full 30,000 loss is recognised now (25,000 margin reversal to date plus a 5,000 provision)",
+   "Balances shown per contract, not netted: C-11 contract asset 7,500; C-12 contract liability 15,000",
    "C-13 has no estimate at completion: not computed"
   ],
   "read_only": [

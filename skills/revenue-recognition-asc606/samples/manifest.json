@@ -10,6 +10,10 @@
    "is": "Customer contract with Harlow Fabrication Ltd"
   },
   {
+   "file": "harlow_contract_invoices_2025.csv",
+   "is": "Invoices and payments on the Harlow contract to 30 September 2025"
+  },
+  {
    "file": "accounting_policies.md",
    "is": "Accounting policies in use"
   }
@@ -30,8 +34,8 @@
   ],
   "findings": [
    "Allocates 150,000 on standalone prices: licence 100,000, implementation 25,000, support 25,000",
-   "Recognised to 30 September: 35,417; billed 65,000; contract liability 29,583",
-   "Asks whether the hosted licence is recognised over time"
+   "Recognised to 30 September: 35,417 if implementation is distinct and the hosted licence is over time; billed 67,500; contract liability 32,083",
+   "Asks whether implementation is distinct and whether the hosted licence is recognised over time, and shows the effect of each answer"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

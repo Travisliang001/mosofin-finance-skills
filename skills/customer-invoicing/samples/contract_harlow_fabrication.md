@@ -11,5 +11,5 @@ Signed 1 July 2025. Term 36 months from 1 July 2025.
 | Support, 36 months | 18,000 |
 | **Total** | **150,000** |
 
-Billing: 60,000 on signing, then 2,500 a month from August 2025. No right of return. No variable amounts.
+Billing: 60,000 on signing (1 July 2025), then 2,500 a month for 36 months, July 2025 to June 2028 (90,000). Seller: Northbrook Trading Ltd. No right of return. No variable amounts.
 Standalone selling prices from the company's price list: licence 120,000; implementation 30,000; support 30,000.

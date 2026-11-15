@@ -41,7 +41,7 @@
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
-   "PO-1042 has no approver; PO-1043 was received (10 Sep) before it was approved (12 Sep)",
+   "PO-1042 has no approver; PO-1043 was received (10 Sep) before it was approved (12 Sep), by J. Marsh above his 10,000 limit (13,027)",
    "PO-1041: 100 cartons ordered and billed, 90 received (GRN-772)",
    "Summit Freight's bank details changed on 16 September 2025 with no call-back evidence supplied",
    "Findings are written against the purchasing policy"

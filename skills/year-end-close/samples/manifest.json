@@ -1,9 +1,9 @@
 {
  "skill": "year-end-close",
  "company": "Northbrook Trading Ltd",
- "period": "September 2025",
+ "period": "year ended 31 December 2024",
  "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
- "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Year end: 31 December 2024.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: year ended 31 December 2024. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
  "inputs": [
   {
    "file": "trial_balance_2024-12-31.csv",

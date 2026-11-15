@@ -22,9 +22,16 @@ account,name,type
 5000,Cost of Goods Sold,Cost of Goods Sold
 6000,Payroll Expense,Expense
 6100,Rent,Expense
+6150,Insurance,Expense
+6160,Repairs and Maintenance,Expense
 6200,Marketing,Expense
 6300,Software,Expense
 6400,Professional Fees,Expense
 6500,Bank Fees,Expense
 6600,Depreciation,Expense
+6700,Office Supplies,Expense
+6800,Travel and Meals,Expense
+6900,Postage and Delivery,Expense
+6950,Cash Over and Short,Expense
+1160,Employee Advances,Other Current Asset
 7000,Interest Expense,Expense

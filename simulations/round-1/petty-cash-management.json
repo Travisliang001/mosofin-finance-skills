@@ -1,0 +1,38 @@
+{
+ "skill": "petty-cash-management",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Alternative view: if voucher 105 is merely misdated and was in the box, the shortage is 5.00 (shown beside the 29.50 headline)",
+  "IOU 30.00 to E08 is a staff advance, excluded from replenishment and expense",
+  "Chart of accounts has no suitable expense, Cash Over/Short or Due from Employee account, so vouchers were not coded",
+  "No approver recorded on any voucher",
+  "Replenishment proposed at 258.10 (227.10 supported); tin would then hold 440.50",
+  "Imprest test and book-balance comparison not run (no ledger detail for 1010)"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 3 — Compute the reconciliation' says 'Less: vouchers/receipts in the box' while references/edge-cases.md 'Voucher dated outside the period' says a post-period voucher is deferred. Neither says what to do when a voucher is dated AFTER the count date: deferring it mechanically turns its amount into shortage (29.50) although the paper was physically in the tin (5.00 unexplained). The skill should state which figure is the reported shortage and that the other must be shown.",
+  "references/method.md 'Step 5 — Replenishment': 'Replenishment amount = sum of approved vouchers in the period'. No rule for (a) a receipt-less voucher above threshold (is 102 'approved'?), (b) an outstanding IOU, (c) an unresolved shortage. With all three present the tin is not restored to the float and the skill does not say so or give the cash-to-restore figure.",
+  "references/method.md 'Step 4 — Code vouchers to GL accounts': 'Account numbers come from the user's COA only' and references/output.md 'Every voucher has a GL account from the user's COA' — no instruction for the case where the COA has no fitting account. The two rules cannot both be met; the skill should say 'leave uncoded and ask'.",
+  "SKILL.md 'Stage 1' row C: 'If unanswered: Use the balance in the books, and say it was not confirmed' — on the upload path there may be no book balance (account detail is only 'Recommended'). No default for float stated on the count sheet but unsupported by books.",
+  "SKILL.md 'Stage 1' row F bundles custodian with threshold and tolerance; its default ('Apply no threshold and no tolerance') says nothing about an unanswered custodian, yet 'Rules that never bend' requires the shortage be reported 'with ... the custodian'.",
+  "SKILL.md upload checklist says the cash count is 'Required — Type it in the chat', but the sample (and realistic use) delivers it inside an uploaded file; the validation step does not say whether a count inside a file satisfies the blocking question D.",
+  "references/method.md 'Step 7' file naming '[CustodianOrLocation]_PettyCash_[YYYY-MM].xlsx' has no fallback when neither custodian nor location was given.",
+  "references/method.md 'Step 6': 'Larger shortages -> flag for investigation' — with 'no tolerance' stated it is ambiguous whether that means tolerance 0 (flag everything) or 'no policy' (do not assume). Same outcome here, but worth one sentence."
+ ],
+ "sample_defects": [
+  "chart_of_accounts.csv has no account that any of the five vouchers can be coded to (no postage, travel, office/cleaning supplies, meals, stationery), no Cash Over/Short and no Due from Employee account. Step 4 and the proposed replenishment entry cannot be completed on this sample; the key has no finding about it.",
+  "Key finding 1 fixes the shortage at 29.50 by excluding voucher 105 (500.00 − 182.40 − 258.10 − 30.00 = 29.50). But the count sheet lists voucher 105 as among the box contents at a count dated 30 Sep; a voucher dated 2 Oct cannot have been in the tin on 30 Sep, so the data is internally inconsistent. If 105 is a misdated September payment the shortage is 500.00 − 182.40 − 282.60 − 30.00 = 5.00. The key should accept a run that shows both, or the sample should move the count date.",
+  "Key has no expected finding for the IOU (30.00, E08) although the skill's edge case 'IOUs / staff advances' is one of the four Stage 4 points; a run that netted the IOU as a voucher gets the same 29.50 and passes.",
+  "Count file has no company name or currency; 'right company' is unverifiable from content. README/manifest call it the 'head office float' but the file itself does not name the float or custodian.",
+  "No petty cash account detail in the sample, so the skill's headline imprest test (method.md Step 0b) is untested."
+ ],
+ "summary": "PASS 3/3: rota rejected; 29.50 shortage, Oct-dated voucher 105 and receipt-less 102 found. Sample COA cannot code any voucher; 105-after-count makes 29.50 vs 5.00 ambiguous.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

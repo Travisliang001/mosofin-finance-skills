@@ -111,6 +111,18 @@ All three field sets preserved in full.
 - **Within tolerance** → auto-match, no exception
 - **Outside tolerance** → exception, requires resolution before pay
 
+**How the tolerances combine.** A line is within tolerance only if it is inside **every** tolerance
+that applies to it. A variance inside the price tolerance but outside the total tolerance is an
+exception, and the output says which tolerance it broke.
+
+**Bills with no PO.** A bill that carries no PO reference is not a match failure on a line; it is
+outside the match. List every such bill, with its amount, as **not matched: no PO**, and say whether
+the policy requires a PO for that kind of spend. Never infer a PO for it.
+
+**Header-only bills.** Where a bill has no line detail, match at header level: compare the bill total
+with the PO total and the received quantity at PO price, say the match is header-level only, and do
+not infer a billed unit price beyond saying what the totals imply.
+
 **One `[auto]` observation worth reporting**, and it is only visible across a population: **variances that sit consistently just inside tolerance.** A vendor whose prices are always 1.8% above PO, against a 2% tolerance, is not producing random variances — and each instance passes, which is precisely why nobody notices. **Report the pattern with its count and its total value**, exactly as a petty-cash review reports a persistent within-tolerance shortage. **As a pattern, with figures, never as an allegation.**
 
 ---
@@ -123,8 +135,8 @@ All three field sets preserved in full.
 |---|---|---|---|---|
 | 1 | **Price overbilling** | Invoice price > PO price | High | `[auto]` |
 | 2 | **Price underbilling** | Invoice price < PO price | Low (favourable, but flag) | `[auto]` |
-| 3 | **Quantity overbilling** | Invoice qty > GRN qty | High | **`[auto]` — needs the receipt leg** |
-| 4 | **Short-shipment billed in full** | Invoice qty > GRN qty | High | **`[auto]` — needs the receipt leg** |
+| 3 | **Quantity overbilling** | Invoice qty > PO qty (billed for more than was ordered) | High | **`[auto]` — needs the receipt leg** |
+| 4 | **Short-shipment billed in full** | Invoice qty = PO qty but GRN qty < PO qty (billed in full for a short delivery) | High | **`[auto]` — needs the receipt leg** |
 | 5 | **Item not on PO** | Invoice line has no matching PO line | High | `[auto]` — needs the PO leg |
 | 6 | **Item on PO not invoiced** | PO line has no matching invoice line | Low (open commitment) | `[auto]` |
 | 7 | **Item received not billed** | GRN line has no matching invoice line | **Information → see below** | **`[auto]` — needs the receipt leg** |

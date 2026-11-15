@@ -80,7 +80,10 @@ def audit_validation(skill, texts):
     need = ["After an upload, validate the input before any work",
             "Is it the right kind of document",
             "Is it necessary",
-            "Do not start the work until the validation has been shown"]
+            "Do not start the work until the validation has been shown",
+            "Rules for the common cases",
+            "blocks that item, not the run",
+            "The coverage sheet on a manual run"]
     missing = [n for n in need if n.lower() not in flat.lower()]
     return ("PASS" if not missing else "FAIL"), ["missing: " + m for m in missing]
 
@@ -123,7 +126,9 @@ def simulation(skill):
     if not os.path.exists(p):
         return "NOT RUN", "", ""
     r = json.load(open(p))
-    return r.get("result", "NOT RUN"), r.get("mode", ""), r.get("summary", "")
+    mode = r.get("mode", "") + (f", round {r['round']}" if r.get("round") else "")
+    hit = f"{r['findings_hit']}/{r['findings_total']} findings. " if r.get("findings_total") else ""
+    return r.get("result", "NOT RUN"), mode, hit + r.get("summary", "")
 
 
 def main():
@@ -166,7 +171,7 @@ def main():
            "| **Read-only** | The skill names no write tool, carries the no-change rule and the Gate 2 guardrail, and gives no instruction to post, send, file or pay. |",
            "| **Validation** | After an upload the skill must check that each file is the right kind of document, covers the right company and period, and is needed, before any work starts. |",
            "| **Samples** | `samples/` holds test inputs for the upload path, one deliberately wrong file, and the expected outcome. |",
-           "| **Simulation** | The recorded result of running the skill on its sample data, on the upload path with no Mosofin connection. |", "",
+           "| **Simulation** | The recorded result of running the skill on its sample data, on the upload path with no Mosofin connection. Round 1 ran on the first sample set; its defects were fixed and the affected skills re-run as round 2. Full runs and grades are in `simulations/`. |", "",
            "## Totals", "", "| | Pass | Fail | Other |", "|---|---:|---:|---:|"]
     for k, label in (("read_only", "Read-only"), ("validation", "Validation"), ("samples", "Samples"), ("simulation", "Simulation")):
         p, fl = tot(k, "PASS"), tot(k, "FAIL")

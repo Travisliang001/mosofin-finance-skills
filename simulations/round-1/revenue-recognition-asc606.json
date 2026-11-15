@@ -1,0 +1,37 @@
+{
+ "skill": "revenue-recognition-asc606",
+ "mode": "agent run, upload path",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 3,
+ "missed": [
+  "Asks whether the hosted licence is recognised over time: the run described the hosted access as reading like a service and listed the over-time conclusion as the user's judgment, but the only explicit question put to the user was whether implementation is distinct; the over-time question was never asked as a question."
+ ],
+ "unexpected": [
+  "Contract billing terms sum to 147,500 (60,000 + 35 x 2,500), 2,500 short of the 150,000 price",
+  "Possible significant financing component on the 60,000 upfront payment",
+  "Alternative case if implementation is not distinct: 12,500 recognised, contract liability 52,500",
+  "Accounting policy 'recognised when goods are delivered' does not cover this service contract",
+  "Remaining performance obligations 114,583.33",
+  "Commission / contract cost question raised",
+  "Required invoice and payment listing reported missing"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Rules that never bend' says 'Never concludes on a judgment for the user: principal or agent, distinct or not, over time or point in time. It sets out the indicators and asks', but references/method.md Step 5 then says 'Build the recognition schedule' with no instruction on what to do while those judgments are open (wait, or show alternative cases). An agent can only produce the expected 35,417 by assuming implementation is distinct and access is over time, which the rule forbids; I showed two cases, and the over-time question got lost behind the distinct question.",
+  "SKILL.md Stage 1 upload checklist marks 'Invoices and payments on the contract to date' as Required, and references/mosofin-protocol.md 'After an upload, validate the input before any work' says 'If a required input is rejected or missing, stop and ask ... do not rebuild it from the other files'. Nothing says whether billing terms written in the contract may stand in for the invoice listing. Followed literally, the skill cannot give a billed figure or contract liability from this sample set.",
+  "references/method.md Step 0 is described as running 'before analysing any contract' and Anti-patterns says 'Skipping Step 0', but neither method.md nor SKILL.md Stage 3 says what Step 0 does on the upload path when no ledger is supplied (the ledger detail is only 'Recommended').",
+  "references/edge-cases.md 'Implementation fees on a SaaS contract' says implementation is 'Often ... not' distinct, which steers toward a single combined obligation (12,500 recognised), the opposite of the answer key's three-obligation result; the skill gives no default for the unanswered judgment.",
+  "references/output.md Coverage and Provenance sheet Sections A and B are written only for the Mosofin path (workspace name, get_datasource_tools, effective_policy); no upload-path wording."
+ ],
+ "sample_defects": [
+  "Billing terms do not sum to the contract price: 60,000 on signing + 2,500 a month from August 2025 to June 2028 (5 + 12 + 12 + 6 = 35 instalments = 87,500) = 147,500, not 150,000. The key does not list this as a finding, so it is either an unintended error in contract_harlow_fabrication.md or a missing expected finding.",
+  "The skill's upload checklist requires an invoice and payment listing, but the sample set has none; the key's 'billed 65,000' can only be derived from the contract's billing terms (60,000 + 2,500 + 2,500), which the validation rule forbids rebuilding. The key also expects validation to list missing required uploads, so the missing listing is consistent with expect.validation but in tension with expect.findings.",
+  "The key's 35,417 assumes implementation is a distinct obligation satisfied by 31 August 2025 (100,000/36x3 + 25,000 + 25,000/36x3 = 8,333.33 + 25,000 + 2,083.33 = 35,416.67), but the key only expects the skill to ask about the licence being over time, not about implementation being distinct; neither judgment is answered in intake_answers.",
+  "contract_harlow_fabrication.md does not name Northbrook Trading Ltd as the seller, and accounting_policies.md names no company, so 'right company' cannot be checked from content."
+ ],
+ "summary": "PARTIAL 2/3: allocation and 35,417 / 65,000 / 29,583 stated; never explicitly asked whether the hosted licence is over time (asked about implementation being distinct instead).",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

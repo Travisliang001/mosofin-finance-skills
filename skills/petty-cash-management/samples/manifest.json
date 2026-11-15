@@ -30,8 +30,9 @@
   ],
   "findings": [
    "Cash 182.40 + September vouchers 258.10 + IOU 30.00 = 470.50 against a 500.00 float: shortage 29.50",
-   "Voucher 105 is dated 2 October, outside the period",
-   "Voucher 102 (31.00) has no receipt"
+   "Voucher 105 (2 October) was handed in after the count and belongs to October",
+   "Voucher 102 (31.00) has no receipt and is over the 25 threshold",
+   "The IOU is an employee advance (1160), not an expense"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

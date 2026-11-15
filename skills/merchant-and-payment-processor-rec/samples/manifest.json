@@ -37,7 +37,7 @@
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
-   "Revenue is recorded net of fees: gross sales 48,680 against 46,569 booked",
+   "Revenue is recorded net of fees: gross sales 48,680 against 46,569 booked, so revenue and fees are both understated by 2,111",
    "Difference 2,111 is fees 1,431, refunds 480 and one dispute 200",
    "6,420 held at Stripe at month end was paid out on 3 October"
   ],

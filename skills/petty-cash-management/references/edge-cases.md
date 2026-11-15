@@ -18,6 +18,8 @@ is money nobody chased** — the same account and the same point as in `expense-
 **Voucher without a receipt below the policy threshold**: **allowed if policy permits with adequate
 description. Otherwise flag.**
 
+**Voucher dated after the count**: it cannot have been in the tin at the count. It belongs to the next period and does not reduce the shortage; show it separately and say so. `[manual]` to confirm the date.
+
 **Voucher dated outside the period**: **either pertains to a prior unreplenished cycle — capture and ask —
 or is post-period, so defer to the next reconciliation.**
 

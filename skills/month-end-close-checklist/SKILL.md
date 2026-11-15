@@ -248,6 +248,48 @@ If a required input is rejected or missing, stop and ask. Do not substitute anot
 for it, do not rebuild it from the other files, and do not carry on with the files that
 passed as though the set were complete.
 
+**Rules for the common cases.** Apply these before deciding a verdict:
+
+- **The file does not name its company, currency or period.** Most exports do not. Say
+  so, take them from the user's intake answers, and give the verdict *accepted with a
+  limit: company and period user-asserted*.
+- **The file names a different company or period from the intake answers.** Reject it,
+  say what it names, and ask. Accept it only if the user says the intake answer was
+  wrong, and then correct the read-back.
+- **A fact the intake asks for arrives inside a file** — a cash count, a rate, an
+  officer's name. Use it once the user confirms it in the read-back; it then counts as
+  answered.
+- **A summary arrives where the checklist asks for a listing or a source document** —
+  key terms instead of the agreement, a table quoted from a valuation report. Accept it
+  with a limit: name what the summary cannot support, and label every figure taken from
+  it as user-supplied, not evidenced.
+- **A required input is missing for one item only** — one contract with no estimate,
+  one vendor with no statement. It blocks that item, not the run. Carry on with the
+  rest and list the blocked item with what it needs.
+- **The method needs something the checklist did not ask for** — a chart of accounts
+  for coding, a prior period for a trend. Ask for it in the same message as the
+  verdicts. If it does not come, do that step without it, say so, and never invent
+  account names or prior figures.
+- **An intake question is unanswered and the skill states no default.** Take the more
+  conservative reading, state it as an assumption at the top of the output, and do not
+  let an assumption decide a conclusion. Where the answer would change a conclusion,
+  show the result under each answer and ask.
+
+#### The coverage sheet on a manual run
+
+The coverage and provenance sheet in this skill is written for the Mosofin path. On a
+manual run, fill it like this instead:
+
+| Section | On a manual run |
+|---|---|
+| **Environment** | Company, period and currency as **user-asserted**; data source **upload**; every file with its validation verdict and the limit it carries. |
+| **Capability map** | "Not applicable: no connection. Every task is `[manual]`." Leave out the tool, policy and `mock` columns. |
+| **Steps** | Every step of the method, marked done, done with a limit, or **not done**, with the reason. |
+| **Not done** | Every check that needed the ledger — a tie to GL totals, a roll-forward, a prior-period comparison — with the upload that would allow it. |
+
+A check that could not run must never look like a check that passed. Name the output
+file with the company name the user gave.
+
 **If something cannot be supplied, say what the output will and will not be — before
 doing the work.** Never estimate a figure that was meant to come from the books, never
 fill a gap with a plausible number, and never present a partial result as complete. An

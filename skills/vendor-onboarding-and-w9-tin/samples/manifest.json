@@ -11,7 +11,7 @@
   },
   {
    "file": "payments_by_vendor_2025.csv",
-   "is": "Total paid to each vendor in 2025, by payment method"
+   "is": "Total paid to each vendor, 1 January to 30 September 2025, by payment method"
   },
   {
    "file": "bill_payment_history_12m.csv",

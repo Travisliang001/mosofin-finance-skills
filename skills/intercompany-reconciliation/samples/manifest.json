@@ -3,7 +3,7 @@
  "company": "Northbrook Trading Ltd",
  "period": "September 2025",
  "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
- "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Group: Northbrook Trading Ltd and Northbrook UK Ltd. Intercompany accounts: 2300 in the US books, 1300 in the UK books. Line matching uses each line's transaction rate; balances use the closing rate.",
  "inputs": [
   {
    "file": "intercompany_ledger_northbrook_trading.csv",
@@ -38,8 +38,8 @@
   ],
   "findings": [
    "IC-097 (3,300 GBP, 29 September) is in the UK books and not in the US books",
-   "Small rate differences on IC-082 and IC-093",
-   "UK receivable 33,220 GBP against US payable 38,000 USD"
+   "Small rate differences on IC-071, IC-082 and IC-093 at their transaction rates",
+   "UK receivable 33,220 GBP is 42,189.40 USD at 1.2700 against the US payable 38,000: difference 4,189.40, of which IC-097 is 4,191.00"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

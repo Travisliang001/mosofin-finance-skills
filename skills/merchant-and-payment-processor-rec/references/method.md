@@ -318,6 +318,8 @@ DR  Chargebacks                                  $chargebacks
 verification differs by approach**: the per-transaction method leaves a clearing entry per sale and is
 traceable transaction by transaction; **the aggregate method leaves one journal a month**, so the
 reconciliation is at the component level only. **Neither is wrong; the workpaper must say which.**
+**But crediting revenue with the net payout is not an approach; it is the net-revenue error.** Under either
+approach, gross sales and processor fees must be recorded separately, and the net-revenue test always runs.
 
 Use the **real account names from the connected chart** (*`search_accounts`*, **[auto]**).
 

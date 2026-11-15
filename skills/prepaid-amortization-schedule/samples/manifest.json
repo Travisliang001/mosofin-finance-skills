@@ -10,6 +10,10 @@
    "is": "Prepaid expenses schedule at 30 September 2025"
   },
   {
+   "file": "prepaid_account_1300_ledger_2025.csv",
+   "is": "Ledger for account 1300 Prepaid Expenses, January to September 2025 (opening 4,500)"
+  },
+  {
    "file": "trial_balance_2025-09-30.csv",
    "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
   }
@@ -31,7 +35,8 @@
   "findings": [
    "Schedule balance 18,000 (insurance 4,500, software 9,000, trade show 4,500) agrees to account 1300",
    "Maintenance contract ended 30 September and is fully amortised",
-   "Trade show deposit has not started amortising"
+   "Trade show deposit has not started amortising",
+   "Account 1300 rolls forward from 4,500 opening to 18,000 closing"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

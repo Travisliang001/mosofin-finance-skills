@@ -81,7 +81,8 @@ currency, and the date on both sides before going further.
 
 If the statement balance is not available, **stop and say so here** — do not proceed to build a
 bridge with one side missing and present it as a reconciliation. Continue instead with the
-book-side preparation described at the top of this file, clearly labelled.
+book side only: the ledger balance, the reconciling items already known from the ledger, and what
+the statement will need to show, clearly labelled as not a reconciliation.
 
 ## Step 2 — Build the reconciliation bridge
 

@@ -87,7 +87,7 @@ Exceeding a sales or transaction threshold in the state, **even without physical
 **For each state, document** — all three preserved:
 
 - Physical presence facts → **physical nexus Y/N** — `[manual]`
-- Sales and transaction counts against the current threshold → **economic nexus Y/N** — `[auto]` once the threshold is supplied
+- Sales and transaction counts against the current threshold → **threshold exceeded Y/N**, for the user's nexus review — `[auto]` once the threshold is supplied. Whether nexus exists is the user's conclusion
 - **The date nexus was established**, which triggers the registration and collection obligations — **`[auto]`**
 
 #### The trigger date, and why it is the point of the whole exercise
@@ -365,7 +365,7 @@ Entity `display_name` in the file name and on every sheet — nexus is per entit
 
 All ten preserved.
 
-- **Nexus determined per state with basis and trigger date.** `[auto]` for economic nexus and the trigger date; `[manual]` for physical presence.
+- **Threshold position per state, with its basis and the date it was crossed**, for the user's nexus conclusion. `[auto]` for the threshold test and the date; `[manual]` for physical presence.
 - **No hardcoded thresholds, rates or taxability rules — all user-supplied or current-sourced, with sources noted.** `[manual]`. **Nothing persisted supplies one either.**
 - **Taxability matrix with source and confidence per determination.** `[manual]`; `[auto]` for the population it must cover.
 - **Return figures reconcile to collected and to GL.** `[auto]` for both legs available.
