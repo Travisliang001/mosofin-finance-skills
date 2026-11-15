@@ -239,6 +239,18 @@ live data, the output says so in the filename and on the first page.
 | `inventory-costing-fifo-lifo-wavg` | 52% | FIFO, LIFO or weighted average; ending inventory and cost of sales |
 | `notes-to-financial-statements` | 51% | Disclosure checklist and draft notes, with every gap flagged |
 
+**Wave 12** — public reporting: filings, narrative, and the judgment-heavy disclosures, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `management-discussion-and-analysis` | 60% | Draft MD&A from the figures; forward-looking statements flagged |
+| `contingencies-and-litigation-asc450` | 55% | Apply management's assessment; accrual and draft disclosure |
+| `restatement-and-prior-period-adjustment` | 50% | Quantify a prior-period error and lay out its correction |
+| `subsequent-events-asc855` | 44% | Sweep post-period activity; classify events before issue |
+| `related-party-disclosures-asc850` | 43% | Compile transactions and balances with each related party |
+| `xbrl-tagging-checklist` | 39% | Tag map, extension rules and calculation checks |
+| `sec-10q-10k-prep` | 37% | Close-to-file calendar, tie-outs and the disclosure checklist |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
