@@ -217,6 +217,17 @@ live data, the output says so in the filename and on the first page.
 | `year-end-close` | 51% | Annual procedures, filings, closing the year and verifying it stayed locked |
 | `budget-builder` | 51% | Annual operating budget by month, every line traced to a driver |
 
+**Wave 10** — the accounting standards: revenue, leases, intangibles, groups and equity, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `intangibles-and-amortization` | 59% | Intangibles register, amortisation and what may be capitalised |
+| `statement-of-equity-changes` | 58% | Roll every equity component forward, with each movement sourced |
+| `lease-accounting-asc842-ifrs16` | 55% | Right-of-use asset, lease liability, schedules; finds unrecorded leases |
+| `revenue-recognition-asc606` | 53% | Five-step revenue model for a contract; schedule and proposed entries |
+| `consolidation-and-eliminations` | 50% | Group workpaper, eliminations and non-controlling interest |
+| `foreign-currency-translation-asc830` | 50% | Translate a foreign subsidiary and prove the translation adjustment |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
