@@ -1,13 +1,13 @@
-customer,terms_days,credit_limit,contact_email
-Harlow Fabrication Ltd,30,200000,ap@harlow.example
-Pennine Retail Group,30,150000,ap@pennine.example
-Castleton Foods,30,120000,ap@castleton.example
-Ridgeway Logistics,30,90000,ap@ridgeway.example
-Marlow & Finch,30,200000,ap@marlow.example
-Ashby Engineering,30,150000,ap@ashby.example
-Tideswell Hotels,30,120000,ap@tideswell.example
-Brecon Outdoor,30,90000,ap@brecon.example
-Calder Print,30,200000,ap@calder.example
-Dunmore Medical,30,150000,ap@dunmore.example
-Elmfield Schools,30,120000,ap@elmfield.example
-Foxhall Garden Centres,30,90000,ap@foxhall.example
+customer,first_invoice_date,terms_days,credit_limit,contact_email
+Harlow Fabrication Ltd,2022-10-10,30,200000,ap@harlow.example
+Pennine Retail Group,2023-01-10,30,150000,ap@pennine.example
+Castleton Foods,2023-04-10,30,120000,ap@castleton.example
+Ridgeway Logistics,2023-07-10,30,90000,ap@ridgeway.example
+Marlow & Finch,2023-10-10,30,200000,ap@marlow.example
+Ashby Engineering,2024-01-10,30,150000,ap@ashby.example
+Tideswell Hotels,2024-04-10,30,120000,ap@tideswell.example
+Brecon Outdoor,2024-07-10,30,90000,ap@brecon.example
+Calder Print,2024-10-10,30,200000,ap@calder.example
+Dunmore Medical,2025-01-10,30,150000,ap@dunmore.example
+Elmfield Schools,2025-04-10,30,120000,ap@elmfield.example
+Foxhall Garden Centres,2025-07-10,30,90000,ap@foxhall.example

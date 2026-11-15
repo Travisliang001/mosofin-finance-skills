@@ -2,7 +2,8 @@
 
 *Sample document for testing. Fictitious company and figures.*
 
-Lender: Calder Bank. Original principal 580,000. Repayment 5,000 a month plus interest. Rate: fixed 5.7%. Matures 31 December 2029.
+Lender: Calder Bank. Drawn 1 January 2020: 565,000. Repayment 5,000 a month plus interest on the balance. Rate: fixed 5.7%. Matures 31 May 2029.
+The June 2025 professional fees include a **one-time 14,000 legal fee** (contract dispute), confirmed by the CFO for the add-back.
 
 **Covenants, tested quarterly on the trailing twelve months:**
 1. *Leverage*: Total Debt / Covenant EBITDA not above 2.50x.

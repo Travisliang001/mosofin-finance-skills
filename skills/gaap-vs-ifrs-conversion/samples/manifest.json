@@ -22,19 +22,20 @@
   {
    "file": "trial_balance_september.csv",
    "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
-   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+   "why": "It is the right kind of document for the wrong period (30 September 2024). Reject it."
   }
  ],
  "expect": {
   "validation": [
    "Shows one validation table before any work, with a verdict per file",
    "Accepts every file listed under inputs",
-   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong period (30 September 2024). Reject it.",
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
    "Lists differences area by area for this business and asks about each policy",
-   "Leases and development costs are flagged; deferred tax on each adjustment"
+   "The warehouse lease changes from a single straight-line rent charge to depreciation plus interest under IFRS 16, with deferred tax on the adjustment",
+   "Notes that no development costs appear in the data, and asks rather than assuming there are none"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

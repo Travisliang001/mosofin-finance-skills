@@ -7,7 +7,7 @@
  "inputs": [
   {
    "file": "corporate_card_statement_2025-09.csv",
-   "is": "Corporate card statement, September 2025"
+   "is": "Corporate card statement, September 2025 (opening balance 4,213.09; closing balance 2,513.59 after the 4,213.09 payment on 2 September)"
   },
   {
    "file": "card_account_ledger_2025-09.csv",
@@ -22,14 +22,14 @@
   {
    "file": "corporate_card_statement_2025-09_final.csv",
    "is": "A staff rota (not an accounting document)",
-   "why": "The name suggests it is 'Corporate card statement, September 2025'. The content is a staff rota. Reject it on content, not on name."
+   "why": "The name suggests it is 'Corporate card statement, September 2025 (opening balance 4,213.09; closing balance 2,513.59 after the 4,213.09 payment on 2 September)'. The content is a staff rota. Reject it on content, not on name."
   }
  ],
  "expect": {
   "validation": [
    "Shows one validation table before any work, with a verdict per file",
    "Accepts every file listed under inputs",
-   "Rejects corporate_card_statement_2025-09_final.csv: The name suggests it is 'Corporate card statement, September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Rejects corporate_card_statement_2025-09_final.csv: The name suggests it is 'Corporate card statement, September 2025 (opening balance 4,213.09; closing balance 2,513.59 after the 4,213.09 payment on 2 September)'. The content is a staff rota. Reject it on content, not on name.",
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [

@@ -18,8 +18,8 @@
    "is": "Customer list with terms and contact"
   },
   {
-   "file": "approval_matrix_and_tolerances.md",
-   "is": "Approval matrix and matching tolerances"
+   "file": "credit_request_and_policy.md",
+   "is": "Credit request, customer financials and credit policy"
   }
  ],
  "negative": [

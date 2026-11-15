@@ -11,11 +11,11 @@
   },
   {
    "file": "bank_statement_2025-09.csv",
-   "is": "Bank statement, operating account, September 2025 (opening 1,246,642, closing 1,219,776)"
+   "is": "Bank statement, operating account, September 2025 (opening 967,387, closing 992,439)"
   },
   {
    "file": "cash_account_ledger_2025-09.csv",
-   "is": "Ledger for account 1000 Operating Bank Account, September 2025 (closing 1,230,316)"
+   "is": "Ledger for account 1000 Operating Bank Account, September 2025 (closing 1,002,979)"
   },
   {
    "file": "ar_aging_detail_2025-09-30.csv",
@@ -38,14 +38,14 @@
   {
    "file": "trial_balance_september.csv",
    "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
-   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+   "why": "It is the right kind of document for the wrong period (30 September 2024). Reject it."
   }
  ],
  "expect": {
   "validation": [
    "Shows one validation table before any work, with a verdict per file",
    "Accepts every file listed under inputs",
-   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong period (30 September 2024). Reject it.",
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [

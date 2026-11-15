@@ -22,12 +22,14 @@ for i, (y, m) in enumerate(MONTHS):
     r = dict(month=ym(i), revenue=rev, cogs=cogs, payroll=62000 + 400 * i, rent=9000,
              marketing=round(rev * 0.04 * (1.6 if i == 35 else 1)), software=3500,
              professional_fees=2500 + (14000 if (y, m) == (2025, 6) else 0),
-             bank_fees=round(rev * 0.004), depreciation=4200, interest=1900)
+             bank_fees=round(rev * 0.004), depreciation=4200, insurance=1500, repairs_maintenance=500,
+             interest=round((400000 - 5000 * i) * 0.057 / 12))
     r["net_income"] = rev - sum(v for k, v in r.items() if k not in ("month", "revenue"))
     PNL.append(r)
-PL_LINES = ["revenue", "cogs", "payroll", "rent", "marketing", "software", "professional_fees", "bank_fees", "depreciation", "interest"]
+PL_LINES = ["revenue", "cogs", "payroll", "rent", "marketing", "software", "professional_fees", "bank_fees", "depreciation", "insurance", "repairs_maintenance", "interest"]
 
 # ---- monthly balance sheet -------------------------------------------------------
+EQ_MOVES = {"2025-03": 60000, "2025-06": 7500}   # dividend paid; unexplained adjustment to retained earnings
 BS, cash, re_ = [], 180000, None
 for i, p in enumerate(PNL):
     ar = round(p["revenue"] * (42 + 10 * i / 35) / 30)
@@ -42,6 +44,7 @@ for i, p in enumerate(PNL):
         q = BS[-1]
         cash += p["net_income"] + 4200 - (ar - q["ar"]) - (inv - q["inventory"]) + (ap - q["ap"]) + (accr - q["accrued"]) - 5000
         re_ += p["net_income"]
+        cash -= EQ_MOVES.get(b["month"], 0); re_ -= EQ_MOVES.get(b["month"], 0)
     b["cash"], b["retained_earnings"] = cash, re_
     BS.append(b)
 
@@ -49,19 +52,19 @@ for i, p in enumerate(PNL):
 COA = [("1000", "Operating Bank Account", "Bank"), ("1010", "Petty Cash", "Bank"), ("1050", "Stripe Clearing", "Other Current Asset"),
        ("1100", "Accounts Receivable", "Accounts Receivable"), ("1150", "Allowance for Doubtful Accounts", "Other Current Asset"),
        ("1200", "Inventory", "Other Current Asset"), ("1300", "Prepaid Expenses", "Other Current Asset"),
-       ("1500", "Fixed Assets - Cost", "Fixed Asset"), ("1510", "Accumulated Depreciation", "Fixed Asset"),
+       ("1500", "Fixed Assets - Cost", "Fixed Asset"), ("1600", "Investment in Northbrook UK Ltd", "Other Asset"), ("1510", "Accumulated Depreciation", "Fixed Asset"),
        ("2000", "Accounts Payable", "Accounts Payable"), ("2050", "Corporate Card Payable", "Credit Card"),
        ("2100", "Accrued Liabilities", "Other Current Liability"), ("2150", "Payroll Clearing", "Other Current Liability"),
-       ("2160", "Payroll Tax Payable", "Other Current Liability"), ("2200", "Sales Tax Payable", "Other Current Liability"),
+       ("2160", "Payroll Tax Payable", "Other Current Liability"), ("2170", "401(k) Payable", "Other Current Liability"), ("2200", "Sales Tax Payable", "Other Current Liability"),
        ("2300", "Intercompany Payable - Northbrook UK", "Other Current Liability"), ("2500", "Term Loan", "Long Term Liability"),
-       ("3000", "Share Capital", "Equity"), ("3100", "Retained Earnings", "Equity"),
+       ("3000", "Share Capital", "Equity"), ("3100", "Retained Earnings", "Equity"), ("3200", "Dividends and Adjustments", "Equity"),
        ("4000", "Sales Revenue", "Income"), ("5000", "Cost of Goods Sold", "Cost of Goods Sold"),
-       ("6000", "Payroll Expense", "Expense"), ("6100", "Rent", "Expense"), ("6150", "Insurance", "Expense"), ("6160", "Repairs and Maintenance", "Expense"), ("6200", "Marketing", "Expense"),
+       ("6000", "Payroll Expense", "Expense"), ("6100", "Rent", "Expense"), ("6150", "Insurance", "Expense"), ("6160", "Repairs and Maintenance", "Expense"), ("6170", "Utilities", "Expense"), ("2400", "Deferred Revenue", "Other Current Liability"), ("6200", "Marketing", "Expense"),
        ("6300", "Software", "Expense"), ("6400", "Professional Fees", "Expense"), ("6500", "Bank Fees", "Expense"),
        ("6600", "Depreciation", "Expense"), ("6700", "Office Supplies", "Expense"), ("6800", "Travel and Meals", "Expense"),
        ("6900", "Postage and Delivery", "Expense"), ("6950", "Cash Over and Short", "Expense"), ("1160", "Employee Advances", "Other Current Asset"), ("7000", "Interest Expense", "Expense")]
 PL_ACCT = dict(revenue="4000", cogs="5000", payroll="6000", rent="6100", marketing="6200", software="6300",
-               professional_fees="6400", bank_fees="6500", depreciation="6600", interest="7000")
+               professional_fees="6400", bank_fees="6500", depreciation="6600", insurance="6150", repairs_maintenance="6160", interest="7000")
 NAME = {c: n for c, n, _ in COA}
 
 def tb(i):
@@ -71,11 +74,11 @@ def tb(i):
     prior = ytd[0] - 1
     re_open = BS[prior]["retained_earnings"] if prior >= 0 else b["retained_earnings"] - sum(PNL[j]["net_income"] for j in ytd)
     cost = 420000
-    rows = {"1000": b["cash"] - 500 - 6420, "1010": 500, "1050": 6420, "1100": b["ar"] + 9000, "1150": -9000,
+    rows = {"1000": b["cash"] - 500 - 6420 - 104800, "1010": 500, "1600": 104800, "1050": 6420, "1100": b["ar"] + 9000, "1150": -9000,
             "1200": b["inventory"], "1300": b["prepaid"], "1500": cost, "1510": b["fixed_assets_net"] - cost,
             "2000": -(b["ap"] - 7300 - 38000), "2050": -7300, "2100": -(b["accrued"] - 1200 - 5400 - 2600),
             "2150": -1200, "2160": -5400, "2200": -2600, "2300": -38000, "2500": -b["debt"],
-            "3000": -250000, "3100": -re_open}
+            "3000": -250000, "3100": -re_open, "3200": sum(EQ_MOVES.get(ym(j), 0) for j in ytd)}
     for k, a in PL_ACCT.items():
         v = sum(PNL[j][k] for j in ytd)
         rows[a] = -v if k == "revenue" else v
@@ -111,7 +114,7 @@ AR_HIST = []                                   # paid invoices, last 12 months: 
 for k, c in enumerate(CUSTOMERS):
     base = [88, 44, 31, 47, 29, 36, 62, 28, 41, 30, 33, 75][k]
     for j in range(5):
-        i = 24 + 2 * j + (k % 2); y, m = MONTHS[i]; dtp = base + (j - 2) * (3 if k else 6)
+        i = 24 + 2 * j + (k % 2); y, m = MONTHS[i]; dtp = base + (j - 2) * (3 if k else 6) + (-2, 4, -1, 3, 0)[(j + k) % 5]
         d0 = _dt.date(y, m, 10)
         AR_HIST.append((c, f"INV-{18000 + 100 * k + j}", d0.isoformat(), (d0 + _dt.timedelta(days=dtp)).isoformat(),
                         round(_ar[k] * (0.5 + 0.1 * j)), dtp))
@@ -129,8 +132,8 @@ _ap = spread(AP_TOTAL - 12960, _apw)
 BILLS = []                                      # vendor, bill_no, bill_date, due_date, amount, po, status
 for k, (v, amt) in enumerate(zip(VENDORS, _ap)):
     if amt <= 0: continue
-    bd = f"2025-09-{3 + 2 * k:02d}"
-    BILLS.append((v[0], f"{'INV-' if k % 3 else ''}{4502 + 71 * k}", bd, f"2025-10-{3 + 2 * k:02d}", amt, f"PO-{1040 + k}" if k < 6 else "", "open"))
+    bd = _dt.date(2025, 9, 3 + 2 * k)
+    BILLS.append((v[0], f"{'INV-' if k % 3 else ''}{4502 + 71 * k}", bd.isoformat(), (bd + _dt.timedelta(days=v[1])).isoformat(), amt, f"PO-{1040 + k}" if k < 6 else "", "open"))
 BILLS.append(("Kestrel Supplies", "INV-4471", "2025-09-05", "2025-10-05", 6480, "", "open"))
 BILLS.append(("Kestrel Supplies Inc.", "INV4471", "2025-09-06", "2025-10-06", 6480, "", "open"))       # duplicate of INV-4471, other vendor record
 assert sum(b[4] for b in BILLS) == AP_TOTAL
@@ -150,15 +153,25 @@ for k, v in enumerate(VENDORS[:8]):
     for j in range(12):
         y, m = MONTHS[24 + j]; early = 12 if k in (0, 1) else 0
         bd = _dt.date(y, m, 5); due = bd + _dt.timedelta(days=v[1]); paid = max(due - _dt.timedelta(days=early), bd + _dt.timedelta(days=1))
-        AP_PAID.append((v[0], f"{3000 + 50 * k + j}", bd.isoformat(), due.isoformat(), paid.isoformat(), round(v[5] / 12)))
+        if paid <= _dt.date(2025, 9, 30):
+            AP_PAID.append((v[0], f"{3000 + 50 * k + j}", bd.isoformat(), due.isoformat(), paid.isoformat(), round(v[5] / 12)))
+
+# ---- payroll ---------------------------------------------------------------------
+EMP = [("E01", "Operations", 7800), ("E02", "Operations", 5200), ("E03", "Operations", 5200), ("E04", "Sales", 6900), ("E05", "Sales", 6100),
+       ("E06", "Finance", 7400), ("E07", "Finance", 4800), ("E08", "Warehouse", 4300), ("E09", "Warehouse", 4300), ("E10", "Warehouse", 4100),
+       ("E11", "Admin", 3900), ("E12", "Management", 16000)]
+_scale = PNL[I]["payroll"] / 1.0765 / sum(e[2] for e in EMP)
+PAYROLL = [(e, d, round(g * _scale), round(g * _scale * 0.12), round(g * _scale * 0.0765), round(g * _scale * 0.04)) for e, d, g in EMP]
+NET_PAY = sum(p[2] - p[3] - p[4] - p[5] for p in PAYROLL)
+RUN = (NET_PAY - 1200) // 2                    # two pay runs; 1,200 of net pay never leaves clearing
 
 # ---- bank --------------------------------------------------------------------------
 BANK = [  # date, description, amount (+in / -out)
     ("2025-09-02", "ACH CREDIT PENNINE RETAIL GROUP", 41200), ("2025-09-03", "CHECK 2287", -8400), ("2025-09-05", "STRIPE TRANSFER", 18842),
     ("2025-09-08", "ACH DEBIT HALDEN PROPERTY MGMT", -9000), ("2025-09-10", "ACH CREDIT CASTLETON FOODS", 36100),
-    ("2025-09-12", "PAYROLL NORTHBROOK TRADING", -52310), ("2025-09-15", "WIRE OUT KESTREL SUPPLIES", -64200), ("2025-09-15", "WIRE FEE", -35),
+    ("2025-09-12", "PAYROLL NORTHBROOK TRADING", -RUN), ("2025-09-15", "WIRE OUT KESTREL SUPPLIES", -64200), ("2025-09-15", "WIRE FEE", -35),
     ("2025-09-17", "ACH CREDIT RIDGEWAY LOGISTICS", 27950), ("2025-09-19", "STRIPE TRANSFER", 21307), ("2025-09-22", "LOAN PAYMENT TERM LOAN", -6900),
-    ("2025-09-24", "ACH DEBIT UNKNOWN ORIG 88213", -1240), ("2025-09-26", "PAYROLL NORTHBROOK TRADING", -52310),
+    ("2025-09-24", "ACH DEBIT UNKNOWN ORIG 88213", -1240), ("2025-09-26", "PAYROLL NORTHBROOK TRADING", -(NET_PAY - 1200 - RUN)),
     ("2025-09-29", "ACH CREDIT ASHBY ENGINEERING", 22180), ("2025-09-30", "MONTHLY SERVICE FEE", -50)]
 BANK_CLOSE = CASH_GL - 10540                 # books less deposit in transit, plus outstanding check, less two items not booked
 BANK_OPEN = BANK_CLOSE - sum(a for _, _, a in BANK)
@@ -169,11 +182,6 @@ CASH_LEDGER_OPEN = CASH_GL - sum(a for _, _, a in CASH_LEDGER)
 assert CASH_LEDGER_OPEN == BANK_OPEN
 
 # ---- payroll, inventory, fixed assets, budget, journals ----------------------------
-EMP = [("E01", "Operations", 7800), ("E02", "Operations", 5200), ("E03", "Operations", 5200), ("E04", "Sales", 6900), ("E05", "Sales", 6100),
-       ("E06", "Finance", 7400), ("E07", "Finance", 4800), ("E08", "Warehouse", 4300), ("E09", "Warehouse", 4300), ("E10", "Warehouse", 4100),
-       ("E11", "Admin", 3900), ("E12", "Management", 16000)]
-_scale = PNL[I]["payroll"] / 1.0765 / sum(e[2] for e in EMP)
-PAYROLL = [(e, d, round(g * _scale), round(g * _scale * 0.12), round(g * _scale * 0.0765), round(g * _scale * 0.04)) for e, d, g in EMP]
 ITEMS = [("SB-20", "Steel bracket", 9, "2025-09-27"), ("SB-35", "Steel bracket heavy", 7, "2025-09-22"), ("C-12", "Carton 12in", 3, "2025-09-29"),
          ("C-18", "Carton 18in", 3, "2025-09-18"), ("FX-01", "Fixing kit", 11, "2025-09-25"), ("FX-02", "Fixing kit pro", 14, "2025-08-30"),
          ("HG-10", "Hinge", 5, "2025-09-20"), ("HG-22", "Hinge soft-close", 8, "2025-07-14"), ("LK-05", "Lock set", 12, "2025-09-11"),
@@ -186,11 +194,12 @@ FA = [("FA-001", "Warehouse racking", "2021-03-01", 96000, 10), ("FA-002", "Fork
 assert sum(f[3] for f in FA) == 420000
 JE = [  # je_no, date, posted_on, user, account, debit, credit, memo
     ("JE-0901", "2025-09-30", "2025-10-02", "s.patel", "6600", 4200, 0, "Monthly depreciation"), ("JE-0901", "2025-09-30", "2025-10-02", "s.patel", "1510", 0, 4200, "Monthly depreciation"),
-    ("JE-0902", "2025-09-30", "2025-10-02", "s.patel", "6150", 1500, 0, "Prepaid insurance release"), ("JE-0902", "2025-09-30", "2025-10-02", "s.patel", "1300", 0, 1500, "Prepaid insurance release"),
+    ("JE-0902", "2025-09-30", "2025-10-02", "s.patel", "6150", 1500, 0, "Prepaid releases: insurance"), ("JE-0902", "2025-09-30", "2025-10-02", "s.patel", "6160", 500, 0, "Prepaid releases: maintenance contract"),
+    ("JE-0902", "2025-09-30", "2025-10-02", "s.patel", "6300", 1000, 0, "Prepaid releases: software licence"), ("JE-0902", "2025-09-30", "2025-10-02", "s.patel", "1300", 0, 3000, "Prepaid releases"),
     ("JE-0903", "2025-09-30", "2025-10-03", "s.patel", "6000", 8400, 0, "Accrued wages"), ("JE-0903", "2025-09-30", "2025-10-03", "s.patel", "2100", 0, 8400, "Accrued wages"),
     ("JE-0904", "2025-09-28", "2025-09-28", "a.reyes", "1100", 50000, 0, "Revenue adjustment"), ("JE-0904", "2025-09-28", "2025-09-28", "a.reyes", "4000", 0, 50000, "Revenue adjustment"),
     ("JE-0905", "2025-08-31", "2025-09-22", "s.patel", "6400", 3800, 0, "Legal fee missed in August"), ("JE-0905", "2025-08-31", "2025-09-22", "s.patel", "2100", 0, 3800, "Legal fee missed in August"),
-    ("JE-0906", "2025-09-30", "2025-10-01", "s.patel", "7000", 1900, 0, "Loan interest"), ("JE-0906", "2025-09-30", "2025-10-01", "s.patel", "2100", 0, 1900, "Loan interest"),
+    ("JE-0906", "2025-09-30", "2025-10-01", "s.patel", "7000", PNL[35]["interest"], 0, "Loan interest"), ("JE-0906", "2025-09-30", "2025-10-01", "s.patel", "2100", 0, PNL[35]["interest"], "Loan interest"),
     ("JE-0907", "2025-09-30", "2025-10-03", "s.patel", "6200", 9999, 0, ""), ("JE-0907", "2025-09-30", "2025-10-03", "s.patel", "2100", 0, 9999, "")]
 
 SEEDED = {

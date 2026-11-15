@@ -33,8 +33,8 @@
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
-   "Translation adjustment is proved independently, not taken as the balancing figure",
-   "Equity translated at the historical rate 1.3100"
+   "Translation adjustment proved independently: opening 6,077 debit plus this year's 3,116 (152,420 GBP x 0.017 + 35,000 GBP x 0.015) gives 2,961 debit, agreeing with the balancing figure",
+   "Share capital translated at the historical rate 1.3100; profit at the average 1.2550"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

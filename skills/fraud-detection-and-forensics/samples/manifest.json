@@ -37,7 +37,7 @@
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
-   "JE-0904: 50,000 round-amount revenue entry posted on a Sunday by a.reyes",
+   "JE-0904: 50,000 round-amount revenue entry posted on a Sunday by a user who posts no other journal, with no support",
    "JE-0907: 9,999 with a blank memo, just under 10,000",
    "'Kestrel Supplies' and 'Kestrel Supplies Inc.' look like the same vendor",
    "Summit Freight's bank details changed on 16 September 2025",

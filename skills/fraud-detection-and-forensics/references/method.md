@@ -160,6 +160,11 @@ ones that **cannot** run here are marked plainly rather than quietly softened.
 
 **Coverage here is materially weaker, because payroll register detail is not on this surface. Say so.**
 
+- **Vendor bank-detail changes followed by payment** — a change to a vendor's bank details shortly before a
+  large payment is the classic payment-diversion pattern — **[auto]** where the vendor master records the
+  change date; report the vendor, the change date and the next payment
+- **Near-duplicate vendors** — two records whose names differ only by a suffix, punctuation or case, or that
+  share an address or bank account — **[auto]**
 - **Ghost employees** — no taxes, no benefits, duplicate bank accounts / addresses — **[gated], partially**.
   **Duplicate addresses across employees are `[auto]`**; **the tax, benefit and bank-account elements are
   `[manual]`**, and they are the decisive ones.

@@ -1,12 +1,12 @@
 vendor,bill_no,bill_date,due_date,amount,po,status
 Kestrel Supplies,4502,2025-09-03,2025-10-03,88583,PO-1040,open
 Orchard Packaging,INV-4573,2025-09-05,2025-10-05,41687,PO-1041,open
-Summit Freight,INV-4644,2025-09-07,2025-10-07,23449,PO-1042,open
+Summit Freight,INV-4644,2025-09-07,2025-09-22,23449,PO-1042,open
 Brightline IT Services,4715,2025-09-09,2025-10-09,13027,PO-1043,open
 M. Okafor Consulting,INV-4857,2025-09-13,2025-10-13,7816,PO-1045,open
 Greyfriars Legal LLP,INV-4999,2025-09-17,2025-10-17,15633,,open
 Vale Marketing Studio,INV-5070,2025-09-19,2025-10-19,10422,,open
-Northgate Utilities,5141,2025-09-21,2025-10-21,13027,,open
+Northgate Utilities,5141,2025-09-21,2025-10-12,13027,,open
 Pinecrest Software,INV-5212,2025-09-23,2025-10-23,23449,,open
 Dale Cleaning Co,INV-5283,2025-09-25,2025-10-25,5211,,open
 Kestrel Supplies,INV-4471,2025-09-05,2025-10-05,6480,,open

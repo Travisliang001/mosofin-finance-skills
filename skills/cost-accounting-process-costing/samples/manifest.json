@@ -26,7 +26,7 @@
   ],
   "findings": [
    "Units reconcile in both departments (20,000 and 18,000)",
-   "Asks for the method and where materials are added before computing"
+   "Mixing equivalent units: 20,000 materials and 18,200 conversion; cost per unit 6.94 and 3.83; 183,084 transferred to Filling"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

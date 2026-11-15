@@ -26,9 +26,14 @@ add("bs36", "monthly_balance_sheet_36m.csv", "Balance sheet at each month end, O
     csv(["month"] + _bsk, [[b["month"]] + [b[k] for k in _bsk] for b in B.BS]))
 add("pnl_ytd", "profit_and_loss_2025_ytd.csv", "Profit and loss by month, January to September 2025",
     csv(["month"] + B.PL_LINES + ["net_income"], [[p["month"]] + [p[k] for k in B.PL_LINES] + [p["net_income"]] for p in B.PNL[27:]]))
+def _bud(j, k):
+    """2025 budget: prior-year month +10% for revenue, 58% cost of sales, 4% marketing, plan figures for fixed costs."""
+    rev = round(B.PNL[j - 12]["revenue"] * 1.10 / 100) * 100
+    return {"revenue": rev, "cogs": round(rev * 0.58), "marketing": round(rev * 0.04), "professional_fees": 2500, "payroll": 74000,
+            "rent": 9000, "software": 3500, "bank_fees": round(rev * 0.004), "depreciation": 4200, "insurance": 1500,
+            "repairs_maintenance": 500, "interest": B.PNL[j]["interest"]}[k]
 add("budget", "budget_2025.csv", "Approved 2025 budget by month and line",
-    csv(["month"] + B.PL_LINES, [[p["month"]] + [round(p[k] * (1.03 if k == "revenue" else 0.98 if k == "cogs" else 1)) if k != "marketing"
-                                                 else round(p["revenue"] * 0.04) for k in B.PL_LINES] for p in B.PNL[27:]]))
+    csv(["month"] + B.PL_LINES, [[B.PNL[j]["month"]] + [_bud(j, k) for k in B.PL_LINES] for j in range(27, 36)]))
 add("je", "journal_entries_2025-09.csv", "Journal entries for September 2025, with user and posting date",
     csv(["je_no", "date", "posted_on", "user", "account", "debit", "credit", "memo"], B.JE))
 add("gl", "general_ledger_2025-09.csv", "General ledger detail for September 2025: cash postings and journals",
@@ -44,7 +49,8 @@ add("ar_aging", "ar_aging_detail_2025-09-30.csv", "Open receivables by invoice a
 add("ar_hist", "customer_payment_history_12m.csv", "Paid invoices with payment dates, last twelve months",
     csv(["customer", "invoice", "invoice_date", "paid_date", "amount", "days_to_pay"], B.AR_HIST))
 add("customers", "customer_list.csv", "Customer list with terms and contact",
-    csv(["customer", "terms_days", "credit_limit", "contact_email"], [(c, 30, [200000, 150000, 120000, 90000][k % 4], f"ap@{c.split()[0].lower()}.example") for k, c in enumerate(B.CUSTOMERS)]))
+    csv(["customer", "first_invoice_date", "terms_days", "credit_limit", "contact_email"], [(c, B.MONTHS[3 * k][0].__str__() + f"-{B.MONTHS[3 * k][1]:02d}-10", 30,
+        [200000, 150000, 120000, 90000][k % 4], f"ap@{c.split()[0].lower()}.example") for k, c in enumerate(B.CUSTOMERS)]))
 add("qb_summary", "AR_Aging_Summary_QuickBooks.csv", "QuickBooks A/R Aging Summary at 30 September 2025",
     csv(["Customer", "Current", "1 - 30", "31 - 60", "61 - 90", "91 and over", "Total"],
         [(c, *[sum(r[4] for r in B.AR_OPEN if r[0] == c and lo <= r[5] <= hi and (r[5] > 0 or lo == 0)) for lo, hi in ((0, 0), (1, 30), (31, 60), (61, 90), (91, 999))],
@@ -87,7 +93,8 @@ add("cash_ledger", "cash_account_ledger_2025-09.csv", f"Ledger for account 1000 
     csv(["date", "description", "amount"], [("2025-09-01", "Opening balance", B.CASH_LEDGER_OPEN)] + B.CASH_LEDGER))
 _card = [("2025-09-03", "DELTA AIR 0062341", 612.40), ("2025-09-05", "HILTON GARDEN INN", 438.00), ("2025-09-05", "HILTON GARDEN INN", 438.00), ("2025-09-09", "ADOBE *CREATIVE CLOUD", 89.99),
          ("2025-09-12", "STAPLES 00412", 156.20), ("2025-09-16", "THE CAPITAL GRILLE", 486.50), ("2025-09-21", "UBER *TRIP", 38.75), ("2025-09-25", "AMZN MKTP US*2K4", 214.75), ("2025-09-28", "LATE FEE", 39.00)]
-add("card", "corporate_card_statement_2025-09.csv", "Corporate card statement, September 2025", csv(["date", "merchant", "amount"], _card))
+add("card", "corporate_card_statement_2025-09.csv", f"Corporate card statement, September 2025 (opening balance 4,213.09; closing balance {4213.09 + sum(a for _, _, a in _card) - 4213.09:,.2f} after the 4,213.09 payment on 2 September)",
+    csv(["date", "merchant", "amount"], [("2025-09-02", "PAYMENT RECEIVED - THANK YOU", -4213.09)] + _card))
 add("card_ledger", "card_account_ledger_2025-09.csv", "Ledger for account 2050 Corporate Card Payable, September 2025",
     csv(["date", "description", "amount", "receipt"], [(d, m, a, "yes" if k % 3 else "no") for k, (d, m, a) in enumerate(_card) if m != "LATE FEE" and k != 2]))
 add("expense", "expense_report_E04_2025-09.csv", "Expense report submitted by employee E04 for September 2025",
@@ -105,20 +112,25 @@ add("stripe_gl", "stripe_gl_detail_2025-09.csv", "Ledger detail for Stripe clear
     csv(["date", "account", "name", "debit", "credit", "memo"], [("2025-09-05", "1000", "Operating Bank Account", 18842, 0, "Stripe payout"), ("2025-09-05", "4000", "Sales Revenue", 0, 18842, "Stripe payout"),
         ("2025-09-19", "1000", "Operating Bank Account", 21307, 0, "Stripe payout"), ("2025-09-19", "4000", "Sales Revenue", 0, 21307, "Stripe payout"),
         ("2025-09-30", "1050", "Stripe Clearing", 6420, 0, "Balance held at Stripe"), ("2025-09-30", "4000", "Sales Revenue", 0, 6420, "Balance held at Stripe")]))
+def _w(k): return 1 if k == 35 else 2 + k % 3
 add("fee_ledger", "bank_fee_and_interest_ledger_13m.csv", "Ledger for bank fees and interest, September 2024 to September 2025",
-    csv(["month", "type", "count", "amount"], [r for k in range(23, 36) for r in ((B.ym(k), "Monthly service fee", 1, 50), (B.ym(k), "Wire fee", 2 + k % 3, 35 * (2 + k % 3)),
-        (B.ym(k), "Merchant fees", 0, round(B.PNL[k]["revenue"] * 0.004) - 50 - 35 * (2 + k % 3)), (B.ym(k), "Interest expense", 1, 1900))]))
+    csv(["month", "type", "count", "amount"], [r for k in range(23, 36) for r in ((B.ym(k), "Monthly service fee", 1, 50), (B.ym(k), "Wire fee", _w(k), 35 * _w(k)),
+        (B.ym(k), "Merchant fees (Stripe, deducted before payout)", "", round(B.PNL[k]["revenue"] * 0.004) - 50 - 35 * _w(k)), (B.ym(k), "Interest expense", 1, B.PNL[k]["interest"]))]))
 add("petty", "petty_cash_count_and_vouchers.md", "Petty cash count and voucher list, head office float",
     doc("Petty cash — count at 30 September 2025", "Company: Northbrook Trading Ltd, head office float, USD. Custodian: the office manager.\nAuthorised float: 500.00\nCash counted by the office manager on 30 September 2025: 182.40\n\n| Voucher | Date | Paid to | Amount | Receipt |\n|---|---|---|---:|---|\n| 101 | 2025-09-03 | Post office | 42.60 | yes |\n| 102 | 2025-09-09 | Taxi | 31.00 | no |\n| 103 | 2025-09-12 | Cleaning supplies | 88.50 | yes |\n| 104 | 2025-09-18 | Staff lunch | 96.00 | yes |\n| IOU | 2025-09-25 | E08 advance | 30.00 | — |\n\nReceived after the count, not in the tin on 30 September:\n\n| Voucher | Date | Paid to | Amount | Receipt |\n|---|---|---|---:|---|\n| 105 | 2025-10-02 | Stationery | 24.50 | yes |"))
 
 # ---- payroll, inventory, assets, schedules -----------------------------------------------------
 add("payroll", "payroll_register_2025-09.csv", "Payroll register for September 2025",
     csv(["employee", "department", "gross", "income_tax_withheld", "social_security_withheld", "retirement_401k", "net_pay"], [(e, d, g, t, s, k, g - t - s - k) for e, d, g, t, s, k in B.PAYROLL]))
-_g = sum(p[2] for p in B.PAYROLL); _net = sum(p[2] - p[3] - p[4] - p[5] for p in B.PAYROLL)
+_g = sum(p[2] for p in B.PAYROLL); _net = B.NET_PAY; _k = sum(p[5] for p in B.PAYROLL)
+_tax = B.PNL[I]["payroll"] - _g + sum(p[3] + p[4] for p in B.PAYROLL)
 add("payroll_gl", "payroll_gl_detail_2025-09.csv", "Ledger detail for payroll accounts, September 2025",
-    csv(["date", "account", "name", "debit", "credit", "memo"], [("2025-09-30", "6000", "Payroll Expense", B.PNL[I]["payroll"], 0, "September payroll incl. employer tax"),
-        ("2025-09-30", "2150", "Payroll Clearing", 0, _net + 1200, "Net pay"), ("2025-09-12", "2150", "Payroll Clearing", _net // 2, 0, "Payroll run 1"),
-        ("2025-09-26", "2150", "Payroll Clearing", _net - _net // 2, 0, "Payroll run 2"), ("2025-09-30", "2160", "Payroll Tax Payable", 0, 5400, "Taxes withheld and employer share, unpaid")]))
+    csv(["date", "account", "name", "debit", "credit", "memo"], [("2025-09-30", "6000", "Payroll Expense", B.PNL[I]["payroll"], 0, "September payroll: gross plus employer social security"),
+        ("2025-09-30", "2150", "Payroll Clearing", 0, _net, "Net pay"), ("2025-09-30", "2160", "Payroll Tax Payable", 0, _tax, "Income tax, employee and employer social security"),
+        ("2025-09-30", "2170", "401(k) Payable", 0, _k, "Employee 401(k) deferrals"),
+        ("2025-09-12", "2150", "Payroll Clearing", B.RUN, 0, "Payroll run 1"), ("2025-09-12", "1000", "Operating Bank Account", 0, B.RUN, "Payroll run 1"),
+        ("2025-09-26", "2150", "Payroll Clearing", _net - 1200 - B.RUN, 0, "Payroll run 2"), ("2025-09-26", "1000", "Operating Bank Account", 0, _net - 1200 - B.RUN, "Payroll run 2"),
+        ("2025-09-15", "2160", "Payroll Tax Payable", _tax - 5400, 0, "August deposit"), ("2025-09-15", "1000", "Operating Bank Account", 0, _tax - 5400, "August deposit")]))
 add("plan_terms", "benefit_plan_terms.md", "Summary of the retirement plan and paid-time-off policy",
     doc("Benefit plan terms", "**401(k):** employees contribute 4% of gross; employer matches 100% of the first 4%. Match vests over three years (33% a year).\n**Remittance:** employee contributions are due to the plan within 7 business days of each pay date.\n**Paid time off:** 15 days a year, accrued monthly, carried forward up to 5 days, paid out on leaving.\n\n| Employee | PTO hours accrued and unused at 30 Sep 2025 | Hourly rate |\n|---|---:|---:|\n| E01 | 64 | 45.00 |\n| E04 | 88 | 39.80 |\n| E06 | 40 | 42.70 |\n| E12 | 120 | 92.30 |"))
 add("items", "inventory_listing_2025-09-30.csv", "Inventory by item at 30 September 2025, with last sale date",
@@ -140,7 +152,7 @@ add("prepaid_ledger", "prepaid_account_1300_ledger_2025.csv", "Ledger for accoun
         [("2025-08-15", "Trade show deposit, ExpoWest", 4500)]))
 add("recurring", "recurring_entries.csv", "Recurring entries that should post each month, with what posted in September 2025",
     csv(["entry", "amount", "day", "posted_2025-07", "posted_2025-08", "posted_2025-09"], [("Rent", 9000, 1, "yes", "yes", "yes"), ("Depreciation", 4200, 30, "yes", "yes", "yes"),
-        ("Insurance release", 1500, 30, "yes", "yes", "yes"), ("Loan interest", 1900, 30, "yes", "yes", "yes"), ("Software subscription", 3500, 5, "yes", "yes", "no")]))
+        ("Insurance release", 1500, 30, "yes", "yes", "yes"), ("Loan interest", B.PNL[I]["interest"], 30, "yes", "yes", "yes"), ("Software subscription", 3500, 5, "yes", "yes", "no")]))
 add("accrual_inputs", "accrual_candidates_2025-09.csv", "Goods and services received by 30 September 2025 and not yet billed",
     csv(["vendor", "description", "received_on", "estimated_amount", "evidence"], [("Summit Freight", "Freight, last week of September", "2025-09-30", 5800, "delivery log"),
         ("Greyfriars Legal LLP", "Contract review, September", "2025-09-26", 4200, "engagement letter rate"), ("Northgate Utilities", "Electricity, September", "2025-09-30", 1850, "prior three months average")]))
@@ -158,17 +170,17 @@ add("tb_uk", "trial_balance_northbrook_uk_2025-09-30.csv", "Trial balance of Nor
         ("4000", "Sales Revenue", 0, 412000), ("5000", "Cost of Goods Sold", 251000, 0), ("6000", "Operating Expenses", 126000, 0)]))
 add("rates", "fx_rates.csv", "Exchange rates supplied by the user (source: the company's bank)",
     csv(["pair", "rate_type", "date", "rate", "source"], [("GBP/USD", "closing", "2025-09-30", 1.2700, "bank rate sheet"), ("GBP/USD", "average", "2025-01-01 to 2025-09-30", 1.2550, "bank rate sheet"),
-        ("GBP/USD", "historical (equity)", "2019-03-01", 1.3100, "bank rate sheet"), ("GBP/USD", "transaction", "2025-08-12", 1.2700, "bank rate sheet"), ("GBP/USD", "transaction", "2025-07-10", 1.2698, "bank rate sheet"),
+        ("GBP/USD", "historical (share capital)", "2019-03-01", 1.3100, "bank rate sheet"), ("GBP/USD", "closing", "2024-12-31", 1.2530, "bank rate sheet"), ("GBP/USD", "transaction", "2025-08-12", 1.2700, "bank rate sheet"), ("GBP/USD", "transaction", "2025-07-10", 1.2698, "bank rate sheet"),
         ("GBP/USD", "transaction", "2025-09-18", 1.2700, "bank rate sheet"), ("GBP/USD", "transaction", "2025-09-29", 1.2700, "bank rate sheet")]))
 add("fx_bal", "foreign_currency_balances_2025-09-30.csv", "Foreign-currency balances at 30 September 2025",
     csv(["account", "counterparty", "currency", "foreign_amount", "booked_usd", "booked_rate"], [("2300", "Northbrook UK Ltd", "GBP", -29920, -38000, 1.2701), ("1100", "Tideswell Hotels (GBP invoice)", "GBP", 18000, 22500, 1.2500)]))
-add("group", "group_structure.md", "Group structure", doc("Group structure", "- **Northbrook Trading Ltd** (USA, USD): parent.\n- **Northbrook UK Ltd** (England, GBP): 80% owned since 1 March 2019. Functional currency GBP.\n- Presentation currency: USD.\n- No acquisitions or disposals in 2025."))
+add("group", "group_structure.md", "Group structure", doc("Group structure", "- **Northbrook Trading Ltd** (USA, USD): parent.\n- **Northbrook UK Ltd** (England, GBP): 80% owned since 1 March 2019. Functional currency GBP.\n- Presentation currency: USD.\n- No acquisitions or disposals in 2025.\n- Investment in Northbrook UK Ltd at cost: 104,800 USD (80% of 100,000 GBP share capital at 1.3100).\n- From last year's consolidation at 31 December 2024: UK retained earnings 52,420 GBP translated at 66,059 USD; cumulative translation adjustment (100% basis) 6,077 USD debit (net assets 152,420 GBP at 1.2530 = 190,982, against share capital 131,000 and retained earnings 66,059).\n- The intercompany balance is trading, not a loan."))
 
 # ---- debt, equity, leases, contracts ---------------------------------------------------------------
 add("loan", "term_loan_agreement_summary.md", "Summary of the term loan agreement, with covenant definitions",
-    doc("Term loan — summary of terms", "Lender: Calder Bank. Original principal 580,000. Repayment 5,000 a month plus interest. Rate: fixed 5.7%. Matures 31 December 2029.\n\n**Covenants, tested quarterly on the trailing twelve months:**\n1. *Leverage*: Total Debt / Covenant EBITDA not above 2.50x.\n2. *Interest cover*: Covenant EBITDA / Interest Expense not below 4.0x.\n\n**Definitions.** *Covenant EBITDA* = net income + interest + depreciation, **plus** one-time professional fees up to 15,000 a year, **less** any gain on asset sales. *Total Debt* = term loan + corporate card balance + any lease liabilities.\nCompliance certificate due 45 days after each quarter end."))
+    doc("Term loan — summary of terms", "Lender: Calder Bank. Drawn 1 January 2020: 565,000. Repayment 5,000 a month plus interest on the balance. Rate: fixed 5.7%. Matures 31 May 2029.\nThe June 2025 professional fees include a **one-time 14,000 legal fee** (contract dispute), confirmed by the CFO for the add-back.\n\n**Covenants, tested quarterly on the trailing twelve months:**\n1. *Leverage*: Total Debt / Covenant EBITDA not above 2.50x.\n2. *Interest cover*: Covenant EBITDA / Interest Expense not below 4.0x.\n\n**Definitions.** *Covenant EBITDA* = net income + interest + depreciation, **plus** one-time professional fees up to 15,000 a year, **less** any gain on asset sales. *Total Debt* = term loan + corporate card balance + any lease liabilities.\nCompliance certificate due 45 days after each quarter end."))
 add("debt_ledger", "term_loan_ledger_2025.csv", "Ledger for account 2500 Term Loan, 2025",
-    csv(["date", "description", "amount"], [(B.eom(k), d, a) for k in range(27, 36) for d, a in (("Principal repayment", 5000), ("Interest charged", -1900), ("Interest paid", 1900))]))
+    csv(["date", "description", "amount"], [(B.eom(k), d, a) for k in range(27, 36) for d, a in (("Principal repayment", 5000), ("Interest charged", -B.PNL[k]["interest"]), ("Interest paid", B.PNL[k]["interest"]))]))
 add("equity_ledger", "equity_accounts_ledger_2025.csv", "Ledger for the equity accounts, January to September 2025",
     csv(["date", "account", "description", "amount"], [("2025-01-01", "3100", "Opening retained earnings", -B.BS[26]["retained_earnings"]), ("2025-03-31", "3100", "Dividend declared and paid", 60000),
         ("2025-06-30", "3100", "Adjustment", 7500), ("2025-01-01", "3000", "Opening share capital", -250000)]))
@@ -194,8 +206,8 @@ add("contracts_wip", "construction_contracts_2025-09.csv", "Contracts in progres
     csv(["contract", "customer", "contract_price", "costs_to_date", "estimated_total_cost", "estimate_updated_on", "billed_to_date"], [("C-11", "Elmfield Schools", 900000, 310000, 720000, "2025-09-25", 380000),
         ("C-12", "Tideswell Hotels", 450000, 400000, 480000, "2025-09-25", 390000), ("C-13", "Dunmore Medical", 260000, 52000, "", "", 40000)]))
 add("production", "production_report_2025-09.csv", "Production report by department, September 2025",
-    csv(["department", "units_opening_wip", "opening_pct_complete", "units_started", "units_completed", "units_closing_wip", "closing_pct_complete", "materials_added", "conversion_added", "opening_wip_cost"],
-        [("Mixing", 2000, 50, 18000, 17000, 3000, 40, 126000, 68000, 14500), ("Filling", 1000, 60, 17000, 16500, 1500, 30, 33000, 52800, 9900)]))
+    csv(["department", "units_opening_wip", "opening_pct_complete", "units_started", "units_completed", "units_closing_wip", "closing_pct_complete", "materials_added", "conversion_added", "opening_wip_materials", "opening_wip_conversion"],
+        [("Mixing", 2000, 50, 18000, 17000, 3000, 40, 126000, 68000, 12800, 1700), ("Filling", 1000, 60, 17000, 16500, 1500, 30, 33000, 52800, 6100, 3800)]))
 add("standards", "standard_costs.csv", "Standard costs with effective dates, and September 2025 actuals",
     csv(["item", "standard", "standard_set_on", "actual_2025-09", "unit"], [("Steel bracket SB-20 purchase price", 20.00, "2023-08-01", 22.50, "per unit"), ("Material usage per finished unit", 2.0, "2023-08-01", 2.1, "units"),
         ("Labour rate", 44.00, "2024-01-01", 46.00, "per hour"), ("Labour hours per finished unit", 0.50, "2024-01-01", 0.48, "hours"), ("Units produced", "", "", 5200, "units"), ("Units purchased", "", "", 11000, "units")]))
@@ -206,7 +218,7 @@ add("var_hist", "variance_account_history.csv", "Purchase price variance posted 
 _T = "**SAMPLE RATES FOR TESTING ONLY — fictitious, not real tax law.** Source to quote back: 'sample rate card v1, tax year 2025'.\n\n"
 add("tax_rules", "tax_rates_and_rules_SAMPLE.md", "Tax rates and rules supplied by the user for the test (fictitious)",
     doc("Tax rates and rules (sample)", _T + "- Jurisdiction: 'Sampleland'. Tax year: calendar 2025.\n- Corporate income tax: 20% flat.\n- Disallowed: fines 100%; client entertainment 50%; donations above 10,000.\n- Tax depreciation: 25% straight line on cost, in place of book depreciation.\n- Losses: carried forward without limit. Brought forward at 1 Jan 2025: nil.\n- Estimated payments: four equal instalments; safe harbour is 100% of prior-year tax (prior-year tax: 61,000).\n- Enacted future rate for deferred tax: 20%."))
-add("prior_return", "prior_year_tax_computation_summary.md", "Summary of the 2024 tax computation", doc("2024 tax computation — summary", "Taxable profit 305,000. Tax at 20%: 61,000. No losses carried forward. Tax written-down value of fixed assets at 31 Dec 2024: 150,000 (cost 420,000). Deferred tax liability at 31 Dec 2024: 9,000."))
+add("prior_return", "prior_year_tax_computation_summary.md", "Summary of the 2024 tax computation", doc("2024 tax computation — summary", "Taxable profit 305,000. Tax at 20%: 61,000. No losses carried forward. Book value of fixed assets at 31 Dec 2024: 146,600. Tax written-down value: 101,600 (cost 420,000). Deferred tax liability at 31 Dec 2024: 9,000 = 20% x (146,600 - 101,600)."))
 add("personal", "personal_tax_documents_SAMPLE.md", "Personal income documents for the owner (fictitious)",
     doc("Personal tax documents (sample)", _T + "Taxpayer: the owner (employee E12). Resident in Sampleland. Filing jointly. Tax year 2025.\n- Salary from Northbrook Trading Ltd: per payroll.\n- Dividend from Northbrook Trading Ltd, 31 March 2025: 48,000 (80% of 60,000).\n- Bank interest: 1,240.\n- Rental income 18,000, rental costs 6,500.\n- Personal allowance 12,000; rate 15% to 50,000 of taxable income, 30% above.\n- Tax already withheld on salary: per payroll. Estimated payments made: 8,000."))
 add("rd", "rd_projects_and_time.md", "R&D project descriptions and time allocation",
@@ -274,8 +286,34 @@ add("restructure", "restructuring_plan.md", "Approved restructuring plan", doc("
 add("ipo", "ipo_readiness_inputs.md", "IPO readiness inputs", doc("IPO readiness inputs (sample)", "Target: listing in 18 months. Registrant: the current parent. No reorganisation planned.\nAudits: 2023 and 2024 audited; 2022 not audited.\nEquity: see cap table; one grant in 2025 with an independent valuation.\nSystems: one accounting system, spreadsheets for revenue schedules. No control assessment has been done."))
 
 # ---- sectors ------------------------------------------------------------------------------------------------------
-add("npo", "nonprofit_trial_balance_and_gifts.md", "Trial balance and gift schedule of a charity (separate fictitious entity)",
-    doc("Riverside Community Trust — year to 30 June 2025 (sample)", "Framework ASC 958. Three programmes tracked as classes: Youth, Seniors, Food bank.\n\n| Account | Amount |\n|---|---:|\n| Cash | 412,000 |\n| Net assets without donor restrictions (opening) | 180,000 |\n| Net assets with donor restrictions (opening) | 95,000 |\n| Contributions received | 640,000 |\n| Programme expenses — Youth | 210,000 |\n| Programme expenses — Seniors | 150,000 |\n| Programme expenses — Food bank | 120,000 |\n| Salaries (shared) | 90,000 |\n| Rent (shared) | 24,000 |\n| Fundraising event costs | 31,000 |\n\n| Gift | Amount | Restriction | Conditional? | Spent on purpose by 30 June |\n|---|---:|---|---|---:|\n| Harlow Foundation | 200,000 | Youth programme only | No | 160,000 |\n| City grant | 150,000 | Food bank, year to June 2025 | Yes — must serve 5,000 meals; 5,400 served | 120,000 |\n| General donations | 290,000 | None | No | — |\n\nShared costs split on staff time: Youth 40%, Seniors 25%, Food bank 15%, Management 15%, Fundraising 5%. No endowment. No gifts in kind."))
+add("npo", "nonprofit_balances_activity_and_gifts.md", "Balances, activity and gift schedule of a charity (separate fictitious entity)",
+    doc("Riverside Community Trust — year to 30 June 2025 (sample)", """Framework ASC 958. USD. Three programmes tracked as classes: Youth, Seniors, Food bank.
+
+**Net assets at 1 July 2024:** without donor restrictions 180,000; with donor restrictions 95,000 (all Harlow Foundation, Youth). Total 275,000.
+
+**Activity for the year**
+
+| Line | Amount |
+|---|---:|
+| Contributions received (see gift schedule) | 700,000 |
+| Programme expenses — Youth | 210,000 |
+| Programme expenses — Seniors | 150,000 |
+| Programme expenses — Food bank | 120,000 |
+| Salaries (shared) | 90,000 |
+| Rent (shared) | 24,000 |
+| Fundraising event costs | 31,000 |
+| **Total expenses** | **625,000** |
+
+**Balances at 30 June 2025:** cash 412,000; pledges receivable 0; payables 62,000. Net assets 350,000 = 275,000 + 700,000 - 625,000.
+
+| Gift | Amount | Restriction | Conditional? | Spent on purpose by 30 June |
+|---|---:|---|---|---:|
+| Harlow Foundation | 200,000 | Youth programme only | No | 160,000 |
+| City grant | 150,000 | Food bank, year to June 2025 | Yes — must serve 5,000 meals; 5,400 served | 120,000 |
+| State seniors grant | 60,000 | Seniors, year to June 2025 | No | 63,500 |
+| General donations | 290,000 | None | No | — |
+
+Shared costs split on staff time: Youth 40%, Seniors 25%, Food bank 15%, Management 15%, Fundraising 5%. No endowment. No gifts in kind."""))
 add("grants", "grant_awards_and_spending.md", "Grant award terms with spending by grant", doc("Grant awards (sample)", "| Grant | Award | Period | Conditional? | Restriction | Budget: staff / supplies / indirect | Spent: staff / supplies | Report due |\n|---|---:|---|---|---|---|---|---|\n| G1 City food grant | 150,000 | Jul 2024–Jun 2025 | Yes: 5,000 meals (5,400 served) | Food bank | 90,000 / 45,000 / 15,000 | 88,000 / 32,000 | 31 Aug 2025 |\n| G2 Harlow Foundation | 200,000 | Jan 2024–Dec 2025 | No | Youth programme | 140,000 / 40,000 / 20,000 | 121,000 / 39,000 | 31 Jan 2026 |\n| G3 State seniors grant | 60,000 | Jul 2024–Jun 2025 | No | Seniors | 50,000 / 10,000 / 0 | 49,000 / 14,500 (of which 3,200 dated July 2025) | 30 Sep 2025 |\n\nIndirect cost rate: 10% of direct costs where the award allows. Grants are tagged in the books as classes."))
 add("gov", "township_trial_balance_by_fund.csv", "Trial balance by fund of a township (separate fictitious entity), year to 30 June 2025",
     csv(["fund", "fund_type", "account", "amount"], [("General", "governmental", "Cash", 820000), ("General", "governmental", "Property tax receivable", 140000), ("General", "governmental", "Accounts payable", -95000),
@@ -285,7 +323,7 @@ add("gov_notes", "township_notes.md", "Basis of accounting and fund balance cons
 add("health", "billing_summary_by_payer_2025-09.csv", "Billing system totals by payer class, September 2025 (totals only, no patient detail)",
     csv(["payer_class", "gross_charges", "contractual_adjustments", "payments", "denials", "charity_care", "ar_0_30", "ar_31_90", "ar_over_90"], [("Medicare", 420000, -252000, 150000, 9000, 0, 40000, 12000, 3000),
         ("Commercial", 610000, -244000, 318000, 21000, 0, 95000, 41000, 22000), ("Self-pay", 130000, 0, 31000, 0, 18000, 22000, 30000, 44000)]))
-add("health_gl", "clinic_gl_summary_2025-09.md", "Ledger totals for the clinic, September 2025", doc("Lakeside Clinic — ledger totals, September 2025 (sample)", "Gross patient revenue 1,160,000. Contractual allowances (contra-revenue) (480,000). Bad debt expense 26,000. Charity care recorded as bad debt: 18,000.\nPatient receivables 309,000. Allowance for contractual adjustments (62,000). Unapplied cash 14,000 (August: 6,000).\nCharity care policy: free care below 200% of the poverty guideline; presented as a deduction from revenue, not as bad debt."))
+add("health_gl", "clinic_gl_summary_2025-09.md", "Ledger totals for the clinic, September 2025", doc("Lakeside Clinic — ledger totals, September 2025 (sample)", "Gross patient revenue 1,160,000. Contractual allowances (contra-revenue) (496,000). Bad debt expense 26,000. Charity care recorded as bad debt: 18,000.\nPatient receivables 309,000. Allowance for contractual adjustments (62,000). Unapplied cash 14,000 (August: 6,000).\nCharity care policy: free care below 200% of the poverty guideline; presented as a deduction from revenue, not as bad debt."))
 add("insure", "insurer_close_schedules_2025-09.md", "Close schedules of an insurance carrier (separate fictitious entity)", doc("Harbour Mutual — close schedules, September 2025 (sample)", "Business model: carrier. Regulated. One 30% quota share treaty.\n- Written premium, September: 900,000. Unearned premium reserve: opening 2,100,000; closing per policy system 2,250,000; ledger 2,180,000.\n- Paid claims 410,000. Case reserves 1,300,000. IBNR per the actuary's quarterly report (30 Sep 2025): 760,000; ledger 700,000.\n- Reinsurance recoverable on paid claims 123,000, of which 48,000 is over 90 days.\n- Commissions paid 135,000; deferred acquisition costs opening 310,000."))
 add("property", "property_schedule.md", "Property schedule with use, cost and lease terms", doc("Property schedule (sample)", "Framework US GAAP. Period: 2025.\n\n| Property | Use | Cost | Land / building | In service | 2025 rent billed | 2025 costs |\n|---|---|---:|---|---|---:|---:|\n| Unit 7, Dock Road | Rented to a tenant | 1,200,000 | 300,000 / 900,000 | 2021-04-01 | 108,000 | 21,000 |\n| Mill House | Occupied by the company | 800,000 | 200,000 / 600,000 | 2018-01-01 | — | 34,000 |\n| Plot 12 | Under development | 450,000 to date | all land so far | — | — | interest capitalised 18,000, including 6,000 after work paused in June |\n\nUnit 7 lease: 5 years from 1 Jan 2024, 8,000 a month in year 1, rising 500 a month each year, first two months rent-free. Buildings depreciated over 40 years."))
 add("swap", "interest_rate_swap.md", "Interest rate swap confirmation and bank valuation", doc("Interest rate swap (sample)", "Counterparty: Calder Bank. Trade date 1 January 2025. Notional 200,000. Company pays fixed 5.2%, receives floating. Matures 31 December 2029.\nBank valuation at 30 September 2025: liability of 3,400 (bank mark-to-market statement dated 1 October 2025; method: discounted cash flow on the bank's curve).\nHedge documentation: designation memo for a cash flow hedge of the term loan, **dated 14 February 2025**.\nLedger: derivative liability recorded 2,900; other comprehensive income debit 2,900.\nFramework ASC 815. Note: the term loan is fixed rate (see the loan summary)."))

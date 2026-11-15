@@ -226,12 +226,16 @@ passed as though the set were complete.
 - **The file does not name its company, currency or period.** Most exports do not. Say
   so, take them from the user's intake answers, and give the verdict *accepted with a
   limit: company and period user-asserted*.
-- **The file names a different company or period from the intake answers.** Reject it,
-  say what it names, and ask. Accept it only if the user says the intake answer was
+- **The file names a different company or period from the intake answers.** If that
+  company is one the user named as in scope (a subsidiary, the other side of a pair),
+  accept it for that company. Otherwise reject it, say what it names, and ask. Accept it only if the user says the intake answer was
   wrong, and then correct the read-back.
 - **A fact the intake asks for arrives inside a file** — a cash count, a rate, an
   officer's name. Use it once the user confirms it in the read-back; it then counts as
   answered.
+- **A file supplies less than the checklist asks for** — fewer months, balances where
+  activity was needed, a missing column. Accept it with a limit and name the steps it
+  cannot support.
 - **A summary arrives where the checklist asks for a listing or a source document** —
   key terms instead of the agreement, a table quoted from a valuation report. Accept it
   with a limit: name what the summary cannot support, and label every figure taken from
@@ -243,6 +247,11 @@ passed as though the set were complete.
   for coding, a prior period for a trend. Ask for it in the same message as the
   verdicts. If it does not come, do that step without it, say so, and never invent
   account names or prior figures.
+- **The skill says never to default a value the method needs** — a useful life, a rate,
+  a threshold. Do not supply one. Run every step that does not need it, list the steps
+  that do as blocked, and ask for the value.
+- **This skill has no upload checklist of its own.** Build one from the inputs its
+  method names, mark each required or recommended, and ask for the whole set at once.
 - **An intake question is unanswered and the skill states no default.** Take the more
   conservative reading, state it as an assumption at the top of the output, and do not
   let an assumption decide a conclusion. Where the answer would change a conclusion,
@@ -611,6 +620,14 @@ worth taking if cash allows** — few uses of cash return 36% a year.
 
 **Flag any discount where the deadline is within the payment-run horizon.** Use the entity's
 time zone from the profile when a deadline falls on the run date itself.
+
+### Payment timing against terms
+
+Using the payment history, compare each paid bill's **paid date with its due date**, by vendor.
+A vendor paid consistently **before** its due date with no discount on offer is cash released early
+for nothing; report the vendor, the average days early and the amount. A vendor paid consistently late
+belongs in Step 4. Check every open bill's due date against the vendor's terms on record: a bill
+entered with the wrong terms is a mis-dated bill, and the ageing should use the terms on record.
 
 ## Step 4 — Identify late-pay penalties
 

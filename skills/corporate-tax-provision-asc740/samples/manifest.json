@@ -26,19 +26,19 @@
   {
    "file": "trial_balance_september.csv",
    "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
-   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+   "why": "It is the right kind of document for the wrong period (30 September 2024). Reject it."
   }
  ],
  "expect": {
   "validation": [
    "Shows one validation table before any work, with a verdict per file",
    "Accepts every file listed under inputs",
-   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong period (30 September 2024). Reject it.",
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
    "Current tax at the sample 20% on adjusted income",
-   "Temporary difference on fixed assets from tax written-down value 150,000",
+   "Temporary difference on fixed assets: book 146,600 against tax written-down value 101,600 at 31 December 2024",
    "Opening deferred tax liability 9,000"
   ],
   "read_only": [

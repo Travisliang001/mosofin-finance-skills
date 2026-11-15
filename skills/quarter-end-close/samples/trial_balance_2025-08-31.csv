@@ -1,6 +1,7 @@
 account,name,debit,credit
-1000,Operating Bank Account,1130978,0
+1000,Operating Bank Account,904810,0
 1010,Petty Cash,500,0
+1600,Investment in Northbrook UK Ltd,104800,0
 1050,Stripe Clearing,6420,0
 1100,Accounts Receivable,831430,0
 1150,Allowance for Doubtful Accounts,0,9000
@@ -17,7 +18,8 @@ account,name,debit,credit
 2300,Intercompany Payable - Northbrook UK,0,38000
 2500,Term Loan,0,225000
 3000,Share Capital,0,250000
-3100,Retained Earnings,0,1422317
+3100,Retained Earnings,0,1378654
+3200,Dividends and Adjustments,67500,0
 4000,Sales Revenue,0,3583200
 5000,Cost of Goods Sold,2097616,0
 6000,Payroll Expense,593600,0
@@ -27,4 +29,6 @@ account,name,debit,credit
 6400,Professional Fees,34000,0
 6500,Bank Fees,14333,0
 6600,Depreciation,33600,0
-7000,Interest Expense,15200,0
+6150,Insurance,12000,0
+6160,Repairs and Maintenance,4000,0
+7000,Interest Expense,9405,0
