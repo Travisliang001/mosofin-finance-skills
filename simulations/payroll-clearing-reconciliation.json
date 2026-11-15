@@ -1,0 +1,29 @@
+{
+ "skill": "payroll-clearing-reconciliation",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 1,
+ "findings_total": 1,
+ "missed": [],
+ "unexpected": [
+  "Payroll tax: August deposit 13,874 is 5,400 less than September's accrual 19,274; possible never-clearing 5,400 residual pending the 31 Aug balance",
+  "401(k) deferrals 2,824 withheld and not remitted in September",
+  "Register agrees with the payroll journal on every component (net 53,902; tax 19,274 incl. employer SS 5,401; 401(k) 2,824)",
+  "Closing balances not reconciled: no opening balances supplied; remittance cadence not defaulted, so expected balances for 2160/2170 blocked"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' lists the inputs but there is no upload checklist naming formats; on the upload path the protocol rule 'This skill has no upload checklist of its own' applies, and nothing tells the user to supply opening balances or several prior months of GL, which 'Step 0b — Age every balance' and 'Step 2' depend on.",
+  "SKILL.md 'Step 2 — Pull the expected balance for each account' needs the remittance cadence, which 'Gate 3' says never to default; the skill gives no partial output for a run where it is missing beyond the generic 'run every step that does not need it'.",
+  "SKILL.md is a single 1,077-line file with the manual-run rules embedded in the onboarding block; the payroll privacy rule ('Never itemise individual... pay') is not echoed in the upload validation section, though a register by employee is the required upload."
+ ],
+ "sample_defects": [
+  "No opening balances: payroll_gl_detail_2025-09.csv has September movements only, so the 1,200 is a September movement (53,902 net pay - 2 x 26,351 = 1,200), not a proven closing residual; the key calls it a residual.",
+  "The 'August deposit' 13,874 against a September accrual of 19,274 leaves 5,400 (19,274 - 13,874) unexplained without the August accrual; the key does not mention it.",
+  "Register gives one monthly total, while the GL shows two equal semi-monthly runs of 26,351, so which run omitted the 1,200 cannot be determined."
+ ],
+ "summary": "PASS 1/1: rota rejected on content; clearing 1,200 undisbursed net pay found; register ties to journal; openings and cadence missing so closing balances unreconciled."
+}

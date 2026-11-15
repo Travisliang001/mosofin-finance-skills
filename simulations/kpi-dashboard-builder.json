@@ -1,0 +1,32 @@
+{
+ "skill": "kpi-dashboard-builder",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "September 2025 marketing 29,146 = 6.4% of revenue vs 4.0% for 35 months (+10,930 over run-rate)",
+  "June 2025 professional fees 16,500 vs 2,500 every other month (+14,000)",
+  "Retained earnings fail to roll from net income twice: March 2025 -60,000 (dividend-like), June 2025 -7,500 unexplained",
+  "DIO 60.0 -> 75.0 days and cash conversion cycle 64.0 -> 94.0 days over 36 months",
+  "Revenue +15.4% YoY and TTM; seasonal peaks Jun/Jul so MoM flagged as misleading",
+  "Tie-out reported: P&L foots and balance sheet balances 36/36 months"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row D says 'Never default the period' but the upload path receives the period inside kpi_request.md; the shared rule 'A fact the intake asks for arrives inside a file' covers it, yet the card gives no instruction to read intake answers out of an uploaded request note before validation.",
+  "references/method.md 'Step 3 — Compute the KPIs' requires a tie-out of dashboard revenue to the P&L, but nothing checks that the balance sheet's retained earnings roll from P&L net income; in this sample two months break (-60,000 March, -7,500 June) and only agent initiative finds it.",
+  "references/method.md 'Step 1 — Select the right KPIs' has no set for a mixed model ('distribution with some services'); the agent must combine the E-commerce/Retail and Professional Services lists without guidance on which governs a board set of 8-15.",
+  "SKILL.md 'Upload path — hand over one checklist' marks ageings 'Recommended, for DSO and DPO' but method.md does not say how to compute DSO/DPO from balances when ageings are absent (period-revenue vs trailing basis), so the definition is the agent's choice."
+ ],
+ "sample_defects": [
+  "monthly_balance_sheet_36m.csv retained earnings change 2025-06 = 66,427 vs net income 73,927 (-7,500) with no dividend or adjustment line in either file; 2025-03 change 3,413 vs 63,413 (-60,000). expect.findings tests neither.",
+  "Gross margin is exactly 42.0% for 33 months and marketing exactly 4.0% of revenue for 35 months; the Sep marketing spike (29,146 - 18,216 = 10,930) and June professional fees (+14,000) are seeded anomalies not in expect.findings.",
+  "No cash-flow statement or ageings are supplied, so operating cash flow, ageing-based DSO/DPO and the 'Recommended' checklist items cannot be exercised."
+ ],
+ "summary": "PASS 4/4: rota rejected on content; GM 42%->40% from Jul 2025, DSO 42->52, DPO 38->33, order metrics not available, targets TBD; also found Sep marketing and RE roll breaks."
+}

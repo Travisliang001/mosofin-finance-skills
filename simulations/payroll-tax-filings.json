@@ -1,0 +1,32 @@
+{
+ "skill": "payroll-tax-filings",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "August deposit is 31,900 on the rate card but 13,874 in the GL, both dated 15 Sep: sources disagree by 18,026",
+  "July and August deposits of 31,900 imply about 116,850 gross a month vs 70,599 in September; possible over-deposit of 12,626 a month (25,252) if payroll was similar, not concluded without registers",
+  "Q3 return not preparable: July and August registers missing; 83,074 shown only as a scenario",
+  "2160 combines income tax and both social security shares, so deposits cannot be reconciled by tax; no account for other employer taxes such as unemployment",
+  "Wage-base ceilings not supplied and none applied"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' asks only for 'Payroll registers for the period' and does not say that a quarterly return needs every month's register; nor does it ask for the liability account balances at the quarter's start and end, which references/method.md 'Step 4 — Reconcile deposits to liabilities' needs.",
+  "references/method.md 'Step 4' has no rule for when two user-supplied sources of the same deposit disagree (rate card list vs GL), which is the most material issue in this sample.",
+  "SKILL.md 'Stage 1 — Intake' row B asks for jurisdictions with 'Ask again' if unanswered, but on a simulated/assumed go-ahead there is no fallback; the run had to assume one jurisdiction.",
+  "references/output.md 'Output Quality Standards' requires 'Per-employee data appears only on the wage statement sheet' but gives no guidance for periodic-only runs, where that sheet is empty."
+ ],
+ "sample_defects": [
+  "payroll_tax_rules_SAMPLE.md lists the August deposit as 31,900 on 15 Sep; payroll_gl_detail_2025-09.csv records it as 13,874 on 15 Sep (difference 18,026). Not in expect.",
+  "Deposits of 31,900 a month do not fit a September liability of 8,472 + 5,401 + 5,401 = 19,274 unless July/August gross was ~116,850 (31,900 / 0.273); no July/August register is supplied to check.",
+  "Intake gives 'Period: September 2025' and then 'Period: Q3 2025' in the same answer; only September's register is supplied, so a Q3 return can never be prepared.",
+  "Key arithmetic checks out: 12% x 70,599 = 8,471.88; 7.65% x 70,599 = 5,400.82; 8,472 + 5,401 + 5,401 = 19,274 = GL credit to 2160; July due 15 Aug paid 14 Aug, August due 15 Sep paid 15 Sep."
+ ],
+ "summary": "PASS: rota rejected on content; Sep liability 19,274 due 15 Oct unpaid, Jul/Aug deposits on time, totals only; also found Aug deposit 31,900 vs GL 13,874."
+}

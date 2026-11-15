@@ -1,0 +1,33 @@
+{
+ "skill": "rolling-forecast",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Forecast file is prior-year actuals x 1.10 on every line, contradicting the 8% in model_assumptions.md",
+  "Revenue has grown 15.4% YoY every month for two years; at 15.4% the window's revenue is 5,926,828 vs 5,649,930 forecast (276,898 higher)",
+  "COGS ratio stepped from 58% to 60% in July 2025; forecast keeps 58% for Oct 2025-Jun 2026 (81,684 understated)",
+  "One-offs repeated: June professional fees (15,400 excess) and September marketing (12,023 excess)",
+  "Fixed and scheduled costs (rent, depreciation, software, insurance, repairs, interest) grown 10% instead of held or amortised; interest 15,831 vs about 10,972 on the loan schedule",
+  "September 2025 marketing 29,146 is 10,930 above the 4%-of-revenue pattern; flagged before locking",
+  "Budget covers Jan-Sep 2025 only: revenue +188,800 (+4.9%), net income +13,990 (+2.4%) against it"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' upload checklist lists 'Prior forecast' and 'Drivers and assumptions (D)' but no row for management's current-window projection. A forecast file starting the month after the last close fits neither; the skill does not say whether to treat it as the prior forecast (bridge, accuracy) or as the projection to challenge.",
+  "SKILL.md intake row D: 'If unanswered: Project nothing forward. Deliver the locked actuals and the run-rate challenge only'. It does not say whether bare growth rates (model_assumptions.md: 8% revenue, 41% margin, 4% opex) count as 'updated drivers', so a strict reading could stop at the run-rate challenge.",
+  "references/method.md 'Step 3b — Test A' is framed only for a forecast that holds the annual number while YTD is behind ('hockey stick'); it gives no wording for the opposite case seen here, a forecast that decelerates below the growth actually achieved.",
+  "references/method.md 'Step 2b — Verify the month is actually closed' is written as ledger reads ([auto]: recurring entries, unreversed accruals, posts after close); there is no upload-path version using monthly P&L lines only."
+ ],
+ "sample_defects": [
+  "manifest.json expect.findings says 'Challenges the 8% growth assumption', but the forecast file the manifest calls 'Management forecast' uses 10% on every line (e.g. 2025-10 revenue 413,050 = 375,500 x 1.10). The key does not name the 8% vs 10% contradiction, and the actual growth is 15.4% (FY2025 5,136,300 / FY2024 4,451,200 - 1 = 0.1539), so the challenge runs against both numbers, in the opposite direction from a hockey-stick.",
+  "manifest.json calls budget_2025.csv the 'Approved 2025 budget', but it holds Jan-Sep 2025 only, so a full-year budget comparison is impossible.",
+  "The data is too regular to test Test B meaningfully: every month's share of the Oct-Sep year is identical in FY2023, FY2024 and FY2025 (Oct 7.31%, Jun 9.58%), monthly YoY growth is 15.37%-15.41% throughout, and COGS is exactly 58.00% then 60.00%."
+ ],
+ "summary": "PASS 3/3: Sept locked (marketing spike flagged), growth assumptions (8% file, 10% forecast) challenged against 15.4% actual and 3-year seasonality, first forecast."
+}

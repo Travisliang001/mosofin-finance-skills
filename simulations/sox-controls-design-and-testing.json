@@ -1,0 +1,35 @@
+{
+ "skill": "sox-controls-design-and-testing",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 5,
+ "findings_total": 5,
+ "missed": [],
+ "unexpected": [
+  "Likely duplicate bill: Kestrel Supplies INV-4471 and Kestrel Supplies Inc. INV4471, both 6,480, one day apart (also a duplicate vendor record)",
+  "Kestrel 4502 billed 88,583 vs PO value 87,016.80: 1,566.20 (1.8%) price variance",
+  "Seven bills with no PO, 80,702; Summit INV-4644 past due 22 September and open; Okafor INV-4857 has no service confirmation",
+  "C4 cannot be tested: the journal file has one user field and no reviewer, so the user's 'leaves a trace: yes' does not hold; marked not effective until evidenced",
+  "JE-0904 manual revenue adjustment 50,000 by a.reyes, who also approves POs (SoD question)",
+  "JE-0907 accrual of 9,999 with no memo, one dollar under a round 10,000",
+  "PO-1044 missing from the PO sequence",
+  "Exposure aggregated in amounts only with overlaps noted; no materiality or sample size invented"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' upload checklist marks 'Process descriptions and the existing control list' as Required, and references/mosofin-protocol.md 'After an upload, validate the input before any work' says 'If a required input is rejected or missing, stop and ask'. A control list with no process descriptions is the usual upload; the skill does not say whether the list alone lets the testing proceed with Steps 1-3 marked not done.",
+  "SKILL.md intake row D lets the user declare whether each control 'leave[s] a trace in the accounting system', and references/method.md 'Step 4 — the Ledger-evidenced? column' routes on that answer, but nothing tells the skill to check the claim against the uploaded fields. Here C4 ('Journals reviewed by a second person', trace 'yes', 'user and posting fields') cannot be evidenced by a file with a single user column.",
+  "references/method.md 'Step 6b' lists 'Period close / no posting to closed periods' as a full-population test on 'Postings after the close date', but the upload checklist never asks for the close dates, so on the upload path the C6 exception can only be stated as conditional on August having been closed.",
+  "references/method.md 'Step 6b' and the C1 description ('approved before goods are ordered') need an order date; the upload checklist asks for 'user and approval fields' only, so the test has to fall back on receipt and bill dates."
+ ],
+ "sample_defects": [
+  "manifest.json expect.findings states 'JE-0905 posted into closed August', but no file gives the August close date; JE-0905 is dated 2025-08-31 and posted 2025-09-22, which is a closed-period posting only if August was closed before 22 September.",
+  "The key omits several planted-looking items the data supports: the duplicate Kestrel bill (INV-4471 vs INV4471, 6,480 each); the Kestrel 4502 price variance (88,583 - 4,000 x 21.7542 = 1,566.20); JE-0904 revenue adjustment 50,000 with no support; JE-0907 9,999 with no memo. Either they are intended and should be listed, or they are noise that a strict grader cannot credit.",
+  "control_list.csv says C4 leaves a trace in 'user and posting fields', but journal_entries_2025-09.csv has only one user column, so C4 is untestable; the key is silent on C4.",
+  "Bill amounts repeat across unrelated vendors (13,027 Brightline and Northgate Utilities; 23,449 Summit Freight and Pinecrest Software), which reads as a generator artefact and could be mistaken for a duplicate-payment signal."
+ ],
+ "summary": "PASS 5/5: C1 PO-1042 and PO-1043, C2 Orchard 100 billed vs 90 received, C6 JE-0905, C3/C5 need evidence, no severity; also a 6,480 duplicate Kestrel bill."
+}

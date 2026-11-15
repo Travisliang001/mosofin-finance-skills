@@ -1,0 +1,29 @@
+{
+ "skill": "model-auditor-financial-model-review",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Model September gross margin 45.9% vs 40.0% in the books and 40.0-42.0% over 36 months, because revenue is overstated while COGS ties",
+  "July and August balance checks OPEN: total assets and total L&E blank in the extract",
+  "Only a values extract supplied, so formula integrity (Step 3) and scenarios (Step 5) reported as not done and 'whole model' scope not met",
+  "Extraction date unknown, so STALE could not be distinguished from FAIL; mapping confirmed one-to-one before recording FAILs"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' lists 'The financial model — Required — XLSX' but no rule says what to do when only a values extract (CSV summary) arrives; the shared 'A summary arrives where the checklist asks for a listing' rule covers it only generically, and SKILL.md 'Rules that never bend' ('Never calls a pass on tabs it did not review') is the only guard.",
+  "references/method.md 'Step 2 — Source tie-out' defines STALE as tying 'to the model's source vintage but not to the books today', which needs the source as it stood at extraction; on the upload path only one source vintage is supplied, so STALE can never be assigned and the method gives no fallback.",
+  "references/edge-cases.md 'No materiality threshold supplied — every difference becomes a FAIL' conflicts with SKILL.md 'Stage 1 — Intake' row E, which says 'Report every difference, and say no threshold was supplied' without classifying them as FAIL."
+ ],
+ "sample_defects": [
+  "manifest.json says the model's 'actuals extracted 5 October 2025', but neither the intake answers nor any file states the extraction date, so a run cannot use it (SKILL.md row D: 'Ask again').",
+  "model_summary_for_review.csv is a 5-line values extract rather than a model workbook, so expect.findings can test only the tie-out and the balance break; Steps 3 and 5 (formulas, scenarios) are unexercisable.",
+  "Total assets and total L&E are blank for 2025-07 and 2025-08 although the source balances (2,624,915 and 2,681,521), so the balance check covers one of three months."
+ ],
+ "summary": "PASS 3/3: rota rejected on content; Sep revenue FAIL +50,000, model balance sheet out by 12,000, issue log with two Critical items and a HOLD call."
+}

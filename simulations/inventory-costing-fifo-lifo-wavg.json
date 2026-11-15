@@ -1,0 +1,27 @@
+{
+ "skill": "inventory-costing-fifo-lifo-wavg",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "SB-20 listed at 20.00 (59,691 for 2,985) below both September purchases at 22.50 (11,000 units); a moving average of 20.00 needs held stock satisfying qty x (20.00 - avg) = 12,500, so the listing cost is stale or explained only by large cheap opening stock; 7,471.50 gap at latest cost shown for scale",
+  "Cost flow, COGS and the units/cost validation reported as not computable: no sales/issues and no opening inventory supplied",
+  "Five no-recent-sale SKUs (PN-55, LK-09, TR-07, HG-22, FX-02; 232,121) routed to inventory-obsolescence-and-reserve",
+  "Listing unit_cost rounded to whole dollars (value differs from qty x unit cost by up to 25 per line)"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row E default 'Use weighted average on the opening balance, and say that layers were not supplied' assumes an opening balance is available; on the upload path with no opening file and no TB there is no balance to average, and the card gives no fallback. Say what to do when the opening balance itself is missing.",
+  "SKILL.md 'Stage 1 — Intake' row F default 'Compare cost with recent selling prices only' has no fallback when no selling prices are uploaded (they are only 'Recommended' in the checklist), so the value test silently becomes impossible."
+ ],
+ "sample_defects": [
+  "The sample set omits both inputs the SKILL.md upload checklist marks Required besides purchases: sales/issues by item and opening inventory. With neither, weighted average cannot actually be applied (no COGS, no closing average), so the expected finding 'Applies weighted average as the policy states' can only be met by identifying the method, not by computing it.",
+  "SB-20: 6,000 + 5,000 units bought at 22.50 in September, yet 2,985 on hand are valued at 19.997 (59,691 / 2,985). Under a perpetual moving average this needs held stock with qty x (20.00 - avg) = 5,000 x 2.50 = 12,500, i.e. large old stock well below 20.00; likely an unintended inconsistency in the generated listing."
+ ],
+ "summary": "Shift rota rejected on content; 2 of 2 hit: weighted average (moving, perpetual) taken from policy, opening layers and sales not supplied so no COGS computed. SB-20 cost anomaly flagged. Nothing posted."
+}

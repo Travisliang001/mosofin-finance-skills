@@ -1,0 +1,37 @@
+{
+ "skill": "month-end-close-checklist",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 1,
+ "findings_total": 2,
+ "missed": [
+  "Bank reconciliation, accruals and payroll clearing appear as open tasks with owners — bank rec and payroll clearing were shown as Open, but accruals was marked 'Not verifiable' rather than open, and every owner is TBD because no team was given at intake"
+ ],
+ "unexpected": [
+  "Software subscription: recurring log says not posted in September, yet TB 6300 rose 3,500 (28,000 -> 31,500 = 9 x 3,500); flagged as status/evidence disagreement and double-booking risk",
+  "Insurance release 1,500 posted but 1300 Prepaid unchanged at 18,000 both month-ends",
+  "Bank vs GL: GL 1,002,979 vs statement 992,439 (10,540); 31 Aug GL 904,810 vs statement opening 967,387 (-62,577)",
+  "Unknown ACH debit 1,240 on 24 Sep; loan payment 6,900 vs 5,000 principal + 1,069 interest (831 unexplained)",
+  "Stripe clearing unchanged at 6,420 although 40,149 of Stripe transfers landed in September",
+  "Scoping: deferred revenue removed (no balance); intercompany rec kept for Northbrook UK 38,000 payable / 104,800 investment; consolidation and FX flagged for confirmation",
+  "September gross margin 40.0% vs 41.5% YTD to August; marketing 6.4% of revenue",
+  "Nine static balances unchanged Aug -> Sep listed for reconciliation"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' marks close calendar, framework and soft/hard close as Required with no default, and owners as Recommended, but 'Step 3 — Assign owners and deadlines' and 'Output Quality Standards' ('Every task has owner, due date...') cannot be met on an upload run where they are unanswered; there is no instruction for presenting owner-less tasks.",
+  "SKILL.md 'Step 6 — Tie-out workpaper at close' calls inter-period continuity 'the most valuable item' and [auto], but the manual-run checklist never asks for a GL or opening-balance TB, so with two YTD closing TBs the check cannot run; the skill gives no manual substitute.",
+  "SKILL.md 'Step 1 — Build the close task list' Day 3 statuses are [auto] from journal entries; on the upload path the only evidence is TB movement, and the skill gives no rule for a self-reported log that contradicts the TB movement (only the inverse case in 'Edge Cases': 'A task marked Complete with no entry posted').",
+  "SKILL.md is a single 1,067-line file with the manual-run rules ('After an upload, validate the input before any work') embedded in the onboarding block rather than in a references file."
+ ],
+ "sample_defects": [
+  "The key expects 'Software subscription recurring entry did not post in September', but trial_balance_2025-09-30.csv shows 6300 Software 31,500 vs 28,000 at 31 Aug (+3,500 = the subscription); 31,500 / 3,500 = 9 months, so the TB says it did post. Either the TB or recurring_entries.csv should be changed.",
+  "Key expects open tasks 'with owners', but no owner or team list is in any file or the intake answers, so owners can only be TBD.",
+  "Insurance release 1,500 posts monthly (6150 12,000 -> 13,500) while 1300 Prepaid stays 18,000 — no matching credit to prepaid; unacknowledged by the key.",
+  "Bank statement opening 967,387 vs Aug GL 904,810 (-62,577) and closing 992,439 vs GL 1,002,979 (+10,540) with no outstanding-items list, so the bank rec cannot be completed from the samples."
+ ],
+ "summary": "PARTIAL 1/2: Harlow TB rejected on content; software flagged, but accruals not shown as open and owners TBD; sample TB contradicts the 'not posted' key."
+}

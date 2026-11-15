@@ -1,0 +1,30 @@
+{
+ "skill": "vendor-onboarding-and-w9-tin",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "Kestrel Supplies Inc. is a fourth paid vendor with no tax form (6,480), making 75,980 in all",
+  "Summit Freight was paid 8,017 on 20 Sep 2025, four days after the bank change",
+  "payments_by_vendor_2025.csv is headed Jan-Sep 2025 but every amount equals 12 months of bills (Kestrel 412,300 vs Jan-Sep 309,222)",
+  "Three LLCs (Orchard, Halden, Vale) have no tax classification recorded; Pinecrest W-8BEN-E has no form date for the expiry test"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist', row 'Vendor list' names name, address, tax identifier status and terms, but not bank-account identifiers (masked), country or form dates, which references/method.md 'Step 0c', 'Step 0d' and the W-8 expiry test in Step 2 need; an upload that passes the checklist cannot run those tests.",
+  "SKILL.md 'Stage 1 — Intake', row F ('Does the system record changes to vendor records') gives no rule for a master that carries only a last-changed date with no log; references/method.md 'Step 0c' assumes full change history.",
+  "references/method.md 'Step 8 — Output' gives the Step 0 file name with '[EntityName]' and 'Entity display_name on every sheet' but no upload-path rule; only the protocol's coverage-sheet line covers it."
+ ],
+ "sample_defects": [
+  "payments_by_vendor_2025.csv column 'paid_2025-01-01_to_2025-09-30' holds 12-month figures: Kestrel 412,300 vs 12 x 34,358 = 412,296; bill history Jan-Sep 2025 = 9 x 34,358 = 309,222; Orchard 188,400 = 12 x 15,700 vs Jan-Sep 141,300.",
+  "expect.findings lists three vendors without forms but vendor_master.csv also shows Kestrel Supplies Inc. with tax_form_on_file 'none' and 6,480 paid (41,800 + 18,500 + 9,200 + 6,480 = 75,980).",
+  "bill_payment_history_12m.csv covers only 8 of the 12 vendors; Vale Marketing Studio, one of the expected no-form findings, has no bill history.",
+  "vendor_master.csv has no address, bank or country fields, so the duplicate finding can rest on name only."
+ ],
+ "summary": "PASS: rota rejected on content; 4 no-form vendors ranked (75,980), Kestrel duplicate, Summit Freight bank change then 8,017 paid 4 days later; IDs masked."
+}

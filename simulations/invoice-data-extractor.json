@@ -1,0 +1,28 @@
+{
+ "skill": "invoice-data-extractor",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Vendor matches two records, Kestrel Supplies and Kestrel Supplies Inc.: duplicate vendor record flagged",
+  "Kestrel Supplies Inc. shows paid_2025 6,480, exactly this invoice's total: possible prior payment under the duplicate record; validation status Review, Stop if confirmed",
+  "Bank-detail comparison reported NOT RUN, with out-of-band phone verification stated; remit 'account ending 4471' equals the invoice number, raised as a question",
+  "Due date 2025-10-05 calculated from Net 30 and labelled as calculated; terms match vendor master (30)",
+  "Validation status (Review) kept separate from extraction confidence (High)"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' lists only the invoice documents as uploads; there is no upload-path checklist asking for posted bills / open AP and payments, although 'Extraction is document work; validation is workspace work' calls the duplicate check 'the one that pays for the skill'. On the upload path the highest-value check silently has no input unless the agent improvises the request.",
+  "SKILL.md 'Step 5 — Payment instructions' frames the bank-detail check as impossible because 'Vendor bank details are not exposed on this surface' (a Mosofin statement); on the upload path the user could upload the vendor banking record or prior invoices, and the skill does not say to ask for them."
+ ],
+ "sample_defects": [
+  "No posted-bills or payments file is supplied, yet the sample embeds a likely duplicate: vendor_master.csv has 'Kestrel Supplies Inc.' with paid_2025 = 6,480 = this invoice's 6,000 + 480. The duplicate check the skill calls highest-value cannot be exercised and is not in expect.findings.",
+  "invoice_kestrel_INV-4471.txt 'Remit to: account ending 4471' reuses the invoice number as the bank account suffix, which reads as a generator artefact and invites a spurious redirection flag."
+ ],
+ "summary": "Shift rota rejected on content; 2 of 2 hit: Kestrel INV-4471, 2025-09-05, 6,000 + 480 = 6,480, Net 30; 300 x 20.00 = 6,000. Duplicate vendor record flagged; status Review. Nothing posted."
+}

@@ -1,0 +1,31 @@
+{
+ "skill": "xbrl-tagging-checklist",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "TB is single-entity (investment in Northbrook UK Ltd 104,800, intercompany payable 38,000): component-level reference against a likely consolidated 10-Q",
+  "Implied Q3 revenue 4,038,600 - 2,598,300 = 1,440,300; total assets down 27,041 from the prior filing",
+  "Expected calculation relationships verified: A = L + E at 2,713,959; retained earnings roll 1,378,654 + 594,241 - 67,500 = 1,905,395",
+  "No income-tax line in the TB for a 10-Q income statement",
+  "Adjusted EBITDA one-time professional fees not identifiable in the ledger"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' does not ask for a trial balance or the statements' ledger values, yet references/method.md 'Outputs', 'Reference Schedule' is the skill's main contribution and needs them; on the upload path the TB arrives unasked.",
+  "SKILL.md 'Stage 1 — Intake' has no question on consolidated versus component-level basis; references/edge-cases.md 'A component-level reference against a consolidated filing' says 'Establish the basis at Gate 1', which runs only on the Mosofin path.",
+  "SKILL.md 'Stage 1 — Intake', row D default 'Give the checklist only, with no tag review' does not say whether the reference schedule and Step 4b relationships should still be produced from the ledger."
+ ],
+ "sample_defects": [
+  "trial_balance_2025-09-30.csv is a single-entity TB holding Investment in Northbrook UK Ltd 104,800 and an intercompany payable 38,000, so it cannot serve as the reference for a consolidated 10-Q; the manifest does not say which basis the filing uses.",
+  "The TB has no income-tax expense or payable (net income 594,241 is pre-tax), unusual for a 10-Q registrant.",
+  "filing_inputs.md does not name the registrant, and a 'Ltd' company filing a Form 10-Q as an accelerated filer is unusual; the company rests only on the intake answers.",
+  "filing_inputs.md defines Adjusted EBITDA with 'one-time professional fees' but gives no amount; the TB shows only total fees 36,500 (9 x 2,500 run-rate = 22,500, so 14,000 is a guess)."
+ ],
+ "summary": "PASS: rota rejected on content; checklist only (no draft or tag map), 6 prior extensions flagged, no element names; TB reference is component-level vs a 10-Q."
+}

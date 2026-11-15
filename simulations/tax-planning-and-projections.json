@@ -1,0 +1,28 @@
+{
+ "skill": "tax-planning-and-projections",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Projected 2025 book profit 736,379 (594,241 actual + 142,138 forecast Q4) and tax 147,276 at 20%, effective and marginal both 20%",
+  "Run-rate annualisation (792,321) would overstate the year by 55,942 against the forecast; forecast used",
+  "Book basis stated: 25% straight-line tax depreciation could not be applied because no asset cost was uploaded",
+  "Safe harbour 15,250 x 4 = 61,000 leaves 86,276 due at final settlement; payments made and due dates not supplied, so the missed-instalment check could not run",
+  "Run error, not a finding: the set-aside line reads 'Oct 2025 ~ 10,113 x 20%'; Oct 2025 forecast profit is 51,764 (20% = 10,353). The Q4 total 28,428 and YTD 118,848 are correct."
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 1 — Project the income/profit base' requires the base 'adjusted toward taxable income' (depreciation against capital allowances), but SKILL.md 'Stage 1 — Upload path' checklist does not ask for the fixed asset register or asset cost, so on upload the depreciation adjustment is always blocked. Add it as recommended.",
+  "SKILL.md 'Stage 1 — Upload path' checklist omits tax payments made to date and instalment due dates, yet method.md 'Step 3 — The payments-made check' calls it the one query that 'finds something no projection does'; on the upload path it never runs unless the user volunteers them."
+ ],
+ "sample_defects": [
+  "tax_rates_and_rules_SAMPLE.md gives 'Tax depreciation: 25% straight line on cost' but no file in the sample set carries asset cost, so the only stated book-to-tax adjustment cannot be computed. Add asset cost (e.g. fixed assets cost 420,000 as in other Northbrook fixtures) or drop the rule.",
+  "tax_rates_and_rules_SAMPLE.md says 'four equal instalments' with no due dates and no payments-made file, so the payments-made check has nothing to test."
+ ],
+ "summary": "Staff rota rejected on content; 2025 tax 147,276 on book profit 736,379 at the sample 20% (source quoted); safe harbour 4 x 15,250 = 61,000; not tax advice, nothing filed."
+}
