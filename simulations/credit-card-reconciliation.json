@@ -1,0 +1,28 @@
+{
+  "skill": "credit-card-reconciliation",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 3,
+  "findings_total": 3,
+  "missed": [],
+  "unexpected": [
+    "Listing difference 2,513.59 - 2,036.59 = 477.00 fully explained by the second Hilton 438.00 and the late fee 39.00; unexplained 0.00",
+    "Missing receipts above the policy's 25 threshold quantified: Delta 612.40, Adobe 89.99, Uber 38.75 = 741.14; 'yes' flags reported as captured, not verified",
+    "Policy caps the data cannot clear: Capital Grille 486.50 needs 7+ attendees at 75/person; Hilton 438.00 is 188.00 over the 250/night cap if one night; no business purpose on any charge",
+    "Adobe 89.99 flagged as a recurring-subscription candidate, 1,079.88 annualised, recurrence unproven on one month",
+    "Capitalisation-threshold test not run because no threshold was given (skill forbids defaulting it)"
+  ],
+  "skill_defects": [
+    "SKILL.md 'Step 2 — Tie statement balance to GL' covers only a full statement or none ('If no statement was supplied, do not build this bridge'); it has no rule for a statement transaction listing with no opening/closing balance, which is what an issuer CSV export usually is, so the listing-to-listing match had to be improvised",
+    "SKILL.md 'Step 3 — Match receipts to transactions' distinguishes attachment metadata from a matched receipt only on the Mosofin path; on an upload, a ledger 'receipt yes/no' column is the same kind of evidence and the skill does not say so"
+  ],
+  "sample_defects": [
+    "manifest.json inputs describe card_account_ledger_2025-09.csv as 'Ledger for account 2050 Corporate Card Payable', but the file has no account number, account name or balance column (date, description, amount, receipt only), so the GL liability balance needed for the Step 2 tie-out is not in the sample set",
+    "corporate_card_statement_2025-09.csv has no opening balance, payments or closing balance, so 'Statement closing balance ties to GL' (SKILL.md 'Output Quality Standards') cannot be tested by this sample set"
+  ],
+  "summary": "Rota rejected on content; 477.00 gap = duplicate Hilton 438.00 + unbooked late fee 39.00; 3 charges (741.14) lack receipts over 25; no balance tie possible; nothing posted."
+}

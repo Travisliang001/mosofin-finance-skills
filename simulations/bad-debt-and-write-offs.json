@@ -1,0 +1,33 @@
+{
+ "skill": "bad-debt-and-write-offs",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Calder Print credit memo CM-0312 (2,150) unapplied against INV-20796 32,020; net 29,870, flagged as cash-application, not bad debt",
+  "Harlow Fabrication concentration 248,157 = 31.1% of AR, days to pay 76 -> 100, and INV-20418 skipped while a later invoice was paid (possible dispute)",
+  "Portfolio-wide slowing: every customer +3 days per successive invoice, raised as a CECL current-conditions signal",
+  "Reframed 'US GAAP aged-percentage' as a CECL provision matrix, making write-off history required",
+  "Existing allowance shown as 1.13% of AR and 17.2% of the 52,203 over 90 days; ageing ties to TB 1100 at 798,360"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake', row C offers 'US GAAP (CECL), IFRS 9, or local GAAP with an aged-percentage method', so a US GAAP + aged-percentage answer (as here) has no row; method.md 'Step 1' never says an ageing matrix under US GAAP is still CECL and needs current conditions and forecast.",
+  "SKILL.md 'Upload path — hand over one checklist' marks write-off history 'Required for CECL and IFRS 9, recommended otherwise', but 'Rules that never bend' says 'Never assumes a loss rate. Rates come from history, or are stated as the user's'; for the aged-percentage method the history (or user rates) is in practice required, and the checklist does not ask for user-stated rates as the alternative.",
+  "references/method.md 'Step 5 — Construct the JEs' requires 'the real account names from the connected chart of accounts' with no upload-path rule (a trial balance supplies names here, but the skill does not say so).",
+  "references/method.md 'Step 6 — Output' Sheet 4 Roll-Forward needs allowance movements, but the upload checklist's 'Allowance account detail' row says only 'Required for the adjustment'; it does not say a trial balance satisfies the adjustment but not the roll-forward."
+ ],
+ "sample_defects": [
+  "customer_payment_history_12m.csv is mechanical: every one of the 12 customers takes exactly 3 more days on each successive invoice (e.g. Castleton 25,28,31,34,37), so 'deterioration' cannot be distinguished between customers except by level.",
+  "Invoice numbers run against dates: open INV-20418 is dated 2025-05-28 while paid INV-18004 is dated 2025-06-10, and open INV-20907 (2025-04-23) is numbered after paid INV-19104 (2025-07-10).",
+  "No file names the company or currency although manifest inputs describes the TB as 'of Northbrook Trading Ltd'; verdicts can only be 'accepted with a limit: company user-asserted'.",
+  "No write-off history and no allowance account detail are supplied although the skill's checklist marks allowance detail Required; expect.findings correctly anticipates 'rates are not derived' but expect.validation does not name which required uploads should be listed as missing.",
+  "Arithmetic checks out: ageing 428,103 + (2,150) + 200,127 + 72,046 + 48,031 + 48,200 + 4,003 = 798,360 = TB 1100; TB debits = credits = 6,589,681."
+ ],
+ "summary": "PASS: rota rejected on content, all 3 findings hit; allowance correctly not computed for lack of loss rates; credit memo and Harlow concentration found extra."
+}

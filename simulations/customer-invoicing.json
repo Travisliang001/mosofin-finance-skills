@@ -1,0 +1,25 @@
+{
+ "skill": "customer-invoicing",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Chart of accounts has no deferred revenue / contract liability account; the run proposed DR AR 2,500 / CR [Deferred Revenue, to be named] rather than inventing an account or crediting 4000 Sales Revenue",
+  "Indicative contract liability at 30 Sep 2025 of 32,083.33 (billed 67,500 less revenue 35,416.67 on an SSP allocation of 100,000 / 25,000 / 25,000), handed to revenue-recognition-asc606",
+  "Contract file treated as a summary of key terms, accepted with a limit (figures user-supplied, not evidenced)",
+  "Invoice date, jurisdiction and next invoice number left open rather than defaulted; gap/duplicate and customer-history price checks reported as not run for want of an invoice listing"
+ ],
+ "skill_defects": [
+  "Minor: SKILL.md 'Step 4 — Construct the AR / Revenue / Tax JE' says to use 'the real account names from the connected chart of accounts' and gives a 'Deferred Revenue' template, but says nothing for a manual run where the uploaded chart has no deferred-revenue account; the agent relied on the generic rule in 'After an upload, validate the input before any work' ('never invent account names'). One line in Step 4 would make the behaviour explicit."
+ ],
+ "sample_defects": [
+  "Minor: chart_of_accounts.csv has no deferred revenue / contract liability account, yet contract_harlow_fabrication.md bills ahead of revenue (60,000 + 3 x 2,500 = 67,500 billed by 30 Sep against about 35,416.67 recognised), so the invoice JE cannot be completed from the sample. Not needed for the expected findings."
+ ],
+ "summary": "Rota rejected on content; September draft for 2,500 prepared and rev rec handed off as a separate question. Nothing issued or posted; invoice date, number and jurisdiction left open."
+}

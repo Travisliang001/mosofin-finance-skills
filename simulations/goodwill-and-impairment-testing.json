@@ -1,0 +1,25 @@
+{"skill": "goodwill-and-impairment-testing", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "Customer relationships intangible (260,000 at acquisition) should be tested under ASC 360 before goodwill because the trigger is a lost customer; not done for lack of undiscounted cash flows and carrying amounts by asset",
+  "Goodwill 750,000 traced to the acquisition: consideration 1,580,000 less fair value net assets 830,000",
+  "Fair value 2,208,565 with end-of-year discounting; 2,009,961 if the forecast years end 31 December and are discounted from 30 September; forecast year-end asked",
+  "Terminal value is 70% of fair value; breakeven rate 13.3%, terminal growth -1.8%, or a 26.6% fall in every cash flow",
+  "Projection grows 33% over four years straight after losing a major customer; not compared to actuals because none supplied",
+  "Annual test date and goodwill allocation basis not supplied; treated as an interim test because of the trigger"
+ ],
+ "skill_defects": [
+  "SKILL.md frontmatter description says the skill 'concludes on no impairment', while SKILL.md 'Rules that never bend' says 'Never concludes that an asset is or is not impaired.' The two contradict; the key expects 'Concludes nothing'.",
+  "references/method.md 'Step 4 — Quantitative test — goodwill (US GAAP ASC 350)' and 'Step 6 — Long-lived assets / amortizable intangibles' never state the required order: under US GAAP indefinite-lived intangibles and ASC 360 asset groups are tested first and the goodwill test uses their post-impairment carrying amounts. With a lost-customer trigger and a customer relationships intangible in the unit, a run following the method as written would test goodwill alone.",
+  "references/method.md 'Step 7 — Value-in-use / DCF mechanics' gives no discounting convention (end-of-year, mid-year, or a stub from the test date to the first forecast year-end). On this sample the choice moves fair value from 2,208,565 (end-of-year) to 2,321,621 (mid-year) or 2,009,961 (stub quarter).",
+  "references/method.md 'Step 3 — Optional qualitative assessment' does not say what to do when a triggering event is already known; it is left to judgment whether to skip straight to the quantitative test.",
+  "SKILL.md upload checklist asks for 'Carrying amounts by unit' only; the ASC 360 ordering and the IFRS allocation floor both need carrying amounts by asset within the unit, which the checklist never requests."
+ ],
+ "sample_defects": [
+  "impairment_inputs.md names no entity (only the unit 'Harlow') and no currency, so the company can only be user-asserted.",
+  "impairment_inputs.md gives projections for calendar 2026-2030 with a 30 September 2025 test date and no October-December 2025 cash flow or forecast year-end, so the discount periods are ambiguous: end-of-year from the test date 2,208,565 vs a one-quarter stub 2,009,961. Either is above 1,620,000, so the expected finding holds.",
+  "The carrying amount 1,620,000 is a single figure with no split; the acquisition file shows customer relationships 260,000 and trade name 90,000 in the unit, and the trigger is a lost major customer, yet no undiscounted cash flows or asset carrying amounts are given for the ASC 360 test that should precede goodwill. The key does not expect this point.",
+  "Carrying amount 1,620,000 at 30 Sep 2025 vs acquisition-date net assets plus goodwill 830,000 + 750,000 = 1,580,000: a 40,000 increase over one quarter is unexplained but plausible; not a defect in itself."
+ ],
+ "summary": "PASS 3/3: trigger noted, fair value 2,208,565 vs carrying 1,620,000 with sensitivity, no conclusion; method omits ASC 360-before-goodwill ordering."}
