@@ -287,6 +287,22 @@ live data, the output says so in the filename and on the first page.
 | `aml-kyc-procedures` | 48% | AML and KYC framework documents and review lists for the responsible officer |
 | `restructuring-and-severance-asc420` | 38% | Restructuring accrual and reserve roll-forward, by cost type not by name |
 
+**Wave 16** — tax (released from review item R2): computations for a qualified professional to review, never advice, with no rate built in, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `1099-and-t4a-prep` | 58% | Who must be reported, for how much, and who has no tax form on file |
+| `payroll-tax-filings` | 57% | Withheld, deposited and reported, reconciled |
+| `corporate-tax-provision-asc740` | 54% | Current and deferred tax in the accounts; effective rate reconciliation |
+| `income-tax-deferred-tax-rollforward` | 54% | Temporary differences and the deferred tax roll-forward |
+| `tax-planning-and-projections` | 51% | Project the year's tax, payments on account and the effect of options |
+| `tax-return-prep-corporate` | 50% | Book profit to taxable profit, with the workpapers |
+| `r-and-d-tax-credit` | 50% | Qualifying R&D cost by project and the claim documentation |
+| `sales-tax-us-multistate` | 50% | Sales by state against thresholds you supply; liability reconciled to returns |
+| `vat-gst-international` | 50% | Output tax, reverse charge, input tax and the VAT account reconciliation |
+| `transfer-pricing-documentation` | 50% | Map intercompany flows and assemble the documentation draft |
+| `personal-tax-return-prep` | 37% | Organise and compute an individual's return; saves no personal data |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
