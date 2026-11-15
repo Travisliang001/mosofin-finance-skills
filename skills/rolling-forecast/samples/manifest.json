@@ -38,7 +38,7 @@
   ],
   "findings": [
    "Locks actuals through September 2025",
-   "Challenges the 8% growth assumption against the run-rate and seasonality",
+   "Challenges the forecast, which applies 10% to every line, against the run-rate and seasonality",
    "Marks this as a first forecast if no prior forecast is treated as supplied"
   ],
   "read_only": [

@@ -37,8 +37,8 @@
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
-   "Proposes ranges from 36 months of history and waits for acceptance",
-   "Runs the three named scenarios against the 250,000 minimum cash threshold",
+   "Proposes ranges from 36 months of history and stops for the user to accept them before running sensitivities",
+   "Runs the three named scenarios on a cash bridge against the 250,000 minimum cash threshold",
    "States each range's source"
   ],
   "read_only": [

@@ -121,6 +121,7 @@ The sweep works by **comparing the post-period activity against the balance shee
 | **A pre-period receivable is written off after the period end** | Same. The uncollectibility generally existed at the date. |
 | **A pre-period receivable is paid after the period end, having been provided against** | **Evidence the provision was too high** — the mirror case, and one nobody looks for because it is good news. |
 | **A credit note or refund issued after the period end against a pre-period invoice** | The revenue may not have been earned, or the goods were faulty at the date. See `revenue-recognition-asc606`. |
+| **Goods returned after the period end** | Evidence on the period-end sale and on the stock's value: the revenue may need reversing and the returned stock may need a write-down. |
 | **Inventory sold after the period end below its carrying cost** | **Net realisable value evidence** at the balance sheet date. See `inventory-obsolescence-and-reserve`. |
 | **A pre-period liability settled at a different amount** | Evidence of the correct amount of an obligation that existed. |
 | **A litigation or claim settlement paid after the period end** | Evidence of the amount of a liability existing at the date, where the claim predates it. |

@@ -79,7 +79,7 @@ Ask only what you cannot already see.
 > **the taxpayer only**. Shall I go ahead?*
 
 On the upload path, name each file you received and say what was read from it: the document type
-and the year. Do not repeat identifiers back. Flag anything unreadable straight away.
+and the year. Do not repeat tax numbers, account numbers or other personal identifiers back. Flag anything unreadable straight away.
 
 **Then validate the upload before any work, every time.** For each file: is it the right kind of
 document, for the right company and period, usable, and necessary for this skill? Give a verdict

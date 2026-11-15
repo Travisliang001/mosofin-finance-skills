@@ -1,13 +1,13 @@
 {
  "skill": "1099-and-t4a-prep",
  "company": "Northbrook Trading Ltd",
- "period": "reporting year 2025, run on 30 September with nine months of payments",
+ "period": "reporting year 2025, run on 30 September 2025",
  "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
- "intake_answers": "Company: Northbrook Trading Ltd. Period: reporting year 2025, run on 30 September with nine months of payments. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: reporting year 2025, run on 30 September 2025. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
  "inputs": [
   {
-   "file": "payments_by_vendor_2025.csv",
-   "is": "Total paid to each vendor, 1 January to 30 September 2025, by payment method"
+   "file": "payments_by_vendor_12m.csv",
+   "is": "Total paid to each vendor in the twelve months to 30 September 2025, by payment method"
   },
   {
    "file": "vendor_master.csv",
@@ -20,23 +20,23 @@
  ],
  "negative": [
   {
-   "file": "payments_by_vendor_2025_final.csv",
+   "file": "payments_by_vendor_12m_final.csv",
    "is": "A staff rota (not an accounting document)",
-   "why": "The name suggests it is 'Total paid to each vendor, 1 January to 30 September 2025, by payment method'. The content is a staff rota. Reject it on content, not on name."
+   "why": "The name suggests it is 'Total paid to each vendor in the twelve months to 30 September 2025, by payment method'. The content is a staff rota. Reject it on content, not on name."
   }
  ],
  "expect": {
   "validation": [
    "Shows one validation table before any work, with a verdict per file",
    "Accepts every file listed under inputs",
-   "Rejects payments_by_vendor_2025_final.csv: The name suggests it is 'Total paid to each vendor, 1 January to 30 September 2025, by payment method'. The content is a staff rota. Reject it on content, not on name.",
+   "Rejects payments_by_vendor_12m_final.csv: The name suggests it is 'Total paid to each vendor in the twelve months to 30 September 2025, by payment method'. The content is a staff rota. Reject it on content, not on name.",
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
-   "Brightline IT Services, M. Okafor Consulting and Vale Marketing Studio were paid in 2025 with no tax form on file",
+   "Brightline IT Services, M. Okafor Consulting, Vale Marketing Studio and Kestrel Supplies Inc. were paid with no tax form on file",
    "Corporations excluded except legal services (Greyfriars is a partnership and reportable)",
    "Pinecrest is a foreign payee paid by card: excluded",
-   "Says the list is preliminary: payments cover January to September only",
+   "Says the list is preliminary: the payments cover the twelve months to September, not the calendar year",
    "LLC payees (Orchard, Halden, Vale) need their tax classification before they are included or excluded"
   ],
   "read_only": [

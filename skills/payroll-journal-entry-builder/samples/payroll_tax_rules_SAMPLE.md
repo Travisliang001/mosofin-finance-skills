@@ -7,4 +7,4 @@
 - Employee income tax withheld: 12% of gross. Employee social security: 7.65%. Employer social security: 7.65%.
 - Deposit schedule assigned for 2025: **monthly**, due by the 15th of the following month.
 - Returns: quarterly. Filed by the company (no payroll provider).
-- Deposits made in 2025 Q3: July 31,900 on 14 Aug; August 31,900 on 15 Sep; September not yet paid.
+- Deposits made in 2025 Q3: the July liability on 14 August and the August liability on 15 September, as shown in the payroll ledger; September not yet paid.

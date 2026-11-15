@@ -95,6 +95,8 @@ Preserved, and it is the first quality standard. **The commonest failure in this
 
 ### Step 2b — Ground the ranges in observed history *(Mosofin addition)*
 
+**Stop when the ranges are proposed.** Show each range with its source and wait for the user to accept, adjust or override them before Step 3. The validation wait does not count as this one.
+
 **`[auto: read]`. The core contribution of this conversion.**
 
 For each selected driver, compute from the longest available history:

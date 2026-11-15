@@ -37,7 +37,7 @@
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
-   "Historical side ties to the statements",
+   "Historical side ties to the statements, with the March dividend and June adjustment explaining the retained earnings movements",
    "Forecast uses only the assumptions supplied; none generated"
   ],
   "read_only": [

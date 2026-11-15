@@ -1,5 +1,5 @@
 account,name,debit,credit
-1000,Operating Bank Account,1002979,0
+1000,Operating Bank Account,1006479,0
 1010,Petty Cash,500,0
 1600,Investment in Northbrook UK Ltd,104800,0
 1050,Stripe Clearing,6420,0
@@ -25,7 +25,7 @@ account,name,debit,credit
 6000,Payroll Expense,669600,0
 6100,Rent,81000,0
 6200,Marketing,172474,0
-6300,Software,31500,0
+6300,Software,28000,0
 6400,Professional Fees,36500,0
 6500,Bank Fees,16155,0
 6600,Depreciation,37800,0

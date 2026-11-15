@@ -2,6 +2,7 @@
 
 *Sample document for testing. Fictitious company and figures.*
 
+- Non-GAAP measure used: Adjusted EBITDA = net income + interest + depreciation + one-time professional fees (June 2025: 14,000). Reconcile it to net income.
 - Revenue grew on volume in Fixings; prices were unchanged.
 - Gross margin fell because steel prices rose and were not passed on until October.
 - Marketing rose for a trade show in September.

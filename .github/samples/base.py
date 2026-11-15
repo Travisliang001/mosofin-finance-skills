@@ -20,7 +20,7 @@ for i, (y, m) in enumerate(MONTHS):
     rev = round(300000 * 1.012 ** i * (1 + 0.12 * math.sin(2 * math.pi * (m - 3) / 12)) / 100) * 100
     cogs = round(rev * (0.60 if i >= 33 else 0.58))
     r = dict(month=ym(i), revenue=rev, cogs=cogs, payroll=62000 + 400 * i, rent=9000,
-             marketing=round(rev * 0.04 * (1.6 if i == 35 else 1)), software=3500,
+             marketing=round(rev * 0.04 * (1.6 if i == 35 else 1)), software=0 if i == 35 else 3500,   # September subscription not posted
              professional_fees=2500 + (14000 if (y, m) == (2025, 6) else 0),
              bank_fees=round(rev * 0.004), depreciation=4200, insurance=1500, repairs_maintenance=500,
              interest=round((400000 - 5000 * i) * 0.057 / 12))
@@ -216,10 +216,10 @@ SEEDED = {
     "je_blank": "JE-0907: 9,999 with a blank memo, just under 10,000",
     "marketing_var": "Marketing in September is about 60% over its usual share of revenue",
     "margin_dip": "Gross margin falls from 42% to 40% in the last three months",
-    "dso_drift": "DSO drifts from about 42 to 52 days over 36 months; DPO falls from 38 to 33 (bills paid earlier)",
+    "dso_drift": "DSO drifts from about 42 to 52 days over 36 months; DPO on the balance sheet falls from about 38 to 33",
     "dead_stock": "LK-09, PN-55 and TR-07 have had no sales for more than 300 days",
     "fa_disposed": "FA-008 was sold in July 2025 and is still on the register",
-    "vendor_forms": "Brightline IT Services, M. Okafor Consulting and Vale Marketing Studio were paid in 2025 with no tax form on file",
+    "vendor_forms": "Brightline IT Services, M. Okafor Consulting, Vale Marketing Studio and Kestrel Supplies Inc. were paid with no tax form on file",
     "vendor_dup": "'Kestrel Supplies' and 'Kestrel Supplies Inc.' look like the same vendor",
     "bank_change": "Summit Freight's bank details changed on 16 September 2025",
     "payroll_clearing": "Payroll clearing carries a residual 1,200",

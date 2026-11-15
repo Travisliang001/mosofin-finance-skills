@@ -40,7 +40,7 @@ Every verdict below is a **default written before the gateway was consulted.** W
 Four items, preserved:
 
 1. **Scope** — all customers, one exact customer, or a requested overdue segment. `[manual]` to state, `[auto]` to apply.
-2. **As-of date** — use the user's date; otherwise use today's and **state which you used**. `[auto]`
+2. **As-of date** — use the user's date; if none was given, **ask** — never default it. `[auto]`
 3. **Deliverable** — aging summary, invoice detail, collection plan, metrics, drafts, or a full workpaper. `[manual]`
 4. **Special policy** — use only policy the user supplied; otherwise apply conservative, professional defaults. `[manual]`, and see Gate 3 — check the profile before asking.
 

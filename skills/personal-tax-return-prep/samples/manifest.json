@@ -31,7 +31,7 @@
   "findings": [
    "Salary and withholding for E12 taken from the payroll register for one month only: says a full year is needed",
    "Dividend 48,000, interest 1,240, net rental 11,500",
-   "Saves nothing and repeats no identifier"
+   "Saves nothing and repeats no tax or account number"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",

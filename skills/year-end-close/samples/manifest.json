@@ -1,9 +1,9 @@
 {
  "skill": "year-end-close",
  "company": "Northbrook Trading Ltd",
- "period": "year ended 31 December 2024",
+ "period": "planning the close of the year ending 31 December 2025; the latest closed year is 2024",
  "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
- "intake_answers": "Company: Northbrook Trading Ltd. Period: year ended 31 December 2024. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: planning the close of the year ending 31 December 2025; the latest closed year is 2024. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
  "inputs": [
   {
    "file": "trial_balance_2024-12-31.csv",
@@ -15,7 +15,7 @@
   },
   {
    "file": "journal_entries_2025-09.csv",
-   "is": "Journal entries for September 2025, with user and posting date"
+   "is": "Journal entries dated September 2025, with user and posting date; most were posted 1 to 3 October, after the 30 September trial balance was drawn"
   },
   {
    "file": "audit_inputs.md",
@@ -24,21 +24,21 @@
  ],
  "negative": [
   {
-   "file": "trial_balance_september.csv",
-   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
-   "why": "It is the right kind of document for the wrong period (30 September 2024). Reject it."
+   "file": "trial_balance_2025-09-30_v2.csv",
+   "is": "Trial balance of a different company, Harlow Fabrication Ltd, at 30 September 2025",
+   "why": "It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it."
   }
  ],
  "expect": {
   "validation": [
    "Shows one validation table before any work, with a verdict per file",
    "Accepts every file listed under inputs",
-   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong period (30 September 2024). Reject it.",
+   "Rejects trial_balance_2025-09-30_v2.csv: It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it.",
    "Lists any required upload that is still missing, and waits for an answer"
   ],
   "findings": [
    "Lists annual procedures with owners; counts, impairment and tax true-up are for people",
-   "Notes that the trial balance supplied is 31 December 2024 while the audit inputs describe 2025, and asks which year is being closed"
+   "Uses the 2024 trial balance as the latest closed year and plans the 2025 close from the audit inputs"
   ],
   "read_only": [
    "Posts, sends, pays and files nothing",
