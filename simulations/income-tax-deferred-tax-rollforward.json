@@ -1,0 +1,25 @@
+{"skill": "income-tax-deferred-tax-rollforward", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "No deferred tax, tax expense or tax payable account in the trial balance, so neither roll-forward tie can run and the opening 9,000 is not booked",
+  "Opening 9,000 DTL implies book value 195,000 at 31 Dec 2024; the 2025 trial balance implies 146,600 (gap 48,400), which would give a 680 asset, not a 9,000 liability",
+  "Two readings of the tax basis: 2024 WDV 150,000 rolled forward gives DTL 7,510 (movement -1,490); the 25% rule applied per asset from the register gives tax value 28,542 and DTL 16,052",
+  "Possible missed differences: allowance 9,000, accrued liabilities 28,800, prepaid expenses 18,000",
+  "FA-008 sold July 2025 still in cost 420,000 and the register",
+  "Accumulated depreciation 311,200 vs about 248,800 recomputed from the register"
+ ],
+ "skill_defects": [
+  "references/mosofin-protocol.md 'Rules for the common cases' covers a file that 'names a different company or period' and one that 'does not name its company, currency or period', but not two undated files competing for the same required input with different figures. trial_balance_september.csv names no date; rejecting it as the wrong year rests on inference from retained earnings (789,221 vs 1,422,317) and the term loan.",
+  "SKILL.md Stage 1 row F 'If unanswered: Open from the ledger balance in total', and references/method.md 'Step 3 — Rollforward DTAs / DTLs' ties to the balance sheet and P&L, assume a deferred tax account exists. There is no rule for an upload whose trial balance has no tax accounts at all, which is the case here.",
+  "references/method.md 'Step 1 — Build the temporary differences inventory' asks for tax basis per item but gives no instruction when only a prior-year total tax written-down value arrives and it cannot be reconciled to the asset register under the supplied rule; the run had to show two readings (DTL 7,510 vs 16,052).",
+  "references/method.md 'Step 3' has a line for acquisitions/disposals but the skill never asks for the tax treatment of a disposal (balancing charge or allowance), which the rate card does not give."
+ ],
+ "sample_defects": [
+  "trial_balance_september.csv carries no date in its content; the key says reject it as 30 September 2024 'on content', but the only content evidence is retained earnings 633,096 lower and the term loan 60,000 higher.",
+  "The opening DTL 9,000 is reproducible from the wrong-year file, not the right one: with trial_balance_september.csv, opening book value 420,000 - (260,800 - 37,800) = 197,000, difference 47,000, DTL 9,400; with trial_balance_2025-09-30.csv, 420,000 - (311,200 - 37,800) = 146,600 against tax 150,000, a 680 asset.",
+  "prior_year_tax_computation_summary.md tax written-down value 150,000 on cost 420,000 is inconsistent with tax_rates_and_rules_SAMPLE.md '25% straight line on cost' applied to the register's in-service dates (2019-2023), which gives about 63,300 at 31 Dec 2024.",
+  "Neither trial balance has a deferred tax, income tax expense or tax payable account, although the 2024 summary reports a 9,000 deferred tax liability and 61,000 of tax.",
+  "fixed_asset_register.csv shows FA-008 'sold Jul 2025' still within the 420,000 cost that the trial balance carries at 30 September 2025."
+ ],
+ "summary": "PASS 3/3: 9,000 rolled forward, fixed asset difference at 20% (DTL 7,510 on the 2024 WDV), tax schedule requested; sample's 9,000 opening only reproduces from the wrong-year TB."}

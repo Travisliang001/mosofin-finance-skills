@@ -1,0 +1,31 @@
+{
+ "skill": "cash-application",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Aging dated 30 Sep still shows all four paid invoices open, so the lockbox receipts (22-26 Sep) were treated as payments not yet recorded",
+  "Unapplied 4,003 held in 1100 per the policy file, not in a separate unidentified-deposits account as the skill's Step 2 level 6 says",
+  "Calder Print credit memo CM-0312 (-2,150) noted as open beside INV-20796",
+  "Run error: the .md states the aging nets to 797,510; the correct net is 800,510 - 2,150 = 798,360 (no figure in the findings depends on it)"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 2 — Match payments to invoices', level 6 says to park unidentified cash in a 'Customer Deposits — Unidentified' account, while the sample policy holds it in 1100 A/R; the skill does not say that a user policy overrides the named account.",
+  "SKILL.md 'Step 2', level 1 assumes the reference cites the invoice number exactly; there is no rule for a reference that differs only in format (INV20685 vs INV-20685), or what match level that is.",
+  "SKILL.md 'Step 2' fuzzy threshold 0.85 conflicts with its own truncation rule ('ACME C' matches customers starting with it): 'ASHBY ENG' vs 'Ashby Engineering' scores 0.69 and 'RIDGEWAY LOG' 0.80, so the two rules give different answers and the skill does not say which wins.",
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' is the only intake table and is written for the Mosofin path; there is no upload-path checklist naming the open-invoice export as required and the customer master and chart of accounts as recommended."
+ ],
+ "sample_defects": [
+  "ar_aging_detail_2025-09-30.csv has a single 'amount' column with no label saying it is the open balance; Step 1 requires the open balance, so a strict run must assume it.",
+  "The aging is dated 30 Sep, after the lockbox dates (22-26 Sep), yet still shows INV-20537, 20574, 20611 and 20685 open; a 30 Sep aging should already reflect receipts banked on 22-26 Sep unless they were unrecorded, which the key does not say.",
+  "No file names the company, the currency or the lockbox bank account, so the 'right company' check rests entirely on intake.",
+  "Key arithmetic checks out: 72,046 - 71,546 = 500 > 50 write-off limit; lockbox total 112,071 + 88,056 + 71,546 + 56,036 + 4,003 = 331,712."
+ ],
+ "summary": "PASS: rota rejected on content; Ridgeway 500 deduction kept open, INV20685 matched, 4,003 held unapplied despite Foxhall amount match; one misstated aging total in the .md."
+}

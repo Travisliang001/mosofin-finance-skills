@@ -1,0 +1,30 @@
+{
+  "skill": "customer-credit-and-collections-policy",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 3,
+  "findings_total": 3,
+  "missed": [],
+  "unexpected": [
+    "Deviation from expect.validation 'Accepts every file listed under inputs': approval_matrix_and_tolerances.md was set aside, not accepted, because it is a purchase-order approval and three-way-match tolerance document that no step of this skill uses (mosofin-protocol.md: 'A file no step uses is set aside and named'); graded PASS on the BRIEF's validation definition, see sample_defects",
+    "Book-wide slowing: mean days-to-pay 38.8 on each customer's first invoice vs 51.8 on the latest; 45.3 simple, 55.6 value-weighted against net 30",
+    "Hold rule tested at three thresholds: >30 days stops 4 of 12 (372,237, 46.6% of A/R), >60 stops 3 (300,191), >90 stops 2 (252,160); 60 days or over-limit proposed",
+    "Harlow 31.1% of A/R and 48,157 over its 200,000 limit; 92% of the 90+ bucket",
+    "KPI baseline: % current 53.4%; DSO about 80.9 days on a stated proxy denominator (paid history + open items = 3,602,299); CEI and bad debt % not computed for lack of opening A/R and write-offs",
+    "Design point: holds sit with the sales lead who owns the relationship; recommends finance decides, sales executes"
+  ],
+  "skill_defects": [
+    "references/method.md 'Step 6 — KPIs' calls DSO, CEI, % current A/R and bad debt % '[auto]' and SKILL.md 'Upload path — hand over one checklist' does not ask for opening A/R, period credit sales or write-offs, so on the upload path two of the four 'automated' KPIs cannot be baselined and DSO needs a proxy denominator",
+    "references/method.md 'Step 3 — Collections cadence' lists buckets '0-15, 16-30, 31-60, 61-90, 90+' without saying whether they are days past invoice or days past due, which changes every bucket count"
+  ],
+  "sample_defects": [
+    "approval_matrix_and_tolerances.md is a purchasing/AP document (PO approval: managers up to 10,000, CEO above; matching tolerance price 2%, total 25; 'Exceptions are resolved by the AP manager'), apparently reused from the three-way-match set; it says nothing about customer credit approval or write-off limits, yet manifest.json lists it under inputs and expects it to be accepted",
+    "customer_payment_history_12m.csv is identical to the credit-limit-and-customer-risk sample, with every customer's days-to-pay rising by exactly 3 per invoice (Harlow 6), so 'the whole base is slowing' is a generation artefact",
+    "No credit sales, opening A/R or write-off figures are supplied, so the skill's four-KPI baseline cannot be completed from the sample set"
+  ],
+  "summary": "Rota rejected on content; AP approval matrix set aside as unused; Harlow, Tideswell, Foxhall slow; 30-day hold would stop 4 of 12; governance designed, not verified; nothing changed."
+}

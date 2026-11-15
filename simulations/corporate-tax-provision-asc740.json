@@ -1,0 +1,29 @@
+{
+ "skill": "corporate-tax-provision-asc740",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Opening DTL 9,000 stated and used as an alternative, but challenged: tax WDV 150,000 exceeds book NBV 146,600, which gives a DTA of 680, not a DTL of 9,000 (9,680 gap); the run's primary roll-forward opened from DTA 680",
+  "2025 tax depreciation not computable per asset; Illustration A (25% x 420,000 x 9/12 = 78,750) used only for the current/deferred split; total provision 121,123 (ETR 20%) independent of it",
+  "No tax account of any kind in the 2025 TB although 2024 tax was 61,000 and DTL 9,000: possible unbooked prior-year tax; no 2025 instalments visible (safe harbour 4 x 15,250)",
+  "FA-008 sold Jul 2025 but TB cost still 420,000 including it: disposal not recorded",
+  "Interim AETR assumed equal to 20% for lack of a forecast"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' upload checklist does not ask for a full-year forecast, which references/edge-cases.md 'Interim provisions' requires (estimated annual effective rate applied to YTD income). On an interim period the run had to assume the AETR. Add 'full-year forecast (interim periods)' to the checklist.",
+  "SKILL.md 'Stage 1 — Intake' row D ('tax basis of each temporary difference') does not say the basis is needed per asset for fixed assets; a pooled WDV (as supplied) cannot drive a per-asset tax depreciation rule like '25% straight line on cost'. Minor."
+ ],
+ "sample_defects": [
+  "prior_year_tax_computation_summary.md is internally inconsistent with the TB: book NBV at 31 Dec 2024 = 420,000 - (311,200 - 9 x 4,200 = 273,400) = 146,600; tax WDV 150,000 > book NBV, so the fixed-asset difference is deductible: 3,400 x 20% = DTA 680. A DTL of 9,000 would need tax WDV of 146,600 - 45,000 = 101,600. Expect.findings asks for 'Opening deferred tax liability 9,000', which a careful run must challenge.",
+  "fixed_asset_register.csv does not reproduce either balance: book accumulated depreciation by register (monthly SL from in-service) is about 211,741 at 31 Dec 2024 vs 273,400 in the books, and 25% SL tax gives 356,708-372,000 accumulated vs 270,000 implied by WDV 150,000.",
+  "fixed_asset_register.csv marks FA-008 'sold Jul 2025' while trial_balance_2025-09-30.csv cost 1500 is still 420,000 = the register total including FA-008's 12,000."
+ ],
+ "summary": "Sept 2024 TB rejected as wrong year; 3 of 3 hit: current tax 20% (112,933), FA difference from WDV 150,000, opening DTL 9,000 stated but shown not to reconcile (DTA 680). Nothing posted."
+}

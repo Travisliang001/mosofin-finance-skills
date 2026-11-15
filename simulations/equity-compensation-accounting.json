@@ -1,0 +1,26 @@
+{
+ "skill": "equity-compensation-accounting",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Attribution method not given: graded (accelerated) alternative shown alongside straight-line, cumulative 8,274.19 against 2,750.00; September month 997.09 against 458.33",
+  "60,000 options outstanding at the start of 2025 have no terms or fair values; blocking for those awards, and prior-period expense may also be missing",
+  "No APIC account on the TB, so no equity credit has ever been booked; proposed entry left with account names to be supplied",
+  "Roll-forward 60,000 + 20,000 = 80,000 outstanding; 2,500 of the 2025 grant vested at 30 Sep"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' has no question for the attribution method, although references/method.md 'Step 4 — Determine the expense recognition pattern' says the choice 'materially changes each period's charge' and must be stated. With monthly (graded) vesting and no answer, the agent fell back on the protocol rule and showed both methods. Add the attribution election to intake row E, with a stated default (e.g. straight-line for service-only awards under US GAAP, said to be assumed)."
+ ],
+ "sample_defects": [
+  "The expected 2,750 (22,000 / 48 x 6) presumes straight-line attribution, but neither cap_table.csv nor the intake answers state it, and the grant vests monthly (graded); the accelerated method gives 8,274.19. Add 'straight-line attribution' to the intake answers.",
+  "cap_table.csv shows 60,000 options outstanding at the start of 2025 with no grant terms or fair values, and no APIC account exists in trial_balance_2025-09-30.csv; the expected findings ignore them. Either give their terms or state they are fully vested and expensed."
+ ],
+ "summary": "Rota rejected on content; 22,000 over 48 months, 2,750 to 30 September, and nil SBC in the TB all stated. Graded alternative shown since attribution was not given. Nothing posted."
+}

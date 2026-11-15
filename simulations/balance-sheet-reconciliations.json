@@ -1,0 +1,36 @@
+{
+ "skill": "balance-sheet-reconciliations",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Likely duplicate A/P bill: Kestrel Supplies INV-4471 and 'Kestrel Supplies Inc.' INV4471, 6,480 each; sub-ledger and GL both overstated",
+  "Stripe Clearing 6,420 and Payroll Clearing (1,200) not at zero",
+  "Tideswell 12,400 deposit on 30 Sep not reflected in the ageing (INV-20722 48,031 still fully open)",
+  "Indicative straight-line recomputation of accumulated depreciation 248,787 vs GL 311,200 (gap 62,413); monthly 3,814 vs 4,200 booked",
+  "Slow-moving inventory LK-09, PN-55, TR-07 totalling 86,216 flagged for NRV review",
+  "Only 59% of gross balance-sheet balances (3,387,040 of 5,707,777) had any supporting side; ten accounts reported as not reconciled"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' Inputs table marks GL balance, chart of accounts and A/R/A/P support as '[auto]' with no upload-path wording; on a manual run the reader must infer that each becomes a file to request, and no upload checklist naming formats per account is given.",
+  "SKILL.md 'Step 1 — Identify the right reconciliation method per account type' sends Cash to 'bank-reconciliation' and Inventory to 'inventory-to-gl-reconciliation' but does not say whether this skill should still bridge those accounts in its own workpaper or only cross-refer.",
+  "SKILL.md 'Step 5 — Propose corrections' requires 'the real account names from the connected chart of accounts'; on the upload path the TB supplies names, but the skill does not say so, and accounts it lacks (gain on disposal, the expense the duplicate bill was charged to) have no rule.",
+  "SKILL.md 'Step 1' table pairs Accumulated Depreciation with 'Fixed Asset Register depreciation summary', but the 'Edge Cases' section has no rule for a register that carries cost only; the run had to choose between not reconciling and recomputing under an assumed convention.",
+  "SKILL.md 'Edge Cases', 'Tolerance threshold not provided': 'ask the user ... but do not silently assume' — no fallback for a run that must proceed, so statuses like 'Within tolerance' cannot be used."
+ ],
+ "sample_defects": [
+  "inventory_listing_2025-09-30.csv: unit_cost is rounded to whole dollars so qty x unit_cost does not equal value on any line (e.g. SB-20 2,985 x 20 = 59,700 vs 59,691); recomputed total 683,166 vs stated 683,100.",
+  "fixed_asset_register.csv has no accumulated depreciation; straight-line from its own cost/life gives about 248,787 vs TB 1510 311,200, and monthly 3,814 vs 37,800/9 = 4,200 booked, so the register cannot support 1510 under any obvious convention.",
+  "Bank ledger records 'Deposit - Tideswell Hotels' 12,400 on 30 Sep while the ageing still shows Tideswell INV-20722 48,031 fully open and A/R still ties to the TB, so the deposit's credit side is unexplained in the data set.",
+  "The Kestrel duplicate (6,480 x 2) and the non-zero clearing accounts (1050 6,420, 2150 1,200) are in the files but not in expect.findings.",
+  "Negative TB is identifiable only by inference: 1510 differs by 50,400 = 12 x 4,200 and 2500 by 60,000 = 12 x 5,000; the file itself states no year.",
+  "Arithmetic of key checks out: 1,219,776 + 12,400 - 3,150 = 1,229,026 = 1,230,316 - 50 - 1,240; ageing 798,360 = TB 1100; listing value 683,100 = TB 1200; open bills 255,264 = TB 2000; register cost 420,000 = TB 1500."
+ ],
+ "summary": "PASS: Sep-2024 TB rejected on content, all 3 findings hit; extra Kestrel duplicate, clearing balances and Tideswell deposit gap found."
+}

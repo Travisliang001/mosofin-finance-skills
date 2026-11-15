@@ -1,0 +1,26 @@
+{
+ "skill": "duplicate-invoice-detection",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Summit Freight bank details changed 16 Sep 2025, after open bill INV-4644 (23,449, 2.9x the usual 8,017) and before it falls due; hold pending call-back verification. Bill due date also 30 days against 15-day terms",
+  "Payment history incomplete: vendor master shows 950,780 paid in 2025, history 661,905 (288,875 missing; four vendors with no history at all)",
+  "Kestrel Supplies Inc. has no tax form or tax ID while Kestrel Supplies has a W-9; raised as a possible fictitious vendor if Kestrel does not recognise it",
+  "Cross-vendor identical amounts 23,449 (Summit / Pinecrest) and 13,027 (Brightline / Northgate) listed for review",
+  "History bill numbers look like internal system numbers, so open-vs-paid invoice-number matching could not run; Rule 9 degraded to Rule 2 for want of payment method"
+ ],
+ "skill_defects": [
+  "Minor: SKILL.md 'Step 2 — Apply duplicate-detection rules' (Rule 7) and 'Edge Cases' treat bank details as wholly unavailable, but have no rule or edge case for a vendor master that carries a bank-details-changed date. A change shortly before a large payment is the classic payment-diversion signal; the agent raised it on its own judgment. One line under Rule 7 ('where the master shows a recent bank change, flag open bills to that vendor for call-back') would make it consistent."
+ ],
+ "sample_defects": [
+  "vendor_master.csv paid_2025 does not tie to bill_payment_history_12m.csv for any vendor: master total 950,780 vs history payments dated 2025 of 661,905 (e.g. Kestrel Supplies 412,300 vs 9 x 34,358 = 309,222; Vale, Northgate, Pinecrest and Dale have master totals but no history rows). Not needed for the expected findings, but it makes the history look truncated."
+ ],
+ "summary": "Rota rejected on content; Kestrel INV-4471 / INV4471 duplicate (6,480, both open) and the Kestrel vendor alias flagged. Also flagged a Summit Freight bank change before a big bill. Nothing paid."
+}

@@ -1,0 +1,32 @@
+{
+ "skill": "budget-builder",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "COGS step from 58.0% (33 months) to 60.0% from July 2025 detected; COGS budgeted at current unit cost = 0.60/1.03 = 58.25% of 2026 revenue, with a 60% pass-through case (-102,995)",
+  "One-offs excluded from the base: June 2025 professional fees +14,000, Sep 2025 marketing +10,930; normalised LTM operating income 786,780",
+  "Q4 2026 at 11.3% margin (Oct-Dec each below 12%) because the Q4 base is Oct-Dec 2024 for lack of 2025 actuals; 168,947 base gap at historical 15.4% growth shown but not used",
+  "New hires costed at salary only because the payroll line is unsplit and the employer loading cannot be derived",
+  "Intake period 'September 2025' read as latest actuals, with FY2026 taken from the inputs file and flagged for confirmation"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row B 'Never default it' and the sample intake answer 'Period: September 2025' conflict with the inputs file's 'Fiscal year 2026'; the skill has no rule for a history cut-off date given as the period, or for which months form the base when the latest actuals end mid-year (Oct-Dec missing).",
+  "references/method.md 'Step 4 — Build the operating expense budget' requires a derived payroll loading ('don't assume a rate; use the entity's actual loading') but the upload checklist in SKILL.md 'Upload path — hand over one checklist' asks only for a monthly P&L by line, which usually carries payroll as one line; no fallback is stated when the loading cannot be derived.",
+  "SKILL.md 'Rules that never bend' says 'With none given, the line stays flat', but references/method.md 'Step 3' (driver-based COGS) and references/edge-cases.md 'Historical ratios are drifting' leave open whether 'flat' means flat percentage of revenue or flat unit cost when price changes; the two differ by 102,995 of operating income here.",
+  "references/method.md 'Step 1' and SKILL.md row C do not say whether lines that are exact percentages of revenue in history (marketing 4%, bank fees 0.4%) count as 'overheads' (incremental, flat) or 'variable costs' (driver-based) when the user says 'incremental overheads'."
+ ],
+ "sample_defects": [
+  "monthly_profit_and_loss_36m.csv ends at 2025-09 while the budget year is calendar 2026, so no 2025 actuals exist for Oct-Dec; the key's 'volume +8%' has no defined base for Q4.",
+  "History is mechanically regular: each year is exactly the prior year x ~1.154 with identical monthly shares; COGS is exactly 58.0% then exactly 60.0% from 2025-07; marketing exactly 4.0% and bank fees 0.4% of revenue except planted one-offs (2025-06 professional fees 16,500; 2025-09 marketing 29,146 = 4% + 10,930). None of the drift or one-offs is in expect.findings.",
+  "Payroll is one line, so the inputs file's hires (52,000 and 82,000 salaries) cannot be loaded from the entity's own data, although the skill requires a derived loading.",
+  "Arithmetic of key checks out: LTM revenue 5,136,300; FY2026 revenue = sum(base month x 1.08 x 1.03) + 9 x 20,000 = 5,893,620; hires 2 x 52,000/12 x 10 + 82,000/12 x 6 = 86,667 + 41,000; operating margin 15.75% vs 12% target."
+ ],
+ "summary": "PASS: rota rejected on content, all 4 findings hit; also caught the COGS step to 60% and two one-offs, and flagged a weak, unevidenced Q4 base."
+}

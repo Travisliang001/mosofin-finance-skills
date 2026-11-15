@@ -1,0 +1,33 @@
+{
+ "skill": "cash-flow-forecast-13-week",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Probable duplicate bill: Kestrel Supplies INV-4471 and Kestrel Supplies Inc. INV4471, 6,480 each; forecast once",
+  "Payroll register net 53,902 exceeds each September statement payroll of 52,310 by 1,592",
+  "No payroll tax or 401(k) remittance on the September statement although 16,697 is withheld per run",
+  "Lowest point week 1 at 1,083,592; no breach of the 250,000 floor even with zero collections (week 13: 499,598)",
+  "Q3 covenant compliance certificate due 14 Nov 2025 falls inside the horizon but cannot be tested",
+  "Tideswell 48,031 and Foxhall 4,003 also excluded as at-risk alongside Harlow 48,200"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' is the only inputs list and is Mosofin-shaped; there is no upload-path checklist, so payment history (for 'Step 2' days-to-pay), 12 months of cash (for the 'Step 3' anniversary scan) and payroll pay dates are never requested.",
+  "SKILL.md 'Step 2 — Forecast cash receipts' gives no rule for collection timing when payment history is absent; only 'Edge Cases', 'A days-to-pay derived from too few invoices', mentions 'a stated assumption', and it does not say how to treat overdue invoices.",
+  "SKILL.md 'Gate 3' says never default 'the payroll amounts' but gives no rule when the register has no pay date or frequency and disagrees with the bank (53,902 vs 52,310).",
+  "SKILL.md 'Step 5 — Flag liquidity risks' requires stating whether the floor is a covenant or a management preference, but the intake row 'Minimum cash threshold / covenant' does not ask which."
+ ],
+ "sample_defects": [
+  "payroll_register_2025-09.csv has no pay date or period column and nets to 53,902, while the bank statement shows two runs of 52,310; the 1,592 gap is unexplained, and the key says 'two payroll runs a month' without saying which amount.",
+  "No customer payment history or invoice-to-receipt links are supplied, so the skill's central method (derived days-to-pay) cannot be exercised; receipts can only be timed by assumption.",
+  "No new sales, purchases or tax dates are supplied, so receipts stop after week 4 and the forecast never approaches the 250,000 floor (low 1,083,592); the floor and the liquidity-risk steps are untested.",
+  "term_loan_agreement_summary.md says 5,000 a month plus interest at 5.7%; the statement's 6,900 implies interest of 1,900, i.e. a balance near 1,900 x 12 / 0.057 = 400,000, which nothing else in the set confirms."
+ ],
+ "summary": "PASS: rota rejected on content; Harlow 48,200 treated as doubtful, 6,900 loan and bi-weekly payroll forecast; floor never breached (low 1,083,592 in week 1)."
+}

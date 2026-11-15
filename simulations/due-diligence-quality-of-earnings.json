@@ -1,0 +1,29 @@
+{
+ "skill": "due-diligence-quality-of-earnings",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Diligence-adjusted EBITDA 802,250 against management's 869,550: owner salary +60,000 held as unevidenced (no payroll detail or benchmark), trade show +7,300 rejected",
+  "September marketing spike is 10,930 above the 4.0% run-rate, not the 7,300 claimed (3,630 unexplained)",
+  "COGS stepped from 58% to 60% of revenue from July 2025; run-rate overstatement 74,258 if it persists",
+  "Zero capex in 36 months; fixed assets net 255,800 to 108,800 by depreciation alone",
+  "No income tax charge or liability in any month; flagged for tax DD",
+  "Northbrook UK Ltd (80% subsidiary) apparently outside the figures; deal perimeter queried",
+  "NWC peg range 912,742-1,049,963 across four methods; DSO 43.8 to 50.5 and DIO 62.8 to 72.8 days; net cash 1,017,236"
+ ],
+ "skill_defects": [
+  "Minor: references/method.md 'Step 3b — The recurring \"one-time\" test' asks for 'the prior three years' (a Year -3 column), while SKILL.md 'Stage 1 — Intake', upload checklist, asks for 'three years plus the last twelve months'. With 36 months of data the agent can only show LTM and two prior years; the method does not say how to label the shortfall beyond the general 'earliest period' rule in references/output.md."
+ ],
+ "sample_defects": [
+  "management_adjusted_ebitda_bridge.csv claims 7,300 for the trade show, but monthly_profit_and_loss_36m.csv shows September 2025 marketing of 29,146 against 4.0% x 455,400 = 18,216, an excess of 10,930. Either intended (not in expect) or the figures disagree.",
+  "related_parties.md lists Northbrook UK Ltd as an 80% subsidiary, but monthly_balance_sheet_36m.csv has no investment, intercompany or minority-interest line, so the statements are standalone and the perimeter is ambiguous. Not needed for the expected findings."
+ ],
+ "summary": "Rota rejected on content; legal fee tested as one-time, trade show rejected as likely to recur, CEO-owned landlord rent treated as related party, statement-level limit stated up front."
+}

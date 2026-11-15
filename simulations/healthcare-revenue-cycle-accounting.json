@@ -1,0 +1,24 @@
+{"skill": "healthcare-revenue-cycle-accounting", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "Contractual adjustments differ: billing 496,000 (252,000 + 244,000) vs ledger 480,000, so ledger net revenue is 16,000 higher than billing supports",
+  "Net patient service revenue 680,000 as recorded vs 646,000 on billing basis with charity care deducted; realisation 58.6% vs 55.7%",
+  "Realisation by payer class: Medicare 40.0%, Commercial 60.0%",
+  "Gross charges 1,160,000 and receivables 309,000 tie between billing and ledger",
+  "Self-pay is 45.8% over 90 days and 64% of the over-90 tail (44,000 of 69,000)",
+  "Unclear whether the 18,000 charity care sits inside the 26,000 bad debt; true bad debt 8,000 or 26,000",
+  "Denials 30,000 (Medicare 2.1%, Commercial 3.4% of gross), no reason codes"
+ ],
+ "skill_defects": [
+  "SKILL.md upload checklist lists 'Receivables ageing by payer class' and 'Ledger detail' as separate Required uploads; it does not say whether ageing columns inside the billing summary, or ledger totals in place of detail, satisfy them. references/mosofin-protocol.md 'Rules for the common cases' (summary in place of a listing) covers the second only by analogy.",
+  "references/method.md 'Step 2 — Estimate net patient service revenue' says present realisation 'as a series, not a single number' but gives no rule for a single-period upload; the trend, reserve back-test (Step 4) and AR days trend (Step 3) all silently become impossible.",
+  "references/method.md 'Step 3 — Reconcile AR and cash' requires an AR roll-forward (Step 6 Sheet 4: opening AR, charges, adjustments, cash, write-offs, closing) but the upload checklist never asks for opening AR."
+ ],
+ "sample_defects": [
+  "clinic_gl_summary_2025-09.md says 'Bad debt expense 26,000. Charity care recorded as bad debt: 18,000.' without saying whether the 18,000 is within the 26,000; true bad debt is 8,000 or 26,000 depending on reading.",
+  "Contractual adjustments in billing total 252,000 + 244,000 + 0 = 496,000 against 480,000 in the ledger: a 16,000 difference the key does not list. If deliberate it is a missed expected finding; if not, the sample is inconsistent.",
+  "billing_summary_by_payer_2025-09.csv content names no clinic, period or currency (only the file name carries 2025-09).",
+  "Payments 499,000 against September net revenue and AR with no opening AR: no AR roll-forward can be built (309,000 closing only)."
+ ],
+ "summary": "PASS 3/3: charity care 18,000 booked as bad debt, unapplied cash 6,000 to 14,000, totals only; also found 16,000 contractual gap (billing 496,000 vs ledger 480,000)."}

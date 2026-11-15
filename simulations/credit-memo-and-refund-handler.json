@@ -1,0 +1,29 @@
+{
+  "skill": "credit-memo-and-refund-handler",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 2,
+  "findings_total": 2,
+  "missed": [],
+  "unexpected": [
+    "Ridgeway 500.00 treated as a disputed short-payment deduction until the credit manager accepts it; allowance vs sales return left to the user's reason, not inferred from the remittance",
+    "All four Step 2 checks run on INV-20611: exists, 500.00 <= 72,046.00, July invoice credited in September (fiscal year end assumed), USD",
+    "INV-20611 (72,046) and INV-20574 (88,056) still fully open at 30 Sep despite remittances dated 24 and 23 Sep; flagged as a cash-application check",
+    "Tax reversal not computed: ageing has gross amounts only and no jurisdiction was given",
+    "CM-0312 has no original invoice; suggested sub-ledger application to Calder INV-20796 leaving 29,870.00, no second journal",
+    "Vendor-credit sweep reported as not done (no payables data), not as nil"
+  ],
+  "skill_defects": [
+    "SKILL.md 'Step 1 — Identify the type' has no row for a customer short-payment deduction taken on a remittance before any credit exists; the run had to classify it as a disputed deduction pending approval, which is the most common way such credits arrive",
+    "SKILL.md 'Gate 3 — Profile the entity, then interview the user' says the reason must never be inferred, but does not say whether a reason stated by the customer on a remittance counts as supplied or only as a claim to be confirmed"
+  ],
+  "sample_defects": [
+    "ar_aging_detail_2025-09-30.csv still shows INV-20611 at 72,046 (41 days overdue) and INV-20574 at 88,056 open at 30 Sep, although remittance_advice.txt says both were paid on 24 and 23 Sep; if the payments were received, Ridgeway's balance should be 72,046 - 71,546 = 500 and Castleton's 0",
+    "No file states whether INV-20611 carried tax, so the Step 3 tax-mirroring check cannot be exercised by this sample set"
+  ],
+  "summary": "Rota rejected on content; Ridgeway 500 deduction validated against INV-20611 and a 500 credit memo proposed pending credit manager approval; Calder CM-0312 2,150 unapplied; nothing posted."
+}

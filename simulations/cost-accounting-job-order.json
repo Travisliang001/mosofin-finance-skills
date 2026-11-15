@@ -1,0 +1,27 @@
+{
+ "skill": "cost-accounting-job-order",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Untagged share quantified two ways: 9.2% of total direct cost 49,316 and 12.9% of posted materials and subcontract 35,240",
+  "No margin reported for open jobs J-301/J-302; cost to date shown as 56.6% / 52.6% of contract price with headroom 26,060 / 14,696, explicitly not margin",
+  "Under/over-applied overhead not computed (no September pool actuals); WIP roll-forward not reconciled (no opening WIP or WIP balance)",
+  "J-298 September cost is 31.6% of its 9,800 billing; no entry proposed until it is classified as late August cost or a mis-tag"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' upload checklist row 'Overhead accounts and the budget' does not ask for the period's actual overhead in the pool, which references/method.md 'Step 4 — Apply overhead' and 'Step 6' need to measure under/over-applied overhead. A policy naming the pool and rate satisfies the checklist yet leaves Step 6 unrunnable. Add 'actual pool overhead for the period'.",
+  "SKILL.md 'Stage 1 — Intake' upload checklist does not ask for opening WIP by job or the WIP account balance, which references/method.md 'Step 5 — WIP schedule and rollforward' requires for the roll-forward and its reconciliation. Minor."
+ ],
+ "sample_defects": [
+  "job_costs_2025-09.csv has no date, vendor or account columns, although the SKILL.md checklist asks for 'materials and labour hours, with dates'; the untagged-cost report (by account and vendor) and the cut-off tests cannot run. Harmless to the three expected findings.",
+  "No pool actuals anywhere in the sample set, so the under/over-applied overhead step the skill is built around cannot be exercised (applied overhead 306 h x 28.00 = 8,568 has nothing to compare against)."
+ ],
+ "summary": "Shift rota rejected on content; 3 of 3 hit: 4,540 untagged shown apart, J-301 33,940 (18,400 + 210h x 46 + 210h x 28), J-298 closed with September cost. Nothing posted."
+}

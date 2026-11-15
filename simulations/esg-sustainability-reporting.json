@@ -1,0 +1,26 @@
+{
+ "skill": "esg-sustainability-reporting",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "First calculation on the supplied factors: Scope 2 180.00 tCO2e (450,000 kWh x 0.40), Scope 1 25.92 tCO2e (9,600 l x 2.70), total 205.92; intensity 51.0 t per USD million revenue and 17.2 t per employee on a Jan-Sep assumption",
+  "One electricity factor applied to sites on two different grids (Texas, California); site-specific factors and location- vs market-based basis requested",
+  "Activity file gives '2025' with no dates; period assumed Jan-Sep 2025 to match the P&L and stated as an assumption",
+  "Factor version missing; reconciliation test not passed because the P&L has no utilities, fuel or travel lines"
+ ],
+ "skill_defects": [
+  "Minor: references/edge-cases.md 'One grid factor applied across multiple countries' speaks only of countries; sub-national grids (two US states here) differ just as much. The agent applied the rule by analogy. Widen to 'across grid regions'."
+ ],
+ "sample_defects": [
+  "esg_activity_data_2025.csv says business flights are 'not collected — spend only', but profit_and_loss_2025_ytd.csv has no travel line, so the spend it points to is in no uploaded file. Harmless for the expected finding, but the 'spend only' claim cannot be checked.",
+  "esg_activity_data_2025.csv carries no dates ('2025' only) although the manifest describes it as January to September 2025; add a period column or a line in the scope note."
+ ],
+ "summary": "Rota rejected on content; flights shown as spend-only with no quantity or owner, supplied sample factors labelled, assurance readiness not claimed. Scope 1+2 of 205.92 t computed on them."
+}
