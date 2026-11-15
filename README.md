@@ -228,6 +228,17 @@ live data, the output says so in the filename and on the first page.
 | `consolidation-and-eliminations` | 50% | Group workpaper, eliminations and non-controlling interest |
 | `foreign-currency-translation-asc830` | 50% | Translate a foreign subsidiary and prove the translation adjustment |
 
+**Wave 11** — costing, the notes, segments and a quick working model, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `cost-accounting-job-order` | 65% | Cost and margin by job; overhead applied; untagged cost shown apart |
+| `model-builder-integrated-three-statement` | 61% | A working, formula-driven model from your actuals and assumptions |
+| `segment-reporting` | 60% | Reportable segments, their figures, and the reconciliation to the group |
+| `cost-accounting-process-costing` | 54% | Equivalent units and cost per unit by department |
+| `inventory-costing-fifo-lifo-wavg` | 52% | FIFO, LIFO or weighted average; ending inventory and cost of sales |
+| `notes-to-financial-statements` | 51% | Disclosure checklist and draft notes, with every gap flagged |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
