@@ -303,6 +303,18 @@ live data, the output says so in the filename and on the first page.
 | `transfer-pricing-documentation` | 50% | Map intercompany flows and assemble the documentation draft |
 | `personal-tax-return-prep` | 37% | Organise and compute an individual's return; saves no personal data |
 
+**Wave 17** — valuation and transactions (released from review item R2): analysis for a qualified professional, never an opinion of value, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `due-diligence-quality-of-earnings` | 64% | Adjusted EBITDA bridge, working capital and net debt for a deal |
+| `goodwill-and-impairment-testing` | 54% | Scope, triggers and the impairment test on your projections |
+| `valuation-agent-dcf-comps-football-field` | 49% | DCF with visible WACC, comparable screens and a football field |
+| `model-auditor-financial-model-review` | 44% | Last review of a model: tie-out, formulas, issue log, pass or hold |
+| `business-combinations-asc805` | 44% | Purchase accounting from the valuer's fair values; goodwill and the entry |
+| `ipo-readiness-accounting` | 41% | Finance roadmap to public-company readiness, with the close measured |
+| `business-valuation` | 40% | A value range from three approaches, and the bridge to equity |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
