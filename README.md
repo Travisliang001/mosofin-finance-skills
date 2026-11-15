@@ -251,6 +251,19 @@ live data, the output says so in the filename and on the first page.
 | `xbrl-tagging-checklist` | 39% | Tag map, extension rules and calculation checks |
 | `sec-10q-10k-prep` | 37% | Close-to-file calendar, tie-outs and the disclosure checklist |
 
+**Wave 13** — specialist technical accounting, all in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `petty-cash-management` | 57% | Cash plus vouchers against the float; replenishment and differences |
+| `gaap-vs-ifrs-conversion` | 56% | Differences for this business, quantified and reconciled |
+| `pensions-and-postretirement-asc715` | 55% | From the actuary's report to roll-forwards and entries |
+| `crypto-and-digital-asset-accounting` | 54% | Classify, measure and record digital assets; sweep for unlisted holdings |
+| `benefits-and-401k-accounting` | 51% | Retirement match, accrued time off and unremitted contributions |
+| `derivatives-and-hedging-asc815` | 47% | Instrument inventory, hedge designation checks and entries |
+| `equity-compensation-accounting` | 41% | Stock compensation expense schedule from the cap table you supply |
+| `esg-sustainability-reporting` | 39% | Scope, metric catalogue and data pipeline for ESG figures |
+
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into
 `references/` inside the skill folder. Each stage names the file it needs. Explained for
