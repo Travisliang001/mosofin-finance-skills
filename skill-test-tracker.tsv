@@ -1,0 +1,115 @@
+skill	format	read_only	validation	samples	sample_files	simulation	sim_mode	sim_summary	notes
+1099-and-t4a-prep	card	PASS	PASS	PASS	4	NOT RUN			
+accruals-and-deferrals	single file	PASS	PASS	PASS	5	NOT RUN			
+aml-kyc-procedures	card	PASS	PASS	PASS	2	NOT RUN			
+ap-accrual-cutoff	single file	PASS	PASS	PASS	5	NOT RUN			
+ap-aging-and-payment-runs	single file	PASS	PASS	PASS	4	NOT RUN			
+ap-invoice-processing-and-3way-match	card	PASS	PASS	PASS	7	NOT RUN			
+ar-aging-and-collections	single file	PASS	PASS	PASS	4	NOT RUN			
+ar-cash-application-lockbox	card	PASS	PASS	PASS	5	NOT RUN			
+audit-prep-pbc-list	card	PASS	PASS	PASS	5	NOT RUN			
+bad-debt-and-write-offs	card	PASS	PASS	PASS	5	NOT RUN			
+balance-sheet-reconciliations	single file	PASS	PASS	PASS	8	NOT RUN			
+bank-fee-and-interest-analysis	card	PASS	PASS	PASS	3	NOT RUN			
+bank-reconciliation	card	PASS	PASS	PASS	3	NOT RUN			
+benefits-and-401k-accounting	card	PASS	PASS	PASS	4	NOT RUN			
+budget-builder	card	PASS	PASS	PASS	3	NOT RUN			
+budget-vs-actual-analysis	single file	PASS	PASS	PASS	3	NOT RUN			
+business-combinations-asc805	card	PASS	PASS	PASS	2	NOT RUN			
+business-valuation	card	PASS	PASS	PASS	5	NOT RUN			
+cash-application	single file	PASS	PASS	PASS	5	NOT RUN			
+cash-flow-forecast-13-week	single file	PASS	PASS	PASS	6	NOT RUN			
+cash-flow-statement-indirect-method	card	PASS	PASS	PASS	6	NOT RUN			
+cash-management-and-treasury	card	PASS	PASS	PASS	5	NOT RUN			
+chart-of-accounts-designer	card	PASS	PASS	PASS	4	NOT RUN			
+closing-entries-and-trial-balance	single file	PASS	PASS	PASS	3	NOT RUN			
+cohort-and-unit-economics	card	PASS	PASS	PASS	4	NOT RUN			
+consolidation-and-eliminations	card	PASS	PASS	PASS	7	NOT RUN			
+construction-percentage-of-completion	card	PASS	PASS	PASS	2	NOT RUN			
+contingencies-and-litigation-asc450	card	PASS	PASS	PASS	4	NOT RUN			
+corporate-tax-provision-asc740	card	PASS	PASS	PASS	5	NOT RUN			
+cost-accounting-job-order	card	PASS	PASS	PASS	3	NOT RUN			
+cost-accounting-process-costing	card	PASS	PASS	PASS	2	NOT RUN			
+credit-card-reconciliation	single file	PASS	PASS	PASS	4	NOT RUN			
+credit-limit-and-customer-risk	card	PASS	PASS	PASS	4	NOT RUN			
+credit-memo-and-refund-handler	single file	PASS	PASS	PASS	4	NOT RUN			
+crypto-and-digital-asset-accounting	card	PASS	PASS	PASS	3	NOT RUN			
+customer-credit-and-collections-policy	card	PASS	PASS	PASS	5	NOT RUN			
+customer-invoicing	single file	PASS	PASS	PASS	4	NOT RUN			
+debt-and-covenant-tracking	card	PASS	PASS	PASS	5	NOT RUN			
+derivatives-and-hedging-asc815	card	PASS	PASS	PASS	4	NOT RUN			
+due-diligence-quality-of-earnings	card	PASS	PASS	PASS	5	NOT RUN			
+duplicate-invoice-detection	single file	PASS	PASS	PASS	4	NOT RUN			
+equity-compensation-accounting	card	PASS	PASS	PASS	3	NOT RUN			
+esg-sustainability-reporting	card	PASS	PASS	PASS	4	NOT RUN			
+expense-report-processor	single file	PASS	PASS	PASS	4	NOT RUN			
+financial-statement-builder	single file	PASS	PASS	PASS	4	NOT RUN			
+fixed-asset-register-and-depreciation	single file	PASS	PASS	PASS	4	NOT RUN			
+foreign-currency-translation-asc830	card	PASS	PASS	PASS	4	NOT RUN			
+fraud-detection-and-forensics	card	PASS	PASS	PASS	5	NOT RUN			
+gaap-vs-ifrs-conversion	card	PASS	PASS	PASS	4	NOT RUN			
+gl-coding-assistant	single file	PASS	PASS	PASS	4	NOT RUN			
+goodwill-and-impairment-testing	card	PASS	PASS	PASS	3	NOT RUN			
+government-fund-accounting-gasb	card	PASS	PASS	PASS	3	NOT RUN			
+grant-accounting-nonprofit-restricted-funds	card	PASS	PASS	PASS	3	NOT RUN			
+healthcare-revenue-cycle-accounting	card	PASS	PASS	PASS	3	NOT RUN			
+income-tax-deferred-tax-rollforward	card	PASS	PASS	PASS	5	NOT RUN			
+insurance-accounting-overview	card	PASS	PASS	PASS	2	NOT RUN			
+intangibles-and-amortization	card	PASS	PASS	PASS	4	NOT RUN			
+intercompany-reconciliation	card	PASS	PASS	PASS	5	NOT RUN			
+internal-audit-workpaper	card	PASS	PASS	PASS	6	NOT RUN			
+inventory-costing-fifo-lifo-wavg	card	PASS	PASS	PASS	4	NOT RUN			
+inventory-obsolescence-and-reserve	card	PASS	PASS	PASS	5	NOT RUN			
+inventory-to-gl-reconciliation	single file	PASS	PASS	PASS	4	NOT RUN			
+invoice-data-extractor	single file	PASS	PASS	PASS	3	NOT RUN			
+ipo-readiness-accounting	card	PASS	PASS	PASS	4	NOT RUN			
+journal-entry-builder	single file	PASS	PASS	PASS	3	NOT RUN			
+journal-entry-review	single file	PASS	PASS	PASS	3	NOT RUN			
+kpi-dashboard-builder	card	PASS	PASS	PASS	4	NOT RUN			
+lease-accounting-asc842-ifrs16	card	PASS	PASS	PASS	4	NOT RUN			
+management-discussion-and-analysis	card	PASS	PASS	PASS	5	NOT RUN			
+merchant-and-payment-processor-rec	card	PASS	PASS	PASS	5	NOT RUN			
+model-auditor-financial-model-review	card	PASS	PASS	PASS	4	NOT RUN			
+model-builder-integrated-three-statement	card	PASS	PASS	PASS	5	NOT RUN			
+month-end-close-checklist	single file	PASS	PASS	PASS	6	NOT RUN			
+multicurrency-fx-revaluation	card	PASS	PASS	PASS	4	NOT RUN			
+nonprofit-fund-accounting	card	PASS	PASS	PASS	2	NOT RUN			
+notes-to-financial-statements	card	PASS	PASS	PASS	6	NOT RUN			
+payroll-clearing-reconciliation	single file	PASS	PASS	PASS	3	NOT RUN			
+payroll-journal-entry-builder	single file	PASS	PASS	PASS	4	NOT RUN			
+payroll-reconciliation	single file	PASS	PASS	PASS	4	NOT RUN			
+payroll-tax-filings	card	PASS	PASS	PASS	4	NOT RUN			
+pensions-and-postretirement-asc715	card	PASS	PASS	PASS	3	NOT RUN			
+personal-tax-return-prep	card	PASS	PASS	PASS	3	NOT RUN			
+petty-cash-management	card	PASS	PASS	PASS	3	NOT RUN			
+prepaid-amortization-schedule	single file	PASS	PASS	PASS	3	NOT RUN			
+quarter-end-close	card	PASS	PASS	PASS	6	NOT RUN			
+quickbooks-ar-aging-collections	card	PASS	PASS	PASS	4	NOT RUN			
+r-and-d-tax-credit	card	PASS	PASS	PASS	3	NOT RUN			
+real-estate-and-property-accounting	card	PASS	PASS	PASS	2	NOT RUN			
+recurring-transaction-builder	single file	PASS	PASS	PASS	3	NOT RUN			
+related-party-disclosures-asc850	card	PASS	PASS	PASS	5	NOT RUN			
+restatement-and-prior-period-adjustment	card	PASS	PASS	PASS	4	NOT RUN			
+restructuring-and-severance-asc420	card	PASS	PASS	PASS	3	NOT RUN			
+revenue-recognition-asc606	card	PASS	PASS	PASS	3	NOT RUN			
+rolling-forecast	card	PASS	PASS	PASS	5	NOT RUN			
+sales-tax-us-multistate	card	PASS	PASS	PASS	3	NOT RUN			
+scenario-and-sensitivity-analysis	card	PASS	PASS	PASS	5	NOT RUN			
+sec-10q-10k-prep	card	PASS	PASS	PASS	5	NOT RUN			
+segment-reporting	card	PASS	PASS	PASS	4	NOT RUN			
+sox-controls-design-and-testing	card	PASS	PASS	PASS	6	NOT RUN			
+standard-costing-and-variance-analysis	card	PASS	PASS	PASS	4	NOT RUN			
+statement-of-equity-changes	card	PASS	PASS	PASS	5	NOT RUN			
+subsequent-events-asc855	card	PASS	PASS	PASS	5	NOT RUN			
+tax-planning-and-projections	card	PASS	PASS	PASS	4	NOT RUN			
+tax-return-prep-corporate	card	PASS	PASS	PASS	5	NOT RUN			
+three-statement-financial-model	card	PASS	PASS	PASS	5	NOT RUN			
+three-way-match	card	PASS	PASS	PASS	5	NOT RUN			
+transfer-pricing-documentation	card	PASS	PASS	PASS	6	NOT RUN			
+valuation-agent-dcf-comps-football-field	card	PASS	PASS	PASS	4	NOT RUN			
+vat-gst-international	card	PASS	PASS	PASS	3	NOT RUN			
+vendor-onboarding-and-w9-tin	card	PASS	PASS	PASS	4	NOT RUN			
+vendor-statement-reconciliation	single file	PASS	PASS	PASS	4	NOT RUN			
+working-capital-optimization	card	PASS	PASS	PASS	7	NOT RUN			
+xbrl-tagging-checklist	card	PASS	PASS	PASS	3	NOT RUN			
+year-end-close	card	PASS	PASS	PASS	5	NOT RUN			

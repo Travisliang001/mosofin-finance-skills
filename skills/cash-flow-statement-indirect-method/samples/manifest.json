@@ -1,0 +1,52 @@
+{
+ "skill": "cash-flow-statement-indirect-method",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Framework: US GAAP. Cash is accounts 1000, 1010 and 1050; none restricted. No acquisitions in the period.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "trial_balance_2024-12-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 December 2024"
+  },
+  {
+   "file": "profit_and_loss_2025_ytd.csv",
+   "is": "Profit and loss by month, January to September 2025"
+  },
+  {
+   "file": "general_ledger_2025-09.csv",
+   "is": "General ledger detail for September 2025: cash postings and journals"
+  },
+  {
+   "file": "accounting_policies.md",
+   "is": "Accounting policies in use"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Statement ties exactly to the change in cash between 31 December 2024 and 30 September 2025",
+   "Depreciation 37,800 added back; loan repayments 45,000 in financing"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,41 @@
+{
+ "skill": "government-fund-accounting-gasb",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Entity: Millbrook Township. Year to 30 June 2025.",
+ "inputs": [
+  {
+   "file": "township_trial_balance_by_fund.csv",
+   "is": "Trial balance by fund of a township (separate fictitious entity), year to 30 June 2025"
+  },
+  {
+   "file": "township_notes.md",
+   "is": "Basis of accounting and fund balance constraints"
+  }
+ ],
+ "negative": [
+  {
+   "file": "township_trial_balance_by_fund_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Trial balance by fund of a township (separate fictitious entity), year to 30 June 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects township_trial_balance_by_fund_final.csv: The name suggests it is 'Trial balance by fund of a township (separate fictitious entity), year to 30 June 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "General fund balance classified: 200,000 committed, 50,000 assigned, remainder unassigned",
+   "Road fund restricted",
+   "Government-wide view adds capital assets 3,100,000, debt 900,000 and the net pension liability 640,000"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

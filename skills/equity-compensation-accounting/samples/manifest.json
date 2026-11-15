@@ -1,0 +1,40 @@
+{
+ "skill": "equity-compensation-accounting",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. ASC 718. Equity-settled. Service vesting. Forfeitures as they occur.",
+ "inputs": [
+  {
+   "file": "cap_table.csv",
+   "is": "Cap table with 2025 movements and option grants"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "cap_table_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Cap table with 2025 movements and option grants'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects cap_table_final.csv: The name suggests it is 'Cap table with 2025 movements and option grants'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "20,000 options at 1.10 = 22,000 over 48 months; six months to 30 September = 2,750",
+   "No stock compensation expense is in the trial balance"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

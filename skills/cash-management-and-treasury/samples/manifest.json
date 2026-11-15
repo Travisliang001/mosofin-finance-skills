@@ -1,0 +1,49 @@
+{
+ "skill": "cash-management-and-treasury",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "treasury_inputs.md",
+   "is": "Bank accounts, signatories and policy inputs"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "cash_account_ledger_2025-09.csv",
+   "is": "Ledger for account 1000 Operating Bank Account, September 2025 (closing 1,230,316)"
+  },
+  {
+   "file": "trial_balance_northbrook_uk_2025-09-30.csv",
+   "is": "Trial balance of Northbrook UK Ltd at 30 September 2025 (GBP)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "treasury_inputs_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Bank accounts, signatories and policy inputs'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects treasury_inputs_final.csv: The name suggests it is 'Bank accounts, signatories and policy inputs'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Maps three cash accounts in the US and one in the UK",
+   "Operating account balance exceeds the 1,000,000 single-bank limit",
+   "Controls are described as designed, not tested"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

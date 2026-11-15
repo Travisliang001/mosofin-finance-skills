@@ -1,0 +1,41 @@
+{
+ "skill": "journal-entry-review",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Approval threshold for journals: 10,000. The August books closed on 12 September 2025.",
+ "inputs": [
+  {
+   "file": "journal_entries_2025-09.csv",
+   "is": "Journal entries for September 2025, with user and posting date"
+  },
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  }
+ ],
+ "negative": [
+  {
+   "file": "journal_entries_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Journal entries for September 2025, with user and posting date'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects journal_entries_2025-09_final.csv: The name suggests it is 'Journal entries for September 2025, with user and posting date'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "JE-0904: 50,000 round-amount revenue entry posted on a Sunday by a.reyes",
+   "JE-0905: dated 31 August, posted 20 September, after the August close",
+   "JE-0907: 9,999 with a blank memo, just under 10,000"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

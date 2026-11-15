@@ -1,0 +1,45 @@
+{
+ "skill": "1099-and-t4a-prep",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Reporting year 2025.",
+ "inputs": [
+  {
+   "file": "payments_by_vendor_2025.csv",
+   "is": "Total paid to each vendor in 2025, by payment method"
+  },
+  {
+   "file": "vendor_master.csv",
+   "is": "Vendor master with terms, tax form status and bank change date"
+  },
+  {
+   "file": "information_return_rules_SAMPLE.md",
+   "is": "Information return thresholds and form rules supplied for the test (fictitious)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "payments_by_vendor_2025_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Total paid to each vendor in 2025, by payment method'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects payments_by_vendor_2025_final.csv: The name suggests it is 'Total paid to each vendor in 2025, by payment method'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Brightline IT Services, M. Okafor Consulting and Vale Marketing Studio were paid in 2025 with no tax form on file",
+   "Corporations excluded except legal services (Greyfriars is a partnership and reportable)",
+   "Pinecrest is a foreign payee paid by card: excluded"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

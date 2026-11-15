@@ -1,0 +1,46 @@
+{
+ "skill": "vendor-onboarding-and-w9-tin",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Payer jurisdiction: US. Audit of the vendor master only. Output for the AP manager.",
+ "inputs": [
+  {
+   "file": "vendor_master.csv",
+   "is": "Vendor master with terms, tax form status and bank change date"
+  },
+  {
+   "file": "payments_by_vendor_2025.csv",
+   "is": "Total paid to each vendor in 2025, by payment method"
+  },
+  {
+   "file": "bill_payment_history_12m.csv",
+   "is": "Bills paid, with due and paid dates, last twelve months"
+  }
+ ],
+ "negative": [
+  {
+   "file": "vendor_master_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Vendor master with terms, tax form status and bank change date'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects vendor_master_final.csv: The name suggests it is 'Vendor master with terms, tax form status and bank change date'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Brightline IT Services, M. Okafor Consulting and Vale Marketing Studio were paid in 2025 with no tax form on file",
+   "'Kestrel Supplies' and 'Kestrel Supplies Inc.' look like the same vendor",
+   "Summit Freight's bank details changed on 16 September 2025: verify by call-back",
+   "Identifiers stay masked"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

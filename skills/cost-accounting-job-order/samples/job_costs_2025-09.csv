@@ -1,0 +1,8 @@
+job,customer,status,cost_type,amount,labour_hours
+J-301,Ashby Engineering,open,materials,18400,0
+J-301,Ashby Engineering,open,labour,0,210
+J-302,Tideswell Hotels,open,materials,9200,0
+J-302,Tideswell Hotels,open,labour,0,96
+J-298,Brecon Outdoor,closed,materials,3100,0
+(untagged),,,materials,2640,0
+(untagged),,,subcontractor,1900,0

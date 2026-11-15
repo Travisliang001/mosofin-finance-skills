@@ -1,0 +1,49 @@
+{
+ "skill": "sec-10q-10k-prep",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "trial_balance_2025-08-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 August 2025"
+  },
+  {
+   "file": "filing_inputs.md",
+   "is": "Filing inputs: filer status, calendar, prior filing figures"
+  },
+  {
+   "file": "profit_and_loss_2025_ytd.csv",
+   "is": "Profit and loss by month, January to September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Builds the calendar back from 7 November",
+   "Checks comparatives against the prior filing figures supplied",
+   "Says the draft itself was not supplied, so the tie-out is books to books"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

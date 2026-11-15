@@ -1,6 +1,6 @@
 ---
 name: payroll-reconciliation
-description: "Use this skill whenever the user wants to reconcile payroll against their Mosofin workspace — payroll register to GL, payroll to bank, payroll liabilities to amounts remitted, or quarter/year-end payroll tie-outs. Triggers include: 'reconcile payroll', 'payroll register to GL', 'does payroll tie to the bank', 'reconcile payroll liabilities', 'year-end payroll reconciliation', 'reconcile wages to the tax filings', or checking payroll is correctly recorded and settled. Workspace-scoped: it confirms the workspace, discovers which company files and payroll platforms are connected and which read-only tools are enabled, then owns the GL side of every tie-out, rolls forward each liability, and surfaces the manual adjustments and negative balances that break the register-to-GL tie — while treating taxable wage bases as register data the ledger cannot supply. Do NOT use for building the payroll JE — use payroll-journal-entry-builder. Do NOT use for clearing-account zeroing only — use payroll-clearing-reconciliation. Outputs a payroll reconciliation workpaper tying register, GL, bank, and filings with flagged exceptions and a coverage sheet."
+description: "Use this skill whenever the user wants to reconcile payroll against their Mosofin workspace — payroll register to GL, payroll to bank, payroll liabilities to amounts remitted, or quarter/year-end payroll tie-outs. Triggers include: 'reconcile payroll', 'payroll register to GL', 'does payroll tie to the bank', 'reconcile payroll liabilities', 'year-end payroll reconciliation', 'reconcile wages to the tax filings', or checking payroll is correctly recorded and settled. Workspace-scoped: it confirms the workspace, discovers which company files and payroll platforms are connected and which read-only tools are enabled, then owns the GL side of every tie-out, rolls forward each liability, and surfaces the manual adjustments and negative balances that break the register-to-GL tie — while treating taxable wage bases as register data the ledger cannot supply. Do NOT use for building the payroll JE — use payroll-journal-entry-builder. Do NOT use for clearing-account zeroing only — use payroll-clearing-reconciliation. Outputs a payroll reconciliation workpaper tying register, GL, bank, and filings with flagged exceptions and a coverage sheet. Read-only: every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid."
 ---
 
 <!-- shared:onboarding-inline start -->
@@ -238,6 +238,31 @@ read from it — period covered, row count, opening and closing balances — and
 is still outstanding. If a file is unreadable, covers the wrong period, or does not
 contain what its name suggests, **say so at once**. Never work around a bad input
 silently, and never guess at a column you cannot identify — ask.
+
+#### After an upload, validate the input before any work
+
+**This step always runs when the data comes from an upload** — Mosofin absent, Mosofin
+declined, or Mosofin connected without the data this skill needs. It comes straight after
+the files arrive and before any step of the method. It is a check of **meaning**, not of
+file format: a file can open perfectly and still be the wrong thing.
+
+For every file, answer four questions and show the answers to the user in one table:
+
+| Question | What to check |
+|---|---|
+| **Is it the right kind of document?** | Read the content, not the file name. Say what the file actually is — a trial balance, an ageing, a bank statement, a contract — from its columns and rows. |
+| **Is it for the right company and period?** | The entity named in it, its currency, and the dates it covers, against what the user confirmed at intake. |
+| **Is it usable?** | The columns this skill needs are present and identifiable, the totals foot, and nothing is visibly truncated. |
+| **Is it necessary?** | Name the step of this skill that uses it. A file no step uses is set aside and named, not read into the work. |
+
+Then give **one verdict per file**: *accepted*, *accepted with a limit* (say what the
+output will not cover), or *rejected* (say why, and what to upload in its place). List
+every required input that is still missing.
+
+**Do not start the work until the validation has been shown and the user has answered.**
+If a required input is rejected or missing, stop and ask. Do not substitute another file
+for it, do not rebuild it from the other files, and do not carry on with the files that
+passed as though the set were complete.
 
 **If something cannot be supplied, say what the output will and will not be — before
 doing the work.** Never estimate a figure that was meant to come from the books, never

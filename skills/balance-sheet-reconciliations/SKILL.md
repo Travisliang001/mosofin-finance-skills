@@ -1,6 +1,6 @@
 ---
 name: balance-sheet-reconciliations
-description: "Use this skill whenever the user wants to reconcile balance sheet accounts to supporting subledgers or external documents, working from their Mosofin workspace. Triggers include: 'reconcile our balance sheet accounts', 'reconcile [AR/AP/prepaid/accrued/intercompany/etc.] to GL', 'monthly BS rec workpaper', 'reconcile this account to its supporting schedule', 'identify unreconciled differences', or any task that involves tying a GL balance to its source. Workspace-scoped: it confirms the workspace, discovers which company files are connected and which read-only tools are enabled, then pulls the GL side from the live books and resolves each account's supporting side against the capability map — automatic where the subledger lives in the connected system, named as a gap where it does not. Do NOT use for bank reconciliation — use bank-reconciliation. Do NOT use for full period close — use month-end-close-checklist. Outputs a reconciliation workpaper per account with tie-out, identified items, unreconciled differences, and a coverage sheet."
+description: "Use this skill whenever the user wants to reconcile balance sheet accounts to supporting subledgers or external documents, working from their Mosofin workspace. Triggers include: 'reconcile our balance sheet accounts', 'reconcile [AR/AP/prepaid/accrued/intercompany/etc.] to GL', 'monthly BS rec workpaper', 'reconcile this account to its supporting schedule', 'identify unreconciled differences', or any task that involves tying a GL balance to its source. Workspace-scoped: it confirms the workspace, discovers which company files are connected and which read-only tools are enabled, then pulls the GL side from the live books and resolves each account's supporting side against the capability map — automatic where the subledger lives in the connected system, named as a gap where it does not. Do NOT use for bank reconciliation — use bank-reconciliation. Do NOT use for full period close — use month-end-close-checklist. Outputs a reconciliation workpaper per account with tie-out, identified items, unreconciled differences, and a coverage sheet. Read-only: every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid."
 ---
 
 <!-- shared:onboarding-inline start -->
@@ -215,6 +215,31 @@ read from it — period covered, row count, opening and closing balances — and
 is still outstanding. If a file is unreadable, covers the wrong period, or does not
 contain what its name suggests, **say so at once**. Never work around a bad input
 silently, and never guess at a column you cannot identify — ask.
+
+#### After an upload, validate the input before any work
+
+**This step always runs when the data comes from an upload** — Mosofin absent, Mosofin
+declined, or Mosofin connected without the data this skill needs. It comes straight after
+the files arrive and before any step of the method. It is a check of **meaning**, not of
+file format: a file can open perfectly and still be the wrong thing.
+
+For every file, answer four questions and show the answers to the user in one table:
+
+| Question | What to check |
+|---|---|
+| **Is it the right kind of document?** | Read the content, not the file name. Say what the file actually is — a trial balance, an ageing, a bank statement, a contract — from its columns and rows. |
+| **Is it for the right company and period?** | The entity named in it, its currency, and the dates it covers, against what the user confirmed at intake. |
+| **Is it usable?** | The columns this skill needs are present and identifiable, the totals foot, and nothing is visibly truncated. |
+| **Is it necessary?** | Name the step of this skill that uses it. A file no step uses is set aside and named, not read into the work. |
+
+Then give **one verdict per file**: *accepted*, *accepted with a limit* (say what the
+output will not cover), or *rejected* (say why, and what to upload in its place). List
+every required input that is still missing.
+
+**Do not start the work until the validation has been shown and the user has answered.**
+If a required input is rejected or missing, stop and ask. Do not substitute another file
+for it, do not rebuild it from the other files, and do not carry on with the files that
+passed as though the set were complete.
 
 **If something cannot be supplied, say what the output will and will not be — before
 doing the work.** Never estimate a figure that was meant to come from the books, never

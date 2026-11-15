@@ -1,0 +1,44 @@
+{
+ "skill": "inventory-to-gl-reconciliation",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "inventory_listing_2025-09-30.csv",
+   "is": "Inventory by item at 30 September 2025, with last sale date"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "inventory_movement_12m.csv",
+   "is": "Units sold by item by month, last twelve months"
+  }
+ ],
+ "negative": [
+  {
+   "file": "inventory_listing_2025-09-30_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Inventory by item at 30 September 2025, with last sale date'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects inventory_listing_2025-09-30_final.csv: The name suggests it is 'Inventory by item at 30 September 2025, with last sale date'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Item listing totals 683,100 and agrees to account 1200",
+   "LK-09, PN-55 and TR-07 have had no sales for more than 300 days"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

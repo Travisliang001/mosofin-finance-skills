@@ -169,6 +169,31 @@ is still outstanding. If a file is unreadable, covers the wrong period, or does 
 contain what its name suggests, **say so at once**. Never work around a bad input
 silently, and never guess at a column you cannot identify — ask.
 
+#### After an upload, validate the input before any work
+
+**This step always runs when the data comes from an upload** — Mosofin absent, Mosofin
+declined, or Mosofin connected without the data this skill needs. It comes straight after
+the files arrive and before any step of the method. It is a check of **meaning**, not of
+file format: a file can open perfectly and still be the wrong thing.
+
+For every file, answer four questions and show the answers to the user in one table:
+
+| Question | What to check |
+|---|---|
+| **Is it the right kind of document?** | Read the content, not the file name. Say what the file actually is — a trial balance, an ageing, a bank statement, a contract — from its columns and rows. |
+| **Is it for the right company and period?** | The entity named in it, its currency, and the dates it covers, against what the user confirmed at intake. |
+| **Is it usable?** | The columns this skill needs are present and identifiable, the totals foot, and nothing is visibly truncated. |
+| **Is it necessary?** | Name the step of this skill that uses it. A file no step uses is set aside and named, not read into the work. |
+
+Then give **one verdict per file**: *accepted*, *accepted with a limit* (say what the
+output will not cover), or *rejected* (say why, and what to upload in its place). List
+every required input that is still missing.
+
+**Do not start the work until the validation has been shown and the user has answered.**
+If a required input is rejected or missing, stop and ask. Do not substitute another file
+for it, do not rebuild it from the other files, and do not carry on with the files that
+passed as though the set were complete.
+
 **If something cannot be supplied, say what the output will and will not be — before
 doing the work.** Never estimate a figure that was meant to come from the books, never
 fill a gap with a plausible number, and never present a partial result as complete. An

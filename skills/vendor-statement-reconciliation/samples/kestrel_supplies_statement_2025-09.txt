@@ -1,0 +1,10 @@
+KESTREL SUPPLIES — STATEMENT OF ACCOUNT
+Customer: Northbrook Trading Ltd
+As at 30 September 2025
+
+Invoice    Date        Amount
+4502       2025-09-03  88,583.00
+INV-4471   2025-09-05  6,480.00
+4388       2025-08-14  3,920.00
+
+Balance due: 98,983.00

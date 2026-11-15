@@ -1,0 +1,16 @@
+sku,description,qty_on_hand,unit_cost,value,last_sale_date
+SB-20,Steel bracket,2985,20,59691,2025-09-27
+SB-35,Steel bracket heavy,2018,23,46424,2025-09-22
+C-12,Carton 12in,765,26,19896,2025-09-29
+C-18,Carton 18in,686,29,19896,2025-09-18
+FX-01,Fixing kit,2280,32,72952,2025-09-25
+FX-02,Fixing kit pro,2653,35,92849,2025-08-30
+HG-10,Hinge,873,38,33160,2025-09-20
+HG-22,Hinge soft-close,1294,41,53056,2025-07-14
+LK-05,Lock set,1809,44,79584,2025-09-11
+LK-09,Lock set legacy,847,47,39792,2024-06-03
+PN-40,Panel 40mm,1326,50,66320,2025-09-26
+PN-55,Panel 55mm (discontinued),501,53,26528,2024-02-19
+TR-01,Trim,711,56,39792,2025-09-16
+TR-07,Trim seasonal,337,59,19896,2024-11-28
+WD-02,Wedge,214,62,13264,2025-09-08

@@ -1,0 +1,48 @@
+{
+ "skill": "accruals-and-deferrals",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "accrual_candidates_2025-09.csv",
+   "is": "Goods and services received by 30 September 2025 and not yet billed"
+  },
+  {
+   "file": "prepaid_schedule.csv",
+   "is": "Prepaid expenses schedule at 30 September 2025"
+  },
+  {
+   "file": "general_ledger_2025-09.csv",
+   "is": "General ledger detail for September 2025: cash postings and journals"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Proposes accruals for the three received-not-billed items (5,800, 4,200, 1,850)",
+   "Insurance prepaid release of 1,500 is already posted (JE-0902)"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

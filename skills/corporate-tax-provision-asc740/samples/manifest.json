@@ -1,0 +1,49 @@
+{
+ "skill": "corporate-tax-provision-asc740",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. US GAAP. Period: nine months to 30 September 2025.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "tax_rates_and_rules_SAMPLE.md",
+   "is": "Tax rates and rules supplied by the user for the test (fictitious)"
+  },
+  {
+   "file": "prior_year_tax_computation_summary.md",
+   "is": "Summary of the 2024 tax computation"
+  },
+  {
+   "file": "fixed_asset_register.csv",
+   "is": "Fixed asset register"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Current tax at the sample 20% on adjusted income",
+   "Temporary difference on fixed assets from tax written-down value 150,000",
+   "Opening deferred tax liability 9,000"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

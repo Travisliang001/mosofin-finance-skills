@@ -1,0 +1,49 @@
+{
+ "skill": "related-party-disclosures-asc850",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "related_parties.md",
+   "is": "List of related parties"
+  },
+  {
+   "file": "vendor_master.csv",
+   "is": "Vendor master with terms, tax form status and bank change date"
+  },
+  {
+   "file": "bill_payment_history_12m.csv",
+   "is": "Bills paid, with due and paid dates, last twelve months"
+  },
+  {
+   "file": "intercompany_ledger_northbrook_trading.csv",
+   "is": "Intercompany ledger in the books of Northbrook Trading Ltd: balance with Northbrook UK Ltd (USD)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "related_parties_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'List of related parties'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects related_parties_final.csv: The name suggests it is 'List of related parties'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Halden Property Management (rent, 81,000 in 2025) is owned by the CEO",
+   "Intercompany transactions with Northbrook UK",
+   "J. Marsh became a director in June: related for part of the year"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

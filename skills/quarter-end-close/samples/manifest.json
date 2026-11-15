@@ -1,0 +1,53 @@
+{
+ "skill": "quarter-end-close",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Quarter: Q3 2025, July to September.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "trial_balance_2025-08-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 August 2025"
+  },
+  {
+   "file": "journal_entries_2025-09.csv",
+   "is": "Journal entries for September 2025, with user and posting date"
+  },
+  {
+   "file": "term_loan_agreement_summary.md",
+   "is": "Summary of the term loan agreement, with covenant definitions"
+  },
+  {
+   "file": "audit_inputs.md",
+   "is": "Audit type, timeline and events"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "JE-0905: dated 31 August, posted 20 September, after the August close",
+   "Covenant test uses the agreement's definitions",
+   "Board pack and lender certificate are the two obligations; no interim review steps"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,37 @@
+{
+ "skill": "construction-percentage-of-completion",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. US GAAP. Cost-to-cost.",
+ "inputs": [
+  {
+   "file": "construction_contracts_2025-09.csv",
+   "is": "Contracts in progress: price, costs, billings and estimate at completion"
+  }
+ ],
+ "negative": [
+  {
+   "file": "construction_contracts_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Contracts in progress: price, costs, billings and estimate at completion'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs, noting any that only partly covers a required upload",
+   "Rejects construction_contracts_2025-09_final.csv: The name suggests it is 'Contracts in progress: price, costs, billings and estimate at completion'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "C-11 is 43.1% complete: revenue to date 387,500 against 380,000 billed",
+   "C-12 is a loss contract: estimated cost 480,000 against price 450,000, loss 30,000 provided in full",
+   "C-13 has no estimate at completion: not computed"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

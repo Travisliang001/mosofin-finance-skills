@@ -21,6 +21,12 @@ jobs:
           chmod +x .github/validate-skill.sh
           .github/validate-skill.sh skills
 
+      - name: Read-only audit, upload validation and sample coverage
+        run: python3 .github/audit-skills.py --check
+
+      - name: Sample data is generated, not hand-edited
+        run: python3 .github/samples/build.py --check
+
       - name: Dashboard conformance
         run: |
           chmod +x .github/validate-dashboard.sh

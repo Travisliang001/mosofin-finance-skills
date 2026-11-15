@@ -1,0 +1,30 @@
+account,name,debit,credit
+1000,Operating Bank Account,1130978,0
+1010,Petty Cash,500,0
+1050,Stripe Clearing,6420,0
+1100,Accounts Receivable,831430,0
+1150,Allowance for Doubtful Accounts,0,9000
+1200,Inventory,711561,0
+1300,Prepaid Expenses,18000,0
+1500,Fixed Assets - Cost,420000,0
+1510,Accumulated Depreciation,0,307000
+2000,Accounts Payable,0,270949
+2050,Corporate Card Payable,0,7300
+2100,Accrued Liabilities,0,28600
+2150,Payroll Clearing,0,1200
+2160,Payroll Tax Payable,0,5400
+2200,Sales Tax Payable,0,2600
+2300,Intercompany Payable - Northbrook UK,0,38000
+2500,Term Loan,0,225000
+3000,Share Capital,0,250000
+3100,Retained Earnings,0,1422317
+4000,Sales Revenue,0,3583200
+5000,Cost of Goods Sold,2097616,0
+6000,Payroll Expense,593600,0
+6100,Rent,72000,0
+6200,Marketing,143328,0
+6300,Software,28000,0
+6400,Professional Fees,34000,0
+6500,Bank Fees,14333,0
+6600,Depreciation,33600,0
+7000,Interest Expense,15200,0

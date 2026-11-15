@@ -1,0 +1,8 @@
+date,type,counterparty,net,vat_code,vat
+2025-07-14,sale,UK customer A,60000,standard,12000
+2025-08-02,sale,Northbrook Trading Ltd (export),14570,zero,0
+2025-08-20,sale,UK customer B,38000,standard,7600
+2025-07-22,purchase,UK supplier,41000,standard,8200
+2025-09-05,purchase,EU software vendor,6000,reverse charge,1200
+2025-09-05,purchase,EU software vendor (reverse charge output),0,reverse charge,-1200
+2025-09-19,purchase,Staff entertainment,900,blocked,180

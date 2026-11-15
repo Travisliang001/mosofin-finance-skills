@@ -1,0 +1,55 @@
+{
+ "skill": "sox-controls-design-and-testing",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Objective: operating effectiveness. No materiality supplied.",
+ "inputs": [
+  {
+   "file": "control_list.csv",
+   "is": "Existing controls for purchase-to-pay and period close"
+  },
+  {
+   "file": "purchase_orders.csv",
+   "is": "Purchase orders with lines and approval"
+  },
+  {
+   "file": "goods_receipts.csv",
+   "is": "Goods receipt notes"
+  },
+  {
+   "file": "journal_entries_2025-09.csv",
+   "is": "Journal entries for September 2025, with user and posting date"
+  },
+  {
+   "file": "open_bills_2025-09-30.csv",
+   "is": "Open payables by bill at 30 September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "control_list_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Existing controls for purchase-to-pay and period close'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects control_list_final.csv: The name suggests it is 'Existing controls for purchase-to-pay and period close'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "C1 exception: PO-1042 unapproved, PO-1043 received before approval",
+   "C2 exception: PO-1041 billed for 100, received 90",
+   "C6 exception: JE-0905 posted into closed August",
+   "C3 and C5 leave no trace in the books: evidence needed from a person",
+   "No severity rating is filled in"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,36 @@
+{
+ "skill": "cost-accounting-process-costing",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Weighted average. Materials added at the start. Normal spoilage: none.",
+ "inputs": [
+  {
+   "file": "production_report_2025-09.csv",
+   "is": "Production report by department, September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "production_report_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Production report by department, September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs, noting any that only partly covers a required upload",
+   "Rejects production_report_2025-09_final.csv: The name suggests it is 'Production report by department, September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Units reconcile in both departments (20,000 and 18,000)",
+   "Asks for the method and where materials are added before computing"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

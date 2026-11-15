@@ -1,0 +1,7 @@
+date,account,name,debit,credit,memo
+2025-09-05,1000,Operating Bank Account,18842,0,Stripe payout
+2025-09-05,4000,Sales Revenue,0,18842,Stripe payout
+2025-09-19,1000,Operating Bank Account,21307,0,Stripe payout
+2025-09-19,4000,Sales Revenue,0,21307,Stripe payout
+2025-09-30,1050,Stripe Clearing,6420,0,Balance held at Stripe
+2025-09-30,4000,Sales Revenue,0,6420,Balance held at Stripe

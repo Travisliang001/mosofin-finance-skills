@@ -76,6 +76,12 @@ Ask only what you cannot already see.
 On the upload path, name each file you received and say what was read from it: the period and the
 totals. Flag anything unreadable straight away.
 
+**Then validate the upload before any work, every time.** For each file: is it the right kind of
+document, for the right company and period, usable, and necessary for this skill? Give a verdict
+per file, list what is still missing, and wait for the user's answer. Full wording:
+[`references/mosofin-protocol.md`](references/mosofin-protocol.md), *After an upload, validate the
+input before any work*.
+
 ---
 
 ## Stage 2 — Confirm scope and capabilities *(Mosofin path only)*

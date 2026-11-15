@@ -365,6 +365,27 @@ block**, and clean tool naming with no internal identifiers leaked. Runs on ever
 For a card-format skill the checks read `SKILL.md` and every `references/*.md` together,
 and `.github/sync-shared.sh` keeps the shared blocks in `references/mosofin-protocol.md`.
 
+## Testing a skill
+
+Every skill folder has a `samples/` directory: test inputs for the upload path, one
+deliberately wrong file, and the expected outcome (`samples/README.md`). The data is one
+fictitious company with problems seeded on purpose, so a skill has something to find.
+
+To test a skill, start it with no Mosofin connection, give the intake answers in
+`samples/README.md`, upload every file in the folder, and compare what it does with the
+expected lists. **The first thing a skill must do after an upload is validate it**: is each
+file the right kind of document, for the right company and period, usable, and necessary.
+The wrong file must be rejected on its content, not its name.
+
+```bash
+.github/audit-skills.py            # read-only audit, validation step, samples; writes the tracker
+.github/samples/build.py           # regenerate the sample data
+```
+
+[`SKILL-TEST-TRACKER.md`](SKILL-TEST-TRACKER.md) shows, for every skill, whether it passes the
+read-only audit, carries the validation step, has sample data, and the result of any run on
+that data. Recorded runs are in [`simulations/`](simulations/).
+
 ---
 
 ## Docs

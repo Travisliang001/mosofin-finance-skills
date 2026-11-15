@@ -1,0 +1,48 @@
+{
+ "skill": "year-end-close",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Year end: 31 December 2024.",
+ "inputs": [
+  {
+   "file": "trial_balance_2024-12-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 December 2024"
+  },
+  {
+   "file": "fixed_asset_register.csv",
+   "is": "Fixed asset register"
+  },
+  {
+   "file": "journal_entries_2025-09.csv",
+   "is": "Journal entries for September 2025, with user and posting date"
+  },
+  {
+   "file": "audit_inputs.md",
+   "is": "Audit type, timeline and events"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong year (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong year (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Lists annual procedures with owners; counts, impairment and tax true-up are for people",
+   "Notes that the trial balance supplied is 31 December 2024 while the audit inputs describe 2025, and asks which year is being closed"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

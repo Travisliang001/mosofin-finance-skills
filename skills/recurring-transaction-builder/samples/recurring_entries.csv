@@ -1,0 +1,6 @@
+entry,amount,day,posted_2025-07,posted_2025-08,posted_2025-09
+Rent,9000,1,yes,yes,yes
+Depreciation,4200,30,yes,yes,yes
+Insurance release,1500,30,yes,yes,yes
+Loan interest,1900,30,yes,yes,yes
+Software subscription,3500,5,yes,yes,no

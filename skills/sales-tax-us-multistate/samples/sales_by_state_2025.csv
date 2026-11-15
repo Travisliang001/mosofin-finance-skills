@@ -1,0 +1,6 @@
+state,sales,transactions,tax_collected,registered,registered_since
+Texas,1840000,2210,115000,yes,2019-02-01
+California,1120000,1480,81200,yes,2020-06-01
+Ohio,310000,402,0,no,
+Georgia,142000,260,0,no,
+Oregon,96000,118,0,no,

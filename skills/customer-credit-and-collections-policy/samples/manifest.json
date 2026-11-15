@@ -1,0 +1,49 @@
+{
+ "skill": "customer-credit-and-collections-policy",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Problem: slow payment. Orders can be held by the sales lead in the order system. Standard terms net 30.",
+ "inputs": [
+  {
+   "file": "ar_aging_detail_2025-09-30.csv",
+   "is": "Open receivables by invoice at 30 September 2025"
+  },
+  {
+   "file": "customer_payment_history_12m.csv",
+   "is": "Paid invoices with payment dates, last twelve months"
+  },
+  {
+   "file": "customer_list.csv",
+   "is": "Customer list with terms and contact"
+  },
+  {
+   "file": "approval_matrix_and_tolerances.md",
+   "is": "Approval matrix and matching tolerances"
+  }
+ ],
+ "negative": [
+  {
+   "file": "ar_aging_detail_2025-09-30_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Open receivables by invoice at 30 September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects ar_aging_detail_2025-09-30_final.csv: The name suggests it is 'Open receivables by invoice at 30 September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Segments twelve customers by payment behaviour: Harlow, Tideswell and Foxhall are slow payers",
+   "Tests a hold rule on the real base and reports how many customers it would stop",
+   "Leaves governance roles as stated, not verified"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

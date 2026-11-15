@@ -1,0 +1,44 @@
+{
+ "skill": "credit-memo-and-refund-handler",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Request: handle Ridgeway's 500 deduction. Approver for credit memos: the credit manager.",
+ "inputs": [
+  {
+   "file": "remittance_advice.txt",
+   "is": "Remittance advice received with the lockbox payments"
+  },
+  {
+   "file": "ar_aging_detail_2025-09-30.csv",
+   "is": "Open receivables by invoice at 30 September 2025"
+  },
+  {
+   "file": "customer_list.csv",
+   "is": "Customer list with terms and contact"
+  }
+ ],
+ "negative": [
+  {
+   "file": "remittance_advice_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Remittance advice received with the lockbox payments'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects remittance_advice_final.csv: The name suggests it is 'Remittance advice received with the lockbox payments'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Proposes a credit memo of 500 to Ridgeway Logistics for the damaged pallet, pending approval",
+   "Calder Print has an unapplied credit memo CM-0312 of 2,150"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

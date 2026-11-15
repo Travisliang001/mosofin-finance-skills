@@ -1,0 +1,4 @@
+holder,class,shares_opening,movement_2025,shares_closing,note
+Founders,Common,800000,0,800000,
+Investor A,Common,200000,0,200000,
+Option pool,Options,60000,20000,80000,"20,000 granted 1 Apr 2025, strike 2.50, 4-year monthly vesting, grant-date fair value 1.10 per option (independent valuation, 15 Mar 2025)"

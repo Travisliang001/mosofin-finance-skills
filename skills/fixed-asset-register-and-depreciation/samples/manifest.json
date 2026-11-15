@@ -1,0 +1,45 @@
+{
+ "skill": "fixed-asset-register-and-depreciation",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "fixed_asset_register.csv",
+   "is": "Fixed asset register"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "general_ledger_2025-09.csv",
+   "is": "General ledger detail for September 2025: cash postings and journals"
+  }
+ ],
+ "negative": [
+  {
+   "file": "fixed_asset_register_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Fixed asset register'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects fixed_asset_register_final.csv: The name suggests it is 'Fixed asset register'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "FA-008 was sold in July 2025 and is still on the register",
+   "Register cost 420,000 agrees to account 1500",
+   "Servers (FA-005, 2020, 5 years) are fully depreciated"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,45 @@
+{
+ "skill": "chart-of-accounts-designer",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "chart_of_accounts_request.md",
+   "is": "Chart of accounts restructure request"
+  }
+ ],
+ "negative": [
+  {
+   "file": "chart_of_accounts_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Chart of accounts'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects chart_of_accounts_final.csv: The name suggests it is 'Chart of accounts'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Proposes a separate account for one-time professional fees for covenant reporting",
+   "Maps every old account to a new one",
+   "Does not remove an account that holds a balance without saying where it goes"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

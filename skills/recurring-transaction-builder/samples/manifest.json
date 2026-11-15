@@ -1,0 +1,40 @@
+{
+ "skill": "recurring-transaction-builder",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "recurring_entries.csv",
+   "is": "Recurring entries that should post each month, with what posted in September 2025"
+  },
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  }
+ ],
+ "negative": [
+  {
+   "file": "recurring_entries_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Recurring entries that should post each month, with what posted in September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects recurring_entries_final.csv: The name suggests it is 'Recurring entries that should post each month, with what posted in September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Software subscription (3,500) did not post in September",
+   "Other four entries posted in all three months"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

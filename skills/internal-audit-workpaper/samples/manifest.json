@@ -1,0 +1,54 @@
+{
+ "skill": "internal-audit-workpaper",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Compliance audit of purchase-to-pay.",
+ "inputs": [
+  {
+   "file": "purchase_orders.csv",
+   "is": "Purchase orders with lines and approval"
+  },
+  {
+   "file": "goods_receipts.csv",
+   "is": "Goods receipt notes"
+  },
+  {
+   "file": "open_bills_2025-09-30.csv",
+   "is": "Open payables by bill at 30 September 2025"
+  },
+  {
+   "file": "vendor_master.csv",
+   "is": "Vendor master with terms, tax form status and bank change date"
+  },
+  {
+   "file": "purchasing_policy.md",
+   "is": "Purchasing policy: the criteria for an internal audit"
+  }
+ ],
+ "negative": [
+  {
+   "file": "purchase_orders_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Purchase orders with lines and approval'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects purchase_orders_final.csv: The name suggests it is 'Purchase orders with lines and approval'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "PO-1042 has no approver; PO-1043 was received (10 Sep) before it was approved (12 Sep)",
+   "PO-1041: 100 cartons ordered and billed, 90 received (GRN-772)",
+   "Summit Freight's bank details changed on 16 September 2025 with no call-back evidence supplied",
+   "Findings are written against the purchasing policy"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

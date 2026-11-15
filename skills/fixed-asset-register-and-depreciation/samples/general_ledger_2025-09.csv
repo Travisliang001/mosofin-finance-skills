@@ -1,0 +1,30 @@
+date,source,account,name,debit,credit,memo
+2025-09-02,bank,1000,Operating Bank Account,41200,0,ACH CREDIT PENNINE RETAIL GROUP
+2025-09-03,bank,1000,Operating Bank Account,0,8400,CHECK 2287
+2025-09-05,bank,1000,Operating Bank Account,18842,0,STRIPE TRANSFER
+2025-09-08,bank,1000,Operating Bank Account,0,9000,ACH DEBIT HALDEN PROPERTY MGMT
+2025-09-10,bank,1000,Operating Bank Account,36100,0,ACH CREDIT CASTLETON FOODS
+2025-09-12,bank,1000,Operating Bank Account,0,52310,PAYROLL NORTHBROOK TRADING
+2025-09-15,bank,1000,Operating Bank Account,0,64200,WIRE OUT KESTREL SUPPLIES
+2025-09-15,bank,1000,Operating Bank Account,0,35,WIRE FEE
+2025-09-17,bank,1000,Operating Bank Account,27950,0,ACH CREDIT RIDGEWAY LOGISTICS
+2025-09-19,bank,1000,Operating Bank Account,21307,0,STRIPE TRANSFER
+2025-09-22,bank,1000,Operating Bank Account,0,6900,LOAN PAYMENT TERM LOAN
+2025-09-26,bank,1000,Operating Bank Account,0,52310,PAYROLL NORTHBROOK TRADING
+2025-09-29,bank,1000,Operating Bank Account,22180,0,ACH CREDIT ASHBY ENGINEERING
+2025-09-29,bank,1000,Operating Bank Account,0,3150,Check 2291 to Orchard Packaging
+2025-09-30,bank,1000,Operating Bank Account,12400,0,Deposit - Tideswell Hotels
+2025-09-30,JE-0901,6600,Depreciation,4200,0,Monthly depreciation
+2025-09-30,JE-0901,1510,Accumulated Depreciation,0,4200,Monthly depreciation
+2025-09-30,JE-0902,6100,Rent,1500,0,Prepaid insurance release
+2025-09-30,JE-0902,1300,Prepaid Expenses,0,1500,Prepaid insurance release
+2025-09-30,JE-0903,6000,Payroll Expense,12400,0,Accrued wages
+2025-09-30,JE-0903,2100,Accrued Liabilities,0,12400,Accrued wages
+2025-09-28,JE-0904,1100,Accounts Receivable,50000,0,Revenue adjustment
+2025-09-28,JE-0904,4000,Sales Revenue,0,50000,Revenue adjustment
+2025-08-31,JE-0905,6400,Professional Fees,3800,0,Legal fee missed in August
+2025-08-31,JE-0905,2100,Accrued Liabilities,0,3800,Legal fee missed in August
+2025-09-30,JE-0906,7000,Interest Expense,1900,0,Loan interest
+2025-09-30,JE-0906,2500,Term Loan,0,1900,Loan interest
+2025-09-30,JE-0907,6200,Marketing,9999,0,
+2025-09-30,JE-0907,2100,Accrued Liabilities,0,9999,

@@ -1,0 +1,41 @@
+{
+ "skill": "vat-gst-international",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Entity: Northbrook UK Ltd. Period: Q3 2025. Currency GBP.",
+ "inputs": [
+  {
+   "file": "vat_transactions_2025-Q3.csv",
+   "is": "Sales and purchases with VAT codes, Northbrook UK Ltd, July to September 2025 (GBP)"
+  },
+  {
+   "file": "vat_rules_SAMPLE.md",
+   "is": "VAT rates and rules supplied for the test (fictitious)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "vat_transactions_2025-Q3_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Sales and purchases with VAT codes, Northbrook UK Ltd, July to September 2025 (GBP)'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects vat_transactions_2025-Q3_final.csv: The name suggests it is 'Sales and purchases with VAT codes, Northbrook UK Ltd, July to September 2025 (GBP)'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Output VAT 19,600; recoverable input VAT 8,200; reverse charge 1,200 nets to nil",
+   "Blocked 180 on entertainment is not recoverable",
+   "Computed 11,400 payable against 11,580 in the control account: difference 180"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

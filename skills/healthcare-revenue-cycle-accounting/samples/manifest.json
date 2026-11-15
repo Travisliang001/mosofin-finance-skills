@@ -1,0 +1,41 @@
+{
+ "skill": "healthcare-revenue-cycle-accounting",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Provider: Lakeside Clinic.",
+ "inputs": [
+  {
+   "file": "billing_summary_by_payer_2025-09.csv",
+   "is": "Billing system totals by payer class, September 2025 (totals only, no patient detail)"
+  },
+  {
+   "file": "clinic_gl_summary_2025-09.md",
+   "is": "Ledger totals for the clinic, September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "billing_summary_by_payer_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Billing system totals by payer class, September 2025 (totals only, no patient detail)'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects billing_summary_by_payer_2025-09_final.csv: The name suggests it is 'Billing system totals by payer class, September 2025 (totals only, no patient detail)'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Charity care 18,000 is recorded as bad debt against the policy",
+   "Unapplied cash rose from 6,000 to 14,000",
+   "Works on totals by payer class only"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

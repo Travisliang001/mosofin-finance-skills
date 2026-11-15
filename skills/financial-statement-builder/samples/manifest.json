@@ -1,0 +1,43 @@
+{
+ "skill": "financial-statement-builder",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "trial_balance_2024-12-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 December 2024"
+  },
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_2025-09-30_v2.csv",
+   "is": "Trial balance of a different company, Harlow Fabrication Ltd, at 30 September 2025",
+   "why": "It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_2025-09-30_v2.csv: It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Balance sheet balances; income statement is nine months to 30 September 2025 with December 2024 as the comparative balance sheet"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

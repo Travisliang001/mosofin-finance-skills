@@ -1,0 +1,44 @@
+{
+ "skill": "gl-coding-assistant",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "uncoded_transactions.csv",
+   "is": "Bank and card transactions not yet coded to an account"
+  },
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  },
+  {
+   "file": "general_ledger_2025-09.csv",
+   "is": "General ledger detail for September 2025: cash postings and journals"
+  }
+ ],
+ "negative": [
+  {
+   "file": "uncoded_transactions_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Bank and card transactions not yet coded to an account'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects uncoded_transactions_final.csv: The name suggests it is 'Bank and card transactions not yet coded to an account'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Codes software, travel, utilities and legal lines to existing accounts with a confidence level",
+   "Leaves 'ACH DEBIT UNKNOWN ORIG 88213' uncoded and asks"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

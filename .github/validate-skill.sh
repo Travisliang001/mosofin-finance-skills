@@ -137,6 +137,18 @@ for f in "$DIR"/*/SKILL.md; do
   reqn "$t" "$name: manual run treats supplied data as pre-validated" \
       "Manual input is not more trustworthy than a ledger read"
 
+  # 8f. an upload is validated for meaning before any work starts — always
+  reqn "$t" "$name: no validation step after an upload" \
+      "After an upload, validate the input before any work"
+  reqn "$t" "$name: upload validation does not check the kind of document" \
+      "Is it the right kind of document"
+  reqn "$t" "$name: upload validation does not check company and period" \
+      "Is it for the right company and period"
+  reqn "$t" "$name: upload validation does not check necessity" \
+      "Is it necessary"
+  reqn "$t" "$name: work may start before the upload is validated" \
+      "Do not start the work until the validation has been shown"
+
   # 8e. every approved=true instruction, anywhere in the skill, is limited to reads.
   #     The policy-table row was checked before; Step 0's envelope list carried the
   #     same instruction unqualified in 23 skills. Shared blocks are already enforced.

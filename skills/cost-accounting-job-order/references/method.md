@@ -136,11 +136,11 @@ rate is realistic.
 
 ## Step 3 — Accumulate actual costs by job
 
-- **Post direct materials issues to job** — **[gated]**: purchases coded to a job are **[auto]**; a true
+- **Attribute direct materials issues to the job, in the cost sheet** — **[gated]**: purchases coded to a job are **[auto]**; a true
   *issue* from stock needs an inventory system
-- **Post direct labor to job (including burden if applicable)** — **[gated]**: hours **[auto]**, rates
+- **Attribute direct labor to the job, in the cost sheet (including burden if applicable)** — **[gated]**: hours **[auto]**, rates
   and burden **[manual]**
-- **Post subcontractor invoices to job** — **[auto]** (*`search_bills`* with the job dimension)
+- **Attribute subcontractor invoices to the job, in the cost sheet** — **[auto]** (*`search_bills`* with the job dimension)
 - **Ensure mapping from source systems (payroll, procurement, inventory) is consistent** — **[gated]**:
   where those systems are connected, the mapping is checkable; where they are not, it is **[manual]**
 

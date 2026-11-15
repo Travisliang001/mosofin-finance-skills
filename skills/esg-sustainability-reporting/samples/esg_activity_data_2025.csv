@@ -1,0 +1,6 @@
+site,metric,quantity,unit,source,owner
+Texas warehouse,Electricity,412000,kWh,utility bills,Facilities manager
+California office,Electricity,38000,kWh,landlord statement,Office manager
+Texas warehouse,"Diesel (forklifts, van)",9600,litres,fuel card,Facilities manager
+All,Headcount,12,employees,payroll,HR
+All,Business flights,,km,not collected — spend only,
