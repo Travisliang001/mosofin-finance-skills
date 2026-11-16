@@ -1,68 +1,99 @@
-# Currency translation — Northbrook UK Ltd into USD, 30 September 2025 (upload path)
+# Currency translation — Northbrook UK Ltd (GBP) into USD — 30 September 2025
 
-Mosofin is not connected for this run (you chose upload only), so every step is `[manual]` and works from your files. Connecting Mosofin would automate the reads — docs.mosofin.com. Nothing was posted: the translation and every entry below are **proposals**. No rate came from me; every rate is yours, from your file.
+Mosofin is not connected, so this run is manual: every figure comes from your uploads and every step is `[manual]`. (Connecting Mosofin would read each entity's trial balance in its own currency: [docs.mosofin.com](https://docs.mosofin.com).) Everything below is a **proposal**; nothing is posted.
 
-## (a) Read-back
+## Read-back
 
-Translating **Northbrook UK Ltd** from **GBP** into **USD** (the group's reporting currency; parent **Northbrook Trading Ltd**) at **30 September 2025**, from your uploads, at the **rates in `fx_rates.csv`, sourced from your bank rate sheet**. Functional currency **GBP** (your intake answer; `group_structure.md` agrees). **No intercompany loans; no hyperinflation** (your answers). From `group_structure.md`, to confirm: UK is **80% owned since 1 March 2019**, no acquisitions or disposals in 2025 — this makes a **non-controlling interest** (the 20% owned by outsiders) part of the work.
+Translating **Northbrook UK Ltd** from **GBP** into **USD** (the presentation currency of **Northbrook Trading Ltd**, the parent) at **30 September 2025**, from **your uploads**, at the **rates you supplied, sourced from "bank rate sheet"**. Functional currency **GBP**, as you stated. **No intercompany loans**; the intercompany balance is **trading** (to be settled). **No hyperinflation**. UK is **80% owned** since 1 March 2019, so the translation adjustment is split with the 20% non-controlling interest. Shall I go ahead?
 
-Assumptions (not answered, no default stated): the intercompany receivable is a **trading balance expected to be settled** (not a loan, per your answer), so any FX on it belongs in earnings, not CTA; the simple average rate supplied is used, because no monthly P&L was uploaded to test seasonality.
+Notes: the intake names Northbrook Trading Ltd; the trial balance is the UK subsidiary's. The group structure names the UK entity as in scope, so I accept it for that company. The ownership, the opening balances and the trading designation come from `group_structure.md` and count as answered once you confirm.
 
-## (b) Validation of the upload — shown before any work
+## Validation of the uploads (shown before any work — I would wait for your answer here)
 
-| File | What it actually is | Company / currency / period | Usable? | Necessary? | Verdict |
+| File | What it actually is | Company / currency / date | Usable? | Step that uses it | Verdict |
 |---|---|---|---|---|---|
-| `trial_balance_northbrook_uk_2025-09-30.csv` | Trial balance, 10 accounts | Entity only in the file name; no currency or date in the content | Foots: DR = CR = 603,520. P&L open (YTD): profit 35,000 GBP. Net assets 187,420 = share capital 100,000 + RE 52,420 + profit 35,000 | Yes — Steps 1–3b | **Accepted with a limit: entity, GBP and 30 Sep 2025 user-asserted** |
-| `fx_rates.csv` | Rate table, 7 GBP/USD rates with type, date and source | Closing 30 Sep 2025 1.27; average 1 Jan–30 Sep 2025 1.255; historical (equity) 1 Mar 2019 1.31; four transaction-date rates | Yes, source and date on every row; **no approver**; **no opening rate at 31 Dec 2024**; the four transaction rates (10 Jul, 12 Aug, 18 Sep, 29 Sep) match no transaction in any file | Yes — Step 3, Step 6 rate control | **Accepted with a limit**: transaction rates set aside (nothing to apply them to); no approver recorded |
-| `group_structure.md` | Group summary: parent USD, UK GBP, 80% owned since 1 Mar 2019, presentation USD | Matches intake | Yes; a summary, so ownership and dates are **user-supplied, not evidenced** | Yes — NCI split, historical-rate date (Step 1, "Both entity scenarios") | **Accepted with a limit**: facts used once you confirm them in the read-back |
-| `trial_balance_northbrook_uk_2025-09-30_final.csv` | **Not a trial balance.** A staff shift rota: employee E08–E10, week_1…week_4, "nights/days/off" | No entity, accounts or amounts | No | No step | **Rejected** on content despite the name. Not used. |
+| `trial_balance_northbrook_uk_2025-09-30.csv` | Trial balance, 10 accounts, balance sheet and nine-month P&L | Entity and currency not named in the file (name only); taken as Northbrook UK Ltd, GBP, 30 Sep 2025 | Debits = credits = 603,520; net assets 187,420 = share capital 100,000 + retained earnings 52,420 + profit 35,000 | Steps 1, 3, 3b | **Accepted with a limit:** company, currency and date user-asserted |
+| `fx_rates.csv` | Rate table: GBP/USD closing (30 Sep 2025, 31 Dec 2024), average (1 Jan–30 Sep 2025), historical (share capital, 1 Mar 2019), four transaction-date rates | GBP/USD, dated, each with a source | Source given for every rate; **no approver** for any | Steps 3, 3b | **Accepted with a limit:** rate approver missing. The four transaction-date rates are not used by any step here (no dividends or capital movements); set aside |
+| `group_structure.md` | Group chart, ownership, investment at cost, and last year's translated balances | Northbrook group, 31 Dec 2024 and 2025 | Summary figures, not the prior-year translated TB | Steps 3 (opening retained earnings), 3b (opening CTA), 4 | **Accepted with a limit:** prior-period figures are a **summary**, user-supplied, not evidenced by last year's workpaper |
+| `trial_balance_northbrook_uk_2025-09-30_final.csv` | **Not a trial balance.** A staff shift rota (E08–E10, days / nights / off) | No entity, currency or money | Nothing relevant | None | **Rejected:** the content is a rota, whatever the name says |
 
-**Still missing — required for the CTA proof:** the **prior-period translated balances and the opening CTA** (31 Dec 2024), and the **31 Dec 2024 closing rate**; **historical rates for retained earnings** (RE built up after 2019 at many rates). Also needed: the **parent's side of the intercompany balance** (Northbrook Trading's TB) and its **currency of denomination**; **who approved the rates**; a **monthly P&L** for the seasonality test.
+**Still missing:** (1) the **parent's side of the intercompany balance** (Northbrook Trading Ltd's payable to UK, with its currency of denomination) to test the pair before translation; (2) **who approved** each rate; (3) a **monthly P&L** for the UK entity, to test whether the simple average rate is safe; (4) recommended: last year's translated TB to evidence the 66,059 and 6,077 brought forward.
 
-*I would stop here and wait for your answer. Assumed answer: "go ahead with the accepted files".*
+*Proceeding as if you answered "go ahead with the accepted files".*
 
-## (c) Translation (GBP → USD)
+## Step 1 — Functional currency
 
-| Account | GBP | Rate | Rate type | USD |
-|---|---:|---:|---|---:|
-| 1000 Bank | 84,200 | 1.27 | closing (monetary) | 106,934.00 |
-| 1100 Accounts receivable | 61,300 | 1.27 | closing (monetary) | 77,851.00 |
-| 1300 Intercompany receivable – Northbrook Trading | 33,220 | 1.27 | closing (monetary) | 42,189.40 |
-| 1200 Inventory | 47,800 | 1.27 | closing (nonmonetary; closing is right for translation) | 60,706.00 |
-| 2000 Accounts payable | (39,100) | 1.27 | closing (monetary) | (49,657.00) |
-| **Net assets** | **187,420** | | | **238,023.40** |
-| 3000 Share capital | 100,000 | 1.31 | historical, 1 Mar 2019 | 131,000.00 |
-| 3100 Retained earnings (opening) | 52,420 | **1.31 — approximation** | historical; true rates not supplied | 68,670.20 |
-| 4000 Revenue | 412,000 | 1.255 | average | 517,060.00 |
-| 5000 Cost of goods sold | (251,000) | 1.255 | average | (315,005.00) |
-| 6000 Operating expenses | (126,000) | 1.255 | average | (158,130.00) |
-| **Profit for the period** | **35,000** | | | **43,925.00** |
-| **CTA (balancing figure)** | | | | **(5,571.80)** |
+Your answer: GBP. The evidence available agrees: the books are kept in GBP, revenue, costs, bank and payables are all GBP-denominated as far as the TB shows, and the entity is not funded by a loan from the parent. Home currency (GBP) = functional currency (GBP): no remeasurement layer before translation. **One open point:** the denomination of the 33,220 intercompany receivable. If it is invoiced in USD, it is a foreign-currency monetary item in the UK books and must be remeasured to GBP first, with the difference in UK earnings.
 
-All 10 accounts classified; none defaulted to a rate. **The retained-earnings rate is an approximation**: I applied the only historical rate you gave (1.31, the acquisition date) to all 52,420 GBP of retained earnings. That is almost certainly wrong for profits earned in 2019–2024, and every cent of the error lands in CTA.
+## Step 3 — Translation (rates: closing 1.2700, average 1.2550, historical 1.3100)
 
-## (d) Findings
+| Account | GBP | Rate | USD |
+|---|---|---|---|
+| Bank | 84,200 | closing 1.27 | 106,934.00 |
+| Accounts receivable | 61,300 | closing 1.27 | 77,851.00 |
+| Intercompany receivable — Northbrook Trading | 33,220 | closing 1.27 | 42,189.40 |
+| Inventory | 47,800 | closing 1.27 | 60,706.00 |
+| Accounts payable | (39,100) | closing 1.27 | (49,657.00) |
+| **Net assets** | **187,420** | | **238,023.40** |
+| Share capital | 100,000 | historical 1.31 | 131,000.00 |
+| Retained earnings b/f | 52,420 | as translated at 31 Dec 2024 | 66,059.00 |
+| Sales revenue | 412,000 | average 1.255 | 517,060.00 |
+| Cost of goods sold | (251,000) | average 1.255 | (315,005.00) |
+| Operating expenses | (126,000) | average 1.255 | (158,130.00) |
+| Profit for the nine months | 35,000 | | 43,925.00 |
+| **CTA (balancing figure), closing** | | | **(2,960.60) debit** |
 
-1. **CTA cannot yet be proved.** The independent proof needs opening net assets × (closing − opening rate); there is **no 31 Dec 2024 rate and no opening CTA**. The only part I can prove is this year's profit term: **35,000 × (1.27 − 1.255) = +525.00**. Rebuilding cumulative CTA from the historical rates (−4,000.00 on share capital, −2,096.80 on RE at 1.31, +525.00 on profit = −5,571.80) **agrees with the plug only because it uses the same rates**; it is not independent. Status: **plug −5,571.80, unproved**.
-2. **Sensitivity to the RE rate:** if RE were wrongly carried at the closing rate, CTA would be −3,475.00 — a 2,096.80 swing that would still balance. This is exactly what the proof exists to catch.
-3. **Non-controlling interest (20%).** CTA splits **group −4,457.44 / NCI −1,114.36**; profit splits group 35,140.00 / NCI 8,785.00; NCI's share of net assets is 47,604.68. Both equity lines are misstated if the split is skipped.
-4. **Intercompany receivable GBP 33,220 (USD 42,189.40 at closing).** Your answer was "no intercompany loans", so I treat it as a trading balance expected to settle: FX on it goes to **earnings**, not CTA. The pre-translation agreement with the parent's payable **could not be checked** — the parent's TB was not uploaded. Its currency of denomination is unknown; if it is USD, the UK entity must **remeasure** it into GBP first, with the gain or loss in UK profit.
-5. **Remeasurement (Step 2):** no other non-GBP balances or transactions are visible in the TB; the four transaction-date rates have nothing to attach to. Done with that limit.
-6. **Rates control:** source and date present on every rate; **no approver**. The closing (1.27) and the September transaction rates (1.27) agree; the average 1.255 is below closing, so profit translates lower than it would at spot.
+Translated TB foots: debits = credits = 763,776.00. **That it balances proves nothing** — the CTA would absorb a wrong rate.
 
-**Proposed entry (not posted), in the consolidation:** record CTA of **(5,571.80)** to OCI / accumulated other comprehensive income — group (4,457.44), NCI (1,114.36) — **held until the proof in Finding 1 can run.** No remeasurement entry proposed until the intercompany currency is known.
+## Step 3b — Proof of the CTA, independently of the plug
 
-## (e) Not done, and why
-
-CTA proof (opening rate, opening CTA, translated prior balances missing); RE historical rates (not supplied — approximation used and flagged); intercompany pre-translation match (parent TB missing); seasonality test (no monthly P&L); tie to consolidation (hand-off to `consolidation-and-eliminations`; translate first, then eliminate). No `.xlsx` created — I would ask whether you want `FX_Translation_2025-09_Northbrook Trading Ltd.xlsx`.
-
-## (f) Coverage sheet (manual run)
-
-| Section | Content |
+| | USD |
 |---|---|
-| Environment | Northbrook UK Ltd (GBP) into USD for Northbrook Trading Ltd, 30 Sep 2025 — user-asserted. Source: upload. TB, rates, group structure accepted with limits; `_final` TB rejected (staff rota). |
-| Capability map | Not applicable: no connection. Every task is `[manual]`. |
-| Steps | 0 inputs read · 1 functional currency GBP, user-asserted (no P&L/vendor evidence to test the four factors) · 2 remeasurement done with limit · 3 translation done; RE rate approximated · 3b CTA proof **not done** (profit term only) · 4 intercompany **not done** pre-translation · 5 CTA entry proposed, held · 6 controls: rate source yes, approver **missing**, completeness 10/10 accounts · 6b tables in chat · 7 not offered. |
-| Not done | CTA proof (upload Dec-2024 translated balances, opening CTA, Dec-2024 rate); RE rates; parent's intercompany side; rate approver. |
+| Opening CTA (31 Dec 2024, debit) | (6,077.00) |
+| Opening net assets 152,420 × (1.2700 − 1.2530) | +2,591.14 |
+| Profit 35,000 × (1.2700 − 1.2550) | +525.00 |
+| Dividends / capital movements | 0 (none in 2025) |
+| **Expected closing CTA** | **(2,960.86) debit** |
+| Plugged CTA | (2,960.60) debit |
+| **Difference** | **0.26** |
 
-**Data sources:** user uploads — `trial_balance_northbrook_uk_2025-09-30.csv`, `fx_rates.csv`, `group_structure.md`.
+The 0.26 is explained: last year's net assets were carried at 190,982, but 152,420 × 1.2530 = 190,982.26, so the brought-forward CTA was rounded by 0.26. **The CTA is proved.** Movement in the period: **3,116.14 credit to OCI** (100% basis).
+
+Split with the non-controlling interest (20%): closing CTA group share **(2,368.48)**, NCI **(592.12)**; period movement group **2,492.91**, NCI **623.23**. Net assets attributable to NCI at closing rate: 47,604.68.
+
+Average-rate check: no monthly P&L was supplied, so seasonality could not be tested. The transaction-date rates in Jul–Sep (1.2698–1.2700) sit close to the closing rate and above the 1.2550 average; if UK earnings are weighted to later months, the simple average understates translated profit. Stated as a limit, not adjusted.
+
+## Step 4 — Intercompany
+
+Trading balance, expected to be settled → any FX difference on it goes to **earnings**, not CTA. UK side: 33,220 GBP = **42,189.40 USD** at closing. **The parent's side was not uploaded**, so the pre-translation match cannot be tested; the elimination must wait for it. Translate first, then eliminate.
+
+Investment check: 104,800 USD = 80% × 100,000 GBP × 1.3100 = 80% × 131,000. Agrees.
+
+## Step 5 — Proposed entries (consolidation, not posted)
+
+```
+DR  Cumulative translation adjustment (OCI, group)    2,368.48  closing balance, group share
+DR  Non-controlling interest                            592.12  closing balance, NCI share
+    CR  Translation balancing (consolidation worksheet)        2,960.60
+```
+Period movement to OCI: credit 3,116.14 (group 2,492.91, NCI 623.23). Account names to be taken from the group chart. No remeasurement entry is proposed unless the intercompany receivable proves to be USD-denominated.
+
+## Step 6 — Controls
+
+Rate source: "bank rate sheet" for every rate — **approver not recorded** (open). Completeness: all 10 accounts classified and translated. Classification (for remeasurement): monetary — bank, AR, intercompany receivable, AP; nonmonetary — inventory. CTA proof: run above, owner to be named.
+
+## Not done, and why
+
+Intercompany match and elimination (parent side not uploaded); seasonality test of the average rate (no monthly P&L); rate approvals (not supplied); tie-out to the consolidation (other entity not in this run). I would ask before creating `FX_Translation_2025-09_Northbrook UK Ltd.xlsx`. Nothing was posted or changed.
+
+## Coverage sheet (manual run)
+
+| Section | Entry |
+|---|---|
+| Environment | Northbrook UK Ltd, GBP functional, into USD for Northbrook Trading Ltd, 30 Sep 2025 — user-asserted; source: upload (Mosofin not used, by choice) |
+| Files | UK TB accepted with limit; rates accepted with limit (no approver); group structure accepted with limit (summary); `_final.csv` rejected (shift rota) |
+| Capability map | Not applicable: no connection. Every task is `[manual]`. |
+| Steps | 1 done (functional GBP, IC denomination open); 2 not needed unless IC is USD; 3 done; 3b done, difference 0.26 explained; 4 done with limit; 5 proposals; 6 done with limit |
+| Not done | Intercompany pair; monthly average-rate test; rate approval; consolidation tie-out |
+
+**Data sources:** uploads — `trial_balance_northbrook_uk_2025-09-30.csv` (GBP), `fx_rates.csv` (bank rate sheet), `group_structure.md` (user-supplied prior-year figures).

@@ -1,105 +1,103 @@
-# Personal tax return — the owner of Northbrook Trading Ltd, tax year 2025 (upload path)
+# Personal tax workpaper — owner of Northbrook Trading Ltd — tax year 2025
 
-Mosofin is not connected, so this run is manual: every figure comes from the documents you uploaded, and every step is `[manual]`. Connecting Mosofin would read the owner's salary and dividends from Northbrook Trading's books ([docs.mosofin.com](https://docs.mosofin.com)). **This is a computation for a qualified tax professional to review before anything is filed, not tax advice.** Nothing was filed. None of this is saved. Output is for the taxpayer only.
+**Computation for review by a qualified tax professional. Not tax advice. Nothing is filed.** Mosofin is not connected, so this run is manual and every figure comes from your uploads. (Connecting Mosofin would read the owner's salary and dividends straight from the books: [docs.mosofin.com](https://docs.mosofin.com).) Shown to the taxpayer only; nothing about the taxpayer is saved.
 
 ## Read-back
 
-Preparing the **2025 personal return** for **the owner of Northbrook Trading Ltd** (identified in your documents as payroll employee E12), resident in **Sampleland**, filing **jointly**, **USD**. Rates from *sample rate card v1, tax year 2025* (fictitious): **personal allowance 12,000; 15% on taxable income up to 50,000; 30% above.** No separate dividend, interest or rental rate is given, so all income is taxed on the one scale — please confirm. These answers to intake questions B, C and D came from the document; please confirm them.
+Preparing the **2025 personal return** for **the owner of Northbrook Trading Ltd** (employee code E12 on the payroll register), resident in **Sampleland**, filing **jointly**. Salary and dividend from **Northbrook Trading Ltd**; other income from **your uploaded documents**. Rates from **"sample rate card v1, tax year 2025"** (user-supplied, marked fictitious and for testing). Output to **the taxpayer only**. Shall I go ahead?
 
-Unanswered, and how each is handled:
-- **Tax year end:** not stated. Your intake is "as at 30 September 2025". If Sampleland's year is the calendar year, **2025 is not yet over**, so this can only be a draft; a forecast belongs in `tax-planning-and-projections`.
-- **Capacity in Northbrook Trading:** the dividend is "80% of 60,000", so an **80% shareholder** and an employee. Please confirm.
-- **Dependants, residency detail:** not stated; none assumed. No cross-border element was mentioned.
-- **Whether 401(k)-type contributions are deductible** in Sampleland: not stated, so not deducted.
+Notes on the intake: you gave the period as *September 2025*; the taxpayer document gives **tax year 2025**, which is what a personal return needs, so I use 2025 once you confirm it. The taxpayer, residency and filing status came from inside the document and count as answered on your confirmation. Currency: the business is in USD; the currency of Sampleland's tax is not stated — **assumed USD, confirm**.
 
-## Validation of the upload (shown before any work)
+## Validation of the uploads (shown before any work — I would wait for your answer here)
 
-| File | What it actually is | Taxpayer / year | Usable? | Used by | Verdict |
+| File | What it actually is | Person / period | Usable? | Step that uses it | Verdict |
 |---|---|---|---|---|---|
-| `personal_tax_documents_SAMPLE.md` | **Summary** of the taxpayer's documents and rates: dividend, interest, rental, allowance, bands, estimated payments | Tax year 2025; taxpayer identified only as "the owner (E12)" | Yes, but salary and salary withholding say only "per payroll" | Steps 1–8 | **Accepted with a limit**: a summary, not the statements; every figure user-supplied, not evidenced |
-| `payroll_register_2025-09.csv` | Northbrook Trading's payroll register, **September 2025 only**, 12 employees | September 2025 | **Only the taxpayer's row is relevant**; the other 11 rows are other people's pay and were **not used** | Step 2 (salary), Step 7 (withholding) | **Accepted with a limit**: one month only, cannot give the 2025 salary or withholding |
-| `personal_tax_documents_SAMPLE_final.csv` | **Not a tax document.** A staff shift rota: E08–E10, week_1–week_4, "nights / days / off" | No amounts | No | No step | **Rejected** on content despite its name. Upload the documents it was meant to be |
+| `personal_tax_documents_SAMPLE.md` | The taxpayer's income summary and a rate card with a named source and year | Owner (E12), Sampleland, joint, tax year 2025 | Readable; figures are typed amounts, not the underlying statements | Steps 1–8 | **Accepted with a limit:** a summary, not source documents. Every figure in it is **user-supplied, not evidenced** (no dividend voucher, bank interest statement, rental ledger or payment receipts) |
+| `payroll_register_2025-09.csv` | Employer payroll register for **one month, September 2025**, 12 employees; every row foots (gross − tax − social security − 401k = net) | Northbrook Trading Ltd, Sep 2025 | Only the taxpayer's own row (E12) is used; the other 11 employees' rows are third parties and are not read into the work | Step 2 salary, Step 7 withholding | **Accepted with a limit:** one month only. It **cannot** give 2025 salary or 2025 tax withheld, and I will not multiply a month by twelve |
+| `personal_tax_documents_SAMPLE_final.csv` | **Not a tax document.** A staff shift rota (E08–E10, days / nights / off by week) | No person, year or money | Nothing relevant | None | **Rejected:** the content is a rota, whatever the name says |
 
-**Still missing:**
-- **Required:** the year's employer statement of salary and tax withheld for 2025 (or all 12 registers). Without it, **salary, withholding and therefore the tax and balance due cannot be computed.**
-- **Recommended:** dividend voucher; bank interest statement; rental income and expense records; evidence of the 8,000 estimated payments; prior-year return (carryforwards).
+**Still missing (required):** (1) the taxpayer's **full-year 2025 employer statement** — total salary and total tax withheld (the "per payroll" figures); (2) the **spouse's income and documents** — the return is joint and the rate card has one schedule; (3) source documents for the dividend, interest, rental income and costs, and proof of the 8,000 estimated payments. **Recommended:** the 2024 return (carry-forwards); confirmation whether the 401k (595 in September) or social-security contributions get relief under the rate card.
 
-*Here I would stop and wait for your answer. Assumed answer: "go ahead with the accepted files".*
+*Proceeding as if you answered "go ahead with the accepted files". The salary figure is blocked; everything that does not need it is computed below.*
 
-## Findings
+## Framework (Step 1)
 
-**1. Income other than salary: 60,740.**
+Jurisdiction Sampleland; tax year 2025; resident (no cross-border element stated); joint filing. Statutory values used — all from **sample rate card v1, tax year 2025** (user-supplied):
 
-| Income | Gross | Withheld | Source | Basket |
-|---|---:|---:|---|---|
-| Dividend, Northbrook Trading Ltd, 31 Mar 2025 (80% of 60,000) | 48,000 | — | summary | Dividend |
-| Bank interest | 1,240 | — | summary | Interest |
-| Rental: receipts 18,000 − costs 6,500 | 11,500 | — | summary | Rental |
-| **Total, excluding salary** | **60,740** | | | |
-| Salary, Northbrook Trading Ltd | **not determinable** | not determinable | "per payroll"; only September supplied | Employment |
+| Value | Amount | Source and year |
+|---|---|---|
+| Personal allowance | 12,000 | sample rate card v1, 2025 |
+| Rate band 1 | 15% of taxable income up to 50,000 | sample rate card v1, 2025 |
+| Rate band 2 | 30% above 50,000 | sample rate card v1, 2025 |
 
-The dividend is the taxpayer's 80% share, not the company's 60,000. Rental costs are taken as allowable; that is a treatment for the reviewer to confirm.
+The card has no separate dividend, interest or rental rate, no joint-filing band and no credits; I have taxed all income on the single schedule. **Confirm with the professional that this is the whole rule set** — a dividend rate or a joint band would change the answer.
 
-**2. Salary for 2025 cannot be taken from one month.** September's register shows the taxpayer's gross of 14,863 and tax withheld of 1,784. Multiplying that by 12, or 9, would be an estimate of a figure that must come from the employer's year-end statement, so **the tax is not computed as a final figure**.
+## Income by type (Step 2)
 
-**3. The computation, as a function of the 2025 salary (S) and salary withholding (W):**
+| Type | Gross | Withheld | Source | Basis |
+|---|---|---|---|---|
+| Employment — salary, Northbrook Trading Ltd | **Blocked** (September only: 14,863) | **Blocked** (September only: 1,784) | Payroll register, Sep 2025 | Need full-year employer statement |
+| Dividend, Northbrook Trading Ltd, 31 Mar 2025 | 48,000 | — | Tax document | Taxpayer's 80% share of a 60,000 dividend (48,000 = 0.8 × 60,000 ✔); user-supplied |
+| Bank interest | 1,240 | — | Tax document | User-supplied |
+| Rental: receipts 18,000 less costs 6,500 | 11,500 net | — | Tax document | User-supplied; which costs are allowable is for the reviewer |
+| **Total excluding salary** | **60,740** | | | |
 
-```
-Taxable income = S + 60,740 − 12,000 = S + 48,740
-Tax            = 15% × 50,000 + 30% × (S + 48,740 − 50,000)    (for S above 1,260)
-               = 7,500 + 30% × (S − 1,260)
-Balance due    = Tax − W − 8,000 estimated payments
-```
+## Taxable income and tax (Steps 4–6)
 
-Without salary, the other income alone gives taxable income of 48,740 and tax of 7,311 (all within the 15% band). With any salary over 1,260, every extra dollar of salary is taxed at 30%.
+| | Amount |
+|---|---|
+| Income excluding salary | 60,740 |
+| Less personal allowance | (12,000) |
+| Taxable income excluding salary | 48,740 |
+| Plus full-year salary **S** | **S** (blocked) |
 
-**Illustration only, not a figure for the return:** if 2025 salary and withholding were 12 times September's (178,356 and 21,408), taxable income would be **227,096**, tax **60,628.80**, and the balance due **31,220.80** after 21,408 withheld and 8,000 estimated payments. The actual figures replace these when the year-end statement arrives.
+Taxable income of 48,740 + S passes the 50,000 band edge once salary exceeds **1,260**, which a full year of salary certainly will (September alone is 14,863). So, once S is supplied:
 
-**4. Things for the reviewer.**
-- Owner-manager with salary and dividend: the rate card has a single scale. If Sampleland taxes dividends separately, the computation changes.
-- Joint filing: the spouse's income is not in the documents; joint filing normally includes it.
-- Estimated payments of 8,000 are user-supplied; no evidence.
-- Next year's estimated payments, deadlines and penalties: not in the rate card, so not computed.
+**Tax before credits = 7,500 + 30% × (S − 1,260)**
+(7,500 is 15% of the first 50,000.)
 
-## Statutory values used
+**Balance due (refund if negative) = that tax − full-year salary tax withheld − 8,000 estimated payments.**
 
-| Value | Amount | Source | Year |
-|---|---|---|---|
-| Personal allowance | 12,000 | sample rate card v1 | 2025 |
-| Rate band 1 | 15% on taxable income to 50,000 | sample rate card v1 | 2025 |
-| Rate band 2 | 30% above 50,000 | sample rate card v1 | 2025 |
-| Dividend / interest / rental rates | **none supplied**: ordinary scale applied | — | — |
+I have not put a number on S or on the withholding: a September-times-twelve figure would be an estimate of a figure that has to come from the employer's statement.
 
-## Document checklist
+## Credits and payments (Step 7)
+
+Estimated payments 8,000 (user-supplied, receipts needed). Salary withholding: full year blocked. No credits are given on the rate card; none applied.
+
+## Open items for the reviewer
+
+1. Full-year salary and withholding for 2025 — **blocks the tax figure**.
+2. Joint filing with no spouse figures and a single-person schedule — confirm how joint filing works under this card.
+3. Relief for the 401k / retirement contributions (595 in Sep) and social-security contributions (1,137 in Sep) — not on the card, not applied.
+4. Whether dividends and interest have their own rates or allowances in Sampleland.
+5. Rental cost allowability, and any capital allowance on the property.
+6. Filing and payment deadlines, next-year estimated payments, and any underpayment penalty — not on the card, not computed.
+7. The rate card is marked fictitious and for testing: it must be replaced by the official 2025 source before anything is filed.
+
+## Document checklist (Step 9)
 
 | Figure | Document needed | Status |
 |---|---|---|
-| Salary and withholding | Employer year-end statement for 2025 | **Missing — blocking** |
-| Dividend 48,000 | Dividend voucher | Missing |
+| Salary and tax withheld, 2025 | Employer's annual statement | **Missing** |
+| Dividend 48,000 | Dividend voucher / board minute showing the 80% holding | Missing (summary only) |
 | Interest 1,240 | Bank interest statement | Missing |
-| Rental 18,000 / 6,500 | Rent ledger, receipts | Missing |
+| Rental 18,000 / 6,500 | Rental ledger, receipts | Missing |
 | Estimated payments 8,000 | Payment confirmations | Missing |
-| Carryforwards | 2024 return | Missing |
+| Spouse's income | Spouse's documents | Missing |
+| Carry-forwards | 2024 return | Missing |
 
 ## Not done, and why
 
-- Final tax and balance due: salary and withholding for the year missing.
-- Standard vs itemised comparison, credits: none supplied.
-- Excel workpaper `Personal_Tax_2025_[Name].xlsx`: not created; the taxpayer's name was not given. Would you like it?
+The tax liability and the balance due are not stated as numbers: full-year salary and withholding are required inputs I do not have. Capital gains: none reported. I would ask before creating `Personal_Tax_2025_[Name].xlsx` (name to be supplied by you; not taken from the documents). Nothing was posted, filed, paid or saved. **Have a qualified tax professional review this before anything is filed.**
 
 ## Coverage sheet (manual run)
 
-**Environment:** taxpayer the owner of Northbrook Trading Ltd, tax year 2025, Sampleland, USD — user-asserted. Data source: upload (Mosofin gateway absent). Documents summary and register accepted with limits (register: own row only); rota rejected.
-**Capability map:** Not applicable: no connection. Every task is `[manual]`.
-
-| Step | Status |
+| Section | Entry |
 |---|---|
-| 1 Framework | Done with a limit: year end and dependants unconfirmed |
-| 2 Income | Done with a limit: salary not determinable |
-| 3–4 Deductions | Done with a limit: allowance 12,000; rental costs as given |
-| 5–6 Taxable income and tax | Formula only; illustration labelled |
-| 7–8 Credits and balance | Not done: withholding for the year missing |
-| 9 Checklist | Done |
-| 10 Output | Tables in chat; professional review recommended |
+| Environment | Taxpayer: owner of Northbrook Trading Ltd; Sampleland resident; joint; tax year 2025; currency assumed USD — all user-asserted; source: upload (Mosofin not used, by choice) |
+| Files | Tax document accepted with limit (summary, unevidenced); payroll register accepted with limit (Sep 2025 only, own row only); `_final.csv` rejected (shift rota) |
+| Capability map | Not applicable: no connection. Every task is `[manual]`. |
+| Steps | 1 framework done; 2 income done except salary (blocked); 3 rental net done, allowability open; 4 allowance applied; 5 taxable income done as formula; 6 tax done as formula; 7 credits partial; 8 balance due as formula; 9 checklist done; 10 tables in chat |
+| Not done | Full-year salary and withholding; spouse's income; prior-year carry-forwards; deadlines and penalties |
 
-**Data sources:** upload — personal_tax_documents_SAMPLE.md, payroll_register_2025-09.csv (taxpayer's row only).
+**Data sources:** uploads — `personal_tax_documents_SAMPLE.md` (user-supplied figures and rate card v1, 2025), `payroll_register_2025-09.csv` (row E12 only).

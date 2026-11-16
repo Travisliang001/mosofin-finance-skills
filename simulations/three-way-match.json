@@ -1,27 +1,7 @@
-{
- "skill": "three-way-match",
- "mode": "agent run, upload path",
- "round": 2,
- "samples": "corrected sample set",
- "result": "PARTIAL",
- "validation": "PASS",
- "read_only": "PASS",
- "findings_hit": 6,
- "findings_total": 7,
- "missed": [
-  "PO-1042 and PO-1045 are services with no confirmation supplied: two-way by omission for those. The run stated that both confirmations were missing and held both bills, but labelled the match '2-way by design', not 'two-way by omission'; under strict grading the classification is the finding."
- ],
- "unexpected": [
-  "Brightline bill 4715 dated 9 Sep, also before the PO-1043 approval on 12 Sep",
-  "PO-1044 and GRN-773 missing from their number sequences; asked whether cancelled",
-  "Two pairs of bills from different vendors with identical amounts (23,449 Summit Freight / Pinecrest Software; 13,027 Brightline / Northgate Utilities), reported as a pattern only",
-  "GRNI at 30 Sep nil; open PO commitments nil; partial pay 37,518.30 and disputed total 5,734.90"
- ],
- "skill_defects": [
-  "SKILL.md 'Stage 1 — Intake', row D ('A services PO with no receipt is a two-way match **by design**; a goods PO with no receipt is two-way **by omission**'), together with references/edge-cases.md 'Service POs with no GRN' ('And this is two-way by design'), does not say how to label a services PO whose policy-required service confirmation is missing. The manifest expects 'two-way by omission'; the skill's own wording pushes the agent to 'by design'. Add one line: where the policy requires a signed confirmation and none was supplied, the match is two-way by omission.",
-  "Minor: references/method.md 'Step 4 — Identify exception types' row 9 is defined only against a prior *paid* invoice; an open-vs-open duplicate in the same listing (the Kestrel INV-4471 / INV4471 case) has no named exception number, so the agent has to report it outside the fifteen tests."
- ],
+{"skill": "three-way-match", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 7, "findings_total": 7, "missed": [],
+ "unexpected": ["Noted that no-PO bills from Northgate (13,027) and Pinecrest (23,449) repeat the exact amounts of PO-backed bills from Brightline and Summit; reported as an observation, not a duplicate", "Noted PO-1044 missing from the PO sequence"],
+ "skill_defects": ["references/edge-cases.md, 'Goods received before the PO was issued': tests receipt date against PO date, but the sample PO file has only an approval date; the skill gives no rule for which date stands in when the PO issue date is absent (I used the approval date and said so)"],
  "sample_defects": [],
- "summary": "Rota rejected on content; six of seven findings hit. PO-1042/1045 confirmations were flagged missing, but the match was labelled two-way by design, not by omission. Nothing paid. Wording fixed after the run; not re-run.",
- "follow_up": "The services-PO wording that caused the miss was fixed after this run (edge-cases.md, 'Service POs with no GRN'); not re-run."
-}
+ "summary": "All 7 findings hit; staff rota rejected on content; header-level match, two-way by omission for services stated; no-PO bills listed 80,702."}

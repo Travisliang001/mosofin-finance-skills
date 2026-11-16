@@ -1,66 +1,103 @@
-# Invoice match — Northbrook Trading Ltd — open bills at 30 September 2025
+# Invoice match: Northbrook Trading Ltd, open bills at 30 September 2025
 
-Mosofin is not connected, so this run is manual: every step is `[manual]` and every figure comes from your uploads. Connecting Mosofin would read bills and POs directly ([docs.mosofin.com](https://docs.mosofin.com)).
+**Match performed: three-way for PO-1040, PO-1041, PO-1043; two-way by omission for the two
+services orders PO-1042 and PO-1045** (policy requires a signed service confirmation; none was
+uploaded). Seven bills carry no PO and sit outside the match. Manual run: no Mosofin connection.
 
-## Read-back (Stage 1)
+## Read-back
 
-Matching **the 12 open bills at 30 September 2025** for **Northbrook Trading Ltd** (user-asserted), **USD** (user-asserted; no file states a currency), against the **purchase orders and goods receipts you uploaded**. From `approval_matrix_and_tolerances.md` (facts that arrived inside a file; used once you confirm them here): **price 2%, quantity exact, total 25**; PO approval **J. Marsh up to 10,000, A. Reyes (CEO) above 10,000**; **services orders (freight, consulting) need a signed service confirmation** in place of a receipt; **no foreign-currency orders**; exceptions owned by **the AP manager**. This will be a **three-way match for the goods POs** and a **two-way match by design for the services POs**. Go-ahead assumed.
+> Matching **September 2025's open bills** (as at 30 Sep 2025) for **Northbrook Trading Ltd**, in
+> **USD**, against purchase orders and goods receipts, all **uploaded by you**. Tolerance taken
+> from your uploaded policy: **price 2%, quantity exact, total-amount limit 25**. Approval matrix
+> from the same file: J. Marsh up to 10,000; A. Reyes (CEO) above 10,000. Services orders need a
+> signed service confirmation. No foreign-currency orders. Exceptions owned by the **AP manager**.
+> This will be a **three-way match for goods, two-way by omission for services** (no
+> confirmations supplied). Shall I go ahead?
+
+Intake B, C, D, E and F were answered inside the policy file; I use them as confirmed by the
+read-back. Assumed "yes, go ahead with the accepted files".
 
 ## Upload validation (shown before any work)
 
-| File | What it actually is | Company / period | Usable? | Needed for | Verdict |
+| File | What it actually is | Company / period | Usable? | Used by | Verdict |
 |---|---|---|---|---|---|
-| `purchase_orders.csv` | 5 POs, one line each, with approver and approval date (PO-1040 to PO-1045; PO-1044 absent) | No entity or currency; approvals 25 Aug – 12 Sep 2025 | Yes; no PO date column, so approval date stands in | Steps 1–4 (PO leg, tests 1–6, 11–13) | **Accepted with a limit**: company user-asserted; PO date = approval date |
-| `goods_receipts.csv` | 3 goods receipts (GRN-771, 772, 774), with condition | No entity, vendor or receiver; 4–10 Sep 2025 | Yes | Receipt leg; tests 3, 4, 7, 8, 15 | **Accepted with a limit**: company user-asserted; no receiver name or vendor on receipts |
-| `open_bills_2025-09-30.csv` | AP open-bill listing, 12 bills, 3–25 Sep 2025, total **255,264** | No entity or currency; dates in September | Header-level only: no lines, quantities, unit prices or tax | Invoice leg | **Accepted with a limit**: company user-asserted; **header-level match only**; tax test (14) cannot run |
-| `approval_matrix_and_tolerances.md` | Policy note: approval matrix, tolerances, services rule, FX, owner | No entity named | Yes | Steps 3–4 (tolerance, tests 11–12), owners | **Accepted with a limit**: company user-asserted |
-| `open_bills_2025-09-30_final.csv` | **An employee shift rota** (E08–E10, weeks 1–4: days / nights / off). Not a bill listing despite its name | None | n/a | No step uses it | **Rejected.** If a later bill listing exists, upload it instead |
+| `purchase_orders.csv` | 5 POs, one line each: vendor, item, qty, unit price, approver, approval date | No entity or currency named | Yes; no PO issue date, only approval date | Steps 1-4, exceptions 1-6, 11-13 | **Accepted with a limit**: company and currency user-asserted; receipt-before-PO tested against approval date |
+| `goods_receipts.csv` | 3 goods receipts with qty and condition | Not named; dated Sep 2025 | Yes | Steps 2-4, exceptions 3, 4, 7, 8, 15 | **Accepted with a limit**: company user-asserted; no receiver name |
+| `open_bills_2025-09-30.csv` | AP open-bills list, 12 bills, 255,264.00 | Not named; Sep 2025 | Header only: no line items, no tax, no currency | Steps 1-4 | **Accepted with a limit**: header-level match only; exception 14 cannot run |
+| `approval_matrix_and_tolerances.md` | Policy note: matrix, tolerances, services rule, FX, owner | Not named | Yes | Steps 3-5, exceptions 11, 12 | **Accepted** (facts confirmed in read-back) |
+| `open_bills_2025-09-30_final.csv` | **An employee shift roster** (employee, week_1-4: days/nights/off), not bills | n/a | n/a | No step uses it | **Rejected**: content is a staff rota despite the file name. If a later bills list was meant, upload it. |
 
-**Still missing:** **signed service confirmations for PO-1042 (Summit Freight) and PO-1045 (M. Okafor Consulting)** — required by your policy; they block those two bills only. Vendor master (optional) not supplied, so payment terms are not checked. Payment history not supplied, so test 9 (duplicate of a *paid* invoice) cannot run.
+Still missing: **signed service confirmations for PO-1042 (Summit Freight) and PO-1045 (M.
+Okafor Consulting)**. They block those two matches, not the run.
 
-## Findings — header-level match, tolerance per your policy
+## Match summary
 
-| PO | Vendor | Bill | Legs | PO value | Received | Billed | Variance | Status | Recommendation |
-|---|---|---|---|---:|---|---:|---:|---|---|
-| PO-1040 | Kestrel Supplies | 4502 | 3-way | 87,016.80 (4,000 × 21.7542) | 4,000, good | 88,583.00 | **+1,566.20 (1.80%)** | Exception 1: inside 2% price, **breaks total tolerance of 25** | **Hold**, or pay 87,016.80 and dispute 1,566.20 |
-| PO-1041 | Orchard Packaging | INV-4573 | 3-way | 41,687.00 (100 × 416.87) | **90**, good | 41,687.00 | 0 vs PO; **+4,168.70 vs receipt** | **Exception 4: short shipment billed in full** (10 × 416.87) | **Partial pay 37,518.30**, request credit for 4,168.70 |
-| PO-1042 | Summit Freight | INV-4644 | 2-way by design | 23,449.00 | no confirmation | 23,449.00 | 0 | **Exception 11 (Critical): PO has no approver or approval date**; 23,449 needs the CEO. Service confirmation missing | **Hold** |
-| PO-1043 | Brightline IT Services | 4715 | 3-way | 13,027.02 (6 × 2,171.17) | 6, good | 13,027.00 | −0.02 | **Exception 12 (Critical): approved by J. Marsh (limit 10,000) for 13,027.02.** Received 10 Sep and billed 9 Sep, **before the PO was approved on 12 Sep** — process exception though amounts agree | **Hold** for CEO retro-approval |
-| PO-1045 | M. Okafor Consulting | INV-4857 | 2-way by design | 7,816.00 | no confirmation | 7,816.00 | 0 | Amounts agree; approval within J. Marsh's limit. **Signed service confirmation missing** | **Hold** until confirmation arrives |
+| Bill | Vendor | PO | GRN | Bill amount | PO value | Received value | Matched | Disputed / held | Basis | Recommendation |
+|---|---|---|---|---:|---:|---:|---:|---:|---|---|
+| 4502 | Kestrel Supplies | PO-1040 | GRN-771 | 88,583.00 | 87,016.80 | 87,016.80 | 87,016.80 | 1,566.20 | PO no. (header) | **Hold**; or pay matched, dispute 1,566.20 |
+| INV-4573 | Orchard Packaging | PO-1041 | GRN-772 | 41,687.00 | 41,687.00 | 37,518.30 | 37,518.30 | 4,168.70 | PO no. (header) | **Hold**; request credit memo for 10 cartons |
+| INV-4644 | Summit Freight | PO-1042 | none (service) | 23,449.00 | 23,449.00 | n/a | 0.00 | 23,449.00 | PO no. (header) | **Hold**: PO unapproved, no confirmation |
+| 4715 | Brightline IT Services | PO-1043 | GRN-774 | 13,027.00 | 13,027.02 | 13,027.02 | 0.00 | 13,027.00 | PO no. (header) | **Hold**: approved beyond authority |
+| INV-4857 | M. Okafor Consulting | PO-1045 | none (service) | 7,816.00 | 7,816.00 | n/a | 0.00 | 7,816.00 | PO no. (header) | **Hold** until signed confirmation |
 
-Match basis: PO reference on the bill, then vendor name (all five agree to the PO vendor exactly). All bills are header-only; the PO-1040 implied price of 22.1458 against 21.7542 is what the totals imply, not a billed price.
+No bill is recommended for payment in full today. All bills are header-only, so every match is
+header level: bill total against PO qty x price and received qty x price.
 
-**Bills outside the match — not matched: no PO.** Seven bills, **80,702** in total: Greyfriars Legal LLP 15,633; Vale Marketing Studio 10,422; Northgate Utilities 13,027; Pinecrest Software 23,449; Dale Cleaning Co 5,211; Kestrel Supplies INV-4471 6,480; Kestrel Supplies Inc. INV4471 6,480. Your policy note does not say whether these kinds of spend need a PO — please confirm. No PO inferred for any of them.
+## Exceptions
 
-**Possible duplicate:** **Kestrel Supplies `INV-4471` (5 Sep) and Kestrel Supplies Inc. `INV4471` (6 Sep), both 6,480**: same invoice number once punctuation is removed, same amount, vendor name differing only by "Inc.", one day apart. Hold one pending confirmation with the vendor. Also noted, as a pattern only: two pairs of bills from different vendors carry identical amounts (23,449 Summit Freight / Pinecrest Software; 13,027 Brightline / Northgate Utilities). Possibly coincidence; worth a glance.
+| # | Bill / PO | Exception | Severity | Figures | Recommended action | Owner |
+|---|---|---|---|---|---|---|
+| 1 | 4502 / PO-1040 | **Price overbilling** (ex. 1). Implied unit price 22.1457 vs PO 21.7542 | High | +1,566.20, **+1.80%**: inside the 2% price tolerance but **breaks the 25 total-amount limit** | Hold; ask Kestrel for a credit or the price clause; or pay 87,016.80 and dispute 1,566.20 | AP manager |
+| 2 | INV-4573 / PO-1041 | **Short shipment billed in full** (ex. 4). Ordered 100, received 90, billed 100 | High | 10 x 416.87 = **4,168.70** over-billed | Request credit memo; pay 37,518.30 at most | AP manager |
+| 3 | INV-4644 / PO-1042 | **PO not approved** (ex. 11): no approver, no approval date | **Critical** | 23,449.00 | Hold; obtain retroactive approval from A. Reyes (amount > 10,000) | AP manager |
+| 4 | INV-4644 / PO-1042 | **Billed, not received** (ex. 8): service with no signed confirmation (two-way by omission) | High | 23,449.00 | Hold until confirmation | AP manager |
+| 5 | 4715 / PO-1043 | **Approved by wrong authority** (ex. 12): J. Marsh approved 13,027.02, above the 10,000 manager limit | **Critical** | 13,027.02 (3,027.02 over limit) | Hold; CEO approval required | AP manager |
+| 6 | 4715 / PO-1043 | **Goods received before the PO was approved**: GRN-774 on 10 Sep, PO approved 12 Sep (bill dated 9 Sep, also before approval) | Process exception | Amounts agree (0.02 favourable) | Retroactive approval, by the right authority | AP manager |
+| 7 | INV-4857 / PO-1045 | **Billed, not received** (ex. 8): consulting, no signed confirmation | High | 7,816.00 | Hold until confirmation | AP manager |
+| 8 | INV-4471 and INV4471 | **Likely duplicate invoice** (ex. 9): "Kestrel Supplies" vs "Kestrel Supplies Inc." (likely duplicate vendor record), same 6,480.00, invoice number equal once normalised, dated 5 and 6 Sep | **Critical** | 6,480.00 at risk | Reject one copy; merge the vendor records; neither has a PO | AP manager |
 
-**Population view.** PO-1040's 1.80% sits just inside the 2% price tolerance (one instance; no pattern can be called from one month). GRNI (received, not billed) at 30 Sep: **nil** — all three receipts are billed. Open PO commitments not invoiced: **nil**. PO-1044 and GRN-773 are missing from the sequences: please confirm they were cancelled.
+No price underbilling, quantity overbilling, item-not-on-PO, currency, vendor-mismatch or
+damaged-goods exceptions were found (all three receipts are condition "good").
 
-**Summary of recommendations (proposals only — nothing paid, held or released by me).** Pay in full now: none. Partial pay: 37,518.30 (PO-1041). Matched but held: 87,016.80 (PO-1040, pending the 1,566.20 dispute), 13,027.00 (PO-1043), 7,816.00 (PO-1045). Held on approval: 23,449.00 (PO-1042). Disputed: 1,566.20 + 4,168.70 = **5,734.90**. Owner for every exception: **AP manager**, per your policy.
+## Not matched: no PO (7 bills, 80,702.00)
 
-## Tests that ran and did not
+Greyfriars Legal LLP 15,633.00; Vale Marketing Studio 10,422.00; Northgate Utilities 13,027.00;
+Pinecrest Software 23,449.00; Dale Cleaning Co 5,211.00; Kestrel Supplies 6,480.00; Kestrel
+Supplies Inc. 6,480.00. The policy file does not say whether legal, marketing, utilities, software
+or cleaning spend needs a PO; please confirm. Note that Northgate (13,027.00) and Pinecrest
+(23,449.00) repeat the exact amounts of Brightline's and Summit's PO-backed bills; different
+vendors, so not duplicates under exception 9, but worth a look by whoever owns vendor review.
 
-| Test | Ran? |
-|---|---|
-| 1 price over, 2 price under | Ran, header level (PO-1040 over; PO-1043 under by 0.02, within tolerance) |
-| 3 qty over, 4 short shipment billed | Ran for 3 goods POs at header level (PO-1041 exception 4) |
-| 5 item not on PO, 6 PO not invoiced | Ran at header level; none |
-| 7 received not billed (GRNI), 8 billed not received | Ran for goods POs; none. Services POs: confirmations missing |
-| 9 duplicate of a paid invoice | **Not run**: no payment history. Open-vs-open duplicate flagged above |
-| 10 currency | **Not run on data**: no currency on any document; policy says no FX orders |
-| 11 PO not approved, 12 wrong authority | Ran (PO-1042, PO-1043) |
-| 13 vendor mismatch | Ran PO vs bill; receipts carry no vendor |
-| 14 tax | **Not run**: no tax on the bill listing |
-| 15 damaged goods | Ran: all receipts "good" |
+## Population findings
 
-## Coverage and provenance (manual run)
+| Finding | Scope | Count | Value | Action |
+|---|---|---:|---:|---|
+| Variance just inside price tolerance | Kestrel Supplies | 1 | 1,566.20 (1.80% vs 2%) | One instance only, not yet a pattern; watch next period |
+| Unreceipted / unconfirmed services bills | Summit, Okafor | 2 | 31,265.00 | Obtain confirmations |
+| PO approval breaches (none / beyond authority) | PO-1042, PO-1043 | 2 | 36,476.02 | Review approval workflow |
+| Possible duplicate vendor record | Kestrel Supplies / Kestrel Supplies Inc. | 1 pair | 6,480.00 | Vendor master clean-up |
+| GRNI at 30 Sep (received, not billed) | All GRNs | 0 | 0.00 | Every receipt has a bill; no accrual from this population |
+
+PO-1044 is missing from the PO sequence; not in the uploads, so not tested.
+
+## Not done, and why
+
+- **Exception 14 (tax)**: bills carry no tax field. **Not run.**
+- **Exception 6** ran: every PO has a bill. **Exception 7**: no receipt without a bill.
+- **Line-level matching**: bills are single totals, so every match is header level; the implied
+  unit price is stated, not inferred beyond the totals.
+- **Same user across PO / receipt / bill**: no creator or receiver names uploaded. Not run.
+- **Contract price clauses** for Kestrel: not supplied; the 1.80% may be legitimate.
+- **Payment, holds, releases**: none made. Recommendations only. No fraud is concluded.
+
+## Coverage sheet (manual run)
 
 | Section | Content |
 |---|---|
-| Environment | Northbrook Trading Ltd, open bills at 30 Sep 2025, USD — **user-asserted**. Data source: **upload**. Legs: POs (single-line), receipts (goods only), bills (header only). Files: POs, receipts, bills, policy — accepted with limits above; `open_bills_2025-09-30_final.csv` **rejected** (shift rota). Tolerance: price 2%, qty exact, total 25; matrix as in policy file |
+| Environment | Northbrook Trading Ltd, September 2025 (30 Sep 2025), USD, all **user-asserted**. Source: upload. 4 files accepted (3 with limits above), 1 rejected (staff roster). Legs: invoices (header only), POs (one line each), goods receipts (3, with condition). |
 | Capability map | Not applicable: no connection. Every task is `[manual]`. |
-| Steps | 1 done (header fields only); 2 done at header level; 3 done; 4 done, tests 9, 10, 14 not run; 5 proposals made; 6 tables in chat (offer `Match_Population_2025-09_NorthbrookTradingLtd.xlsx` — not "3Way", as two POs are two-way) |
-| Not done | Line-level match (no bill lines); tax; paid-duplicate test; payment terms vs vendor master; tie of open bills to the AP control account — needs bill line detail, payment history, vendor master, AP ledger balance |
-| Parameters | Tolerances and matrix from policy file; matching basis PO reference then vendor; population 12 open bills, 3–25 Sep 2025 |
+| Steps | 1 Extract: done with a limit (header-only bills). 2 Match: done, header level. 3 Tolerances: done (2% / exact / 25). 4 Exceptions: 1-13 and 15 run; 14 not run; 3, 4, 7, 8, 15 ran for goods only. 5 Resolutions: proposed. 6 Output: tables in chat; Excel offered, not created. |
+| Not done | Tie of bills to the AP control account (needs trial balance); tax test (needs tax per bill); service confirmations; approver/creator SoD test (needs user names); prior-period GRNI baseline. |
+| Parameters | Price 2%, qty exact, total 25. Matching precedence: PO number, header level. Approval matrix as uploaded. Workpaper name if wanted: `Match_Population_2025-09_Northbrook Trading Ltd.xlsx` (not "3Way": two services orders were two-way). |
 
-Nothing has been paid, held, released, posted or sent. Every recommendation is for the AP manager to act on.
+Would you like this as an Excel workpaper?

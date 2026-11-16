@@ -1,0 +1,36 @@
+{
+ "skill": "foreign-currency-translation-asc830",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 1,
+ "findings_total": 2,
+ "missed": [
+  "Translation adjustment is proved independently, not taken as the balancing figure — the output refused the plug and computed the component derivation (−4,000.00 − 2,096.80 + 525.00 = −5,571.80, agreeing with the plug), but declared CTA 'unproved' because the Step 3b formula's opening rate and opening CTA were not supplied; it never states the adjustment is proved"
+ ],
+ "unexpected": [
+  "80% ownership: CTA split group −4,457.44 / NCI −1,114.36; profit split 35,140.00 / 8,785.00",
+  "Retained earnings 52,420 GBP translated at the single 2019 rate 1.31 flagged as an approximation; at closing rate CTA would be −3,475.00 (2,096.80 swing)",
+  "Intercompany receivable GBP 33,220 (USD 42,189.40) present although intake says no intercompany loans; treated as settlement balance, parent side and currency of denomination missing",
+  "Four transaction-date rates in fx_rates.csv match no transaction and were set aside",
+  "No approver on any rate; no 31 Dec 2024 rate"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 3b — Prove CTA independently': the only proof given needs 'Opening net assets × (closing rate − opening rate)' and an opening CTA, but SKILL.md 'Stage 1 — Intake' question D asks only for 'closing, average and historical' rates, never the opening rate; and no alternative proof is given for a first translation from acquisition (equity components × (closing − historical) + profit × (closing − average)), so a run cannot tell whether that derivation counts as the independent proof.",
+  "references/method.md 'Step 3 — Translation': 'Equity: historical rates' gives no rule for retained earnings, which accumulate at many rates; SKILL.md says 'Never approximate a historical rate without saying so' but neither file says how to build the RE historical rate or what to do when only an acquisition-date rate exists.",
+  "SKILL.md 'Stage 1 — Intake' has no question on ownership percentage, yet references/method.md 'Both entity scenarios' requires CTA to be 'split between the group and the non-controlling interest'; the 80% only surfaced because a group-structure file happened to be uploaded.",
+  "SKILL.md 'Stage 1 — Intake' question F covers loans only; nothing asks for trading intercompany balances or their currency of denomination, which decides whether Step 2 remeasurement applies.",
+  "references/method.md 'Step 1 — Determine functional currency' relies on P&L, customer, vendor and bank-currency evidence that the upload checklist in SKILL.md never requests, so on upload the functional currency is always user-asserted only."
+ ],
+ "sample_defects": [
+  "Key expects the CTA 'proved independently', but the sample omits what SKILL.md's own upload checklist calls 'Required for the proof' (prior-period translated balances and opening CTA) and the 31 Dec 2024 rate needed by the Step 3b formula; only the profit term 35,000 × (1.27 − 1.255) = 525.00 is provable as the skill defines it.",
+  "Only one historical rate (1.31 at 2019-03-01) is supplied for both share capital 100,000 and retained earnings 52,420; using it for RE assumes all RE was earned at the acquisition-date rate, which is implausible for 2019–2024 profits.",
+  "fx_rates.csv carries four transaction-date rates (2025-07-10 1.2698, 2025-08-12, 2025-09-18, 2025-09-29 at 1.27) with no transactions in any file to apply them to.",
+  "Intake says 'No intercompany loans' but the UK TB carries 1300 Intercompany Receivable – Northbrook Trading 33,220 GBP; the parent's side is not in this sample (the financial-statement-builder sample shows 2300 payable USD 38,000 vs 33,220 × 1.27 = 42,189.40, a 4,189.40 gap if that is the counterpart).",
+  "Arithmetic check: TB foots at 603,520; net assets 187,420 × 1.27 = 238,023.40; CTA plug = 238,023.40 − 131,000.00 − 68,670.20 − 43,925.00 = −5,571.80."
+ ],
+ "summary": "PARTIAL 1/2; rota rejected on content. CTA derived (−5,571.80) but called unproved: sample lacks the opening rate and opening CTA the skill's proof requires."
+}

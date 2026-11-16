@@ -49,8 +49,8 @@ only if the Phase 1 output actually states it. Do not edit the `.md`. Write
 
 ## Rules
 
-Modify nothing under `skills/`. Create files only under `simulations/`, and never in
-`simulations/round-1/`. Do not run git. Do not use Mosofin or any MCP tool.
+Modify nothing under `skills/`. Create files only under `simulations/`, and never in `simulations/round-1/` or
+`simulations/before-fixes/`; do not read those two folders. Do not run git. Do not use Mosofin or any MCP tool.
 
 When every assigned skill is done, reply with a table — skill | result | hit/total | one-line note —
 then the skill defects and sample defects that matter most, most important first, quoting file and

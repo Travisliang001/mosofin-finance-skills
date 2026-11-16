@@ -1,80 +1,119 @@
-# Subsequent events review — Northbrook Trading Ltd — balance sheet date 30 September 2025
+# Subsequent events review: Northbrook Trading Ltd, balance sheet date 30 September 2025
 
-Mosofin is not connected, so this run is manual: every step is `[manual]` and every figure comes from your uploads. Nothing is classified, posted or concluded here; management concludes.
+Mosofin is not connected, so this run is manual and works only from your uploads. (Connecting
+Mosofin would let the sweep re-run itself up to issue: [docs.mosofin.com](https://docs.mosofin.com).)
+Nothing is posted. Every entry is **PROPOSED — NOT POSTED**, and every classification is yours.
 
-## Read-back
+## Read-back (please confirm)
 
-Reviewing subsequent events for **Northbrook Trading Ltd** (user-asserted), USD, US GAAP (ASC 855 — the framework is stated in `legal_matters.md`), from **30 September 2025** to an issue date of **20 March 2026**. Data source: **upload only**.
+> Reviewing subsequent events for **Northbrook Trading Ltd** from **30 September 2025** to an
+> issue date of **20 March 2026**, under **US GAAP (ASC 855)**, from **your uploads**, in USD.
+> Testing **every reserve and accrual found** (allowance for doubtful accounts, accrued liabilities,
+> inventory, and the legal matters listed at 30 September). **Management's events since the period
+> end: not yet given.** Shall I go ahead?
 
-| Intake question | Treatment |
-|---|---|
-| C — issue date and definition | Date given (20 Mar 2026). **Definition not given** (issued vs available to be issued). Please confirm; it belongs in the disclosure. |
-| D — estimates that matter most | Not answered. Default: **test every reserve and accrual account found** — allowance for doubtful accounts (1150), accrued liabilities (2100), the legal matters, and inventory (no reserve account exists). |
-| E — management events by category | **Not answered.** Listed below as not answered, by category. |
-| F — board minutes / legal updates since 30 Sep | Not supplied. **Not reviewed.** The legal matters schedule is dated 28 Sep 2025, before the period end. |
+Not answered, with the default applied: **which definition sets the window end** (issued, or
+available to be issued) — please confirm, it goes in the disclosure; **estimates that matter most** —
+I test every reserve and accrual found; **management's events by category** and **board minutes** —
+listed below as not answered / not reviewed. US GAAP is taken from `legal_matters.md`.
 
-## Upload validation (shown before any work)
+## Validation of the upload (shown before any work)
 
-| File | What it actually is | Company / period | Usable? | Step that uses it | Verdict |
+| File | What it actually is | Company / period | Usable? | Step | Verdict |
 |---|---|---|---|---|---|
-| `trial_balance_2025-09-30.csv` | TB, 33 accounts; Dr = Cr 6,546,018. AR 798,360, allowance 9,000, accrued liabilities 28,800 | No entity named; date from name | Yes | Period-end balances for the estimates | **Accepted with a limit**: company user-asserted |
-| `ar_aging_detail_2025-09-30.csv` | AR aging by invoice, 14 lines, total **798,360** = TB 1100 | Aged at 30 Sep 2025 | Yes | Step 2b receivable patterns | **Accepted with a limit**: company user-asserted |
-| `legal_matters.md` | Legal matters schedule, 3 matters, management's view and counsel's estimate | At 30 Sep 2025 | Yes — a summary, not counsel's letters | Step 2b settlement pattern; Step 3 | **Accepted with a limit**: summary prepared by GC; figures user-supplied, not evidenced; no post-period legal update |
-| `post_period_ledger_2025-10.csv` | Post-period ledger detail, 4 entries, 6–20 Oct 2025 | October 2025 | Yes | Step 2 sweep | **Accepted with a limit**: covers **October 2025 only**; 1 Nov 2025 – 20 Mar 2026 is unswept |
-| `post_period_ledger_2025-10_final.csv` | **Not a ledger.** A staff shift rota: employees E08–E10, weeks 1–4, "days/nights/off". No dates, accounts or amounts | n/a | No | None | **Rejected** — wrong document despite its name. If a "final" October ledger exists, upload that; otherwise upload ledger detail from 1 Nov 2025 to the issue date. |
+| `trial_balance_2025-09-30.csv` | Trial balance, 33 accounts | No company named; 30 Sep 2025 | Foots: 6,546,018 each side | Period-end balances of the estimates | **Accepted with a limit**: company user-asserted |
+| `ar_aging_detail_2025-09-30.csv` | AR ageing by invoice, 14 lines | No company named; at 30 Sep 2025 | Totals 798,360 = TB 1100 exactly | Period-end position per customer (Step 2b) | **Accepted with a limit**: company user-asserted |
+| `post_period_ledger_2025-10.csv` | Post-period ledger lines, 6–20 Oct 2025 | No company named | Readable; **only 4 lines for a month** | The sweep (Steps 2, 2b) | **Accepted with a limit**: covers 6–20 Oct only, and 4 entries cannot be the full population for a company billing ~450,000 a month. Window 21 Oct 2025 – 20 Mar 2026 unswept |
+| `legal_matters.md` | Management's legal matters list at 30 Sep 2025 | Northbrook context; GC views 28 Sep 2025 | Text | Contingency estimates at the period end | **Accepted with a limit**: management's summary, not counsel's letters; figures user-supplied |
+| `post_period_ledger_2025-10_final.csv` | **A staff shift rota** (employee, week_1..week_4) | None | No financial content | None | **Rejected**: despite the name it is not ledger detail. Upload the full post-period ledger instead |
 
-**Still missing:** ledger detail from 1 November 2025 to 20 March 2026 (required — the window runs to issue); management's answers by category (required for non-recognised events); board minutes and legal updates since 30 Sep (recommended); the allowance computation and the make-up of accrued liabilities 28,800 (to see whether the bracket claim is accrued). I would wait for your answer here; proceeding on the accepted files.
+**Still missing (required):** the complete ledger detail from 1 October 2025 to today, and again
+just before 20 March 2026; **management's list of known events** (by category, below).
+**Recommended:** board minutes since 30 Sep; counsel's updated legal letters. I would wait for your
+answer; the sweep below runs on the accepted files only.
 
 ## Completeness statement
 
-*The transactional sweep covered every entry in the uploaded post-period ledger, 1–31 October 2025 (4 entries). Nothing after 31 October 2025 has been swept. Non-transactional events are covered only by the enquiries recorded below, none of which has been answered.* The window is **still open**.
+The transactional sweep covered **4 post-period entries dated 6–20 October 2025**, which is not
+the full population. Non-transactional events are covered only by the enquiries recorded below,
+and **none has been answered yet**. **The window stays open to 20 March 2026**; re-run the sweep
+on the full ledger at the end of each month and the day before issue.
 
-## Ledger sweep detail (candidates, not classifications)
+## Ledger sweep detail (Sheet 5): candidates, not conclusions
 
-| # | Pattern | Counterparty | 30 Sep position | Post-period transaction | Date | Days after | Amount | Candidate type |
-|---|---|---|---:|---|---|---:|---:|---|
-| 1 | Litigation settled after period end; claim predates it | Customer claim, defective brackets | Probable, range 40,000–70,000; accrual not visible in TB | Settlement paid, coded 6400 Professional Fees | 14 Oct 2025 | 14 | **52,000** | Recognised (Type 1) candidate |
-| 2 | Pre-period receivable written off | Foxhall Garden Centres (administration) | 4,003, 130 days overdue | Write-off against allowance 1150 | 9 Oct 2025 | 9 | **4,003** | Recognised candidate |
-| 3 | Pre-period receivable paid after period end (favourable) | Pennine Retail Group | 112,071, 12 days overdue | Receipt in full | 6 Oct 2025 | 6 | **112,071** | Recognised candidate — evidence of collectibility |
-| 4 | Credit note after period end | Returned PN-55 panels (customer not named) | Unknown — no invoice reference | Credit note, coded 1200 Inventory | 20 Oct 2025 | 20 | **8,200** | Candidate — needs the original invoice date |
-| 5 | Material period-end balance, no activity since | Harlow Fabrication Ltd | **248,157** (48,200 at 95 days + 199,957 current) | None in October | — | — | 248,157 | Collectibility indicator (weaker) |
+| # | Pattern | Counterparty | Position at 30 Sep | Post-period item | Date (days after) | Amount | Candidate type |
+|---|---|---|---|---|---|---|---|
+| 1 | Claim predating period end settled | Customer claim, defective brackets | Probable, estimate 40,000–70,000; total accrued liabilities only 28,800 | Settlement expensed to 6400 | 14 Oct (14) | 52,000 | Recognised candidate |
+| 2 | Pre-period receivable written off | Foxhall Garden Centres (administration) | INV-20907, 4,003, 130 days overdue | Write-off against allowance 1150 | 9 Oct (9) | 4,003 | Recognised candidate |
+| 3 | Goods returned after period end | PN-55 panels, customer not named | Sale presumably pre-period; invoice not identified | Taken back into stock at cost, credit note issued | 20 Oct (20) | 8,200 at cost | Recognised candidate (revenue and NRV) |
+| 4 | Provided-against receivable paid / favourable | Pennine Retail Group | INV-20537, 112,071, 12 days overdue | Paid in full | 6 Oct (6) | 112,071 | Favourable evidence: collectible at 30 Sep |
+| 5 | Material balance, no activity since | Harlow Fabrication Ltd | 248,157 (31% of AR): INV-20418 48,200 at 95 days; INV-20977 199,957 due 12 Oct | No receipt by 20 Oct; INV-20977 now past due | — | 248,157 | Collectibility indicator (weaker) |
 
-### What the sweep says about each estimate
+Also open with no post-period receipt: Tideswell Hotels 48,031 (67 days), Ridgeway Logistics
+72,046 (41 days). Calder Print has an unapplied pre-period credit memo CM-0312 (−2,150).
 
-1. **Customer claim, defective brackets — 52,000.** The claim existed at 30 Sep (GC's view 28 Sep: probable, 40,000–70,000) and settled 14 days later at 52,000. On the evidence this is the classic recognised event: the settlement fixes the amount of a liability that existed at the balance sheet date. **Proposed (not posted):** Dr Legal / claims expense 52,000, Cr Accrued liabilities 52,000 at 30 Sep 2025, less any amount already in accrued liabilities (28,800 in total; make-up not supplied). Without the settlement, ASC 450 would accrue the low end of the range, 40,000, absent a best estimate. Two points to resolve: (a) any insurance recovery under the product-liability policy (10,000 deductible) is a separate receivable, recognised only if probable, never netted; (b) the October payment is coded to **6400 Professional Fees** — a claim settlement, not a fee.
-2. **Allowance for doubtful accounts — 9,000.** Foxhall 4,003 written off 9 days after period end (in administration, 130 days overdue) — the condition very likely existed at 30 Sep; it is absorbed by the 9,000 allowance, so no adjustment unless the allowance was reserved for other balances. Items over 90 days total **52,203** (Harlow 48,200 + Foxhall 4,003) against a 9,000 allowance; Harlow has 248,157 outstanding and no receipt in October. Pennine's 112,071 receipt is favourable evidence and, if any of the allowance sat against Pennine, it was too high.
-3. **Credit note 8,200, PN-55 panels.** If the panels were invoiced before 30 Sep, this is evidence the revenue was not earned or the goods were faulty at the date (Type 1); if invoiced after, it is a post-period event. The posting is also odd: a credit note normally credits AR and debits returns/revenue; this one is coded only to inventory 1200. Please give the invoice reference.
-4. **Former employee claim** (reasonably possible, up to 25,000): no post-period activity seen; disclosure-only candidate under ASC 450, not a subsequent event on this evidence. **Supplier counterclaim** (remote): nothing.
+## What each candidate needs (Step 3 is yours)
 
-## Subsequent events log
+**1. Defective-brackets claim (52,000).** The claim existed at 30 September and management judged it
+probable at 40,000–70,000, so the settlement is evidence of the amount of an existing liability.
+Accrued liabilities in total are only 28,800, below even the low end (40,000), and the settlement
+was expensed in October rather than charged against an accrual, so the claim appears **not accrued**.
+Proposed (if you classify it recognised): **Dr Claims/legal expense 52,000 / Cr Accrued liabilities
+52,000 at 30 Sep 2025**, with October's 52,000 then recorded against the accrual. The product
+liability policy (10,000 deductible) may give a recovery of up to 42,000: a separate asset only if
+recovery is probable, never netted. Confirm with the insurer.
 
-| Event | Event date | Posting date | Source | Category | Accounting impact | Disclosure |
+**2. Foxhall write-off (4,003).** Nine days after the period end, on an invoice already 130 days
+overdue: proximity suggests the condition existed at 30 Sep (evidence, not proof). It is within the
+allowance, but the allowance falls from 9,000 to **4,997** against Harlow's 48,200 at 95 days
+and Tideswell's 48,031 at 67 days. When did Foxhall enter administration?
+
+**3. PN-55 returns (8,200 at cost).** Which customer, which invoice, at what selling price, and why
+returned? If the goods were faulty or the sale not complete at 30 Sep, reverse the revenue and
+margin at 30 Sep and test the returned stock for write-down to NRV. Credit note amount needed.
+
+**4. Pennine receipt (112,071).** Favourable: confirms the receivable at 30 Sep. No adjustment.
+
+**5. Harlow (248,157).** The largest exposure, partly 95 days overdue, nothing received since.
+Ask for Harlow's status and any correspondence; this drives the allowance.
+
+**Legal, not swept:** former employee claim (reasonably possible, up to 25,000) — disclosure
+candidate at 30 Sep, not an accrual; supplier counterclaim (remote) — nothing. I do not draft the
+disclosure of a legal matter: counsel and management do.
+
+## Management enquiry, by category (not yet answered)
+
+Litigation · customers (insolvencies, losses, disputes — **Harlow in particular**) · financing ·
+ownership · assets (fire, flood, theft, impairment) · acquisitions or disposals · regulatory ·
+directors and key people · significant commitments and guarantees · **dividends declared after 30 Sep**.
+
+## Subsequent events log (Sheet 1)
+
+| Event | Event date | Posting date | Source | Category | Impact | Disclosure |
 |---|---|---|---|---|---|---|
-| Bracket claim settled | 14 Oct 2025 | 14 Oct 2025 | Ledger sweep + legal schedule | *for preparer* | 52,000 to accrue at 30 Sep (less any existing accrual) | *for preparer* |
-| Foxhall write-off | 9 Oct 2025 | 9 Oct 2025 | Ledger sweep | *for preparer* | 4,003, within allowance | *for preparer* |
-| Pennine receipt | 6 Oct 2025 | 6 Oct 2025 | Ledger sweep | *for preparer* | Favourable; allowance review | — |
-| PN-55 credit note | 20 Oct 2025 | 20 Oct 2025 | Ledger sweep | *for preparer* | 8,200, pending invoice date | *for preparer* |
-| Harlow — no activity | — | — | Ledger sweep | *for preparer* | Collectibility of 248,157 | — |
+| Claim settled | 14 Oct 2025 | not given | ledger sweep | *(preparer)* | 52,000, less any amount already accrued (not identifiable) | *(preparer)* |
+| Foxhall in administration, write-off | 9 Oct 2025 (admin date unknown) | not given | ledger sweep | *(preparer)* | 4,003 | *(preparer)* |
+| PN-55 return | 20 Oct 2025 | not given | ledger sweep | *(preparer)* | 8,200 cost; revenue unknown | *(preparer)* |
+| Pennine paid | 6 Oct 2025 | not given | ledger sweep | *(preparer)* | none | *(preparer)* |
+| Harlow silent | — | — | ledger sweep | *(preparer)* | up to 248,157 exposure | *(preparer)* |
 
-Category is left blank on purpose: it turns on when each condition arose, which is a fact for management. Proximity (6–20 days) is evidence, not proof.
-
-## Management enquiry — not answered
-
-Litigation · customers · financing (incl. the term loan, 220,000) · ownership · assets (casualty) · acquisitions or disposals · regulatory · people · commitments · dividends declared after 30 Sep. Each is an open non-recognised-event enquiry; none can be inferred from the ledger. Legal disclosure wording is not drafted here.
+The ledger file has one date per line, so event and posting dates cannot be separated.
 
 ## Not done, and why
 
-- Sweep of 1 Nov 2025 – 20 Mar 2026 — no ledger; re-run immediately before issue.
-- Board minutes and legal updates — not supplied.
-- Classification, materiality and disclosure — management's judgment.
-- Excel workpaper — would ask before creating `Subsequent_Events_2025-09-30_Northbrook_Trading_Ltd.xlsx`. Nothing posted.
+- Sweep of 21 Oct 2025 – 20 Mar 2026: no ledger; the window is open.
+- Board minutes, legal letter updates, management enquiry: not supplied.
+- Classification, materiality, disclosure wording, posting: yours.
+- Inventory NRV beyond the PN-55 return: no post-period sales data.
 
 ## Coverage sheet (manual run)
 
 | Section | Content |
 |---|---|
-| Environment | Northbrook Trading Ltd, USD (user-asserted); BS date 30 Sep 2025; window end 20 Mar 2026, definition **not confirmed**; framework ASC 855. Data source: upload. 4 files accepted with limits, 1 rejected (staff rota). Sweep run once, over October 2025 only. |
-| Capability map | Not applicable: no connection. Every task is `[manual]`. |
-| Steps | 1 done (definition open); 2 — ledger sweep done for Oct only, cash review same, minutes / legal updates / management enquiry **not done**; 2b done; 3 not done (preparer); 4 quantified, not decided; 5 log drafted. |
-| Unknowns carried forward | All five candidates unclassified; Nov–Mar unswept; every enquiry category open; accrued-liabilities make-up; credit-note invoice date. |
-| Parameters | Window 30 Sep 2025 – 20 Mar 2026; accounts swept 1100, 1150, 1200, 2100, 6400 against the AR aging and legal schedule. |
+| Environment | Northbrook Trading Ltd, USD, US GAAP: **user-asserted**. Data source **upload** (Mosofin not used). Window 30 Sep 2025 – 20 Mar 2026; definition **not confirmed**. Sweep run once, on 6–20 Oct 2025 only; **final run not done**. Files: 4 accepted with limits, 1 rejected (shift rota) |
+| Capability map | Not applicable: no connection. Every task is `[manual]` |
+| Steps | 1 done with a limit (definition open); 2: transactions done with a limit (partial ledger), receipts/payments done with a limit, minutes **not done**, legal updates **not done**, enquiry **not answered**; 2b done; 3 left to you; 4 proposed entry drafted; 5 log drafted |
+| Unknowns | 5 candidates unclassified; 21 Oct – 20 Mar unswept; all ten enquiry categories open; Harlow's status |
+| Parameters | Patterns: settlement, write-off, return, receipt against period-end AR, silent balance; accounts 1100, 1150, 1200, 2100, 6400 |
+
+Would you like this as `Subsequent_Events_2025-09-30_Northbrook Trading Ltd.xlsx`?

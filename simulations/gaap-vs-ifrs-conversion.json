@@ -1,37 +1,20 @@
-{
- "skill": "gaap-vs-ifrs-conversion",
- "mode": "agent run, upload path",
- "round": 2,
- "samples": "corrected sample set",
- "result": "PARTIAL",
- "validation": "PASS",
- "read_only": "PASS",
- "findings_hit": 1,
- "findings_total": 2,
- "missed": [
-  "Leases and development costs are flagged; deferred tax on each adjustment — leases flagged and quantified, deferred tax shown on the adjustment (temporary difference × rate, rate requested), but development costs were documented as 'Ruled out' (no R&D account), not flagged"
- ],
+{"skill": "gaap-vs-ifrs-conversion", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
  "unexpected": [
-  "Warehouse lease quantified under IFRS 16: ROU 322,990.85, liability 348,306.96 at 30 Sep 2025; 9-month charge 91,028.53 vs rent 81,000; IFRS net income 595,586.47, equity 2,252,615.89 pre-tax",
-  "No ROU asset or lease liability in the TB is also a US GAAP (ASC 842) gap: 5,008.00 of the 10,028.53 net-income effect is a US GAAP correction, 5,020.53 the framework difference",
-  "3% escalation implies 2025 rent 9,270/month (83,430 YTD) but the TB shows 81,000: 2,430 unbooked or waived",
-  "No current or deferred tax accounts at all on 605,615 of profit",
-  "Printer lease qualifies for the short-term exemption; election left to the user",
-  "Not first-time adoption (group reporting, ongoing) so IFRS 1 skipped"
+  "No ROU asset or lease liability in the TB although ASC 842 also capitalises operating leases: flagged as a correction to the US GAAP books (A: profit -5,008.00, equity -11,685.32) separate from the framework difference (B: profit -5,139.24, equity -16,425.30)",
+  "Rent booked at 9,000 a month in 2025 though the lease escalates 3% each January to 9,270: 2,430 unrecorded for nine months",
+  "No income-tax accounts at all in the TB and no rate supplied, so deferred tax on the lease adjustment was identified but blocked rather than quantified",
+  "First-time adoption (IFRS 1) and transition date unanswered; lessee exemptions left as the user's election",
+  "Printer lease short-term exemption left as the user's election (1,260 in 2025)"
  ],
  "skill_defects": [
-  "SKILL.md 'Rules that never bend' says 'Never drops the deferred tax on an adjustment', but 'Stage 1 — Intake' (questions B–F) and the upload checklist never ask for the tax rate, so on an upload run deferred tax can only ever be shown as 'difference × rate, rate needed'.",
-  "references/method.md 'Step 1 — Scope the conversion' marks development costs live only 'if the accounts show R&D expense, or capitalised development intangibles', while references/edge-cases.md 'An account's absence is treated as proof' says absence is 'a scoping signal, not a conclusion'; the two give opposite instructions on whether an absent area is ruled out or flagged.",
-  "references/method.md 'Step 1' leases row calls rent with no lease liability 'an unrecognised conversion issue', but for a US GAAP private company after ASC 842 adoption it is first a source-GAAP error; nothing tells the run to split the bridge into the source-GAAP correction and the true framework difference.",
-  "SKILL.md 'Stage 1' question C distinguishes 'group reporting' from 'first-time adoption' but gives no rule on whether a subsidiary reporting to an IFRS parent applies IFRS 1 (or the parent's transition date), so Step 5's applicability is left to the run.",
-  "references/method.md 'Step 6 — Build the reconciliation' says the source figures must be 'tied to the connected books'; on upload there is no statement of what to tie them to when only a TB, not issued statements, is supplied."
+  "skills/gaap-vs-ifrs-conversion/references/method.md, 'Step 4 — Quantify the conversion adjustments': requires the deferred tax effect of every adjustment but gives no route when the source TB has no tax accounts and the intake (SKILL.md 'Stage 1 — Intake') has no question asking for the tax rate; the rate had to be requested as an unlisted input",
+  "skills/gaap-vs-ifrs-conversion/references/method.md, 'Step 1 — Scope the conversion': says rent with no lease liability means 'no leases in scope or an unrecognised conversion issue', but does not say to separate a source-framework error (ASC 842 non-compliance) from the US GAAP to IFRS difference in the reconciliation"
  ],
  "sample_defects": [
-  "Key expects development costs flagged, but nothing in the sample supports it: no R&D account in the TB and no development policy in accounting_policies.md; a run following method.md Step 1 rules it out.",
-  "Manifest calls lease_terms.md 'Key terms of two property leases', but the second lease is an office printer (12 months, 180/month), not property.",
-  "lease_terms.md escalates rent 3% each January from a 1 Jan 2024 start, so 2025 rent is 9,270/month (9 × 9,270 = 83,430), but the TB shows 6100 Rent 81,000 = 9 × 9,000; unkeyed inconsistency.",
-  "TB has no tax accounts on 605,615 of profit, so the keyed 'deferred tax on each adjustment' cannot be quantified from the sample (no rate supplied either).",
-  "Arithmetic check: wrong-year TB is identifiable from content — RE 1,422,317 − 789,221 = 633,096 (one year's profit); accumulated depreciation 311,200 − 260,800 = 50,400 = 12 × 4,200; loan 280,000 − 220,000 = 60,000 = 12 × 5,000."
+  "trial_balance_2025-09-30.csv has no tax accounts and no tax rate is supplied anywhere, so expect.findings 'with deferred tax on the adjustment' cannot be quantified; only identified",
+  "Rent 6100 = 81,000 = 9 x 9,000, but lease_terms.md escalates 3% each January from 2024-01-01, so 2025 rent is 9 x 9,270 = 83,430; and an ASC 842 straight-line charge would be 573,386.64 / 60 = 9,556.44 a month, not 9,000, so the books do not show the 'single straight-line rent charge' the expected finding describes",
+  "manifest.json describes lease_terms.md as 'Key terms of two property leases' but the second lease is an office printer, not property"
  ],
- "summary": "PARTIAL 1/2; Sep-2024 TB rejected on content. Development costs ruled out (no R&D in data); skill never asks the tax rate its deferred-tax rule needs."
-}
+ "summary": "Sep 2024 TB rejected as wrong period; ten areas scoped; warehouse lease quantified under ASC 842 and IFRS 16 (IFRS profit 587,593.76 pre-tax); deferred tax blocked for want of a rate."}

@@ -1,0 +1,37 @@
+{
+ "skill": "management-discussion-and-analysis",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 3,
+ "missed": [
+  "Non-GAAP measure shown with its reconciliation: no non-GAAP measure appears; the run applied the skill default 'Use GAAP measures only' because no input names one (see sample_defects)"
+ ],
+ "unexpected": [
+  "10-K report type conflicts with a nine-month (Sep 2025 YTD) period; flagged and drafted as nine months",
+  "Comparative is only the FY2024 ledger TB, not 9M 2024 nor the issued statements; 2024 comparisons labelled provisional and unchecked",
+  "Gross margin 42.0% Jan-Jun then 40.0% Jul-Sep computed; Q3 effect about 28,468 of gross profit",
+  "June legal fee tested for recurrence: no comparable spike in 2025 or FY2024 (30,000 = 12 x 2,500)",
+  "Dividends and Adjustments 67,500 debited in 2025 with no dividend in management's drivers; term loan 265,000 -> 220,000",
+  "Allowance 9,000 unchanged while receivables rose 602,143 -> 798,360 (coverage 1.49% -> 1.13%)",
+  "Every P&L line ties to the Sep 2025 TB and retained earnings roll 763,715 + 614,939 = 1,378,654",
+  "Capex plan 80,000 logged as a forward-looking statement for CFO and counsel"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Rules that never bend' says 'Never uses a comparative that has not been checked against what was issued', but the 'Upload path — hand over one checklist' asks only for 'Financial statements, current and comparative' and never for the issued prior-year statements; on the upload path the rule either blocks every comparison or is silently broken, and no fallback (provisional, labelled) is stated.",
+  "SKILL.md 'Stage 1 — Intake' row B asks the report type but gives no rule when the type (10-K, annual) conflicts with the period (nine months YTD); nothing tells the skill which comparative period to require (9M prior year vs full prior year).",
+  "references/method.md 'Step 3 — Draft results of operations' assumes period-over-period comparison of equal periods; it has no instruction for an unequal comparative (9 months vs 12), such as monthly-average or a request for the matching prior-year period.",
+  "references/method.md 'Step 2 — Draft the overview' prompts to surface movements in debt and equity, but does not say to reconcile them to management's drivers; the 67,500 Dividends and Adjustments debit, absent from mda_drivers.md, is found only by initiative."
+ ],
+ "sample_defects": [
+  "expect.findings requires 'Non-GAAP measure shown with its reconciliation', but no file names a non-GAAP measure or its adjustments (mda_drivers.md lists none) and SKILL.md row F says if unanswered 'Use GAAP measures only'; SKILL.md also says 'Never defines a non-GAAP measure', so the expected finding cannot be produced without breaking the skill.",
+  "mda_drivers.md says 'Report type: 10-K' while the intake period is September 2025 and the P&L covers nine months; a 10-K needs a full year.",
+  "The only comparative is trial_balance_2024-12-31.csv (full year 2024); no nine-month 2024 P&L, so revenue +17.1% is on monthly averages (448,733 vs 383,133), not like-for-like.",
+  "trial_balance_2025-09-30.csv carries 3200 Dividends and Adjustments 67,500 debit (60,000 + 7,500), not mentioned in mda_drivers.md; expect.findings ignores it."
+ ],
+ "summary": "PARTIAL 2/3: rota rejected; variances computed and drivers tagged asserted, trends left as questions; non-GAAP finding missed because no input names a measure (skill default GAAP only)."
+}

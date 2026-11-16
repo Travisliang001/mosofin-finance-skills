@@ -1,0 +1,38 @@
+{
+ "skill": "scenario-and-sensitivity-analysis",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 1,
+ "findings_total": 3,
+ "missed": [
+  "Proposes ranges from 36 months of history and waits for acceptance: ranges were proposed from 36 months with observation counts, but the run went straight on to sensitivities and the tornado without waiting for the user to accept them",
+  "Runs the three named scenarios against the 250,000 minimum cash threshold: Base and Steel shock were run; Lost customer was marked 'Not run' because Harlow's revenue is in no file, with only a per-10%-of-revenue sensitivity and a statement that no loss up to 100% breaches 250,000 on the indicative bridge"
+ ],
+ "unexpected": [
+  "The forecast is a P&L with no cash lines, so the chosen metric (cash) cannot come from the user's model; cash figures came from an indicative bridge built from balance-sheet history and labelled as such",
+  "Revenue growth history has no usable range (15.37% to 15.41% over 24 observations); forecast uses 10%",
+  "DSO has risen every month from 42 to 52 days and DIO from 60 to 75; the historical median is not the current central value",
+  "Tornado on cash ranks DSO (150,282) above gross margin (127,025); working capital dominates cash",
+  "Gross margin stepped from 42% to 40% in July 2025",
+  "Dividends of 67,500 paid in 2025 (60,000 March, 7,500 June) are absent from the forecast",
+  "Headroom: opening cash 1,114,699 is 864,699 above the 250,000 minimum; packing-line cost not supplied"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row D: 'Propose ranges from observed history and wait for a yes.' On the upload path this second wait comes after the validation wait in references/mosofin-protocol.md 'After an upload, validate the input before any work', but neither SKILL.md Stage 3 nor references/method.md 'Step 2b' repeats it as a stop before Step 3, so a run that has already waited once proceeds straight to the sensitivities.",
+  "SKILL.md 'Stage 1 — Intake' row B: 'With outputs only, say that the user must run the scenarios in their own model.' It does not cover a model that has the P&L lines but none of the lines the chosen metric needs (cash, working capital, capex). Whether the skill may build a cash bridge from balance-sheet history, or must stop, is not stated; references/method.md 'Step 7' reads current cash and burn as '[auto: read]' only.",
+  "references/method.md 'Step 2b — Ground the ranges in observed history' gives no rule for a driver whose history has effectively no variance (revenue growth here, s.d. 0.01 points): whether to fall back to the user's range or report the driver as unrangeable.",
+  "references/method.md 'Step 3 — Discrete scenarios' gives no rule for a named scenario whose key input (a customer's revenue share) is absent from every upload; the protocol's 'A required input is missing for one item only' rule blocks it, which conflicts with the expectation that all named scenarios are run."
+ ],
+ "sample_defects": [
+  "scenario_request.md names a 'Lost customer' scenario ('Harlow leaves in January') but no file gives Harlow's revenue or any customer-level split; the P&L has revenue as one line. The key expects all three scenarios run against 250,000, which cannot be done without inventing Harlow's share.",
+  "scenario_request.md sets 'Output metric: cash at 30 September 2026 and minimum cash in the year', but forecast_2025-10_to_2026-09.csv has 12 P&L lines and no cash, receivables, inventory, payables, capex or debt lines, so the 'model' cannot produce the metric; the skill's checklist asks for 'The model or plan, with its assumptions visible' as XLSX.",
+  "'Steel shock (margin down 3 points for six months)' does not say which six months; Oct 2025-Mar 2026 gives cash 1,715,698 and Jan-Jun 2026 gives 1,704,851.",
+  "History is too regular for range-setting to be tested: YoY revenue growth is 15.37%-15.41% in all 24 observations, gross margin takes only two values (42.0% then 40.0%), and DSO rises by a near-constant ~0.27 days a month.",
+  "The packing-line decision gives no capex amount or timing, so the threshold headroom cannot be turned into an answer."
+ ],
+ "summary": "PARTIAL 1/3: ranges sourced from 36 months but not held for acceptance; Lost customer not run (Harlow's revenue absent); forecast has no cash lines."
+}

@@ -1,62 +1,121 @@
-# Year-end close — Northbrook Trading Ltd, year ended 31 December 2024, USD (upload path)
+# Year-end close plan: Northbrook Trading Ltd, year ending 31 December 2025
 
-Mosofin is not connected, so this run is manual and works only from the files you uploaded. Nothing was posted or locked; the closing entries below are **proposals**. No materiality was supplied by me, and no going-concern conclusion is drawn.
+Mosofin is not connected, so this run is manual: every step is `[manual]` and works from your
+uploads. (Connecting Mosofin would automate the ledger reads: [docs.mosofin.com](https://docs.mosofin.com).)
+Nothing has been posted, locked or filed. Every entry below is a proposal.
 
-## Read-back
+## Read-back (please confirm)
 
-Running the year-end close for **Northbrook Trading Ltd** at **31 December 2024**, in **USD**, from **your uploaded trial balances, fixed asset register and a September journal listing**. Company, year-end and currency are user-asserted. **Framework (B) not given** — I do not infer it; framework-dependent items are shown conditionally. **One file describes a different year (see validation)**, so audit type (C), filings (D), events (E) and prior findings (F) are, for FY2024, unanswered: audit steps skipped, common filings listed as questions, events asked again, nothing carried forward and **no materiality**.
+> Planning the year-end close for **Northbrook Trading Ltd** at **31 December 2025**, under
+> **US GAAP**, from **your uploads**, in USD. A **full audit**, fieldwork from **9 February 2026**.
+> Events this year: **dividend of 60,000 (March)**, **acquisition of Harlow Fabrication on 1 July**,
+> **restructuring approved in October**. Filings in scope: **corporate tax return; information
+> returns**. Prior-year auditor point: **bank reconciliations not reviewed monthly**.
+> **Materiality: none communicated, and I will not supply one.** Shall I go ahead?
 
-## Validation of the upload — shown before any work
+Framework, audit, filings, events and the prior-year point came from `audit_inputs.md`, not from you
+in chat; they count as answered once you confirm this read-back. The audit firm is not named: please give it.
 
-| File | What it actually is | Company / period | Usable? | Necessary? | Verdict |
+## Validation of the upload (shown before any work)
+
+| File | What it actually is | Company / period | Usable? | Step that uses it | Verdict |
 |---|---|---|---|---|---|
-| `trial_balance_2024-12-31.csv` | Year-end TB, 33 accounts, full-year P&L | 31 Dec 2024; no company/currency | Yes: debits 6,433,544 = credits | Yes: Steps 2, 5, lead schedules | **Accepted with a limit**: company user-asserted |
-| `trial_balance_september.csv` | Interim TB, 33 accounts, 9-month P&L. **The file gives no year**; content shows **30 Sep 2024**: retained earnings 763,715 = the 2024 opening in the December TB, accumulated depreciation 12,600 (3 × 4,200) below December | 30 Sep 2024 (inferred) | Yes: debits 5,363,915 = credits | Yes: Q4 test in Step 1b | **Accepted with a limit**: year inferred from content; supports a Q4 check only, not a month-by-month one |
-| `fixed_asset_register.csv` | Register of 8 assets: cost, in-service date, life | No as-at date; FA-008 labelled "sold Jul 2025" | Yes; cost total 420,000 = TB. No accumulated depreciation, method or salvage | Yes: fixed assets year-end block | **Accepted with a limit**: depreciation recomputed on an assumed method |
-| `journal_entries_2025-09.csv` | 7 journals (16 lines), all balanced, dated 31 Aug – 30 Sep 2025 | **September 2025 — the year after this year-end** | Yes | Partly: new-year detail for the lock and opening tests (Steps 5b–5c), one month only | **Accepted with a limit**: covers one month of 2025, not the new year to date |
-| `audit_inputs.md` | Audit and year-end facts: **"full audit of the year to 31 December 2025"**, fieldwork 9 Feb 2026, 2025 events, owners, filings, prior-year point | **Names FY2025, not FY2024** | Readable | Would answer C–F | **Rejected for this run**: it names a different year. Is the year-end you want **31 December 2025**? If so, I will correct the read-back and re-validate |
+| `trial_balance_2024-12-31.csv` | Trial balance, 33 accounts, pre-closing (P&L still open) | No company named; 31 Dec 2024 per name | Foots: Dr 6,433,544 = Cr 6,433,544 | Prior-year TB; Step 5c opening check; restatement comparison | **Accepted with a limit**: company user-asserted; no issued 2024 statements to compare against |
+| `journal_entries_2025-09.csv` | Journal listing, 7 entries, 16 lines, Sep 2025 (one dated 31 Aug) | No company named | Each entry balances | Step 1b (month closed, post-close posting) | **Accepted with a limit**: one month of twelve; Steps 1b and 5b cannot cover the year |
+| `fixed_asset_register.csv` | Fixed asset register, 8 assets, cost 420,000 | No company named | No accumulated depreciation or disposal columns | Fixed assets year-end block | **Accepted with a limit**: cost ties, NBV cannot be reconciled |
+| `audit_inputs.md` | Typed summary of audit, filings, events, owners | Names the 2025 audit | Text | Intake B–F, Step 3, Step 4 | **Accepted with a limit**: user-supplied facts, not evidenced; confirm in the read-back |
+| `trial_balance_2025-09-30_v2.csv` | A 4-account balance listing whose bank line is **"Bank — Harlow Fabrication Ltd"** | **Harlow Fabrication Ltd**, not Northbrook; 30 Sep 2025 | Foots (306,000 each side), but only 4 accounts and an "Equity" plug | None for Northbrook | **Rejected**: it is the acquired company's balances, not Northbrook's trial balance. Upload Northbrook's own 30 Sep 2025 TB. If Harlow is in scope as a subsidiary for consolidation, say so and I will accept it for Harlow |
 
-Still missing (required): **trial balance at 31 Dec 2023** (prior year end); **general ledger detail for 2024** and for 2025 to date. Recommended: depreciation method and salvage; lease schedule; the framework; materiality.
+**Still missing (required):** Northbrook's trial balance at 30 Sep 2025 (and at 31 Dec 2025 when it
+exists); general ledger detail for Jan–Aug and Oct–Dec 2025, and for Jan 2026 to date; the opening
+2025 TB (post-closing). **Recommended:** issued 2024 financial statements; Harlow acquisition
+documents (SPA, opening balance sheet, PPA); count instructions; lease, equity and debt schedules;
+the materiality figure from the auditor. I would wait for your answer here; this run proceeds on
+the four accepted files.
 
-*I would stop here and wait. Assumed answer: "go ahead with the accepted files".*
+## Findings
 
-## Findings — FY2024
+**1. Twelve months closed — cannot be verified (Step 1b).** Only September's journal is here.
+Within it, **JE-0905 (3,800, legal fee) is dated 31 Aug 2025 but posted 22 Sep 2025**: an entry
+posted into August after August's close. Confirm August's reported figures were re-issued or this
+is accepted as a late adjustment, and run the same test on all twelve months once the GL arrives.
 
-**1. The year's arithmetic, and proposed closing entries (Step 5).** Net income 2024 = revenue 4,597,600 − costs 3,982,661 = **614,939**. Proposed: close revenue (Dr 4,597,600) and every expense account to retained earnings; dividends account is nil. **Retained earnings: 763,715 + 614,939 − 0 = 1,378,654** closing — the figure the 2025 opening must show (Step 5c). No 2025 opening TB was uploaded, so the opening test **did not run**.
+**2. JE-0904: 50,000 manual revenue adjustment.** Dr AR 1100 / Cr Sales 4000, round amount,
+dated 28 Sep (quarter-end week), posted by **a.reyes**, the only entry not by the controller, with
+no support in the memo. Revenue posted straight to AR outside invoicing near a period end is a
+cutoff and override risk: obtain the invoice/contract, and include it in the auditor's JE testing.
 
-**2. Twelve months closed? (Step 1b) — Q4 only.** December less September: depreciation 12,600 = 3 × 4,200; rent 27,000 = 3 × 9,000; software 10,500, insurance 4,500, repairs 1,500, professional fees 7,500 — each exactly three months of the run-rate. **Q4 recurring entries ran.** January–September cannot be tested month by month without the GL.
+**3. JE-0907: 9,999 with no memo.** Dr Marketing 6200 / Cr Accrued Liabilities 2100, just under a
+10,000 round figure, no description. Ask for the support; an undocumented accrual is a JE-testing selection.
 
-**3. Fixed assets: the register does not support the ledger.** Register cost 420,000 = TB. But straight-line from in-service month, no salvage (my assumption — please confirm the method): **2024 depreciation 58,431 vs 50,400 booked; accumulated at 31 Dec 2024 211,741 vs 273,400 in the TB (difference 61,659).** The ledger charges a **flat 4,200 every month**, although FA-008 (12,000, 5 years from May 2019) became fully depreciated in April 2024 and FA-005 runs out in January 2025 — the signature of a hard-coded recurring entry. Register-based monthly charge at Dec 2024: 4,803. FA-008 "sold Jul 2025" is still on the register: a 2025 disposal to record.
+**4. Depreciation is run at last year's flat rate.** September's charge (JE-0901) is 4,200 =
+50,400 / 12, the 2024 annual charge. On the register, FA-005 Servers (fully depreciated Jan 2025)
+and FA-007 Laptops (Aug 2025) have stopped depreciating and FA-008 was sold, so straight-line
+monthly depreciation on the remaining five assets is **3,813.69**. Proposed: review the recurring
+entry; the overcharge is about **386 a month**. Confirm conventions (salvage, part-month) first.
 
-**4. Estimates — fresh look needed.** Allowance for doubtful accounts **9,000, unchanged** from September to December against AR of 602,143 (1.5%). No inventory reserve against inventory of 495,154. Both need a fresh look; the judgment is yours.
+**5. The register still holds an asset sold in July.** FA-008 "Delivery van (sold Jul 2025)",
+cost 12,000, is on the register; register cost 420,000 equals GL cost at 31 Dec 2024, so either
+the disposal has not been booked or the register has not been updated. Proposed entry (draft):
+Dr Accumulated depreciation 12,000 / Cr Fixed assets cost 12,000, plus proceeds to gain/loss
+once the sale amount is known. Also: the register has no accumulated depreciation, so the GL's
+273,400 at 31 Dec 2024 cannot be tied (my straight-line recompute gives 211,741; ask for the schedule).
 
-**5. Items the books show traces of — for you to answer.**
-- **No income-tax expense or payable** on a pre-tax profit of 614,939: the tax provision workpaper cannot start.
-- **Rent 108,000 with no right-of-use asset or lease liability**: under US GAAP (ASC 842) or IFRS 16 this is the unrecognised-lease signature. Framework needed.
-- **Investment in Northbrook UK Ltd 104,800 and intercompany payable 38,000**: a subsidiary exists; are consolidated statements required?
-- **Stripe clearing 6,420** identical in September and December: not clearing.
+**6. Retained earnings roll (Step 5c target).** The 2024 TB is pre-closing: net income 2024 =
+**614,939** (revenue 4,597,600 less expenses 3,982,661). The 2025 opening RE should therefore be
+763,715 + 614,939 − 0 = **1,378,654**, and every P&L account should open 2025 at zero. Untested:
+the 2025 opening TB was not supplied. At 31 Dec 2025 the roll must also take the **60,000 March dividend** (account 3200).
 
-**6. Going-concern facts only (no conclusion).** Cash 804,366 (+6,420 clearing); current assets 1,917,083 vs current liabilities 274,829 excluding any current portion of the term loan (265,000; maturity not in the books); profitable year. Management assesses.
+**7. Event-driven work this year.**
+- **Harlow acquisition (1 July):** Harlow's results included from 1 July; opening balance sheet at
+  fair value; PPA final by 30 June 2026; any goodwill needs its **annual impairment test** with a
+  valuation that has a lead time — book it now. Consolidation basis to decide (entity vs consolidated).
+- **Restructuring approved October:** restructuring reserve and its roll-forward at year end.
+- **Dividend 60,000:** equity roll-forward and the disclosure.
+- **Northbrook UK:** investment 104,800 and intercompany payable 38,000 at 31 Dec 2024; intercompany
+  confirmation and the consolidation question apply.
 
-**7. Lock test (Step 5b) on the file supplied.** No entry in `journal_entries_2025-09.csv` is dated in 2024, so this file shows **no posting into the closed year** — one month of 2025 only, so this is not evidence the lock held. Observations in that month, for the 2025 close: **JE-0904 revenue adjustment 50,000 (Dr AR / Cr revenue), dated 28 Sep, the only entry by a.reyes**, memo "Revenue adjustment"; **JE-0905 3,800 dated 31 Aug, posted 22 Sep** into a closed month; **JE-0907 9,999 to marketing / accrued, no memo**.
+**8. Prior-year point carried forward.** Bank reconciliations not reviewed monthly: have all twelve
+2025 reconciliations evidenced as reviewed (signed and dated) before fieldwork; the auditor will test it.
 
-**If the year-end is 31 December 2025 instead:** the year has not closed (figures to September 2025); `audit_inputs.md` would be accepted (full audit, fieldwork 9 Feb 2026, dividend 60,000, Harlow acquisition 1 Jul, restructuring Oct); `trial_balance_september.csv` would be **rejected as the wrong year** (it is September 2024); and finding 7's three entries become current-year review items.
+**9. Filings tracker (Sheet 8).** In scope: corporate income tax return (owner S. Patel);
+information returns 1099 (S. Patel, due 31 Jan 2026). **Questions:** W-2/W-3 (payroll 842,400 in
+2024 suggests they apply), sales tax annual reconciliation (2200 Sales Tax Payable is live),
+property tax, any UK filings for Northbrook UK. Due dates and the federal/state split to be confirmed.
 
-## What was not done, and why
+**10. Going-concern facts (31 Dec 2024 only).** Cash 803,866; current assets 1,917,083 vs current
+liabilities 274,829 (ratio 6.98); term loan 265,000 (maturity not in the books). Facts only; the
+assessment is management's. Q3 lender compliance certificate: ask for it and the covenant terms.
 
-- Audit steps (PBC, lead schedules, confirmations, rep letter): audit type unanswered for FY2024 — skipped.
-- Filings: not answered; to ask — corporate income tax return(s), 1099 information returns, payroll year-end forms, sales-tax annual reconciliation, any statutory accounts.
-- Prior-year comparative test and Jan–Sep month checks: need the 2023 TB and the 2024 GL.
-- Counts, confirmations, valuations, payroll register, deferred tax attributes, debt maturities: outside the files.
-- No Excel file created; I would ask before making `YearEndClose_2024-12-31_Northbrook-Trading-Ltd.xlsx`.
+## Year-end calendar (outline, owners from your file)
+
+| Task | Owner | By |
+|---|---|---|
+| Upload remaining 2025 GL and Sep TB; verify months 1–9 closed | S. Patel | Nov 2025 |
+| Book goodwill valuation / PPA support for Harlow | S. Patel | Nov 2025 |
+| Physical inventory count, 31 Dec | Warehouse manager | 31 Dec 2025 |
+| Fixed asset count and disposal clean-up (FA-008) | S. Patel | Dec 2025 |
+| 1099s issued | S. Patel | 31 Jan 2026 |
+| Ledger-derived PBC assembled | S. Patel | before 9 Feb 2026 |
+
+## Not done, and why
+
+- Twelve-month close check, post-lock check (5b), new-year opening check (5c): needs the full 2025 GL, the 2025 opening TB and Jan 2026 GL.
+- Lead-schedule completeness and any materiality-based test: **no materiality given; I will not supply one.**
+- Tax provision / ETR true-up: no 2025 TB. Deferred tax attributes are not ledger balances.
+- Confirmations, counts, valuations, actuarial items, the cap table, attorney letters, the
+  going-concern conclusion, the representation letter, the audit and every filing: a person's.
+- Restatement comparison of 2024: needs the issued 2024 statements.
+- Harlow: rejected file; nothing about Harlow's balances is used.
 
 ## Coverage sheet (manual run)
 
 | Section | Content |
 |---|---|
-| Environment | Northbrook Trading Ltd, FY ended 31 Dec 2024, USD — user-asserted; entity basis (single TB); framework, audit type, materiality not given. Source: upload; four files accepted with limits, `audit_inputs.md` rejected (FY2025). Months verified: Q4 only. Lock date unknown |
-| Capability map | Not applicable: no connection. Every task is `[manual]` |
-| Steps | 1 standard close: not run (no monthly data). 1b: Q4 done, Jan–Sep **not done**. 2 (15 blocks): audit prep skipped; tax provision blocked (no tax line); statutory returns listed as questions; payroll, impairment, consolidation, revenue, restatement **not done**; estimates done with a limit; fixed assets done (register ≠ ledger); leases flagged; going concern facts only; cash flow, disclosures, equity roll not done (no prior-year TB). 3–4 filings/audit: not done. 5 closing entries: drafted. 5b: done with a limit. 5c: **not done**. 6–7: chat only |
-| Not done | Prior-year comparatives (needs 31 Dec 2023 TB); twelve-month check (needs GL); opening balance test (needs 1 Jan 2025 TB) |
-| Unknowns carried forward | Framework; year in scope; depreciation difference 61,659; tax; leases; consolidation; allowance; Stripe clearing |
-| Parameters | Depreciation recomputed straight-line from in-service month, no salvage (assumed); no materiality applied |
+| Environment | Northbrook Trading Ltd, FY 31 Dec 2025, USD, US GAAP, full audit (firm not named): **user-asserted**. Data source: **upload** (Mosofin not used, by your choice). Files: 4 accepted with limits, 1 rejected (Harlow TB). Months verified closed: **none**. Lock date: none yet. Materiality: **not supplied**. Fixture flag: n/a |
+| Capability map | Not applicable: no connection. Every task is `[manual]`. |
+| Steps | 1 not done (no TB/GL); 1b done with a limit (Sep only); 2 planned, 15 blocks listed, FA and equity blocks partly done; 3 done (tracker drafted, questions open); 4 planned; 5 drafted (RE target only); 5b not done; 5c not done (target computed); 6 done (carry-forward below); 7 tables in chat (Excel on request) |
+| Not done | Tie to 2025 GL totals, roll-forwards, prior-year comparison: need the 2025 TB/GL and the issued 2024 statements |
+| Carry-forward | Bank rec review evidence; JE-0904/0905/0907 support; depreciation run-rate; FA-008 disposal; Harlow PPA and impairment; materiality from auditor |
+
+Would you like this as `YearEndClose_2025-12-31_Northbrook Trading Ltd.xlsx`?

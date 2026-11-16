@@ -1,84 +1,107 @@
-# MD&A — Northbrook Trading Ltd, nine months to 30 September 2025
+# MD&A draft — Northbrook Trading Ltd — period to 30 September 2025
 
-**DRAFT FOR MANAGEMENT REVIEW.** Mosofin is not connected, so this run is manual: every figure is from the files you uploaded and marked `[manual]`. (Connecting Mosofin would compute the price/volume bridge from invoice lines — docs.mosofin.com. Not raised again.) The narrative is management's; nothing here is published or filed.
+**DRAFT FOR MANAGEMENT REVIEW.** Mosofin is not connected, so this run is manual: every figure comes from your uploads and every step is `[manual]`. (Connecting Mosofin would automate the reads: [docs.mosofin.com](https://docs.mosofin.com).)
 
-## (a) Read-back
+## Read-back
 
-- **Company:** Northbrook Trading Ltd (user-asserted). **Period:** nine months to **30 September 2025**. **Currency:** USD.
-- **From `mda_drivers.md` (please confirm):** report type **10-K**; sign-off **CFO and counsel**; drivers as listed there; **known trends left for management**; term loan 220,000, no revolver; 2026 capex plan 80,000. **Non-GAAP measures: none named → GAAP only.**
-- **Report type vs period conflict:** a 10-K covers a full fiscal year; you have asked for September 2025 (nine months, a 10-Q-type period). **I have drafted the nine-month results and flagged every annual comparison.** Please say which report this is.
-- **Comparative:** only the 31 Dec 2024 ledger TB (full year 2024) was uploaded — **not the nine months to Sep 2024, and not the issued 2024 statements.** Comparisons to 2024 below are on a **monthly-average basis, provisional, and not yet checked against what was issued.**
+Drafting MD&A for **Northbrook Trading Ltd** (user-asserted) for the **period to 30 September 2025**, in **USD**, report type **10-K** as you stated, from **your uploads**. Drivers as given in `mda_drivers.md` (management-asserted); known-trends section **left for management**; liquidity from balances plus the term-loan figure and capex plan you supplied; non-GAAP measure: Adjusted EBITDA as you defined it. Sign-off: **CFO and counsel**.
 
-## (b) Validation of the uploaded files (before any work)
+**Assumption to confirm (conservative reading):** a 10-K covers a full fiscal year, and the 2024 trial balance shows a 31 December year-end (it carries twelve months of P&L). A 30 September 2025 period is nine months, which is a 10-Q interim. I have drafted it as a **nine-month interim** narrative with September-month detail; confirm the report type before this goes further.
 
-| File | What it actually is | Right company / period? | Usable? | Necessary? | Verdict |
+## Validation of the uploads (shown before any work — I would wait for your answer here)
+
+| File | What it actually is | Company / period | Usable? | Step that uses it | Verdict |
 |---|---|---|---|---|---|
-| `profit_and_loss_2025_ytd.csv` | Monthly P&L Jan–Sep 2025, 13 lines | No entity named; 9 months 2025 | Yes; every line ties to the Sep 2025 TB (differences 0) | Steps 2, 3, 7 (results, seasonality, margins) | **Accepted with a limit:** company user-asserted |
-| `trial_balance_2025-09-30.csv` | Trial balance, 33 accounts | No entity named | Foots 6,546,018 = 6,546,018 | Steps 2, 5, 6 (balances, liquidity, estimates) | **Accepted with a limit:** company and period user-asserted |
-| `trial_balance_2024-12-31.csv` | Trial balance, same 33 accounts, FY2024 | No entity named | Foots 6,433,544; RE 763,715 + 2024 profit 614,939 = 1,378,654 = Sep 2025 opening RE — ties | Step 3 comparative; Step 5 movements | **Accepted with a limit:** ledger, not the issued statements; full year, not nine months |
-| `mda_drivers.md` | Management's drivers, liquidity facts, report type, sign-off | Names no period | Yes | Steps 2–7 (every driver) | **Accepted with a limit:** management-asserted, not evidenced |
-| `profit_and_loss_2025_ytd_final.csv` | **An employee shift roster** (E08–E10, weeks 1–4) — not a P&L despite the name | No company, no period | No financial data | No step uses it | **Rejected:** a staff rota. Upload a revised P&L if one exists |
+| `profit_and_loss_2025_ytd.csv` | Monthly P&L, Jan–Sep 2025, 12 expense/revenue columns + net income | No entity or currency named; months 2025-01..2025-09 | Every month foots (revenue − costs = net income, 0 difference); YTD totals agree to the Sep TB line by line | Step 3 results, Step 7 seasonality | **Accepted with a limit:** company and currency user-asserted; no product/customer line detail, so no price/volume/mix bridge |
+| `profit_and_loss_2025_ytd_final.csv` | **Not a P&L.** A staff shift roster: employee E08–E10 by week (days / nights / off) | No entity, no period, no money | Nothing financial in it | None | **Rejected:** the content is a rota, despite the name. If a "final" P&L exists, upload the real file |
+| `trial_balance_2025-09-30.csv` | Trial balance at 30 Sep 2025, 33 accounts | No entity named; date in name only | Debits = credits = 6,546,018 | Steps 3, 5, 6 | **Accepted with a limit:** company user-asserted |
+| `trial_balance_2024-12-31.csv` | Trial balance at 31 Dec 2024, full-year 2024 P&L | No entity named | Debits = credits = 6,433,544; 2024 NI 614,939 rolls into 2025 opening retained earnings 1,378,654 exactly | Comparative, Step 5 cash flow | **Accepted with a limit:** it is a **full year**, not nine months to Sep 2024; not checked against the issued 2024 statements |
+| `mda_drivers.md` | Management's drivers, non-GAAP definition, loan, capex, sign-off | Northbrook, 2025 | Readable | Steps 3, 4, 5, 7 | **Accepted:** every driver is labelled management-asserted |
 
-**Still missing:** **nine-month 2024 comparative P&L** and the **issued 2024 financial statements** (required for a like-for-like, checked comparative); prior MD&A (recommended); invoice line detail (price/volume/mix); cash-flow statement.
+**Still missing:** (1) a nine-months-to-30-Sep-2024 comparative P&L, (2) the issued 2024 statements to check the comparative against, (3) invoice line detail by product (Fixings vs other) for a revenue bridge, (4) prior MD&A (recommended), (5) facility agreement / covenant terms, (6) consolidated figures — the TB shows an **Investment in Northbrook UK Ltd (104,800)** and an **intercompany payable (38,000)**, so a filed MD&A would be on the group, not this entity alone.
 
-I would stop here and wait for your answer. *(Assumed answer: "go ahead with the accepted files".)*
+*Proceeding as if you answered "go ahead with the accepted files".*
 
-## (c) Draft MD&A
+## 1. Overview (headline results — computed)
 
-### Overview
-*[Management: describe the business and the lens used to judge performance.]* Revenue for the nine months was **4,038,600** and net income **594,241** (14.7% of revenue). Significant events visible in the ledger: **term loan reduced 265,000 → 220,000 (45,000 repaid)**; **67,500 debited to Dividends and Adjustments** — management to describe (no dividend is mentioned in your drivers).
+| | 9M 2025 | FY 2024 | Monthly avg 2025 vs 2024 |
+|---|---|---|---|
+| Revenue | 4,038,600 | 4,597,600 | 448,733 vs 383,133 (+17.1%) |
+| Gross profit | 1,667,744 (41.3%) | 1,930,992 (42.0%) | margin −0.7 pt |
+| Net income | 597,741 (14.8%) | 614,939 (13.4%) | |
 
-### Results of operations (nine months 2025; monthly averages vs FY2024 provisional)
+The only comparative supplied is a full year, so 9M 2025 vs FY 2024 is **not** like-for-like; the monthly-average column is a derived indicator, not a period-over-period comparison. Significant events traced in the ledger: term loan repaid 45,000 (5,000 a month); 67,500 debited to *Dividends and Adjustments* (nature to confirm); no capex (fixed-asset cost unchanged at 420,000); no new debt or equity.
 
-| Line | 9M 2025 | Avg/month 2025 | Avg/month 2024 | Change | Driver | Basis |
-|---|---|---|---|---|---|---|
-| Revenue | 4,038,600 | 448,733 | 383,133 | **+17.1%** | Volume in Fixings; prices unchanged | **Management-asserted** (no line detail to decompose) |
-| Cost of goods sold | 2,370,856 | 263,428 | 222,217 | +18.5% | Steel prices | Management-asserted |
-| **Gross margin** | **41.3%** | | 42.0% | **−0.7 pts** | **42.0% every month Jan–Jun; 40.0% Jul–Sep** (computed). Steel price rise not passed on until October (asserted) | Movement computed; cause asserted. Q3 effect ≈ 2 pts × 1,423,400 Q3 revenue = **28,468** of gross profit |
-| Payroll | 669,600 | 74,400 | 70,200 | +6.0% | *[driver needed from management]* | — |
-| Marketing | 172,474 | 19,164 | 15,325 | +25.0% | 4.0% of revenue Jan–Aug; **Sep 29,146 (6.4%)**, ≈10,930 above run-rate; trade show (asserted) | Computed + asserted |
-| Professional fees | 36,500 | 4,056 | 2,500 | +62.2% | **June 16,500 vs 2,500 every other month (+14,000)**; one-time legal fee, contract dispute (asserted) | Recurrence test: no comparable spike in 2025 or in FY2024 (30,000 = 12 × 2,500) — one-time **consistent with the data available** |
-| Rent, software, depreciation, insurance, repairs | flat | | | 0.0% | Unchanged monthly amounts | Computed |
-| Interest | 10,474 | 1,164 | 1,413 | −17.6% | Lower balance: loan 265,000 → 220,000 | Computed (rate vs balance) |
-| **Operating margin** (before interest) | **15.0%** | | 13.7% | +1.2 pts | Operating leverage on revenue growth | Computed |
-| Net income | 594,241 | | 614,939 (FY) | | | |
+## 2. Results of operations
 
-**Seasonality (computed):** revenue rises Jan–Jun (371,000 → 492,200) and falls Jul–Sep (455,400 in Sep); a nine-month figure should not be annualised without that context.
+**Revenue.** Grew each month from 371,000 (Jan) to 492,200 (Jun), then **fell three months running** to 455,400 in September (−7.5% from June; Sep vs Aug −21,700, −4.5%). *Management states* growth came from volume in Fixings with prices unchanged — **management-asserted**; no line detail was supplied, so price/volume/mix cannot be computed. The Q3 decline has no driver given — **reason needed from management**.
 
-### Liquidity and capital resources
-Operating bank balance **1,002,979** (31 Dec 2024: 803,866, +199,113); petty cash 500; Stripe clearing 6,420 (unchanged since December — reconcile). **Debt: term loan 220,000**, repaid at 5,000 a month on the evidence of the balances; **no revolver** (management). Covenants and maturities: *[agreement not supplied]*. Uses: debt service 45,000; Dividends and Adjustments 67,500. **Cash on hand is not the same as available liquidity** — restricted or committed amounts *[management to confirm none]*. No cash-flow statement was supplied, so operating/investing/financing flows are not drafted.
+**Gross margin.** Exactly 42.0% Jan–Jun, exactly 40.0% Jul–Sep. The 2-point drop cost **28,468** of gross profit in Q3 (2% × 1,423,400 revenue). *Management states* steel prices rose and were not passed on until October — management-asserted. ▶ **[FORWARD-LOOKING — flag]** "passed on in October" describes post-period pricing; keep only with sign-off.
 
-### Critical accounting estimates (scoped and sized; sensitivity is management's)
-Inventory **683,100** (up from 495,154; +38.0%) — valuation and obsolescence. Allowance for doubtful accounts **9,000, unchanged**, while receivables rose 602,143 → 798,360: coverage **1.13%** (from 1.49%). No goodwill, no tax accounts, no stock compensation in the TB. Investment in Northbrook UK Ltd 104,800 — impairment judgement if relevant.
+**Operating expenses.**
+- Payroll 669,600; monthly run-rate up from 72,800 to 76,000 (2024 average 70,200). Driver needed (headcount or pay).
+- Marketing 172,474, steady at 4.0% of revenue except September: 29,146 (6.4%), **10,930** above the 4% run-rate. *Management:* September trade show — management-asserted.
+- Professional fees 36,500 vs a 2,500 monthly run-rate: June 16,500 includes **14,000** *management describes* as a one-time legal fee (contract dispute).
+- **Software is nil in September** against 3,500 every other month (YTD 28,000 = 8 × 3,500). Likely a missed bill or accrual of about 3,500; confirm before figures are final.
+- Rent 81,000, insurance 13,500, repairs 4,500, depreciation 37,800, bank fees 16,155 (0.4% of revenue every month): run-rate, no driver needed.
 
-### Known trends and uncertainties — questions for management (nothing authored here)
-1. Will the October steel price pass-through restore the 42% gross margin, fully or partly?
-2. Is Fixings volume growth expected to continue; any customer concentration?
-3. Was the September trade show a one-off?
-4. Is the contract dispute behind the June fee resolved, or is a contingency disclosure needed?
+**Interest.** 10,474, falling monthly with the balance; effective rate ≈ 5.7% on the amortising loan (computed).
 
-### Forward-looking statements log (each needs safe-harbour language and counsel review)
+**Tax.** **No income-tax expense or liability appears in either trial balance.** For a 10-K filer this needs explaining (exemption, loss carry-forwards, or an omitted provision) before drafting a tax line.
+
+**September month:** net income 56,423 vs 71,956 in August (−21.6%), from lower revenue, the lower margin and the trade show.
+
+## 3. Non-GAAP measure — Adjusted EBITDA (GAAP net income shown first)
+
+| Net income (GAAP) | 597,741 |
+|---|---|
+| + Interest | 10,474 |
+| + Depreciation | 37,800 |
+| = EBITDA | 646,015 |
+| + Professional fees described as one-time (June) | 14,000 |
+| **= Adjusted EBITDA** | **660,015** |
+
+Definition is management's. Recurrence test: in 2024 professional fees were 30,000 = 12 × 2,500 with no spike, so the add-back appears **once in the two periods available** (monthly 2024 detail would confirm). No tax add-back is in the definition, consistent with no tax line.
+
+## 4. Liquidity and capital resources
+
+Cash 1,006,479 operating account + 500 petty cash (+202,613 on 31 Dec 2024); Stripe clearing 6,420. Derived cash-flow (indirect, from the two TBs): operating **+315,113** (NI 597,741 + depreciation 37,800 − receivables 196,217 − inventory 187,946 + payables 61,935 + accruals 1,800); investing **0**; financing **−112,500** (loan −45,000, dividends/adjustments −67,500). Ties to the cash movement exactly.
+
+Working capital absorbed 320,428: receivables **+32.6%** and inventory **+38.0%** against revenue growth of 17% on a run-rate basis; days sales ≈ 54, days inventory ≈ 79 (9-month basis). Driver needed.
+
+Debt: term loan **220,000** — agrees to the TB and to your statement; no revolver (management). Maturity, rate terms and covenants not supplied → **covenant status not stated**. Capex: ▶ **[FORWARD-LOOKING — flag]** *management plans 80,000 in 2026 for a second packing line* (source: drivers file). Cash on hand is not all available liquidity: restrictions, cash held for the UK subsidiary and the 38,000 intercompany payable are not confirmed. The twelve-month sufficiency statement is **not drafted** — management's to make.
+
+## 5. Critical accounting estimates (scoped and sized; sensitivity `[manual]`)
+
+- **Allowance for credit losses:** 9,000, unchanged while receivables grew 32.6%; coverage fell from 1.49% to 1.13%. Judgement and sensitivity needed.
+- **Inventory valuation:** 683,100, up 38%, with input costs rising — net-realisable-value judgement.
+- **Investment in Northbrook UK Ltd:** 104,800 at cost — impairment / consolidation question.
+- **Income tax:** see the nil provision above.
+No goodwill, intangibles or derivatives in the TB, so those estimates do not arise here.
+
+## 6. Known trends and uncertainties — for management to write
+
+Questions: Will the steel cost increase persist, and was the October price rise achieved? Why did revenue fall from June to September, and is that seasonal? (Only nine months of history — seasonality cannot be measured.) Customer concentration? Any FX exposure through the UK subsidiary? Rate exposure on the term loan? Safe-harbour language and legal review by counsel.
+
+## Forward-looking statements log
 
 | # | Statement | Source | Status |
 |---|---|---|---|
-| F1 | Capex of 80,000 in 2026 for a second packing line | `mda_drivers.md` (management) | Flagged; for CFO and counsel |
-| F2 | Steel price increase passed on from October | `mda_drivers.md` — partly a post-period fact | Flagged; confirm wording |
+| 1 | Steel cost increase passed on from October | mda_drivers.md | Flag for CFO / counsel |
+| 2 | 2026 capex 80,000, second packing line | mda_drivers.md | Flag for CFO / counsel |
 
-### Consistency checks
-P&L lines tie to the TB (all 12 lines, difference 0); RE rolls 2024 → 2025; percentages recomputed. **Not done:** comparative vs issued statements; narrative vs notes.
+## Not done, and why
 
-## (d) What was not done, and why
-- **Like-for-like comparative and the check against issued 2024 statements:** not uploaded. **Price/volume/mix bridge:** no invoice lines — "volume, prices unchanged" stays management-asserted. **Cash-flow drivers:** no cash-flow statement. **Off-balance-sheet and market risk:** no FX balances or floating-rate debt visible; confirm.
-- Workpaper `MDA_2025_Northbrook Trading Ltd`: not created — say yes if you want it.
-- **`profit_and_loss_2025_ytd_final.csv`:** rejected (shift roster). **Nothing was published, filed or changed.**
+Revenue bridge (no line detail); like-for-like nine-month comparison (no 9M 2024 figures); comparative checked against issued 2024 statements (not supplied); consolidated narrative and intercompany elimination (UK subsidiary figures not supplied); covenant compliance (no agreement); sensitivity of each estimate (management's); Excel workpaper (I would ask before creating `MDA_2025_Northbrook Trading Ltd.xlsx`). Nothing was posted, sent or changed.
 
-## (e) Coverage sheet (manual run)
+## Coverage sheet (manual run)
 
-| Section | Content |
+| Section | Entry |
 |---|---|
-| Environment | Northbrook Trading Ltd, nine months to 30 Sep 2025, USD — user-asserted. Source: upload (no Mosofin connection). 4 files accepted with a limit; `profit_and_loss_2025_ytd_final.csv` rejected (shift roster) |
-| Capability map | Not applicable: no connection. Every task is `[manual]` |
-| Steps | 0 done (uploads); 1 done (10-K vs 9-month conflict flagged); 2 done; 3 done with a limit (drivers asserted, comparative provisional); 4 N/A (no non-GAAP); 5 done with a limit (balances only); 6 done (scoped, sized); 7 questions only; 8 done with a limit; 9 in chat; 10 not offered until results approved |
-| Not done | Comparative vs issued 2024 statements (issued statements, 9M 2024 P&L); revenue bridge (invoice lines); cash-flow analysis (cash-flow statement) |
+| Environment | Northbrook Trading Ltd, 9M to 30 Sep 2025, USD — user-asserted; source: upload (Mosofin not used, by choice) |
+| Files | P&L YTD accepted with limit; `_final.csv` rejected (shift roster); TB Sep 2025 accepted with limit; TB Dec 2024 accepted with limit (full year, unverified against issued); drivers accepted (management-asserted) |
+| Capability map | Not applicable: no connection. Every task is `[manual]`. |
+| Steps | 1 structure done with limit (report type to confirm); 2 overview done; 3 results done with limit (no bridge); 4 non-GAAP done; 5 liquidity done with limit (no terms); 6 estimates scoped, sensitivity not done; 7 left for management; 8 tie-out done (P&L = TB every line; TBs balance; RE rolls); 9 tables in chat |
+| Not done | Comparative vs filed 2024; 9M 2024 comparison; consolidation; covenants; revenue bridge |
 
-**Data sources:** user uploads — `profit_and_loss_2025_ytd.csv`, `trial_balance_2025-09-30.csv`, `trial_balance_2024-12-31.csv`, `mda_drivers.md`.
+**Data sources:** uploads — `profit_and_loss_2025_ytd.csv`, `trial_balance_2025-09-30.csv`, `trial_balance_2024-12-31.csv`, `mda_drivers.md` (management-asserted).

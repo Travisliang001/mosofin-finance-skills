@@ -1,33 +1,14 @@
-{
- "skill": "year-end-close",
- "mode": "agent run, upload path",
- "round": 2,
- "samples": "corrected sample set",
- "result": "FAIL",
- "validation": "FAIL",
- "read_only": "PASS",
- "findings_hit": 1,
- "findings_total": 2,
- "missed": [
-  "Lists annual procedures with owners; counts, impairment and tax true-up are for people (the run lists counts, valuations and tax as not done but names no owners, because the owners were in the rejected audit_inputs.md)"
- ],
- "unexpected": [
-  "audit_inputs.md rejected on period: it names the FY2025 audit while the intake says year ended 31 Dec 2024; trial_balance_september.csv accepted as an in-year (Sep 2024) interim TB; the run showed both verdicts under the FY2025 reading and asked which year",
-  "Fixed asset register does not support the ledger: 2024 depreciation 58,431 recomputed vs 50,400 booked; accumulated 211,741 vs 273,400 (difference 61,659); flat 4,200 a month after FA-008 was fully depreciated",
-  "Proposed closing entries: net income 614,939; retained earnings 763,715 + 614,939 = 1,378,654",
-  "No income-tax line; rent 108,000 with no lease liability; investment in and payable to Northbrook UK Ltd; allowance 9,000 unchanged",
-  "Sep 2025 journals: JE-0904 revenue adjustment 50,000 by a different user, JE-0905 posted 22 Sep into August, JE-0907 9,999 with no memo"
- ],
+{"skill": "year-end-close", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 2, "findings_total": 2, "missed": [], "unexpected": [],
  "skill_defects": [
-  "references/mosofin-protocol.md 'Rules for the common cases', 'The file names a different company or period from the intake answers': gives no rule for when the uploaded files disagree with each other on the year being closed; applying it literally rejects audit_inputs.md (FY2025) and keeps the Sep 2024 TB, the opposite of the key.",
-  "SKILL.md 'Stage 1 — Intake', row B says 'Never default the year-end' but has no rule for a year-end given at intake that the audit facts contradict; references/edge-cases.md 'Change in fiscal year' covers only a calendar change.",
-  "references/method.md 'Fixed assets year-end' asks for the register-to-GL reconciliation 'in both directions' but gives no rule for a register with no accumulated depreciation, method or salvage; the recompute rests on an assumed convention."
+  "SKILL.md, 'Stage 1 — Intake', upload checklist: 'Trial balance at the year end ... Required' with no guidance for a planning run before the year end, when that TB cannot exist yet; the run had to improvise a planning mode",
+  "references/method.md, 'Step 1 — Run the standard monthly and quarterly close': only '[auto] by delegation' is described; nothing says what to do on a manual run without the period TB",
+  "references/method.md, 'Tax provision (full year)': the true-up is '[auto] to compute' but neither the method nor the upload checklist says which person owns it on a manual run, so the tax true-up was left as 'not done' rather than given an owner"
  ],
  "sample_defects": [
-  "The intake answer says 'year ended 31 December 2024', under which trial_balance_september.csv (30 Sep 2024: retained earnings 763,715 = the 2024 opening; accumulated depreciation 273,400 - 260,800 = 12,600 = 3 x 4,200) is an in-year TB, not the wrong period; the negative only works if the year is FY2025.",
-  "audit_inputs.md describes 'full audit of the year to 31 December 2025', which contradicts the intake year; under the protocol's own rule it is the file to reject, yet expect.validation requires accepting it.",
-  "expect.findings both asks which year is being closed and expects acceptance of the file whose year is in question; the two expectations cannot both follow from the intake.",
-  "No 31 Dec 2023 TB or GL detail, both required by the skill's upload checklist; fixed_asset_register.csv (cost 420,000) has no accumulated depreciation and recomputes to 211,741 vs TB 273,400."
+  "manifest.json inputs: journal_entries_2025-09.csv is described as 'posted 1 to 3 October, after the 30 September trial balance was drawn', but no Northbrook 30 Sep 2025 TB is in the set (the only 30 Sep TB is Harlow's, the negative file), so that cutoff cannot be tested",
+  "fixed_asset_register.csv vs trial_balance_2024-12-31.csv: straight-line 2024 depreciation on the register is 58,431 vs 6600 Depreciation 50,400, and accumulated 211,741 vs 1510 at 273,400; the register has no accumulated column to explain either gap",
+  "journal_entries_2025-09.csv JE-0901: 4,200 = 50,400/12, while the register's active assets in Sep 2025 give 3,813.69 (FA-005 ended Jan 2025, FA-007 Aug 2025, FA-008 sold) — plausibly intended, but not in expect"
  ],
- "summary": "FAIL: rejected audit_inputs.md (FY2025) under the FY2024 intake and kept the Sep 2024 TB, the reverse of the key; asked which year; no owners listed."
-}
+ "summary": "Harlow TB rejected on content, four files accepted with limits; plan built from the 2024 TB and audit inputs with owners, people's tasks marked, nothing posted."}

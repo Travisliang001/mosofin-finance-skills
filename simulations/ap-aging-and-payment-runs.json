@@ -1,34 +1,7 @@
-{
- "skill": "ap-aging-and-payment-runs",
- "mode": "agent run, upload path",
- "round": 2,
- "samples": "corrected sample set",
- "result": "PARTIAL",
- "validation": "PASS",
- "read_only": "PASS",
- "findings_hit": 2,
- "findings_total": 3,
- "missed": [
-  "Kestrel Supplies and Orchard Packaging are paid about 12 days before due"
- ],
- "unexpected": [
-  "Summit Freight INV-4644 shows 30-day due date (7 Oct) vs 15-day terms in vendor master and history: on terms it was due 22 Sep and is 8 days overdue",
-  "Northgate Utilities 5141 shows 30-day due date vs 21-day terms: derived due date 12 Oct",
-  "Four bills dated 5 Sep paid on 2025-10-05 (after the as-of) are missing from the open list: 7,848",
-  "Kestrel Supplies Inc. has no tax form or tax ID; four vendors lack a W-9",
-  "Payment run ranked without a cash figure: 136,750 this week, 170,620 through 14 Oct, 29,929 held/excluded, 54,715 deferred"
- ],
- "skill_defects": [
-  "SKILL.md 'Step 0 — Fetch the evidence' lists search_bill_payments only to net what is already paid, and no step from 'Step 1 — Parse and normalize' to 'Step 5 — Prioritize the payment run' analyses payment timing against due dates (paying early, DPO). The expected finding that Kestrel and Orchard are paid ~12 days early is not driven by any step of the method, which is why it was missed.",
-  "SKILL.md 'Gate 3 — Profile the entity, then interview the user': 'Cash available for the payment run' is Required and 'never default'; on the upload path with it unanswered, the skill gives no statement of what the payment-run output should be (ranked list without constraint vs stop). Step 5's constraint check cannot run.",
-  "SKILL.md 'Step 1 — Parse and normalize' flags bill date after due date but has no check of the bill's due date against the vendor-master terms; the Summit Freight 15 vs 30 day conflict (which turns a not-due bill into an overdue one) is found only by agent initiative. 'A bill has no due date in the books' covers only the missing case.",
-  "SKILL.md 'Step 1' duplicate test is 'Same vendor + same amount + same date', which would miss the sample's duplicate (different vendor record, dates one day apart, invoice number differing by a hyphen); the 'Vendors with multiple billing entities' edge case helps but is not tied to the duplicate test."
- ],
- "sample_defects": [
-  "bill_payment_history_12m.csv has four paid_date values of 2025-10-05 (Brightline 3161, M. Okafor 3261, Kestrel Supplies Inc. 3311, Greyfriars 3361; 3,483 + 1,542 + 540 + 2,283 = 7,848), after the 2025-09-30 as-of date, yet those bills are absent from open_bills_2025-09-30.csv.",
-  "open_bills_2025-09-30.csv gives every bill a 30-day due date, contradicting vendor_master.csv terms_days for Summit Freight (15; 2025-09-07 + 15 = 2025-09-22, 8 days overdue at 30 Sep) and Northgate Utilities (21; due 2025-10-12, not 10-21).",
-  "vendor_master.csv paid_2025 does not agree with the history: Kestrel Supplies 412,300 vs 309,222 paid Jan-Sep 2025 in bill_payment_history_12m.csv (9 x 34,358); Orchard 188,400 vs 141,300.",
-  "The expected 'paid about 12 days before due' finding is a payment-timing observation with no corresponding step in the skill, so the key tests agent initiative rather than the method."
- ],
- "summary": "PARTIAL 2/3: rota rejected; Kestrel duplicate and Summit bank-change hold found; missed Kestrel/Orchard paying ~12 days early, which no skill step asks for."
-}
+{"skill": "ap-aging-and-payment-runs", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 4, "findings_total": 4, "missed": [],
+ "unexpected": ["Halden Property Management paid 1 day late every month (no open bill)", "Summit INV-4644 is about 2.9x its usual 8,017 monthly bill", "Kestrel Supplies Inc. 6,480 equals 12 x its usual 540 bill", "Pinecrest and Northgate amounts equal Summit's and Brightline's bills"],
+ "skill_defects": ["SKILL.md, 'Step 5 — Prioritize the payment run': cash available is required and never defaulted, but the skill does not say what to output when it is missing (ranked candidate list vs nothing); I showed the ranking with the constrained run marked blocked", "SKILL.md, 'Gate 3 — Profile the entity, then interview the user': no default run window, so 'due this week / next week' buckets in Step 5 rest on an assumed 7/14-day horizon"],
+ "sample_defects": [],
+ "summary": "All 4 findings hit; staff rota rejected on content; aging reconstructed and labelled; payment run correctly blocked on missing cash available."}

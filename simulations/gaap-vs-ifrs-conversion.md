@@ -1,88 +1,97 @@
-# US GAAP → IFRS conversion — Northbrook Trading Ltd, nine months to 30 September 2025 (upload path)
+# US GAAP to IFRS conversion — Northbrook Trading Ltd — 30 September 2025
 
-Mosofin is not connected for this run (you chose upload only), so every step is `[manual]` and works from your files. Connecting Mosofin would automate the reads — docs.mosofin.com. Nothing was posted: every adjustment below is a **proposal**. Standards are described as I understand them; please confirm the versions in force at your reporting date.
+Mosofin is not connected, so this run is manual: every figure comes from your uploads and every step is `[manual]`. (Connecting Mosofin would scope the conversion straight from your chart of accounts: [docs.mosofin.com](https://docs.mosofin.com).) Every adjustment below is a **proposal**; nothing is posted.
 
-## (a) Read-back
+## Read-back
 
-Converting **Northbrook Trading Ltd** (user-asserted) from **US GAAP to IFRS**, as at **30 September 2025** (nine months YTD), **USD**, for **group reporting, ongoing** — so this is **not first-time adoption** of IFRS by the entity itself; IFRS 1 does not apply (Step 5 skipped). From `accounting_policies.md` (to confirm): private company; revenue on delivery; inventory at **weighted average**, lower of cost and NRV; fixed assets straight line 3–10 years; receivables allowance from ageing; accounts issued 20 March 2026.
+Converting **Northbrook Trading Ltd** from **US GAAP to IFRS** at **30 September 2025** (nine months), in **USD**, for **group reporting, ongoing each year**, from **your uploads** and **the policies you uploaded**: revenue on delivery, inventory at **weighted average cost**, fixed assets straight-line 3–10 years, receivables allowance by ageing. **No materiality supplied**, so every difference found is quantified. Shall I go ahead?
 
-**Materiality: not supplied** — the skill never supplies one, so **every difference found is listed and quantified where the data allows**. **Tax rate: not supplied** — deferred tax is shown as a temporary difference × rate, rate to be confirmed; it is not dropped.
+**Open intake points (unanswered, no default in the skill):** whether the group is adopting IFRS **for the first time** (if so IFRS 1 applies and a **transition date** is needed); the **tax rate** for deferred tax; and the IFRS standards in force at 30 September 2025, which you or your technical reviewer confirm — what follows describes them for review, not as settled.
 
-## (b) Validation of the upload — shown before any work
+## Validation of the uploads (shown before any work — I would wait for your answer here)
 
-| File | What it actually is | Company / period | Usable? | Necessary? | Verdict |
+| File | What it actually is | Company / period | Usable? | Step that uses it | Verdict |
 |---|---|---|---|---|---|
-| `trial_balance_2025-09-30.csv` | Trial balance, 29 accounts | No company or date in the file | Foots: DR = CR = 6,589,681. YTD P&L open; profit **605,615** | Yes — source figures, scoping (Steps 1, 6) | **Accepted with a limit: company and period user-asserted** |
-| `accounting_policies.md` | Policy summary, 7 lines | Northbrook not named; undated | A summary, not the policy manual: figures and choices user-supplied, not evidenced. No lease, tax, provisions or impairment policy | Yes — source treatments (Step 2) | **Accepted with a limit** |
-| `lease_terms.md` | Lease schedule: warehouse (from 1 Jan 2024, 5 years, 9,000/month in advance, +3% each January, one 3-year renewal at market) and printer (12 months from 1 Mar 2025, 180/month); discount rate 6.0% IBR (lender quote 12 Dec 2023) | Undated; no company | Yes; key terms, not the agreements | Yes — the lease adjustment (Step 4) | **Accepted with a limit**: summary of terms, not the contracts |
-| `trial_balance_september.csv` | A trial balance — but **not at 30 Sep 2025**. Retained earnings 789,221 vs 1,422,317 (a full year's profit, 633,096, lower); accumulated depreciation 260,800 = 311,200 − 12 × 4,200; term loan 280,000 = 220,000 + 12 × 5,000. It is the **September 2024** TB | Names no year; content is a year earlier than the intake period | Foots, but wrong period | No step in a non-first-time conversion needs it | **Rejected**: wrong period (appears to be 30 Sep 2024). If you want a comparative, confirm and I will use it as such |
+| `trial_balance_2025-09-30.csv` | Trial balance, 33 accounts, balance sheet and nine-month P&L | No entity or currency named; 30 Sep 2025 per name | Debits = credits = 6,546,018; nine-month profit 597,741 | Steps 1, 4, 6 | **Accepted with a limit:** company and currency user-asserted |
+| `accounting_policies.md` | Policy summary, framework US GAAP, private company | Northbrook (implied), current | Readable; no lease or tax policy stated | Steps 2, 3 | **Accepted with a limit:** silent on leases, income tax, impairment and contingencies |
+| `lease_terms.md` | Lease schedule: warehouse (5 years from 1 Jan 2024, 9,000 a month in advance, +3% each January, 3-year renewal at market) and printer (12 months from 1 Mar 2025, 180 a month); IBR 6.0% with source | Company's leases | A **summary of key terms**, not the agreements | Step 4 leases | **Accepted with a limit:** figures user-supplied, not evidenced by the lease agreements |
+| `trial_balance_september.csv` | A trial balance — but **of a different period**: retained earnings 763,715 (the opening 2024 balance), term loan 280,000, accumulated depreciation 260,800, nine-month profit 485,722 | **30 September 2024**, not 2025 — the content says so, the name does not | Balances (5,363,915 each side) | None for a 30 Sep 2025 conversion | **Rejected:** wrong period. It could serve as an IFRS comparative only if you say so; upload it as such and I will use it for that |
 
-**Still missing:** the **tax rate** and current tax position (no tax accounts exist at all); a **materiality** level; the **receivables ageing** and allowance workings; **legal letter / contingency list** (Greyfriars); fixed-asset register (componentisation); policy elections — **short-term lease exemption** and **revaluation model** — which I will not decide for you.
+**Still missing:** (1) whether this is first-time adoption, and the transition date; (2) the applicable income-tax rate (no tax accounts exist in the TB); (3) the lease agreements; (4) the legal letter on contingencies from Greyfriars Legal LLP; (5) the fixed-asset register (components, any impairment indicators); (6) the receivables ageing and loss rates.
 
-*I would stop here and wait for your answer. Assumed answer: "go ahead with the accepted files".*
+*Proceeding as if you answered "go ahead with the accepted files".*
 
-## (c) Scoping — all ten areas
+## Step 1 — Scoping: all ten areas
 
-| Area | Live here? | Evidence | Result |
-|---|---|---|---|
-| **Leases** | **Yes — material** | **Rent 81,000 YTD and no right-of-use asset or lease liability** in the TB, against a 5-year warehouse lease | Quantified below. This is also a **US GAAP gap**: ASC 842 already puts operating leases on a private company's balance sheet |
-| Inventory | Yes (683,100) | Weighted average, lower of cost and NRV — permitted under IAS 2; no LIFO | No measurement difference; write-down reversals allowed under IFRS (none evidenced) |
-| PP&E | Yes (cost 420,000, NBV 108,800) | Straight line 3–10 years | Componentisation required under IFRS — needs the register; revaluation optional, **your election**. Not quantified |
-| Impairment | Low | No impairment charges; small NBV | IAS 36 one-step model; no indicator in the files |
-| Development costs | No | No R&D account; software 31,500 looks like subscriptions | Ruled out (absence is a signal, not proof) |
-| Financial instruments | Yes (AR 798,360, allowance 9,000) | Ageing-based allowance; unchanged at 9,000 | CECL vs IFRS 9: both expected-loss; a provision matrix can satisfy both. Needs ageing. Not quantified |
-| Revenue | Yes | Recognised on delivery | ASC 606 / IFRS 15 converged; no difference expected |
-| Provisions / contingencies | Yes (accruals 28,800; legal review by Greyfriars) | "Probable" means likely under ASC 450, more likely than not under IAS 37; range measured at the low end vs midpoint | Needs the contingency list. Not quantified |
-| Income taxes | **Yes — by absence** | **No current or deferred tax account at all**, on 605,615 of profit | Raised as a finding under both frameworks; deferred tax on every adjustment needs the rate |
-| Other (capitalised interest, pensions, share-based payment) | No | No such accounts | Ruled out |
+| Area | Live here? | Evidence | Policy supplied? | Result |
+|---|---|---|---|---|
+| Inventory | Yes | Inventory 683,100 | Weighted average, LCNRV | No method change (IFRS permits weighted average; no LIFO). Write-down reversal difference: no write-down on record |
+| PP&E | Yes | Cost 420,000, acc. dep. 311,200 (net 108,800) | Straight-line 3–10 yrs | Cost model can continue; component review needs the register; revaluation is **your election**, not made here |
+| Impairment | Low | No impairment charge; net long-lived assets 108,800 | No | No indicator in the TB; reversal rules differ, nothing to reverse |
+| Development costs | Not evident | No R&D account; software 28,000 | No | Absence is a signal, not proof: confirm no development spend is in payroll or software |
+| **Leases** | **Yes — finding** | **Rent 81,000 (9 × 9,000) and no right-of-use asset or lease liability** | Lease terms supplied | **Quantified below** |
+| Financial instruments | Yes | Receivables 798,360, allowance 9,000 (1.13%); term loan 220,000; investment in subsidiary 104,800 at cost | Ageing allowance | Both frameworks use expected losses; difference not quantifiable without loss rates. Loan at amortised cost; no fees known |
+| Revenue | Always | Revenue on delivery | Yes | Converged in principle; no application difference identified for point-of-delivery sales |
+| Provisions / contingencies | Possible | Accrued liabilities 28,800; a lawyer named for contingencies | No | Recognition thresholds differ; needs the legal letter |
+| Income taxes | **Gap** | **No current or deferred tax account at all** | No | Deferred tax on every adjustment cannot be quantified without a rate |
+| Other (capitalised interest, pensions, share-based pay) | No | None in the TB | — | Ruled out on the TB |
 
-## (d) Lease adjustment — warehouse (IFRS 16, single lessee model)
+No contradiction with the stated framework (no revaluation surplus, no LIFO reserve, no impairment reversal).
 
-Contractual payments 9,000 a month in 2024, **9,270 in 2025** (+3%), 9,548.10, 9,834.54, 10,129.58; renewal **excluded** (at market rent; not shown to be reasonably certain — your judgment). Discount 6.0% a year (0.4868% a month, effective), payments in advance.
+## Step 4 — Leases (the one quantified area)
 
-- Lease liability at 1 Jan 2024: **496,909.00** = right-of-use asset (no direct costs, no incentives). Depreciation 8,281.82 a month over 60 months.
-- At **30 Sep 2025**: right-of-use asset **322,990.85**; lease liability **348,306.96** (payments due in the next 12 months 113,742.90 — the current portion is their present value).
-- Nine months 2025 under IFRS: depreciation **74,536.35** + interest **16,492.18** = **91,028.53**, against rent of **81,000** in the books.
+**First, a finding against the source framework itself.** ASC 842 also requires operating leases on the balance sheet, so the warehouse lease should already carry a right-of-use asset and liability under US GAAP. In addition, the lease escalates 3% each January, so 2025 rent is **9,270 a month**, but the ledger shows **9,000 a month** (81,000 vs 83,430): **2,430 unrecorded**. Both are corrections to the US GAAP books, not conversion differences.
 
-**Two things the books show that the terms do not explain:** rent of 81,000 = 9 × 9,000, but the 3% escalation makes 2025 rent **9,270** (83,430 for nine months) — **2,430 not booked**, an error under either framework; please confirm whether it was waived. And under correctly applied ASC 842 the straight-line cost would be 9,556.44 a month (86,008 YTD), so of the 10,028.53 below, **5,008.00 is a US GAAP correction** and **5,020.53 is the true framework difference** (front-loaded IFRS cost vs straight line).
+**Assumptions (yours to confirm):** renewal option **not** reasonably certain, so excluded; discount 6.0% applied monthly as 0.5%; payments in advance; full retrospective measurement from 1 January 2024. Printer lease: 12 months, so both frameworks allow a **short-term exemption** — that is your election; not decided, immaterial (1,260 in 2025).
 
-**Printer (180 a month, 12 months):** qualifies for the short-term lease exemption under both frameworks. If you elect it, no adjustment; if not, a small asset and liability for the 5 remaining payments (900). **Your election.**
-
-## (e) Reconciliations (pre-tax; tax rate needed)
-
-| Net income, nine months to 30 Sep 2025 | USD |
-|---|---:|
-| US GAAP net income per TB (no tax provision recorded) | 605,615.00 |
-| Reverse rent expense — warehouse | +81,000.00 |
-| Right-of-use depreciation | (74,536.35) |
-| Lease interest | (16,492.18) |
-| **IFRS net income before deferred tax on adjustments** | **595,586.47** |
-| Deferred tax on the adjustment: 10,028.53 × rate | **rate needed** |
-
-| Equity at 30 Sep 2025 | USD |
-|---|---:|
-| US GAAP equity per TB (250,000 + 1,422,317 + 605,615) | 2,277,932.00 |
-| Right-of-use asset | +322,990.85 |
-| Lease liability | (348,306.96) |
-| **IFRS equity before deferred tax** | **2,252,615.89** |
-| Deferred tax asset: 25,316.11 × rate | **rate needed** |
-| Of which at 1 Jan 2025 (opening retained earnings) | (17,717.58) |
-
-If the 2,430 escalation is owed, add a 2,430 liability and expense (both frameworks).
-
-**Presentation differences (no number, still work):** IFRS ordering if adopted by the group (non-current first is common), "trade and other receivables / payables", right-of-use asset and lease liability as separate lines, lease cash split between financing (principal) and interest in the cash flow statement, wider IFRS disclosures still to draft.
-
-## (f) Not done, and why
-
-Deferred tax amounts (no rate); componentisation, ECL, provisions (no register, ageing or legal list); restated statements (hand-off to `financial-statement-builder`); rewritten policies (`notes-to-financial-statements`); IFRS 1 (not first-time adoption). Open items for technical accounting and audit: the missing tax provision; the ASC 842 gap; the renewal option. No `.xlsx` created — I would ask whether you want `GAAP_IFRS_Conversion_2025_Northbrook Trading Ltd.xlsx`.
-
-## (g) Coverage sheet (manual run)
-
-| Section | Content |
+| Warehouse lease | Amount |
 |---|---|
-| Environment | Northbrook Trading Ltd, 30 Sep 2025, USD, US GAAP → IFRS — user-asserted. Source: upload. TB, policies, lease terms accepted with limits; `trial_balance_september.csv` rejected (September 2024). |
-| Capability map | Not applicable: no connection. Every task is `[manual]`. |
-| Steps | 1 scoping done (10 areas) · 2 differences identified · 3 classified (leases: recognition and measurement; others measurement/presentation) · 4 leases quantified, others **not done** (schedules) · 5 n/a · 6 reconciliations done pre-tax · 7 **not done** (hand-offs) · 8 tables in chat · 9 not offered. |
-| Not done | Deferred tax (rate); ECL (ageing); provisions (legal list); componentisation (register); source figures not tied to issued statements (none uploaded). |
+| Contractual payments, 60 months | 573,386.64 |
+| Liability and right-of-use asset at 1 Jan 2024 (PV at 6%) | 495,030.73 |
+| Liability at 30 Sep 2025 | 347,450.60 |
+| IFRS 16 right-of-use asset at 30 Sep 2025 (straight-line, 8,250.51 a month) | 321,769.97 |
+| ASC 842 right-of-use asset at 30 Sep 2025 (straight-line cost 9,556.44 a month) | 338,195.28 |
+| 2025 YTD cost — ASC 842 single straight-line cost | 86,008.00 |
+| 2025 YTD cost — IFRS 16 depreciation 74,254.61 + interest 16,892.62 | 91,147.23 |
 
-**Data sources:** user uploads — `trial_balance_2025-09-30.csv`, `accounting_policies.md`, `lease_terms.md`.
+The framework difference is the **expense pattern**: IFRS 16 front-loads cost (depreciation plus interest) where ASC 842 straight-lines it. Classification: **timing / measurement**.
+
+## Step 6 — Reconciliation (pre-tax; deferred tax not yet computed)
+
+| | Nine-month profit | Equity at 30 Sep 2025 |
+|---|---|---|
+| As booked (TB) | 597,741.00 | 2,158,895.00 |
+| A. US GAAP correction — warehouse lease under ASC 842 and the 3% escalation | (5,008.00) | (11,685.32) |
+| **US GAAP, corrected** | **592,733.00** | **2,147,209.68** |
+| B. US GAAP → IFRS 16 expense pattern (opening equity effect at 1 Jan 2025: (11,286.07)) | (5,139.24) | (16,425.30) |
+| **IFRS, pre-tax** | **587,593.76** | **2,130,784.38** |
+
+Equity as booked = share capital 250,000 + retained earnings 1,378,654 − dividends/adjustments 67,500 + profit 597,741.
+
+**Deferred tax: not dropped, but blocked.** Each adjustment creates a temporary difference (right-of-use asset 321,769.97 vs liability 347,450.60 under IFRS). The TB has no tax accounts and no rate was supplied, so the tax effect is **not quantified**; give the rate and its source and I will gross it up.
+
+**Proposed entries (IFRS, at 30 Sep 2025, not posted):** DR Right-of-use asset 495,030.73; CR Accumulated depreciation — ROU 173,260.76; CR Lease liability 347,450.60; DR Retained earnings (opening, 2024 effect: IFRS cost 125,963.40 less rent booked 108,000) 17,963.40; DR Depreciation 74,254.61 and DR Interest 16,892.62 for 2025; CR Rent 81,000.00; CR Accrued rent (escalation) 2,430.00. Debits = credits = 604,141.36; total equity effect (28,110.63) = A + B above. Final split between opening equity and 2025 profit to be confirmed once the transition date is known.
+
+## Step 5 — First-time adoption
+
+Not decided. If the group is a first-time adopter, IFRS 1 offers lessee exemptions (e.g. measuring the asset equal to the liability at transition) that would change line B. **Your election, with technical input.**
+
+## Step 7 — Presentation and policies
+
+Presentation only, no number: IFRS statement of financial position ordering and terminology; *Dividends and Adjustments* to be split into dividends and any other equity movement; interest paid classification in cash flows; lease liability split current / non-current. Policies to rewrite: leases (new), income tax (new), impairment, provisions. IFRS disclosures are more extensive and remain to be drafted.
+
+## Not done, and why
+
+Deferred tax (no rate); first-time-adoption elections (not answered); allowance, contingencies and PP&E components (no ageing, legal letter or register); comparative period (the September 2024 TB was rejected as the wrong period for this request). I would ask before creating `GAAP_IFRS_Conversion_2025_Northbrook Trading Ltd.xlsx`. Nothing was posted or changed.
+
+## Coverage sheet (manual run)
+
+| Section | Entry |
+|---|---|
+| Environment | Northbrook Trading Ltd, 30 Sep 2025, USD, US GAAP → IFRS — user-asserted; source: upload (Mosofin not used, by choice) |
+| Files | TB Sep 2025 accepted with limit; policies accepted with limit; lease terms accepted with limit (summary); `trial_balance_september.csv` rejected (30 Sep 2024) |
+| Capability map | Not applicable: no connection. Every task is `[manual]`. |
+| Steps | 1 scoping done (10 areas); 2–3 done; 4 leases quantified, others not quantifiable; 5 not decided; 6 reconciliation done pre-tax; 7 listed |
+| Not done | Deferred tax; IFRS 1 elections; ECL, provisions, components; comparative |
+
+**Data sources:** uploads — `trial_balance_2025-09-30.csv`, `accounting_policies.md`, `lease_terms.md` (user-supplied lease terms and IBR, 6.0%, lender quote 12 Dec 2023).

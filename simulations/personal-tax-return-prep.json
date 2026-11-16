@@ -1,34 +1,19 @@
-{
- "skill": "personal-tax-return-prep",
- "mode": "agent run, upload path",
- "round": 2,
- "samples": "corrected sample set",
- "result": "PARTIAL",
- "validation": "PASS",
- "read_only": "PASS",
- "findings_hit": 2,
- "findings_total": 3,
- "missed": [
-  "Saves nothing and repeats no identifier: the output states nothing is saved, but repeats the payroll identifier 'E12' twice (read-back and validation table), against SKILL.md 'Do not repeat identifiers back'"
- ],
+{"skill": "personal-tax-return-prep", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
  "unexpected": [
-  "Tax computed as a formula of the unknown 2025 salary (taxable = S + 48,740; tax = 7,500 + 30% x (S - 1,260)), with a labelled 12 x September illustration: taxable 227,096, tax 60,628.80, balance due 31,220.80",
-  "Other 11 employees' rows in the register set aside as third-party pay, only the taxpayer's row used",
-  "As at 30 Sep 2025 the 2025 tax year may not have ended, so only a draft is possible",
-  "Rate card has a single scale for salary, dividend, interest and rental; separate dividend treatment flagged for review",
-  "Joint filing but no spouse income in the documents"
+  "Joint filing stated but no spouse income supplied and the rate card has a single schedule; flagged as a required missing input",
+  "Tax expressed as a formula in full-year salary S: 7,500 + 30% x (S - 1,260), because taxable income excluding salary is 48,740",
+  "Retirement 401k and social-security contributions on the register have no relief rule on the rate card; left open",
+  "Only the taxpayer's own payroll row (E12) used; the other 11 employees' rows treated as third-party data and not read into the work",
+  "Tax currency of Sampleland not stated; assumed USD and flagged"
  ],
  "skill_defects": [
-  "SKILL.md 'Stage 1 — Intake' says 'Do not repeat identifiers back' but does not say whether a payroll employee code (E12) counts as an identifier; the upload's own document names the taxpayer only by that code, so the read-back has nothing else to use.",
-  "SKILL.md 'Upload path — hand over one checklist' asks for 'Income documents for the year' but there is no rule for a part-year employer document (one month's register); the run had to infer the 'never estimate' rule from references/mosofin-protocol.md.",
-  "references/method.md 'Step 1 — Establish the framework' does not address running before the personal tax year ends (intake as at 30 Sep for tax year 2025), where the output can only be a draft or belongs in tax-planning-and-projections.",
-  "references/method.md 'Step 10 — Output' file name 'Personal_Tax_[YYYY]_[Name].xlsx' needs a taxpayer name the intake never asks for, while the skill discourages repeating identifiers."
+  "skills/personal-tax-return-prep/references/method.md, 'Both entity scenarios': the privacy rule covers entities and other owners ('Read only the entities the taxpayer has an interest in') but says nothing about other individuals' rows inside an uploaded document such as a full payroll register; the run had to apply it by analogy",
+  "skills/personal-tax-return-prep/SKILL.md, 'Stage 1 — Intake', row D: filing status 'Ask again' if unanswered, but no step says that a joint filing needs the spouse's income on the upload checklist; the 'Upload path — hand over one checklist' table omits it"
  ],
  "sample_defects": [
-  "personal_tax_documents_SAMPLE.md identifies the taxpayer only as 'employee E12', so any read-back that names the taxpayer must repeat an identifier, which expect penalises.",
-  "Salary and withholding are 'per payroll' but only September's register is supplied, so no tax or balance due can be computed; expect accepts this, but the sample never exercises Steps 6-8.",
-  "The payroll register contains 11 other employees' pay, which a personal return should not need; a taxpayer-only extract would better fit the skill's privacy rule.",
-  "Key arithmetic checks out: dividend 80% x 60,000 = 48,000; rental 18,000 - 6,500 = 11,500; non-salary income 48,000 + 1,240 + 11,500 = 60,740."
+  "personal_tax_documents_SAMPLE.md says 'Filing jointly' but supplies no spouse figures and a single rate schedule (15% to 50,000, 30% above), so the joint position cannot be computed",
+  "Intake answers give 'Period: September 2025 (as at 2025-09-30)' for a personal return whose tax year is 2025; the period has to be overridden from the document"
  ],
- "summary": "PARTIAL: rota rejected; one-month salary flagged and dividend 48,000, interest 1,240, rental 11,500 shown, but the output repeated the identifier E12."
-}
+ "summary": "Rota rejected on content; dividend 48,000, interest 1,240, net rental 11,500 computed; salary blocked as one month only, tax given as a formula; nothing saved or repeated."}
