@@ -48,7 +48,7 @@ If a connection will not authenticate, see
 
 **3. Install the skills.** Either as a plugin, from the MosoFin marketplace in
 [MosoFin/mosofin-mcp-plugin](https://github.com/MosoFin/mosofin-mcp-plugin) — this installs
-all ten and keeps them updatable:
+every skill and keeps them updatable:
 
 ```text
 /plugin marketplace add mosofin/mosofin-mcp-plugin
@@ -314,6 +314,13 @@ live data, the output says so in the filename and on the first page.
 | `business-combinations-asc805` | 44% | Purchase accounting from the valuer's fair values; goodwill and the entry |
 | `ipo-readiness-accounting` | 41% | Finance roadmap to public-company readiness, with the close measured |
 | `business-valuation` | 40% | A value range from three approaches, and the bridge to equity |
+
+**Wave 18** — gaps found in the pack's control and template folders, both in the card format:
+
+| Skill | Automated | What it's for |
+|---|---:|---|
+| `flux-analysis` | 78% | Month-on-month and year-on-year movements over two thresholds, each with a driver and evidence, and a cash proof |
+| `ar-deductions-and-short-pays` | 62% | Customer deductions decided valid, invalid or needs backup on their evidence; credits, write-offs and disputes proposed |
 
 Card-format skills keep `SKILL.md` short — the rules that never bend, an intake step that
 asks the basics in one message, and the stages — and move the full text into

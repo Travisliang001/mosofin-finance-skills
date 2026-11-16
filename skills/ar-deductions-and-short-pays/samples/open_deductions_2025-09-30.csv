@@ -1,0 +1,8 @@
+deduction_ref,customer,customer_ref,payment_date,invoice,amount_deducted,reason_given,status
+DED-0071,Castleton Foods,,2025-06-20,INV-19402,1240.0,shortage 40 cases,open
+DED-0083,Brecon Outdoor,,2025-07-30,INV-19560,2900.0,,open
+DED-0094,Pennine Retail Group,PRM-Q3-0087,2025-08-14,INV-19688,368.0,Q3 promotion 2%,open
+DED-0098,Tideswell Hotels,,2025-09-05,INV-19715,42.5,price difference,open
+DED-0100,Ashby Engineering,FRT-0918,2025-09-18,INV-19759,610.0,freight not agreed,open
+DED-0101,Ridgeway Logistics,DM-118,2025-09-24,INV-20611,500.0,damaged pallet,open
+DED-0102,Pennine Retail Group,PRM-Q3-0087,2025-09-12,INV-19688,368.0,Q3 promotion 2%,open

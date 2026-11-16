@@ -1,0 +1,47 @@
+{
+ "skill": "flux-analysis",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Compare September 2025 with August 2025 and with September 2024. Thresholds: 10% and 2,500 on the income statement; 10% and 10,000 on the balance sheet. Owner: the controller for every account. No known events.",
+ "inputs": [
+  {
+   "file": "monthly_profit_and_loss_36m.csv",
+   "is": "Monthly profit and loss by line, October 2022 to September 2025"
+  },
+  {
+   "file": "monthly_balance_sheet_36m.csv",
+   "is": "Balance sheet at each month end, October 2022 to September 2025"
+  },
+  {
+   "file": "recurring_entries.csv",
+   "is": "Recurring entries that should post each month, with what posted in September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "monthly_profit_and_loss_36m_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Monthly profit and loss by line, October 2022 to September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects monthly_profit_and_loss_36m_final.csv: The name suggests it is 'Monthly profit and loss by line, October 2022 to September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Software is nil in September against 3,500 in August and every earlier month, and the recurring list shows the subscription not posted: a missing posting, not a saving; propose the accrual",
+   "Marketing rises 10,062 (53%) from August while revenue falls 4.5%, and is 85% above September 2024",
+   "Gross margin is 40% against 42% in September 2024: cost of goods sold rises 19.4% against revenue's 15.4%",
+   "Net income falls 15,533 (22%) from August",
+   "Cash rises 101,669 and the cash proof ties: profit 56,423, depreciation 4,200, receivables down 33,070, inventory down 28,461, payables down 15,685, accruals up 200, loan repaid 5,000"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}
