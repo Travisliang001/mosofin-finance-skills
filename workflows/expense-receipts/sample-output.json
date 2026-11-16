@@ -1,0 +1,112 @@
+{
+  "workflow": "expense-receipts",
+  "version": "1.0",
+  "run_id": "expense-receipts-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": null,
+  "status": "ok",
+  "summary": "6 line(s) from 2 employee(s); 3 clean, 3 held with 4 exception(s).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "expenses-sept.csv",
+      "role": "expenses",
+      "verdict": "accepted",
+      "reason": "expense report lines, 6 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "over_policy_limit",
+      "line": 2,
+      "employee": "Priya Shah",
+      "date": "2025-09-09",
+      "merchant": "Harbour Grill",
+      "category": "meals",
+      "amount": 118.4,
+      "limit": 75,
+      "excess": 43.4
+    },
+    {
+      "type": "missing_receipt",
+      "line": 4,
+      "employee": "Tom Reed",
+      "date": "2025-09-13",
+      "merchant": "City Cabs",
+      "category": "taxi",
+      "amount": 38.5,
+      "threshold": 25
+    },
+    {
+      "type": "weekend_expense",
+      "line": 4,
+      "employee": "Tom Reed",
+      "date": "2025-09-13",
+      "merchant": "City Cabs",
+      "category": "taxi",
+      "amount": 38.5
+    },
+    {
+      "type": "duplicate_in_batch",
+      "line": 6,
+      "employee": "Tom Reed",
+      "date": "2025-09-16",
+      "merchant": "Office Depot",
+      "category": "other",
+      "amount": 64.99,
+      "duplicate_of_line": 5
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "approve_reimbursement",
+      "employee": "Priya Shah",
+      "amount": 256,
+      "lines": [
+        1,
+        3
+      ],
+      "held_amount": 118.4
+    },
+    {
+      "requires_approval": true,
+      "type": "approve_reimbursement",
+      "employee": "Tom Reed",
+      "amount": 64.99,
+      "lines": [
+        5
+      ],
+      "held_amount": 103.49
+    }
+  ],
+  "totals": {
+    "lines": 6,
+    "total": 542.88,
+    "clean": 320.99,
+    "held": 221.89
+  },
+  "not_done": [],
+  "sources": [
+    "file expenses-sept.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "category_limits": {
+      "meals": 75,
+      "hotel": 250,
+      "taxi": 60,
+      "mileage": 200,
+      "other": 500
+    },
+    "receipt_required_over": 25,
+    "flag_weekends": true,
+    "duplicate_window_days": 0,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

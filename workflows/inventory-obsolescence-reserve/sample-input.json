@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd",
+    "as_at": "2025-09-30",
+    "existing_reserve": 4000
+  },
+  "files": [
+    {
+      "name": "inventory-listing.csv",
+      "role": "items",
+      "company": "Northbrook Trading Ltd",
+      "content": "sku,description,on_hand,unit_cost,last_sale_date\nPW-200,Pallet wrap,850,9.40,2025-09-28\nCB-110,Corner boards,4000,0.62,2025-02-11\nSS-310,Steel shelving kit,14,298.00,2024-07-30\nLB-001,Legacy label printer,6,410.00,2023-11-02\nTP-050,Tape gun (discontinued),120,7.50,"
+    }
+  ]
+}

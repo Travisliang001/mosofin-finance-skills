@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd",
+    "period_end": "2025-09-30"
+  },
+  "files": [
+    {
+      "name": "close-tracker.csv",
+      "role": "task_status",
+      "company": "Northbrook Trading Ltd",
+      "content": "task,status,note\nBank reconciliations,done,all 3 accounts\nAccruals posted,in progress,awaiting utilities\nPayroll reconciled,done,"
+    }
+  ]
+}

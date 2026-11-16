@@ -1,0 +1,25 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd"
+  },
+  "files": [
+    {
+      "name": "po-lines.csv",
+      "role": "purchase_orders",
+      "company": "Northbrook Trading Ltd",
+      "content": "po_number,vendor,item,qty,unit_price\nPO-5521,Kestrel Supply Co,Pallet wrap,200,12.50\nPO-5521,Kestrel Supply Co,Corner boards,500,1.10\nPO-5530,Ashby Metals,Steel shelving,20,310.00"
+    },
+    {
+      "name": "goods-received.csv",
+      "role": "receipts",
+      "company": "Northbrook Trading Ltd",
+      "content": "po_number,item,qty_received,date\nPO-5521,Pallet wrap,200,2025-09-10\nPO-5521,Corner boards,450,2025-09-10\nPO-5530,Steel shelving,20,2025-09-18"
+    },
+    {
+      "name": "bill-lines.csv",
+      "role": "bills",
+      "company": "Northbrook Trading Ltd",
+      "content": "bill_no,vendor,po_number,item,qty,unit_price\nKS-8812,Kestrel Supply Co,PO-5521,Pallet wrap,200,12.50\nKS-8812,Kestrel Supply Co,PO-5521,Corner boards,500,1.10\nAM-2290,Ashby Metals,PO-5530,Steel shelving,20,328.00\nAM-2291,Ashby Metals,PO-5544,Bolts,1000,0.20"
+    }
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "name": "Mosofin: Vendor statement reconciliation",
+  "nodes": [
+    {
+      "id": "14-01",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        400
+      ],
+      "webhookId": "mosofin-vendor-statement-reconciliation",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mosofin-vendor-statement-reconciliation",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "14-02",
+      "name": "Settings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// vendor-statement-reconciliation: Settings. EVERY configurable value for this workflow lives here; edit this node only.\n// Any of them can also be overridden for one run by sending { \"settings\": { ... } } in the webhook body.\nconst settings = {\n  \"company\": \"\",\n  \"currency\": \"USD\",\n  \"datasource\": \"quickbooks\",\n  \"data_source_id\": \"\",\n  \"vendor\": \"\",\n  \"as_at\": \"\",\n  \"amount_tolerance\": 0.01\n};\nconst trig = $input.first().json || {};\nconst body = trig.body && typeof trig.body === 'object' ? trig.body : {};\nif (body.settings && typeof body.settings === 'object') Object.assign(settings, body.settings);\nsettings.run_at = new Date().toISOString();\nreturn [{ json: { settings, body } }];\n"
+      }
+    },
+    {
+      "id": "14-03",
+      "name": "Parse Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Input envelope: { settings?, parameters?, files?: [{ name, role, content (CSV) | rows | text | fields, company? }] }\nconst body = $input.first().json.body || {};\nreturn [{ json: { parameters: body.parameters || {}, files: Array.isArray(body.files) ? body.files : [] } }];\n"
+      }
+    },
+    {
+      "id": "14-04",
+      "name": "Mosofin: ledger",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        300
+      ],
+      "notes": "Read-only Mosofin read: search_bills",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Mosofin API Key"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "https://mcp.mosofin.com/mcp",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json, text/event-stream"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'invoke_datasource_api_tool', arguments: { datasource: $('Settings').first().json.settings.datasource, data_source_id: $('Settings').first().json.settings.data_source_id, tool_name: 'search_bills', params: { vendor: $('Settings').first().json.settings.vendor } } } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "14-05",
+      "name": "Compute",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1040,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// vendor-statement-reconciliation: compute. Every configurable value is in the Settings node, not here.\n// Shared helpers, inlined into every workflow's Compute node. No dependencies; runs in n8n's Code node and in Node.\nconst num = (v) => { if (typeof v === 'number') return v; const n = parseFloat(String(v ?? '').replace(/[, $£€]/g, '')); return isNaN(n) ? 0 : n; };\nconst r2 = (n) => Math.round(n * 100) / 100;\nconst day = (s) => { const d = new Date(String(s).slice(0, 10) + 'T00:00:00Z'); return isNaN(d) ? null : d; };\nconst daysBetween = (a, b) => { const x = day(a), y = day(b); return x && y ? Math.round((y - x) / 86400000) : null; };\nconst normNo = (s) => String(s ?? '').toUpperCase().replace(/^(INV|BILL|NO|#)[-\\s]*/i, '').replace(/[^A-Z0-9]/g, '').replace(/^0+/, '');\nconst normName = (s) => String(s ?? '').toUpperCase().replace(/\\b(INC|LTD|LLC|LLP|CO|CORP|LIMITED|GROUP|GRP)\\b\\.?/g, '').replace(/[^A-Z0-9]/g, '');\nconst sum = (a, f) => r2(a.reduce((t, x) => t + num(f ? f(x) : x), 0));\n\nfunction parseCSV(text) {\n  const rows = []; let row = [], cell = '', q = false;\n  for (let i = 0; i < text.length; i++) {\n    const c = text[i];\n    if (q) { if (c === '\"' && text[i + 1] === '\"') { cell += '\"'; i++; } else if (c === '\"') q = false; else cell += c; }\n    else if (c === '\"') q = true;\n    else if (c === ',') { row.push(cell); cell = ''; }\n    else if (c === '\\n' || c === '\\r') { if (c === '\\r' && text[i + 1] === '\\n') i++; row.push(cell); cell = ''; if (row.some((x) => x !== '')) rows.push(row); row = []; }\n    else cell += c;\n  }\n  if (cell !== '' || row.length) { row.push(cell); rows.push(row); }\n  if (!rows.length) return [];\n  const head = rows[0].map((h) => h.trim());\n  return rows.slice(1).map((r) => Object.fromEntries(head.map((h, i) => [h, (r[i] ?? '').trim()])));\n}\n\n// A supplied file is { name, role, rows | content (CSV text) | text | fields }.\nconst rowsOf = (f) => (f ? (Array.isArray(f.rows) ? f.rows : f.content ? parseCSV(f.content) : []) : []);\n\n// Rename source columns to the names the logic uses. `map` is { logicName: [candidate source names] }.\nfunction pick(rows, map) {\n  return rows.map((r) => {\n    const keys = Object.keys(r), o = { _raw: r };\n    for (const [k, cands] of Object.entries(map)) {\n      const hit = [].concat(cands).find((c) => keys.find((x) => x.toLowerCase() === String(c).toLowerCase()));\n      const key = hit && keys.find((x) => x.toLowerCase() === String(hit).toLowerCase());\n      o[k] = key ? r[key] : undefined;\n    }\n    return o;\n  });\n}\n\n// Unwrap a Mosofin gateway reply (MCP tools/call over HTTP) into an array of rows. Tolerant of shape.\nfunction unwrap(resp) {\n  if (resp == null) return { rows: [], error: 'no response' };\n  if (typeof resp.data === 'string' && /^\\s*(event|data):/m.test(resp.data)) {\n    // Streamable-HTTP reply delivered as server-sent events: take the last data: line.\n    const last = resp.data.split('\\n').filter((l) => l.startsWith('data:')).pop();\n    try { resp = JSON.parse(last.slice(5)); } catch (e) { return { rows: [], error: 'event-stream reply was not JSON' }; }\n  }\n  if (resp.error) return { rows: [], error: typeof resp.error === 'string' ? resp.error : (resp.error.message || JSON.stringify(resp.error)) };\n  let v = resp.result ?? resp;\n  if (v.isError) return { rows: [], error: (v.content && v.content[0] && v.content[0].text) || 'tool error' };\n  if (v.structuredContent) v = v.structuredContent;\n  else if (Array.isArray(v.content) && v.content[0] && v.content[0].text) { try { v = JSON.parse(v.content[0].text); } catch (e) { return { rows: [], error: 'reply was not JSON' }; } }\n  if (v && v.status && /approval_required|tool_policy_disabled|entity_required/.test(v.status)) return { rows: [], error: v.status };\n  const mock = !!(v && v.mock);\n  if (Array.isArray(v)) return { rows: v, mock };\n  for (const k of ['rows', 'data', 'items', 'results', 'records']) if (v && Array.isArray(v[k])) return { rows: v[k], mock };\n  return { rows: v ? [v] : [], mock };\n}\n\n// The validation gate: every supplied file is checked on its content before any work.\n// spec: { role: { required: bool, columns: [[alternatives...], ...], what: 'bank statement' } }\nfunction validateFiles(files, spec, settings) {\n  const verdicts = [], byRole = {};\n  for (const f of files || []) {\n    const s = spec[f.role];\n    if (!s) { verdicts.push({ file: f.name, role: f.role || null, verdict: 'set aside', reason: 'no step of this workflow uses it' }); continue; }\n    const rows = rowsOf(f), cols = rows.length ? Object.keys(rows[0]).map((c) => c.toLowerCase()) : [];\n    const isText = s.text && (f.text || f.fields);\n    const missing = isText ? [] : (s.columns || []).filter((alts) => ![].concat(alts).some((a) => cols.includes(String(a).toLowerCase()))).map((a) => [].concat(a)[0]);\n    if (!isText && !rows.length) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: 'no readable rows' }); continue; }\n    if (missing.length) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: `not a ${s.what}: missing column(s) ${missing.join(', ')}` }); continue; }\n    const named = f.company || (rows[0] && rows[0].company);\n    if (named && settings.company && normName(named) !== normName(settings.company)) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: `names a different company: ${named}` }); continue; }\n    verdicts.push({ file: f.name, role: f.role, verdict: named ? 'accepted' : 'accepted with a limit', reason: named ? `${s.what}, ${rows.length} rows` : `${s.what}, ${rows.length || 1} rows; company and period are as stated by the caller` });\n    byRole[f.role] = f;\n  }\n  const missingRequired = Object.entries(spec).filter(([role, s]) => s.required && !byRole[role]).map(([role, s]) => ({ role, what: s.what }));\n  return { verdicts, byRole, missingRequired };\n}\n\n// The one output shape every workflow returns.\nfunction envelope(workflow, settings, o) {\n  const errors = (o.read_errors || []).concat((o.missing || []).map((m) => `required input missing or rejected: ${m.what} (role \"${m.role}\")`));\n  const status = o.status || (errors.length && o.blocked ? 'error' : errors.length || (o.not_done || []).length ? 'partial' : 'ok');\n  return {\n    workflow, version: '1.0', run_id: `${workflow}-${settings.run_at || new Date().toISOString()}`,\n    company: settings.company || null, currency: settings.currency || null, period: o.period || settings.as_at || null,\n    status, summary: o.summary || '', read_only: true,\n    validation: o.validation || [], findings: o.findings || [], proposed_actions: (o.proposed_actions || []).map((a) => ({ requires_approval: true, ...a })),\n    totals: o.totals || {}, not_done: (o.not_done || []).concat(errors),\n    sources: o.sources || [], mock_data: !!o.mock, settings_used: o.settings_used || {},\n  };\n}\nconst fill = (tpl, v) => String(tpl).replace(/\\{\\{\\s*(\\w+)\\s*\\}\\}/g, (_, k) => (v[k] ?? ''));\n\n// ---- this workflow ----\nconst FILE_SPEC = {\n  \"statement\": {\n    \"required\": true,\n    \"what\": \"supplier statement\",\n    \"columns\": [\n      [\n        \"date\"\n      ],\n      [\n        \"reference\",\n        \"invoice\",\n        \"invoice_no\",\n        \"doc\"\n      ],\n      [\n        \"amount\",\n        \"debit\"\n      ]\n    ]\n  },\n  \"ap_ledger\": {\n    \"required\": false,\n    \"what\": \"A/P ledger for the vendor\",\n    \"columns\": [\n      [\n        \"reference\",\n        \"bill_no\",\n        \"invoice\",\n        \"doc_number\"\n      ],\n      [\n        \"amount\",\n        \"total\"\n      ]\n    ]\n  }\n};\nfunction compute(S, files, R) {\n  const V = validateFiles(files, FILE_SPEC, S);\n  const covered = [], sources = [];\n  // src(readKey, fileRole, columnMap): Mosofin read first, uploaded file as fallback.\n  const src = (key, role, map) => {\n    const r = key && R[key], ok = !!(r && !r.error && r.rows.length), f = role && V.byRole[role];\n    const rows = ok ? r.rows : f ? rowsOf(f) : [];\n    if (key && !ok && f) covered.push(key);\n    const from = ok ? 'Mosofin ' + key : f ? 'file ' + f.name : null;\n    if (from && !sources.includes(from)) sources.push(from);\n    return { rows: map ? pick(rows, map) : rows, from, have: !!from };\n  };\n  let o;\n  try { o = (function () {\n    const asAt = S.as_at || S.run_at.slice(0, 10);\n    const st = src(null, 'statement', { date: ['date'], ref: ['reference', 'invoice', 'invoice_no', 'doc'], amt: ['amount', 'debit'], type: ['type'] }).rows.map((r) => ({ date: r.date, ref: r.ref, amt: num(r.amt), type: r.type || null }));\n    const bk = src('ledger', 'ap_ledger', { date: ['date', 'TxnDate'], ref: ['reference', 'bill_no', 'invoice', 'doc_number', 'DocNumber'], amt: ['amount', 'total', 'TotalAmt'], vendor: ['vendor', 'vendor_name', 'VendorRef'], type: ['type'] }).rows\n      .filter((r) => !S.vendor || !r.vendor || normName(r.vendor) === normName(S.vendor)).map((r) => ({ date: r.date, ref: r.ref, amt: num(r.amt), type: r.type || null }));\n    if (!st.length) return { status: 'error', blocked: true, summary: 'No usable supplier statement.' };\n    if (!bk.length) return { status: 'error', blocked: true, summary: `No A/P records for ${S.vendor || 'the vendor'} from Mosofin or a file.` };\n    const findings = [], seen = new Set();\n    for (const s of st) {\n      const b = bk.find((x) => !seen.has(x) && normNo(x.ref) && normNo(x.ref) === normNo(s.ref));\n      if (!b) { findings.push({ type: 'on_statement_not_in_books', date: s.date, reference: s.ref, amount: s.amt, likely: s.amt < 0 ? 'payment or credit not recorded' : 'bill not entered (or entered under another number)' }); continue; }\n      seen.add(b);\n      if (Math.abs(b.amt - s.amt) > S.amount_tolerance) findings.push({ type: 'amount_differs', reference: s.ref, statement: s.amt, books: b.amt, difference: r2(s.amt - b.amt) });\n    }\n    for (const b of bk.filter((x) => !seen.has(x))) findings.push({ type: 'in_books_not_on_statement', date: b.date, reference: b.ref, amount: b.amt, likely: day(b.date) > day(asAt) ? 'after the statement date' : 'vendor has not recorded it, or it is posted to the wrong vendor' });\n    const stTot = sum(st, (x) => x.amt), bkTot = sum(bk, (x) => x.amt);\n    const explained = r2(sum(findings.filter((f) => f.type === 'on_statement_not_in_books'), (f) => f.amount) - sum(findings.filter((f) => f.type === 'in_books_not_on_statement'), (f) => f.amount) + sum(findings.filter((f) => f.type === 'amount_differs'), (f) => f.difference));\n    const actions = findings.filter((f) => f.type !== 'in_books_not_on_statement').map((f) => ({ type: 'vendor_query', vendor: S.vendor, reference: f.reference, question: f.type === 'amount_differs' ? `Statement shows ${f.statement}, our books ${f.books}: please send the invoice or credit note.` : `Please send a copy of ${f.reference} (${f.amount}).` }));\n    return { period: asAt, summary: `Statement ${S.currency} ${stTot.toFixed(2)} vs books ${S.currency} ${bkTot.toFixed(2)}: difference ${r2(stTot - bkTot).toFixed(2)}, ${Math.abs(r2(stTot - bkTot - explained)) < 0.01 ? 'fully explained' : 'NOT fully explained'} by ${findings.length} item(s).`,\n      findings, proposed_actions: actions, totals: { statement_balance: stTot, book_balance: bkTot, difference: r2(stTot - bkTot), explained, unexplained: r2(stTot - bkTot - explained) } };\n  })(); }\n  catch (e) { o = { status: 'error', blocked: true, summary: 'The workflow could not compute: ' + e.message }; }\n  const unused = Object.keys(R).filter((k) => R[k] && R[k].error && !covered.includes(k));\n  o.read_errors = unused.map((k) => 'Mosofin read ' + k + ' unavailable (' + R[k].error + ')' + ([].includes(k) ? '; step skipped' : ''));\n  o.not_done = (o.not_done || []).concat(V.verdicts.filter((v) => v.verdict === 'rejected').map((v) => 'file ' + v.file + ' rejected: ' + v.reason));\n  o.validation = V.verdicts; o.mock = o.mock || Object.values(R).some((v) => v && v.mock);\n  o.sources = (o.sources || []).concat(sources); o.settings_used = S;\n  if (V.missingRequired.length) { o.missing = V.missingRequired; if (true) { o.status = 'error'; o.blocked = true; } }\n  return envelope(\"vendor-statement-reconciliation\", S, o);\n}\n\n// ---- n8n glue ----\nconst S = $('Settings').first().json.settings;\nconst input = $('Parse Input').first().json;\nconst R = {};\ntry { R[\"ledger\"] = unwrap($('Mosofin: ledger').first().json); } catch (e) { R[\"ledger\"] = { rows: [], error: 'not reached' }; }\nreturn [{ json: compute(S, input.files || [], R) }];\n"
+      }
+    },
+    {
+      "id": "14-06",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1300,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Parse Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Input": {
+      "main": [
+        [
+          {
+            "node": "Mosofin: ledger",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mosofin: ledger": {
+      "main": [
+        [
+          {
+            "node": "Compute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "mosofin": {
+      "workflow": "vendor-statement-reconciliation",
+      "version": "1.0",
+      "read_only": true,
+      "output": "one JSON envelope (v1.0) returned to the caller; posts, sends and pays nothing"
+    }
+  }
+}

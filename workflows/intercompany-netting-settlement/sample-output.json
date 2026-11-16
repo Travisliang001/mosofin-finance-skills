@@ -1,0 +1,74 @@
+{
+  "workflow": "intercompany-netting-settlement",
+  "version": "1.0",
+  "run_id": "intercompany-netting-settlement-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Group",
+  "currency": "USD",
+  "period": "2025-09-30",
+  "status": "partial",
+  "summary": "3 entity pair(s): 1 do not agree. Agreed balances settle with 2 payment(s) of USD 104800 (gross receivables 145300).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "ic-balances-sept.csv",
+      "role": "balances",
+      "verdict": "accepted",
+      "reason": "intercompany balances by entity and counterparty, 6 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "pair_does_not_agree",
+      "entity": "Northbrook UK",
+      "counterparty": "Northbrook Logistics",
+      "entity_says": 18000,
+      "counterparty_says": -15600,
+      "difference": 2400
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "settlement_payment",
+      "from": "Northbrook UK",
+      "to": "Northbrook Trading Ltd",
+      "amount": 82300,
+      "currency": "USD"
+    },
+    {
+      "requires_approval": true,
+      "type": "settlement_payment",
+      "from": "Northbrook UK",
+      "to": "Northbrook Logistics",
+      "amount": 22500,
+      "currency": "USD"
+    }
+  ],
+  "totals": {
+    "pairs": 3,
+    "mismatched": 1,
+    "net_positions": {
+      "Northbrook Trading Ltd": 82300,
+      "Northbrook UK": -104800,
+      "Northbrook Logistics": 22500
+    },
+    "settlement_total": 104800
+  },
+  "not_done": [
+    "Pairs that do not agree were left out of netting until they are reconciled."
+  ],
+  "sources": [
+    "file ic-balances-sept.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Group",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "as_at": "2025-09-30",
+    "tolerance": 1,
+    "entities": [],
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

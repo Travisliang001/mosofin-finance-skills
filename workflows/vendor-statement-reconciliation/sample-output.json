@@ -1,0 +1,87 @@
+{
+  "workflow": "vendor-statement-reconciliation",
+  "version": "1.0",
+  "run_id": "vendor-statement-reconciliation-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-30",
+  "status": "ok",
+  "summary": "Statement USD 5245.00 vs books USD 4170.00: difference 1075.00, fully explained by 3 item(s).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "kestrel-statement-sept.csv",
+      "role": "statement",
+      "verdict": "accepted",
+      "reason": "supplier statement, 4 rows"
+    },
+    {
+      "file": "ap-ledger-kestrel.csv",
+      "role": "ap_ledger",
+      "verdict": "accepted",
+      "reason": "A/P ledger for the vendor, 4 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "amount_differs",
+      "reference": "INV-4488",
+      "statement": 1940,
+      "books": 1490,
+      "difference": 450
+    },
+    {
+      "type": "on_statement_not_in_books",
+      "date": "2025-09-24",
+      "reference": "INV-4499",
+      "amount": 3305,
+      "likely": "bill not entered (or entered under another number)"
+    },
+    {
+      "type": "in_books_not_on_statement",
+      "date": "2025-09-29",
+      "reference": "INV-4502",
+      "amount": 2680,
+      "likely": "vendor has not recorded it, or it is posted to the wrong vendor"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "vendor_query",
+      "vendor": "Kestrel Supply Co",
+      "reference": "INV-4488",
+      "question": "Statement shows 1940, our books 1490: please send the invoice or credit note."
+    },
+    {
+      "requires_approval": true,
+      "type": "vendor_query",
+      "vendor": "Kestrel Supply Co",
+      "reference": "INV-4499",
+      "question": "Please send a copy of INV-4499 (3305)."
+    }
+  ],
+  "totals": {
+    "statement_balance": 5245,
+    "book_balance": 4170,
+    "difference": 1075,
+    "explained": 1075,
+    "unexplained": 0
+  },
+  "not_done": [],
+  "sources": [
+    "file kestrel-statement-sept.csv",
+    "file ap-ledger-kestrel.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "vendor": "Kestrel Supply Co",
+    "as_at": "2025-09-30",
+    "amount_tolerance": 0.01,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

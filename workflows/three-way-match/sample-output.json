@@ -1,0 +1,104 @@
+{
+  "workflow": "three-way-match",
+  "version": "1.0",
+  "run_id": "three-way-match-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": null,
+  "status": "ok",
+  "summary": "1 of 4 bill line(s) match (three-way); 3 exception(s) on 3 bill(s).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "po-lines.csv",
+      "role": "purchase_orders",
+      "verdict": "accepted",
+      "reason": "purchase order lines, 3 rows"
+    },
+    {
+      "file": "goods-received.csv",
+      "role": "receipts",
+      "verdict": "accepted",
+      "reason": "goods received lines, 3 rows"
+    },
+    {
+      "file": "bill-lines.csv",
+      "role": "bills",
+      "verdict": "accepted",
+      "reason": "bill lines, 4 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "billed_more_than_received",
+      "bill": "KS-8812",
+      "vendor": "Kestrel Supply Co",
+      "po": "PO-5521",
+      "item": "Corner boards",
+      "billed_qty": 500,
+      "received_qty": 450,
+      "value": 55
+    },
+    {
+      "type": "price_variance",
+      "bill": "AM-2290",
+      "vendor": "Ashby Metals",
+      "po": "PO-5530",
+      "item": "Steel shelving",
+      "po_price": 310,
+      "bill_price": 328,
+      "variance_pct": 5.81,
+      "value": 360
+    },
+    {
+      "type": "no_matching_po_line",
+      "bill": "AM-2291",
+      "vendor": "Ashby Metals",
+      "po": "PO-5544",
+      "item": "Bolts",
+      "billed_value": 200
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "hold_bill",
+      "bill": "KS-8812",
+      "reason": "quantity"
+    },
+    {
+      "requires_approval": true,
+      "type": "hold_bill",
+      "bill": "AM-2290",
+      "reason": "price_variance"
+    },
+    {
+      "requires_approval": true,
+      "type": "hold_bill",
+      "bill": "AM-2291",
+      "reason": "no_matching_po_line"
+    }
+  ],
+  "totals": {
+    "bill_lines": 4,
+    "clean_lines": 1,
+    "exceptions": 3,
+    "value_at_issue": 615
+  },
+  "not_done": [],
+  "sources": [
+    "file po-lines.csv",
+    "file goods-received.csv",
+    "file bill-lines.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "price_tolerance_pct": 2,
+    "qty_tolerance": 0,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

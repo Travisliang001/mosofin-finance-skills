@@ -388,6 +388,16 @@ that data. Recorded runs are in [`simulations/`](simulations/).
 
 ---
 
+## n8n workflows
+
+[`workflows/`](workflows/README.md) has 18 read-only n8n workflows that run checks such as AR
+collections, bank reconciliation, three-way match and duplicate detection on Mosofin data, on a
+schedule or by webhook. Each returns one JSON envelope (findings, plus proposed actions that need
+approval) for an email connector or another MCP tool to pick up. Every setting is in one node.
+They are generated from `.github/workflows-src/` and checked by `.github/validate-workflows.js`.
+
+---
+
 ## Docs
 
 Product and setup documentation lives at **[docs.mosofin.com](https://docs.mosofin.com)**.

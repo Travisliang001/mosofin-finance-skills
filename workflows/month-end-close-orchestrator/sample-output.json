@@ -1,0 +1,174 @@
+{
+  "workflow": "month-end-close-orchestrator",
+  "version": "1.0",
+  "run_id": "month-end-close-orchestrator-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-30",
+  "status": "ok",
+  "summary": "Close for 2025-09-30: 3 of 6 task(s) done; 3 outstanding across 2 owner(s).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "close-tracker.csv",
+      "role": "task_status",
+      "verdict": "accepted",
+      "reason": "close task status list, 3 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "task_open",
+      "task": "Accruals posted",
+      "owner": "GL accountant",
+      "detail": "awaiting utilities"
+    },
+    {
+      "type": "task_not_evidenced",
+      "task": "Depreciation posted",
+      "owner": "GL accountant",
+      "detail": null
+    },
+    {
+      "type": "suspense_not_cleared",
+      "account": "1999 Suspense",
+      "balance": 1250,
+      "owner": "Controller"
+    },
+    {
+      "type": "task_blocked",
+      "task": "Suspense accounts cleared",
+      "owner": "Controller",
+      "detail": "1999 Suspense: 1250"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "owner_nudge",
+      "owner": "GL accountant",
+      "tasks": [
+        {
+          "task": "Accruals posted",
+          "status": "open",
+          "detail": "awaiting utilities"
+        },
+        {
+          "task": "Depreciation posted",
+          "status": "not evidenced",
+          "detail": null
+        }
+      ],
+      "message": "Close 2025-09-30 still needs from you: Accruals posted (open), Depreciation posted (not evidenced)"
+    },
+    {
+      "requires_approval": true,
+      "type": "owner_nudge",
+      "owner": "Controller",
+      "tasks": [
+        {
+          "task": "Suspense accounts cleared",
+          "status": "blocked",
+          "detail": "1999 Suspense: 1250"
+        }
+      ],
+      "message": "Close 2025-09-30 still needs from you: Suspense accounts cleared (blocked)"
+    }
+  ],
+  "totals": {
+    "tasks": 6,
+    "done": 3,
+    "outstanding": 3,
+    "checklist": [
+      {
+        "task": "Bank reconciliations",
+        "owner": "AP lead",
+        "status": "done",
+        "detail": "all 3 accounts"
+      },
+      {
+        "task": "Accruals posted",
+        "owner": "GL accountant",
+        "status": "open",
+        "detail": "awaiting utilities"
+      },
+      {
+        "task": "Payroll reconciled",
+        "owner": "Payroll",
+        "status": "done",
+        "detail": "done"
+      },
+      {
+        "task": "Depreciation posted",
+        "owner": "GL accountant",
+        "status": "not evidenced",
+        "detail": null
+      },
+      {
+        "task": "Trial balance balances",
+        "owner": "Controller",
+        "status": "done",
+        "detail": "debits minus credits = 0"
+      },
+      {
+        "task": "Suspense accounts cleared",
+        "owner": "Controller",
+        "status": "blocked",
+        "detail": "1999 Suspense: 1250"
+      }
+    ]
+  },
+  "not_done": [],
+  "sources": [
+    "Mosofin tb",
+    "file close-tracker.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "period_end": "2025-09-30",
+    "tolerance": 0.01,
+    "suspense_accounts": [
+      "suspense",
+      "ask my accountant",
+      "uncategorized",
+      "clearing"
+    ],
+    "checklist": [
+      {
+        "task": "Bank reconciliations",
+        "owner": "AP lead",
+        "check": "status"
+      },
+      {
+        "task": "Accruals posted",
+        "owner": "GL accountant",
+        "check": "status"
+      },
+      {
+        "task": "Payroll reconciled",
+        "owner": "Payroll",
+        "check": "status"
+      },
+      {
+        "task": "Depreciation posted",
+        "owner": "GL accountant",
+        "check": "status"
+      },
+      {
+        "task": "Trial balance balances",
+        "owner": "Controller",
+        "check": "tb_balances"
+      },
+      {
+        "task": "Suspense accounts cleared",
+        "owner": "Controller",
+        "check": "suspense_zero"
+      }
+    ],
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

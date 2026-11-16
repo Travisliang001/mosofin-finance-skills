@@ -1,0 +1,118 @@
+{
+  "workflow": "cash-application",
+  "version": "1.0",
+  "run_id": "cash-application-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": null,
+  "status": "ok",
+  "summary": "2 of 4 payment(s) matched (USD 23475.50); 2 need a person (USD 4600.00).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "receipts-sept.csv",
+      "role": "payments",
+      "verdict": "accepted",
+      "reason": "customer receipts / remittance list, 4 rows"
+    },
+    {
+      "file": "open-invoices.csv",
+      "role": "invoices",
+      "verdict": "accepted",
+      "reason": "open A/R invoice list, 7 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "ambiguous_match",
+      "payment": {
+        "payer": "Bexley Foods",
+        "amount": 600,
+        "date": "2025-09-24",
+        "memo": ""
+      },
+      "candidates": [
+        {
+          "invoice": "INV-1062",
+          "balance": 600
+        },
+        {
+          "invoice": "INV-1071",
+          "balance": 600
+        }
+      ],
+      "note": "several invoices of this customer have exactly this amount"
+    },
+    {
+      "type": "unapplied_payment",
+      "payment": {
+        "payer": "Dunmore Hotels",
+        "amount": 4000,
+        "date": "2025-09-25",
+        "memo": "part payment"
+      },
+      "customer_open_invoices": [
+        {
+          "invoice": "INV-1080",
+          "balance": 9100
+        }
+      ],
+      "note": "amount matches no invoice or combination: short-pay, overpay or deduction?"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "apply_payment",
+      "payer": "Harlow Retail",
+      "date": "2025-09-22",
+      "amount": 18400,
+      "invoices": [
+        {
+          "invoice": "INV-1031",
+          "amount": 18400
+        }
+      ],
+      "basis": "invoice numbers in the remittance"
+    },
+    {
+      "requires_approval": true,
+      "type": "apply_payment",
+      "payer": "Ellis & Co",
+      "date": "2025-09-23",
+      "amount": 5075.5,
+      "invoices": [
+        {
+          "invoice": "INV-1012",
+          "amount": 3875.5
+        },
+        {
+          "invoice": "INV-1044",
+          "amount": 1200
+        }
+      ],
+      "basis": "sum of this customer's invoices"
+    }
+  ],
+  "totals": {
+    "payments": 4,
+    "received": 28075.5,
+    "applied": 23475.5,
+    "unapplied": 4600
+  },
+  "not_done": [],
+  "sources": [
+    "file open-invoices.csv",
+    "file receipts-sept.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "amount_tolerance": 0.01,
+    "max_combination": 3,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

@@ -1,0 +1,85 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "scheduled-financial-pack input envelope",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "description": "Per-run overrides of any setting.",
+      "properties": {
+        "company": {
+          "default": ""
+        },
+        "currency": {
+          "default": "USD"
+        },
+        "datasource": {
+          "default": "quickbooks"
+        },
+        "data_source_id": {
+          "default": ""
+        },
+        "period_start": {
+          "default": ""
+        },
+        "period_end": {
+          "default": ""
+        },
+        "prior_start": {
+          "default": ""
+        },
+        "prior_end": {
+          "default": ""
+        },
+        "highlight_pct": {
+          "default": 10
+        },
+        "highlight_abs": {
+          "default": 5000
+        },
+        "recipients": {
+          "default": []
+        }
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "pl",
+              "pl_prior",
+              "bs"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "CSV text, first row = headers"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "company": {
+            "type": "string",
+            "description": "company the file belongs to, if known"
+          }
+        }
+      }
+    }
+  }
+}

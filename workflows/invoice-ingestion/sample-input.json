@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd"
+  },
+  "files": [
+    {
+      "name": "extracted-invoice-lines.csv",
+      "role": "invoice_lines",
+      "company": "Northbrook Trading Ltd",
+      "content": "vendor,invoice_no,invoice_date,due_date,description,amount\nKestrel Supply Co,INV-4502,2025-09-26,2025-10-26,Pallet wrap 200 rolls,2500.00\nKestrel Supply Co,INV-4502,2025-09-26,2025-10-26,Freight,180.00\nBrightline Analytics,BA-0091,2025-09-28,2025-10-28,Annual software subscription,4800.00\nBrightline Analytics,BA-0091,2025-09-28,2025-10-28,Onboarding workshop,950.00"
+    }
+  ]
+}

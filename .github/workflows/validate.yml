@@ -27,6 +27,11 @@ jobs:
       - name: Sample data is generated, not hand-edited
         run: python3 .github/samples/build.py --check
 
+      - name: n8n workflows are read-only and generated
+        run: |
+          node .github/workflows-src/build.js --check
+          node .github/validate-workflows.js workflows
+
       - name: Dashboard conformance
         run: |
           chmod +x .github/validate-dashboard.sh

@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd"
+  },
+  "files": [
+    {
+      "name": "expenses-sept.csv",
+      "role": "expenses",
+      "company": "Northbrook Trading Ltd",
+      "content": "employee,date,merchant,category,amount,receipt\nPriya Shah,2025-09-09,Rail Europe,taxi,42.00,yes\nPriya Shah,2025-09-09,Harbour Grill,meals,118.40,yes\nPriya Shah,2025-09-10,Quayside Hotel,hotel,214.00,yes\nTom Reed,2025-09-13,City Cabs,taxi,38.50,no\nTom Reed,2025-09-16,Office Depot,other,64.99,yes\nTom Reed,2025-09-16,Office Depot,other,64.99,yes"
+    }
+  ]
+}

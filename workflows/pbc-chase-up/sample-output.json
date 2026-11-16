@@ -1,0 +1,92 @@
+{
+  "workflow": "pbc-chase-up",
+  "version": "1.0",
+  "run_id": "pbc-chase-up-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-10-01",
+  "status": "ok",
+  "summary": "2 of 5 request(s) received; 1 overdue, 1 due within 3 day(s).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "pbc-list.csv",
+      "role": "pbc_list",
+      "verdict": "accepted",
+      "reason": "PBC request list, 5 rows"
+    },
+    {
+      "file": "received-docs.csv",
+      "role": "received",
+      "verdict": "accepted",
+      "reason": "list of documents received, 1 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "overdue",
+      "ref": "PBC-02",
+      "item": "Fixed asset additions support",
+      "owner": "GL accountant",
+      "due": "2025-09-26",
+      "days_overdue": 5
+    },
+    {
+      "type": "due_soon",
+      "ref": "PBC-03",
+      "item": "Inventory count sheets",
+      "owner": "Operations",
+      "due": "2025-10-03",
+      "days_overdue": 0
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "email_draft",
+      "channel": "email",
+      "owner": "GL accountant",
+      "items": [
+        "Fixed asset additions support"
+      ],
+      "subject": "FY2025 audit: 1 open request(s) for you",
+      "body": "Hi GL accountant,\n\nFor the FY2025 audit, these requests are still open:\n\n- PBC-02 Fixed asset additions support (due 2025-09-26, 5 days overdue)\n\nPlease upload them or let me know what is holding them up.\n\nThanks,\nFinance"
+    },
+    {
+      "requires_approval": true,
+      "type": "email_draft",
+      "channel": "email",
+      "owner": "Operations",
+      "items": [
+        "Inventory count sheets"
+      ],
+      "subject": "FY2025 audit: 1 open request(s) for you",
+      "body": "Hi Operations,\n\nFor the FY2025 audit, these requests are still open:\n\n- PBC-03 Inventory count sheets (due 2025-10-03)\n\nPlease upload them or let me know what is holding them up.\n\nThanks,\nFinance"
+    }
+  ],
+  "totals": {
+    "requests": 5,
+    "received": 2,
+    "open": 3,
+    "overdue": 1
+  },
+  "not_done": [],
+  "sources": [
+    "file pbc-list.csv",
+    "file received-docs.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "as_at": "2025-10-01",
+    "due_soon_days": 3,
+    "engagement": "FY2025 audit",
+    "sender_name": "Finance",
+    "subject_template": "{{engagement}}: {{count}} open request(s) for you",
+    "body_template": "Hi {{owner}},\n\nFor the {{engagement}}, these requests are still open:\n\n{{lines}}\n\nPlease upload them or let me know what is holding them up.\n\nThanks,\n{{sender}}",
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

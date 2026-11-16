@@ -1,0 +1,21 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd",
+    "as_at": "2025-10-01",
+    "engagement": "FY2025 audit"
+  },
+  "files": [
+    {
+      "name": "pbc-list.csv",
+      "role": "pbc_list",
+      "company": "Northbrook Trading Ltd",
+      "content": "id,item,owner,due_date,status\nPBC-01,Bank confirmations,Treasury,2025-09-25,received\nPBC-02,Fixed asset additions support,GL accountant,2025-09-26,open\nPBC-03,Inventory count sheets,Operations,2025-10-03,open\nPBC-04,Payroll reconciliation Q3,Payroll,2025-10-20,open\nPBC-05,Legal letters,GL accountant,2025-09-29,open"
+    },
+    {
+      "name": "received-docs.csv",
+      "role": "received",
+      "company": "Northbrook Trading Ltd",
+      "content": "item,received_on\nLegal letters,2025-09-30"
+    }
+  ]
+}

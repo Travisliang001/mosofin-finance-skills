@@ -1,0 +1,21 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd",
+    "vendor": "Kestrel Supply Co",
+    "as_at": "2025-09-30"
+  },
+  "files": [
+    {
+      "name": "kestrel-statement-sept.csv",
+      "role": "statement",
+      "company": "Northbrook Trading Ltd",
+      "content": "date,reference,amount\n2025-09-03,INV-4471,6210.00\n2025-09-12,INV-4488,1940.00\n2025-09-24,INV-4499,3305.00\n2025-09-15,PMT 0915,-6210.00"
+    },
+    {
+      "name": "ap-ledger-kestrel.csv",
+      "role": "ap_ledger",
+      "company": "Northbrook Trading Ltd",
+      "content": "date,bill_no,amount\n2025-09-03,INV4471,6210.00\n2025-09-12,INV-4488,1490.00\n2025-09-15,PMT 0915,-6210.00\n2025-09-29,INV-4502,2680.00"
+    }
+  ]
+}

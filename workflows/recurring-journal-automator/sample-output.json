@@ -1,0 +1,89 @@
+{
+  "workflow": "recurring-journal-automator",
+  "version": "1.0",
+  "run_id": "recurring-journal-automator-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-01 to 2025-09-30",
+  "status": "ok",
+  "summary": "1 of 3 recurring entries posted as expected; 1 missing, 1 drifted.",
+  "read_only": true,
+  "validation": [],
+  "findings": [
+    {
+      "type": "amount_drift",
+      "name": "Monthly depreciation",
+      "account": "6800 Depreciation",
+      "expected": 3125,
+      "posted": 3480,
+      "difference": 355
+    },
+    {
+      "type": "recurring_entry_missing",
+      "name": "Software subscriptions",
+      "account": "6150 Software",
+      "expected": 7300
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "journal_entry",
+      "date": "2025-09-30",
+      "memo": "Software subscriptions: 2025-09-30",
+      "lines": [
+        {
+          "account": "6150 Software",
+          "debit": 7300,
+          "credit": 0
+        },
+        {
+          "account": "2100 Accrued Liabilities",
+          "debit": 0,
+          "credit": 7300
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "rules": 3,
+    "as_expected": 1,
+    "missing": 1,
+    "missing_amount": 7300
+  },
+  "not_done": [],
+  "sources": [
+    "Mosofin gl"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30",
+    "drift_pct": 5,
+    "recurring_rules": [
+      {
+        "name": "Office rent",
+        "debit_account": "6100 Rent",
+        "credit_account": "2000 Accounts Payable",
+        "amount": 4400
+      },
+      {
+        "name": "Monthly depreciation",
+        "debit_account": "6800 Depreciation",
+        "credit_account": "1590 Accumulated Depreciation",
+        "amount": 3125
+      },
+      {
+        "name": "Software subscriptions",
+        "debit_account": "6150 Software",
+        "credit_account": "2100 Accrued Liabilities",
+        "amount": 7300
+      }
+    ],
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

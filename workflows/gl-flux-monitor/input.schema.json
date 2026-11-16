@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "gl-flux-monitor input envelope",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "description": "Per-run overrides of any setting.",
+      "properties": {
+        "company": {
+          "default": ""
+        },
+        "currency": {
+          "default": "USD"
+        },
+        "datasource": {
+          "default": "quickbooks"
+        },
+        "data_source_id": {
+          "default": ""
+        },
+        "period_start": {
+          "default": ""
+        },
+        "period_end": {
+          "default": ""
+        },
+        "prior_start": {
+          "default": ""
+        },
+        "prior_end": {
+          "default": ""
+        },
+        "flux_pct": {
+          "default": 15
+        },
+        "flux_abs": {
+          "default": 2500
+        },
+        "account_owners": {
+          "default": {}
+        },
+        "default_owner": {
+          "default": "Controller"
+        }
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "current",
+              "prior"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "CSV text, first row = headers"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "company": {
+            "type": "string",
+            "description": "company the file belongs to, if known"
+          }
+        }
+      }
+    }
+  }
+}

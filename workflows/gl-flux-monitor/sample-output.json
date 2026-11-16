@@ -1,0 +1,95 @@
+{
+  "workflow": "gl-flux-monitor",
+  "version": "1.0",
+  "run_id": "gl-flux-monitor-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-01 to 2025-09-30",
+  "status": "ok",
+  "summary": "2 of 7 account(s) moved more than 15% and USD 2500.",
+  "read_only": true,
+  "validation": [],
+  "findings": [
+    {
+      "type": "went_to_zero",
+      "account": "6150 Software",
+      "current": 0,
+      "prior": 7300,
+      "change": -7300,
+      "change_pct": -100,
+      "owner": "IT lead"
+    },
+    {
+      "type": "increase",
+      "account": "6200 Marketing",
+      "current": 15800,
+      "prior": 9400,
+      "change": 6400,
+      "change_pct": 68.09,
+      "owner": "Controller"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "explanation_request",
+      "owner": "IT lead",
+      "period": "2025-09-01 to 2025-09-30",
+      "accounts": [
+        {
+          "account": "6150 Software",
+          "current": 0,
+          "prior": 7300,
+          "change": -7300,
+          "change_pct": -100,
+          "flag": "went_to_zero"
+        }
+      ],
+      "message": "Please explain these movements versus 2025-08-01 to 2025-08-31:\n- 6150 Software: 7300 -> 0 (-7300, -100%)"
+    },
+    {
+      "requires_approval": true,
+      "type": "explanation_request",
+      "owner": "Controller",
+      "period": "2025-09-01 to 2025-09-30",
+      "accounts": [
+        {
+          "account": "6200 Marketing",
+          "current": 15800,
+          "prior": 9400,
+          "change": 6400,
+          "change_pct": 68.09,
+          "flag": "increase"
+        }
+      ],
+      "message": "Please explain these movements versus 2025-08-01 to 2025-08-31:\n- 6200 Marketing: 9400 -> 15800 (+6400, 68.09%)"
+    }
+  ],
+  "totals": {
+    "accounts": 7,
+    "flagged": 2
+  },
+  "not_done": [],
+  "sources": [
+    "Mosofin current",
+    "Mosofin prior"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30",
+    "prior_start": "2025-08-01",
+    "prior_end": "2025-08-31",
+    "flux_pct": 15,
+    "flux_abs": 2500,
+    "account_owners": {
+      "6150 Software": "IT lead"
+    },
+    "default_owner": "Controller",
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}
