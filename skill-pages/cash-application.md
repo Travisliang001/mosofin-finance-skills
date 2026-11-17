@@ -23,8 +23,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Processing refunds — use [credit-memo-and-refund-handler](credit-memo-and-refund-handler.md).
-- The bank reconciliation itself — use [bank-reconciliation](bank-reconciliation.md).
+- Processing refunds: use [credit-memo-and-refund-handler](credit-memo-and-refund-handler.md).
+- The bank reconciliation itself: use [bank-reconciliation](bank-reconciliation.md).
 
 ## What it asks you first
 
@@ -32,14 +32,14 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Customer payments / receipts — deposit listing, lockbox file, processor export | Required |
+| Customer payments / receipts (deposit listing, lockbox file, processor export) | Required |
 | Open A/R invoices | Required |
-| Remittance advice — if separate from the payment data | Recommended |
-| Customer master — helps fuzzy-match payer names | Recommended |
-| Tolerances for short / over pay — currency amount or % | Recommended |
+| Remittance advice, if separate from the payment data | Recommended |
+| Customer master (helps fuzzy-match payer names) | Recommended |
+| Tolerances for short / over pay (currency amount or %) | Recommended |
 | Tax jurisdiction | Recommended |
 | FX rates at the receipt date | Recommended |
-| Application order default — oldest-first (FIFO) or otherwise | Recommended |
+| Application order default (oldest-first (FIFO) or otherwise) | Recommended |
 
 ## With or without Mosofin
 

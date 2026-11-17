@@ -8,7 +8,7 @@
 
 Helps you plan, run, or audit a monthly close against your books.
 
-**In plain words:** closing the month means making sure everything that happened has been recorded, every balance has been checked against something outside the ledger, the estimates have been updated, and the numbers can be handed to someone who will make decisions with them — by a date, with names against each piece.
+**In plain words:** closing the month means making sure everything that happened has been recorded, every balance has been checked against something outside the ledger, the estimates have been updated, and the numbers can be handed to someone who will make decisions with them: by a date, with names against each piece.
 
 ## When to use it
 
@@ -22,7 +22,7 @@ Typical requests, or anything like them:
 
 Not for:
 
-- An individual close task (a specific reconciliation, accrual, or JE) — use the corresponding specific skill.
+- An individual close task (a specific reconciliation, accrual, or JE): use the corresponding specific skill.
 
 ## What it asks you first
 
@@ -32,7 +32,7 @@ Before it reads anything, it confirms these with you, in one message:
 |---|---|
 | Period being closed | Required |
 | Close calendar / target close date | Recommended |
-| Entity profile — industry, size, complexity | Recommended |
+| Entity profile (industry, size, complexity) | Recommended |
 | Reporting framework | Recommended |
 | Standard close template, if existing | Recommended |
 | Team / owners | Recommended |

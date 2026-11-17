@@ -2,7 +2,7 @@
 
 One page per skill (116) and per n8n workflow (18). Each page says what it is for, when to use it, what it asks you, what to upload if you are not connected to Mosofin, and what you get back.
 
-Everything here is **read-only**: it reads and analyses, and anything that would change your books comes back as a proposal for a person to approve.
+Everything here is read-only: it reads and analyses, and anything that would change your books comes back as a proposal for a person to approve.
 
 **Automated** is the share of a skill's checks that run without asking you for a document when a Mosofin workspace is connected. The rest need evidence that is not in the books, such as a bank statement or a contract. Within each group, skills are listed with the most automated first; the [sitemap](sitemap.md) lists them alphabetically.
 
@@ -226,7 +226,7 @@ Checks that run on a schedule or on demand inside n8n, an automation tool you ho
 | [`duplicate-invoice-detection`](workflow-duplicate-invoice-detection.md) | daily + webhook | holds on likely duplicates |
 | [`ar-collections`](workflow-ar-collections.md) | weekly + webhook | one collection email draft per customer |
 | [`expense-receipts`](workflow-expense-receipts.md) | webhook | reimbursement of clean lines |
-| [`month-end-close-orchestrator`](workflow-month-end-close-orchestrator.md) | days 1–7 + webhook | nudges to task owners |
+| [`month-end-close-orchestrator`](workflow-month-end-close-orchestrator.md) | days 1 to 7 + webhook | nudges to task owners |
 | [`recurring-journal-automator`](workflow-recurring-journal-automator.md) | monthly + webhook | missing recurring entries |
 | [`cash-application`](workflow-cash-application.md) | webhook | payment-to-invoice applications |
 | [`pbc-chase-up`](workflow-pbc-chase-up.md) | weekdays + webhook | one reminder per owner |

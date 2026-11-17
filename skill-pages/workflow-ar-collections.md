@@ -38,7 +38,7 @@ Every setting sits in one place in the workflow, and any of them can be overridd
 | `buckets` | Aging bucket upper bounds in days; the oldest overdue item picks the bucket |
 | `min_balance` | No draft when the net overdue balance is below this |
 | `exclude_customers` | Customer names never chased (e.g. in dispute, legal) |
-| `credit_limits` | { "Customer": limit } — flagged when the open balance exceeds it |
+| `credit_limits` | { "Customer": limit } (flagged when the open balance exceeds it) |
 | `tones` | Tone per bucket label; used in the subject and body |
 | `sender_name` | Signature on the draft |
 | `subject_template` | Email subject; {{placeholders}} filled per customer |

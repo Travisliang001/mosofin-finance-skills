@@ -8,7 +8,7 @@
 
 Helps you construct, format, or validate a journal entry against your books.
 
-**In plain words:** every accounting event gets recorded as at least two lines that cancel out — something gained against something given up. Getting the two sides right, against the right accounts, on the right date, with an explanation someone can follow a year later, is the whole job.
+**In plain words:** every accounting event gets recorded as at least two lines that cancel out: something gained against something given up. Getting the two sides right, against the right accounts, on the right date, with an explanation someone can follow a year later, is the whole job.
 
 ## When to use it
 
@@ -23,8 +23,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- GL coding decisions only — use [gl-coding-assistant](gl-coding-assistant.md).
-- Full period close — use [month-end-close-checklist](month-end-close-checklist.md).
+- GL coding decisions only: use [gl-coding-assistant](gl-coding-assistant.md).
+- Full period close: use [month-end-close-checklist](month-end-close-checklist.md).
 
 ## What it asks you first
 

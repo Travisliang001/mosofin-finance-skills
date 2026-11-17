@@ -6,9 +6,9 @@
 
 ## What it does
 
-Helps you reconcile payroll against your books — payroll register to GL, payroll to bank, payroll liabilities to amounts remitted, or quarter/year-end payroll tie-outs.
+Helps you reconcile payroll against your books: payroll register to GL, payroll to bank, payroll liabilities to amounts remitted, or quarter/year-end payroll tie-outs.
 
-**In plain words:** four systems should agree about what payroll cost and where the money went — the payroll software, the accounts, the bank, and whatever was filed with the tax authority. When they do not, someone has been paid the wrong amount, a liability has not been settled, or a filing will be wrong.
+**In plain words:** four systems should agree about what payroll cost and where the money went: the payroll software, the accounts, the bank, and whatever was filed with the tax authority. When they do not, someone has been paid the wrong amount, a liability has not been settled, or a filing will be wrong.
 
 ## When to use it
 
@@ -23,8 +23,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Building the payroll JE — use [payroll-journal-entry-builder](payroll-journal-entry-builder.md).
-- Clearing-account zeroing only — use [payroll-clearing-reconciliation](payroll-clearing-reconciliation.md).
+- Building the payroll JE: use [payroll-journal-entry-builder](payroll-journal-entry-builder.md).
+- Clearing-account zeroing only: use [payroll-clearing-reconciliation](payroll-clearing-reconciliation.md).
 
 ## What it asks you first
 
@@ -36,7 +36,7 @@ Before it reads anything, it confirms these with you, in one message:
 | GL payroll accounts activity | Recommended |
 | Bank statement / payment records | Recommended |
 | Liability remittance records | Recommended |
-| Period — month / quarter / year | Required |
+| Period (month / quarter / year) | Required |
 | Tax filing figures | Recommended |
 | Prior period reconciliation | Recommended |
 | The taxable wage base rules per tax | Recommended |

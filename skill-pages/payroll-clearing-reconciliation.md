@@ -8,7 +8,7 @@
 
 Helps you reconcile payroll clearing, payroll suspense, payroll liability, or any payroll-related control account against your books.
 
-**In plain words:** when payroll runs, the business owes several different people money at once — the staff, the tax authority, the pension provider, sometimes a court. Each of those obligations sits in its own account until it is paid. This checks that every one of them was paid, and finds the ones that have been sitting there since nobody quite knows when.
+**In plain words:** when payroll runs, the business owes several different people money at once: the staff, the tax authority, the pension provider, sometimes a court. Each of those obligations sits in its own account until it is paid. This checks that every one of them was paid, and finds the ones that have been sitting there since nobody quite knows when.
 
 ## When to use it
 
@@ -22,8 +22,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- The payroll JE itself — use [payroll-journal-entry-builder](payroll-journal-entry-builder.md).
-- Payroll tax filings — use [payroll-tax-filings](payroll-tax-filings.md).
+- The payroll JE itself: use [payroll-journal-entry-builder](payroll-journal-entry-builder.md).
+- Payroll tax filings: use [payroll-tax-filings](payroll-tax-filings.md).
 
 ## What it asks you first
 

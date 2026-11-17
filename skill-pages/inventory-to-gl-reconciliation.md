@@ -23,7 +23,7 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Inventory costing methodology — use [inventory-costing-fifo-lifo-wavg](inventory-costing-fifo-lifo-wavg.md).
+- Inventory costing methodology: use [inventory-costing-fifo-lifo-wavg](inventory-costing-fifo-lifo-wavg.md).
 
 ## What it asks you first
 
@@ -33,12 +33,12 @@ Before it reads anything, it confirms these with you, in one message:
 |---|---|
 | Inventory subledger / system extract | Recommended |
 | GL inventory balance(s) at period end | Recommended |
-| Physical count results — counted SKUs, quantity, location | Recommended |
+| Physical count results (counted SKUs, quantity, location) | Recommended |
 | Period being reconciled | Required |
 | Chart of accounts | Recommended |
 | Inventory locations / warehouses | Recommended |
 | Standard cost vs. actual cost variance accounts | Recommended |
-| In-transit / consignment inventory — quantity and value | Recommended |
+| In-transit / consignment inventory (quantity and value) | Recommended |
 | Inventory reserve / write-down policy | Recommended |
 | Whether the subledger is a separate system | Required |
 | When the last physical count was performed | Required |

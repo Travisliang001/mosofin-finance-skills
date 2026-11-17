@@ -6,7 +6,7 @@
 
 ## What it does
 
-Reconciles a bank account to the books for a period: builds the two-ladder bridge from the statement ending balance and the GL cash balance, matches transactions four ways, classifies what is unmatched — deposits in transit, outstanding cheques, fees, interest, bounced items — and proposes the correcting entries, each tied to a statement line.
+Reconciles a bank account to the books for a period: builds the two-ladder bridge from the statement ending balance and the GL cash balance, matches transactions four ways, classifies what is unmatched (deposits in transit, outstanding cheques, fees, interest, bounced items) and proposes the correcting entries, each tied to a statement line.
 
 ## When to use it
 
@@ -25,9 +25,9 @@ Before it reads anything, it asks, in one message:
 | *Use Mosofin as the data source for this run, or upload the data yourself?* | Decides the path. Mosofin is the connection to your books and other linked platforms; with it the skill reads from there, without it you upload and the checks are the same |
 | *Which bank account, or accounts?* | One bridge per account; several accounts at one bank are a classic mix-up |
 | *Which period? Start and end date.* | Sets every read and the statement date on both sides |
-| *The bank statement — PDF or CSV, or at least the ending balance and the lines.* | The one side Mosofin cannot see |
+| *The bank statement (PDF or CSV, or at least the ending balance and the lines).* | The one side Mosofin cannot see |
 | *When was this account last reconciled? The prior report, or just the date.* | Without it, opening outstanding items are unknown and the bridge starts blind |
-| *How small a difference is worth chasing?* | Materiality governs which items get an owner and a date — the bridge still ties to the cent |
+| *How small a difference is worth chasing?* | Materiality governs which items get an owner and a date (the bridge still ties to the cent) |
 
 ## With or without Mosofin
 
@@ -37,11 +37,11 @@ If you upload the data yourself:
 
 | Upload | Needed? | Format |
 |---|---|---|
-| **Bank statement** for the period — or the ending balance plus every statement line | **Required** — without it there is no reconciliation, only a book-side preparation, and the output says so | PDF or CSV |
-| Your books: **GL activity for the cash account(s)** — date, description, amount, counterparty, reference — plus the **ending balance** (a trial balance works) | Required | CSV or XLSX |
+| **Bank statement** for the period, or the ending balance plus every statement line | **Required**, without it there is no reconciliation, only a book-side preparation, and the output says so | PDF or CSV |
+| Your books: **GL activity for the cash account(s)** (date, description, amount, counterparty, reference) plus the **ending balance** (a trial balance works) | Required | CSV or XLSX |
 | Account name(s), masked identifier, base currency | Required | Type it in the chat |
-| **Prior month's reconciliation** report, or the last reconciled date | Recommended — sets the opening outstanding items | PDF, CSV or a date |
-| **Cutoff policy** — posting cutoffs, deposit processing, cheque clearing windows | Recommended — sets the matching windows and escalation ages | Type it in the chat |
+| **Prior month's reconciliation** report, or the last reconciled date | Recommended. Sets the opening outstanding items | PDF, CSV or a date |
+| **Cutoff policy** (posting cutoffs, deposit processing, cheque clearing windows) | Recommended. Sets the matching windows and escalation ages | Type it in the chat |
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -56,7 +56,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Asks before using Mosofin.** A connected account is not permission to read it.
 - **Never writes, updates or deletes anything, in any system.** It cannot mark an item cleared or sign a reconciliation off; every entry it produces is a proposal for a person to post.
 - **Never calls it reconciled without the statement.** Comparing the books to the books is a total agreeing with itself.
-- **Never estimates a figure** that should come from the books or the statement, and **never shows a full bank account number** — masked, always.
+- **Never estimates a figure** that should come from the books or the statement, and **never shows a full bank account number**: masked, always.
 
 ---
 

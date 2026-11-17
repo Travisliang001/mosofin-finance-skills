@@ -6,7 +6,7 @@
 
 ## What it does
 
-Reconciles a payment processor — Stripe, Square, PayPal, Braintree, Adyen, Shopify Payments — to the general ledger: gross sales, fees, refunds, chargebacks and payouts, with the clearing account rolled forward and aged. Tests the most common error, revenue recorded net of processor fees.
+Reconciles a payment processor (Stripe, Square, PayPal, Braintree, Adyen, Shopify Payments) to the general ledger: gross sales, fees, refunds, chargebacks and payouts, with the clearing account rolled forward and aged. Tests the most common error, revenue recorded net of processor fees.
 
 ## When to use it
 
@@ -37,10 +37,10 @@ If you upload the data yourself:
 | Upload | Needed? | Format |
 |---|---|---|
 | Processor **payout / settlement** report for the period | Required | CSV export from the processor dashboard |
-| Processor **transactions or balance** report — charges, fees, refunds, disputes | Required | CSV export |
+| Processor **transactions or balance** report (charges, fees, refunds, disputes) | Required | CSV export |
 | Your books: **GL detail** for the clearing, revenue and fee accounts, or a **trial balance** plus GL export | Required | CSV or XLSX |
 | Clearing account name, base currency and country | Required | Type it in the chat |
-| **Bank statement** for the period | **Required** — the only proof the payouts actually arrived. Without it the skill still runs, ties payouts to the deposits recorded in your books instead, and **says so in the output** | PDF or CSV |
+| **Bank statement** for the period | **Required** (the only proof the payouts actually arrived. Without it the skill still runs, ties payouts to the deposits recorded in your books instead, and **says so in the output)** | PDF or CSV |
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 

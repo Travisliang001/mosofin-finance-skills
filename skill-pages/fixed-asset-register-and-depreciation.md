@@ -8,7 +8,7 @@
 
 Helps you maintain a fixed asset register, compute depreciation, capitalize new acquisitions, dispose of assets, or reconcile FA to the GL from your books.
 
-**In plain words:** when a business buys something that will last for years — a van, a machine, a building fit-out — the cost is not an expense all at once. It goes on the balance sheet and is written down a bit each month over the years it will be used. Doing that properly needs a list of every asset, what it cost, when it went into use, and how fast it is being written down.
+**In plain words:** when a business buys something that will last for years (a van, a machine, a building fit-out) the cost is not an expense all at once. It goes on the balance sheet and is written down a bit each month over the years it will be used. Doing that properly needs a list of every asset, what it cost, when it went into use, and how fast it is being written down.
 
 ## When to use it
 
@@ -25,8 +25,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Intangibles — use [intangibles-and-amortization](intangibles-and-amortization.md).
-- Leases — use [lease-accounting-asc842-ifrs16](lease-accounting-asc842-ifrs16.md).
+- Intangibles: use [intangibles-and-amortization](intangibles-and-amortization.md).
+- Leases: use [lease-accounting-asc842-ifrs16](lease-accounting-asc842-ifrs16.md).
 
 ## What it asks you first
 
@@ -37,8 +37,8 @@ Before it reads anything, it confirms these with you, in one message:
 | Existing FA register | Recommended |
 | New acquisitions for the period | Recommended |
 | Disposals for the period | Recommended |
-| Asset class policies — useful life and method per class | Recommended |
-| Reporting framework — US GAAP / IFRS / local GAAP | Recommended |
+| Asset class policies (useful life and method per class) | Recommended |
+| Reporting framework (US GAAP / IFRS / local GAAP) | Recommended |
 | Capitalization threshold | Recommended |
 | Functional currency | Recommended |
 | Chart of accounts | Recommended |

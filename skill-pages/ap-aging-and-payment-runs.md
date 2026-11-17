@@ -8,7 +8,7 @@
 
 Use this skill whenever you want an accounts payable aging analysis, a payment run, or vendor payment prioritization from your books.
 
-**In plain words:** this answers two questions — *who do we owe, and how late are we?* and *given the cash we actually have this week, who should we pay first?* An **aging** sorts every unpaid bill by how overdue it is. A **payment run** is the batch of payments you send out in one go.
+**In plain words:** this answers two questions: *who do we owe, and how late are we?* and *given the cash we actually have this week, who should we pay first?* An **aging** sorts every unpaid bill by how overdue it is. A **payment run** is the batch of payments you send out in one go.
 
 ## When to use it
 
@@ -22,8 +22,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Individual vendor invoice extraction — use [invoice-data-extractor](invoice-data-extractor.md).
-- Vendor onboarding — use [vendor-onboarding-and-w9-tin](vendor-onboarding-and-w9-tin.md).
+- Individual vendor invoice extraction: use [invoice-data-extractor](invoice-data-extractor.md).
+- Vendor onboarding: use [vendor-onboarding-and-w9-tin](vendor-onboarding-and-w9-tin.md).
 
 ## What it asks you first
 

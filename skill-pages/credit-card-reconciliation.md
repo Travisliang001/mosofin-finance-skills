@@ -22,8 +22,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Personal employee expense reports — use [expense-report-processor](expense-report-processor.md).
-- Bank reconciliation — use [bank-reconciliation](bank-reconciliation.md).
+- Personal employee expense reports: use [expense-report-processor](expense-report-processor.md).
+- Bank reconciliation: use [bank-reconciliation](bank-reconciliation.md).
 
 ## What it asks you first
 
@@ -31,15 +31,15 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Credit card statement — PDF, CSV or XLSX from the issuer | Recommended |
+| Credit card statement (PDF, CSV or XLSX from the issuer) | Recommended |
 | Receipts for the period | Recommended |
 | Cardholder name | Recommended |
-| Statement period — date range | Required |
-| Statement balances — opening, charges, payments, closing | Recommended |
+| Statement period (date range) | Required |
+| Statement balances (opening, charges, payments, closing) | Recommended |
 | GL credit card liability balance at period end | Required for tie-out |
 | Chart of accounts | Required |
 | Tax jurisdiction | Recommended |
-| Receipt policy threshold — below which no receipt is required | Recommended |
+| Receipt policy threshold (below which no receipt is required) | Recommended |
 | Capitalization threshold | Recommended |
 | Per-card-program quirks | Recommended |
 

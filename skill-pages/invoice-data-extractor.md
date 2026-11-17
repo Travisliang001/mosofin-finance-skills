@@ -8,7 +8,7 @@
 
 Use this skill whenever you upload a vendor invoice (PDF, image, or scanned doc) and wants structured data extracted, validated against your books.
 
-**In plain words:** somebody sends a bill as a PDF. Before it can go into the accounts, every number and date on it has to become a field — and before it gets paid, somebody should check it is a real supplier, a bill for this company, and one nobody has already paid.
+**In plain words:** somebody sends a bill as a PDF. Before it can go into the accounts, every number and date on it has to become a field, and before it gets paid, somebody should check it is a real supplier, a bill for this company, and one nobody has already paid.
 
 ## When to use it
 
@@ -21,8 +21,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- OCR alone — extract semantically.
-- Posting the JE — pair with [journal-entry-builder](journal-entry-builder.md).
+- OCR alone: extract semantically.
+- Posting the JE: pair with [journal-entry-builder](journal-entry-builder.md).
 
 ## What it asks you first
 
@@ -30,9 +30,9 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Invoice document(s) — PDF, PNG, JPG, or multi-page scan | Recommended |
+| Invoice document(s) (PDF, PNG, JPG, or multi-page scan) | Recommended |
 | Entity being invoiced | Recommended |
-| Output format — xlsx / csv / JSON | Optional (default xlsx) |
+| Output format (xlsx / csv / JSON) | Optional (default xlsx) |
 | Vendor mapping file | Recommended |
 | Currency assumption | Recommended |
 | Which entity each invoice belongs to, in a batch | Recommended |

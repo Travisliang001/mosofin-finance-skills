@@ -8,7 +8,7 @@
 
 Helps you compare actual results to budget or forecast and explain the variances, working from your books.
 
-**In plain words:** you said the month would look one way; it looked another. This skill measures the gap on every line, works out *why* — was it volume, or price, or timing, or a one-off? — and writes the explanation someone can take to a management meeting. The hard part is never the subtraction; it is saying what caused it.
+**In plain words:** you said the month would look one way; it looked another. This skill measures the gap on every line, works out *why* (was it volume, or price, or timing, or a one-off?) and writes the explanation someone can take to a management meeting. The hard part is never the subtraction; it is saying what caused it.
 
 ## When to use it
 
@@ -24,8 +24,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Building the budget — use [budget-builder](budget-builder.md).
-- Period-over-period MD&A narrative — use [management-discussion-and-analysis](management-discussion-and-analysis.md).
+- Building the budget: use [budget-builder](budget-builder.md).
+- Period-over-period MD&A narrative: use [management-discussion-and-analysis](management-discussion-and-analysis.md).
 
 ## What it asks you first
 
@@ -33,13 +33,13 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Actual results for the period — by line, by month | Required |
-| Budget / forecast for the same period — by line, by month | Recommended |
-| Period and granularity — month, QTD, YTD | Required |
-| Materiality threshold for commentary — $ and/or % | Recommended |
-| Prior year actuals — for YoY context | Recommended |
-| Driver data — units, headcount, price, for decomposition | Recommended |
-| Account groupings / reporting hierarchy — how lines roll up | Recommended |
+| Actual results for the period (by line, by month) | Required |
+| Budget / forecast for the same period (by line, by month) | Recommended |
+| Period and granularity (month, QTD, YTD) | Required |
+| Materiality threshold for commentary ($ and/or %) | Recommended |
+| Prior year actuals, for YoY context | Recommended |
+| Driver data (units, headcount, price, for decomposition) | Recommended |
+| Account groupings / reporting hierarchy (how lines roll up) | Recommended |
 | Known one-time items in the period | Recommended |
 
 ## With or without Mosofin

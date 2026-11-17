@@ -6,7 +6,7 @@
 
 ## What it does
 
-Use this skill whenever you want a short-term cash flow forecast from your books — classically a 13-week direct cash forecast for liquidity management.
+Use this skill whenever you want a short-term cash flow forecast from your books: classically a 13-week direct cash forecast for liquidity management.
 
 **In plain words:** profit is an opinion; cash is a fact. This forecast ignores accounting niceties and asks one question, week by week: how much money will actually be in the bank? It is the tool that tells you whether you can make payroll in seven weeks' time, and it is the first thing a lender or a restructuring adviser asks for.
 
@@ -25,8 +25,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- The GAAP cash flow statement — use [cash-flow-statement-indirect-method](cash-flow-statement-indirect-method.md).
-- Annual forecasting — use [rolling-forecast](rolling-forecast.md).
+- The GAAP cash flow statement: use [cash-flow-statement-indirect-method](cash-flow-statement-indirect-method.md).
+- Annual forecasting: use [rolling-forecast](rolling-forecast.md).
 
 ## What it asks you first
 
@@ -34,15 +34,15 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Opening cash balance — by account, as of the start date | Required |
-| Forecast horizon — default 13 weeks; can be 6, 8, 17, 26 | Required |
+| Opening cash balance (by account, as of the start date) | Required |
+| Forecast horizon (default 13 weeks; can be 6, 8, 17, 26) | Required |
 | AR / open invoices with expected collection timing | Recommended |
 | AP / open bills with payment timing | Recommended |
-| Payroll schedule — pay dates and amounts | Recommended |
-| Recurring receipts and disbursements — rent, debt service, taxes, subscriptions | Recommended |
+| Payroll schedule (pay dates and amounts) | Recommended |
+| Recurring receipts and disbursements (rent, debt service, taxes, subscriptions) | Recommended |
 | Expected new sales / bookings cash timing | Recommended |
-| Minimum cash threshold / covenant — the floor to stay above | Recommended |
-| Available credit facility — undrawn revolver, etc. | Recommended |
+| Minimum cash threshold / covenant (the floor to stay above) | Recommended |
+| Available credit facility (undrawn revolver, etc). | Recommended |
 | Functional currency (and FX if multi-currency) | Recommended |
 
 ## With or without Mosofin

@@ -25,8 +25,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- The full year-end close — use [year-end-close](year-end-close.md).
-- Monthly close orchestration — use [month-end-close-checklist](month-end-close-checklist.md).
+- The full year-end close: use [year-end-close](year-end-close.md).
+- Monthly close orchestration: use [month-end-close-checklist](month-end-close-checklist.md).
 
 ## What it asks you first
 
@@ -36,12 +36,12 @@ Before it reads anything, it confirms these with you, in one message:
 |---|---|
 | Fiscal year end date | Required |
 | Pre-closing trial balance | Required |
-| Entity type — corporation / partnership / LLC / sole proprietor / nonprofit | Recommended |
+| Entity type (corporation / partnership / LLC / sole proprietor / nonprofit) | Recommended |
 | Chart of accounts with account types | Required |
 | Functional currency | Required |
 | Dividends / distributions declared during the year | If applicable |
 | Prior year's retained earnings (closing balance) | Required for continuity |
-| Reporting framework — US GAAP / IFRS / Local GAAP / Other | Recommended |
+| Reporting framework (US GAAP / IFRS / Local GAAP / Other) | Recommended |
 | Other comprehensive income items | Recommended |
 | Whether the platform auto-closes the year | Required |
 | Whether the audit is complete | Recommended |

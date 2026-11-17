@@ -22,7 +22,7 @@ Typical requests, or anything like them:
 
 Not for:
 
-- General fraud detection across all transaction types — use [fraud-detection-and-forensics](fraud-detection-and-forensics.md).
+- General fraud detection across all transaction types: use [fraud-detection-and-forensics](fraud-detection-and-forensics.md).
 
 ## What it asks you first
 
@@ -34,8 +34,8 @@ Before it reads anything, it confirms these with you, in one message:
 | Period to scan | Required |
 | Vendor master | Recommended |
 | Prior duplicate-detection results | Recommended |
-| Sensitivity setting — Strict / Standard / Permissive | Recommended |
-| N for Rule 3 — the date window | Optional |
+| Sensitivity setting (Strict / Standard / Permissive) | Recommended |
+| N for Rule 3 (the date window) | Optional |
 | Known legitimate recurring suppliers | Recommended |
 
 ## With or without Mosofin

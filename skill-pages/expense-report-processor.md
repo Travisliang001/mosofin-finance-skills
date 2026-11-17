@@ -21,8 +21,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Vendor invoices — use [invoice-data-extractor](invoice-data-extractor.md).
-- Petty cash — use [petty-cash-management](petty-cash-management.md).
+- Vendor invoices: use [invoice-data-extractor](invoice-data-extractor.md).
+- Petty cash: use [petty-cash-management](petty-cash-management.md).
 
 ## What it asks you first
 

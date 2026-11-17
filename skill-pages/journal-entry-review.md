@@ -6,7 +6,7 @@
 
 ## What it does
 
-Helps you review journal entries for risk, propriety, or anomalies from your books — a control/audit lens on JEs.
+Helps you review journal entries for risk, propriety, or anomalies from your books: a control/audit lens on JEs.
 
 **In plain words:** most accounting entries come from an invoice, a payment, a payroll run. A few are typed in by hand, and those are the ones that bypass the normal checks. This looks through them for the patterns that tend to accompany mistakes or manipulation, and puts the ones worth a closer look at the top.
 
@@ -24,8 +24,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Building entries — use [journal-entry-builder](journal-entry-builder.md).
-- Full forensic investigation — use [fraud-detection-and-forensics](fraud-detection-and-forensics.md).
+- Building entries: use [journal-entry-builder](journal-entry-builder.md).
+- Full forensic investigation: use [fraud-detection-and-forensics](fraud-detection-and-forensics.md).
 
 ## What it asks you first
 
@@ -36,8 +36,8 @@ Before it reads anything, it confirms these with you, in one message:
 | Journal entry population | Recommended |
 | Period under review | Required |
 | Chart of accounts with risk-sensitive accounts noted | Recommended |
-| Approval / workflow data — who approved, approval status | Recommended |
-| Expected posting patterns — normal volumes, timing, sources | Recommended |
+| Approval / workflow data (who approved, approval status) | Recommended |
+| Expected posting patterns (normal volumes, timing, sources) | Recommended |
 | Materiality threshold | Recommended |
 | Known risk areas | Recommended |
 | Authorization thresholds | Recommended |

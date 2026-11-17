@@ -130,6 +130,70 @@ def clean(text):
     return second_person(out)
 
 
+# Writing rules applied to every finished page (the no-ai-slop editing rules): plain
+# punctuation, no binary contrasts, no filler words, no decorative bold mid-sentence.
+SLOP = [
+    r"—", r"–",
+    r"\b(?:delve|foster|leverage|utili[sz]e|facilitate|empower|streamline|robust|cutting-edge|"
+    r"seamless|game.?changer|multifaceted|meticulous|intricate|paramount|transformative|"
+    r"elevate|embark|supercharge|harness|ever-evolving|tapestry|realm|beacon)\w*\b",
+    r"\b(?:it(?:'s| is) (?:worth noting|important to note)|at the end of the day|when it comes to|"
+    r"at its core|in today's world|the reality is|the truth is|in terms of|in order to|"
+    r"going forward|let's dive in|here's the thing|needless to say)\b",
+    r"\bnot just (?:a|an|the)\b",
+    r"\b(?:isn't|is not|aren't) (?:about |a |an )?[^.]{0,40}[,.] (?:it's|It's|it is|It is) \b",
+    r"\b(?:crucial|vital|pivotal|game-changing)(?:ly)? \b",
+]
+
+CONJ = r"(?:and|but|or|nor|so|yet|then|which|not|if|unless|whether|was|is|as|plus|in|to|with|without|for|on|at|from)\b"
+
+
+def undash(s, cell=False):
+    """Replace the dashes in one sentence or table cell with plain punctuation."""
+    parts = re.split(r"\s*—\s*", s)
+    if len(parts) == 1:
+        return s
+    if len(parts) == 3 and not parts[2].startswith((".", ",", "?")):
+        # paired dashes: "ties A — Stripe, PayPal — to the GL" -> "ties A (Stripe, PayPal) to the GL"
+        return f"{parts[0]} ({parts[1]}) {parts[2]}"
+    out = parts[0]
+    for nxt in parts[1:]:
+        if re.match(r"(?:Required|Recommended|Optional)\**$", out.split()[-1] if out.split() else ""):
+            out += ". " + nxt[0].upper() + nxt[1:]        # "Recommended — sets ..." -> "Recommended. Sets ..."
+        elif re.match(CONJ, nxt):
+            out += ", " + nxt                             # "the tax — and if" -> "the tax, and if"
+        elif cell:                                        # "Period being closed — exact dates" -> "(exact dates)"
+            body, tail = re.match(r"(.*?)([.!?]*\**)$", nxt).groups()
+            out += f" ({body}){tail}"
+        else:
+            out += ": " + nxt                             # "hasn't been billed — you used" -> ": you used"
+    return out
+
+
+def plain(text):
+    """Edit a finished page to the writing rules: dashes to plain punctuation, contrasts to
+    statements, filler cut. Applied to the whole page, line by line."""
+    out = []
+    for line in text.splitlines():
+        if line.startswith(("<!--", "[")):
+            out.append(line)
+            continue
+        if "—" in line:
+            if line.startswith("|"):
+                cells = line.strip().strip("|").split("|")
+                line = "|" + "|".join(" " + undash(c.strip(), cell=True) + " " for c in cells) + "|"
+            else:
+                line = " ".join(undash(s) for s in sentences(line))
+        line = re.sub(r"\s*–\s*", " to ", line)
+        # "a legal document, not just a request" -> "a legal document as well as a request"
+        line = re.sub(r",? not just (a|an|the)\b", r" as well as \1", line)
+        line = re.sub(r"\bin order to\b", "to", line)
+        line = re.sub(r"\b[Ii]t is worth noting that\s*", "", line)
+        line = re.sub(r",\s*,", ",", line).replace(" ,", ",")
+        out.append(line)
+    return "\n".join(out) + ("\n" if text.endswith("\n") else "")
+
+
 def table_after(text, *header_words):
     """Rows (as cell lists) of the first table whose header holds all the given words."""
     lines = text.splitlines()
@@ -500,7 +564,7 @@ def build_index(names, rows, wf_names, wfs):
          f"One page per skill ({len(names)}) and per n8n workflow ({len(wf_names)}). Each page says "
          "what it is for, when to use it, what it asks you, what to upload if you are not connected "
          "to Mosofin, and what you get back.", "",
-         "Everything here is **read-only**: it reads and analyses, and anything that would change "
+         "Everything here is read-only: it reads and analyses, and anything that would change "
          "your books comes back as a proposal for a person to approve.", "",
          "**Automated** is the share of a skill's checks that run without asking you for a "
          "document when a Mosofin workspace is connected. The rest need evidence that is not in "
@@ -585,6 +649,11 @@ def gate(fn, text, sections):
             p.append(f"{fn}: section {h!r} is thin ({words} words)")
     if re.search(r"\b[Tt]he user\b", text):
         p.append(f"{fn}: says 'the user' instead of 'you'")
+    for pat in SLOP:
+        m = re.search(pat, text)
+        if m:
+            p.append(f"{fn}: writing rule: {m.group(0)!r}")
+            break
     if re.search(r"\|[ \t]*\|", text):
         p.append(f"{fn}: empty table cell")
     for line in text.splitlines():
@@ -617,6 +686,9 @@ def main():
     files["README.md"] = build_index(names, rows, wf_names, wfs)
     files["sitemap.md"] = build_sitemap_md(names, rows, wf_names, wfs)
     files["sitemap.xml"] = build_sitemap_xml(names, wf_names)
+    for fn in files:
+        if fn != "sitemap.xml":
+            files[fn] = plain(files[fn])
 
     problems = []
     for n in names:

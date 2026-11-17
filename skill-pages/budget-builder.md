@@ -37,7 +37,7 @@ If you upload the data yourself:
 
 | Upload | Needed? | Format |
 |---|---|---|
-| **Monthly profit and loss by line**, 24–36 months | Required for incremental and driver-based methods | XLSX or CSV |
+| **Monthly profit and loss by line**, 24 to 36 months | Required for incremental and driver-based methods | XLSX or CSV |
 | **Existing budget**, if there is one | Recommended | XLSX |
 | Revenue drivers, headcount plan | Required | XLSX, or type it in the chat |
 | Targets, commitments, escalation | Recommended | Type it in the chat |

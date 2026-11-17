@@ -8,7 +8,7 @@
 
 Helps you generate customer invoices, draft invoice templates, validate invoice content, or build batched invoices from your books.
 
-**In plain words:** an invoice is a legal document, not just a request for money. Most tax regimes specify exactly what must appear on one before your customer can reclaim the tax — and if a field is missing, they may refuse to pay until you reissue it. This skill builds invoices that carry everything they need, and checks the ones you have already sent.
+**In plain words:** an invoice is a legal document as well as a request for money. Most tax regimes specify exactly what must appear on one before your customer can reclaim the tax, and if a field is missing, they may refuse to pay until you reissue it. This skill builds invoices that carry everything they need, and checks the ones you have already sent.
 
 ## When to use it
 
@@ -22,8 +22,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Parsing vendor invoices — use [invoice-data-extractor](invoice-data-extractor.md).
-- Subscription scheduling — use [recurring-transaction-builder](recurring-transaction-builder.md).
+- Parsing vendor invoices: use [invoice-data-extractor](invoice-data-extractor.md).
+- Subscription scheduling: use [recurring-transaction-builder](recurring-transaction-builder.md).
 
 ## What it asks you first
 
@@ -31,9 +31,9 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Customer — name, address, tax ID | Required |
-| Entity (seller) — legal name, address, tax registration | Recommended |
-| Line items — description, qty, unit price, tax code | Recommended |
+| Customer (name, address, tax ID) | Required |
+| Entity (seller) (legal name, address, tax registration) | Recommended |
+| Line items (description, qty, unit price, tax code) | Recommended |
 | Invoice date | Required |
 | Payment terms | Required |
 | Currency | Required |
@@ -42,7 +42,7 @@ Before it reads anything, it confirms these with you, in one message:
 | Sales tax / VAT / GST rates per line | Recommended |
 | Invoice numbering scheme | Required |
 | Chart of accounts | Required |
-| Mode — prepare new invoices, or validate existing ones | Required |
+| Mode (prepare new invoices, or validate existing ones) | Required |
 
 ## With or without Mosofin
 

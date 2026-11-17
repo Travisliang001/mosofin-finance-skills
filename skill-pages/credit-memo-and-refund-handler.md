@@ -8,7 +8,7 @@
 
 Helps you process a credit memo, customer refund, vendor credit, or sales return from your books.
 
-**In plain words:** sometimes money has to go back the other way — a customer returns goods, a price was wrong, a supplier over-billed you, or a card payment gets reversed. Each of those looks similar on the surface and is accounted for quite differently underneath. This skill works out which one you have, what happens to the tax, and how the credit gets used up.
+**In plain words:** sometimes money has to go back the other way: a customer returns goods, a price was wrong, a supplier over-billed you, or a card payment gets reversed. Each of those looks similar on the surface and is accounted for quite differently underneath. This skill works out which one you have, what happens to the tax, and how the credit gets used up.
 
 ## When to use it
 
@@ -22,8 +22,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Bad-debt write-offs as policy — use [bad-debt-and-write-offs](bad-debt-and-write-offs.md).
-- Normal invoice extraction — use [invoice-data-extractor](invoice-data-extractor.md).
+- Bad-debt write-offs as policy: use [bad-debt-and-write-offs](bad-debt-and-write-offs.md).
+- Normal invoice extraction: use [invoice-data-extractor](invoice-data-extractor.md).
 
 ## What it asks you first
 
@@ -31,13 +31,13 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Credit memo type — customer credit / customer refund / vendor credit / chargeback | Recommended |
-| Original invoice reference — number, date, amount | Recommended |
+| Credit memo type (customer credit / customer refund / vendor credit / chargeback) | Recommended |
+| Original invoice reference (number, date, amount) | Recommended |
 | Credit memo amount | Required |
-| Reason for credit — return, pricing dispute, goodwill, damage, error | Recommended |
+| Reason for credit (return, pricing dispute, goodwill, damage, error) | Recommended |
 | Chart of accounts | Required for GL posting |
 | Tax jurisdiction | Recommended |
-| Original tax code(s) — from the related invoice | Recommended |
+| Original tax code(s), from the related invoice | Recommended |
 | Functional currency | Recommended |
 | Approval for any credit exceeding the invoice balance | Required if that check fails |
 

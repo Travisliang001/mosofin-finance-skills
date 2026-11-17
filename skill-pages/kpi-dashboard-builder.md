@@ -37,7 +37,7 @@ If you upload the data yourself:
 
 | Upload | Needed? | Format |
 |---|---|---|
-| **Monthly profit and loss**, 24–36 months | Required | XLSX or CSV |
+| **Monthly profit and loss**, 24 to 36 months | Required | XLSX or CSV |
 | **Balance sheet at each month end**, same months | Required | XLSX or CSV |
 | Receivables and payables ageing | Recommended, for DSO and DPO | XLSX or CSV |
 | Operational exports: billing, CRM, time or production | Optional. Without them the industry metrics are listed as not available | CSV |

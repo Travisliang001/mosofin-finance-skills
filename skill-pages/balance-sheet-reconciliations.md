@@ -8,7 +8,7 @@
 
 Helps you reconcile balance sheet accounts to supporting subledgers or external documents, working from your books.
 
-**In plain words:** the balance sheet shows one number per account. Behind most of those numbers there should be a detailed list that adds up to exactly that number — the customers who owe you, the bills you haven't paid, the assets you own. **Reconciling** is proving the two agree, and explaining every difference when they don't. It is the routine that catches errors before they become audit findings.
+**In plain words:** the balance sheet shows one number per account. Behind most of those numbers there should be a detailed list that adds up to exactly that number: the customers who owe you, the bills you haven't paid, the assets you own. **Reconciling** is proving the two agree, and explaining every difference when they don't. It is the routine that catches errors before they become audit findings.
 
 ## When to use it
 
@@ -22,8 +22,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Bank reconciliation — use [bank-reconciliation](bank-reconciliation.md).
-- Full period close — use [month-end-close-checklist](month-end-close-checklist.md).
+- Bank reconciliation: use [bank-reconciliation](bank-reconciliation.md).
+- Full period close: use [month-end-close-checklist](month-end-close-checklist.md).
 
 ## What it asks you first
 
@@ -31,13 +31,13 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Account(s) being reconciled — number + name | Recommended |
-| Reporting period — date range | Required |
+| Account(s) being reconciled (number + name) | Recommended |
+| Reporting period (date range) | Required |
 | GL balance at period end | Required |
 | Supporting subledger / schedule / external doc | Required |
 | Prior period reconciliation | Recommended |
 | Materiality threshold for unreconciled differences | Recommended |
-| Chart of accounts — for posting cleanup JEs | Required |
+| Chart of accounts, for posting cleanup JEs | Required |
 | Who prepares and who reviews | Recommended |
 
 ## With or without Mosofin

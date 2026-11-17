@@ -6,7 +6,7 @@
 
 ## What it does
 
-Helps you design, schedule, or validate recurring transactions against a connected Mosofin workspace — recurring journal entries, recurring bills, recurring invoices, or subscription billing schedules.
+Helps you design, schedule, or validate recurring transactions against a connected Mosofin workspace: recurring journal entries, recurring bills, recurring invoices, or subscription billing schedules.
 
 ## When to use it
 
@@ -22,8 +22,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- One-off entries — use [journal-entry-builder](journal-entry-builder.md).
-- Prepaid amortization specifically — use [prepaid-amortization-schedule](prepaid-amortization-schedule.md). Produces a validated recurring schedule with every future occurrence computed, checked against the live chart of accounts, and ready for a human to load. Mosofin does not create templates, does not post, and does not schedule anything.
+- One-off entries: use [journal-entry-builder](journal-entry-builder.md).
+- Prepaid amortization specifically: use [prepaid-amortization-schedule](prepaid-amortization-schedule.md). Produces a validated recurring schedule with every future occurrence computed, checked against the live chart of accounts, and ready for a human to load. Mosofin does not create templates, does not post, and does not schedule anything.
 
 ## What it asks you first
 

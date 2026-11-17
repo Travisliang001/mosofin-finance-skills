@@ -6,9 +6,9 @@
 
 ## What it does
 
-Helps you build a complete set of financial statements from your books — Balance Sheet, Income Statement, and Statement of Cash Flows, with comparatives.
+Helps you build a complete set of financial statements from your books: Balance Sheet, Income Statement, and Statement of Cash Flows, with comparatives.
 
-**In plain words:** the accounting system holds a long list of account balances. This turns that list into the three statements a bank, an investor or an auditor expects to see — in the order, the groupings and the wording their framework requires — and then proves the statements agree with each other.
+**In plain words:** the accounting system holds a long list of account balances. This turns that list into the three statements a bank, an investor or an auditor expects to see (in the order, the groupings and the wording their framework requires) and then proves the statements agree with each other.
 
 ## When to use it
 
@@ -23,8 +23,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Just the cash flow statement — use [cash-flow-statement-indirect-method](cash-flow-statement-indirect-method.md).
-- Footnotes — use [notes-to-financial-statements](notes-to-financial-statements.md).
+- Just the cash flow statement: use [cash-flow-statement-indirect-method](cash-flow-statement-indirect-method.md).
+- Footnotes: use [notes-to-financial-statements](notes-to-financial-statements.md).
 
 ## What it asks you first
 
@@ -34,13 +34,13 @@ Before it reads anything, it confirms these with you, in one message:
 |---|---|
 | Trial balance, current period | Recommended |
 | Comparative period TB | Recommended |
-| Reporting framework — US GAAP / IFRS / local GAAP | Recommended |
+| Reporting framework (US GAAP / IFRS / local GAAP) | Recommended |
 | Functional / presentation currency | Recommended |
 | Entity name and reporting period | Recommended |
 | Chart of accounts with type mapping | Recommended |
-| Classification rules — current / non-current criteria | Recommended |
-| Special presentation elements — discontinued ops, extraordinary items, segments | Recommended |
-| Prior-year audited financials — for continuity | Recommended |
+| Classification rules (current / non-current criteria) | Recommended |
+| Special presentation elements (discontinued ops, extraordinary items, segments) | Recommended |
+| Prior-year audited financials, for continuity | Recommended |
 | Presentation currency, if different from functional | Recommended |
 | Rounding basis | Recommended |
 | Share count for EPS, if EPS is required | Recommended |

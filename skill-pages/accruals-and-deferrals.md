@@ -8,7 +8,7 @@
 
 Helps you book period-end accruals or deferrals from your books, beyond AP-specific accruals.
 
-**In plain words:** your books should show costs and income in the month they actually *happened*, not the month the paperwork or the money showed up. An **accrual** records something that already happened but hasn't been billed yet — you used electricity in March, the bill comes in April, but March should carry the cost. A **deferral** does the opposite — a customer paid you in January for a whole year of service, so you can't call it all January income; you spread it out. This skill finds those items, works out the amounts, and writes the entries for a human to post.
+**In plain words:** your books should show costs and income in the month they actually *happened*, not the month the paperwork or the money showed up. An **accrual** records something that already happened but hasn't been billed yet: you used electricity in March, the bill comes in April, but March should carry the cost. A **deferral** does the opposite: a customer paid you in January for a whole year of service, so you can't call it all January income; you spread it out. This skill finds those items, works out the amounts, and writes the entries for a human to post.
 
 ## When to use it
 
@@ -25,8 +25,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- AP-specific GRNI accruals — use [ap-accrual-cutoff](ap-accrual-cutoff.md).
-- Full close — use [month-end-close-checklist](month-end-close-checklist.md).
+- AP-specific GRNI accruals: use [ap-accrual-cutoff](ap-accrual-cutoff.md).
+- Full close: use [month-end-close-checklist](month-end-close-checklist.md).
 
 ## What it asks you first
 
@@ -34,12 +34,12 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Period being closed — exact start and end dates | Required |
-| Categories of accruals / deferrals in scope — compensation, interest, utilities, revenue, etc. | Required |
-| Supporting data per category — bonus pool, interest rate, contract terms, time sheets | Required per category |
-| Chart of accounts — the accounts to post to | Required |
-| Materiality threshold — the dollar size below which an item isn't worth accruing | Recommended |
-| Reporting framework — US GAAP / IFRS / other | Recommended |
+| Period being closed (exact start and end dates) | Required |
+| Categories of accruals / deferrals in scope (compensation, interest, utilities, revenue, etc). | Required |
+| Supporting data per category (bonus pool, interest rate, contract terms, time sheets) | Required per category |
+| Chart of accounts (the accounts to post to) | Required |
+| Materiality threshold (the dollar size below which an item isn't worth accruing) | Recommended |
+| Reporting framework (US GAAP / IFRS / other) | Recommended |
 | Tax jurisdiction | Recommended |
 | Functional currency | Recommended |
 | Reversal policy | Required |

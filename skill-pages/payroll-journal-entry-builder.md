@@ -23,8 +23,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Reconciling payroll to the GL after posting — use [payroll-reconciliation](payroll-reconciliation.md).
-- Payroll tax filings — use [payroll-tax-filings](payroll-tax-filings.md).
+- Reconciling payroll to the GL after posting: use [payroll-reconciliation](payroll-reconciliation.md).
+- Payroll tax filings: use [payroll-tax-filings](payroll-tax-filings.md).
 
 ## What it asks you first
 
@@ -36,8 +36,8 @@ Before it reads anything, it confirms these with you, in one message:
 | Pay period and pay date | Required |
 | Chart of accounts mapping | Recommended |
 | Department / cost center allocation | Recommended |
-| Accounting basis — cash or accrual | Recommended |
-| Funding / payment details — bank account, timing | Recommended |
+| Accounting basis (cash or accrual) | Recommended |
+| Funding / payment details (bank account, timing) | Recommended |
 | Employer contribution details | Recommended |
 | Whether a payroll clearing account is used | Required |
 | Any capitalized labor in this run | Recommended |

@@ -6,9 +6,9 @@
 
 ## What it does
 
-Helps you identify and book period-end AP accruals from your books — invoices not yet received for services/goods already delivered, or goods received not yet invoiced (GRNI).
+Helps you identify and book period-end AP accruals from your books: invoices not yet received for services/goods already delivered, or goods received not yet invoiced (GRNI).
 
-**In plain words:** at the end of a month, some of what you used hasn't been billed to you yet. The cleaner came, the parts arrived, the consultant worked — but no bill has landed. If you close the month without recording those costs, the month looks cheaper than it really was, and next month looks worse. **Cutoff** is the discipline of putting each cost in the month it actually belongs to. This skill finds those unbilled costs, estimates them, and writes the entries for a human to post.
+**In plain words:** at the end of a month, some of what you used hasn't been billed to you yet. The cleaner came, the parts arrived, the consultant worked, but no bill has landed. If you close the month without recording those costs, the month looks cheaper than it really was, and next month looks worse. **Cutoff** is the discipline of putting each cost in the month it actually belongs to. This skill finds those unbilled costs, estimates them, and writes the entries for a human to post.
 
 ## When to use it
 
@@ -23,8 +23,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- General accruals beyond AP — use [accruals-and-deferrals](accruals-and-deferrals.md).
-- Full month-end close — use [month-end-close-checklist](month-end-close-checklist.md).
+- General accruals beyond AP: use [accruals-and-deferrals](accruals-and-deferrals.md).
+- Full month-end close: use [month-end-close-checklist](month-end-close-checklist.md).
 
 ## What it asks you first
 
@@ -32,15 +32,15 @@ Before it reads anything, it confirms these with you, in one message:
 
 | It confirms | Needed? |
 |---|---|
-| Period being closed — month or quarter, exact dates | Required |
+| Period being closed (month or quarter, exact dates) | Required |
 | Open POs and receipts (GRNI candidates) | Required for GRNI accruals |
-| Recurring vendor schedule — vendors with regular monthly bills | Recommended |
-| Invoices received post-period — bills dated after period end for in-period services | Recommended |
-| Chart of accounts — the accounts to post to | Required |
+| Recurring vendor schedule (vendors with regular monthly bills) | Recommended |
+| Invoices received post-period (bills dated after period end for in-period services) | Recommended |
+| Chart of accounts (the accounts to post to) | Required |
 | Tax jurisdiction | Required if tax is recoverable |
 | Materiality threshold for accruals | Recommended |
 | Functional currency | Recommended |
-| Subsequent-event window — how many days after period end to look for late invoices | Required |
+| Subsequent-event window (how many days after period end to look for late invoices) | Required |
 
 ## With or without Mosofin
 

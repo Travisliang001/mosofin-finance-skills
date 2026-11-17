@@ -21,8 +21,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Building the chart of accounts itself — use [chart-of-accounts-designer](chart-of-accounts-designer.md).
-- Posting actual journal entries — use [journal-entry-builder](journal-entry-builder.md).
+- Building the chart of accounts itself: use [chart-of-accounts-designer](chart-of-accounts-designer.md).
+- Posting actual journal entries: use [journal-entry-builder](journal-entry-builder.md).
 
 ## What it asks you first
 

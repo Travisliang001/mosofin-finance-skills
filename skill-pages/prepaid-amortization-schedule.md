@@ -23,8 +23,8 @@ Typical requests, or anything like them:
 
 Not for:
 
-- Deferred revenue (the customer side of the same idea) — use [revenue-recognition-asc606](revenue-recognition-asc606.md).
-- A full close — use [month-end-close-checklist](month-end-close-checklist.md). Reads the live prepaid account and expense ledger through the Mosofin read-only gateway; proposes a schedule, the amortization entries, and a tie-out to the GL prepaid balance. Proposes only — Mosofin posts nothing.
+- Deferred revenue (the customer side of the same idea): use [revenue-recognition-asc606](revenue-recognition-asc606.md).
+- A full close: use [month-end-close-checklist](month-end-close-checklist.md). Reads the live prepaid account and expense ledger through the Mosofin read-only gateway; proposes a schedule, the amortization entries, and a tie-out to the GL prepaid balance. Proposes only: Mosofin posts nothing.
 
 ## What it asks you first
 
