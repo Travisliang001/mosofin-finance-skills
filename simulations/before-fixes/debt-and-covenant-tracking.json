@@ -1,0 +1,31 @@
+{
+ "skill": "debt-and-covenant-tracking",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 3,
+ "missed": [
+  "Computes covenants on the agreement's definitions: adds back the 14,000 one-time fee. The run included the 7,300 card balance in Total Debt (227,300) but computed Covenant EBITDA at 812,250 with the addback at 0, showing 826,250 (0.28x / 36.2x) only as the result 'if the addback is confirmed', because nothing in the files says the June 16,500 fee was one-time. Under strict grading the addback was not applied."
+ ],
+ "unexpected": [
+  "Interest does not match the stated 5.7%: 17,100 charged Jan-Sep 2025 against 10,473.75 at 5.7% on the reducing balance (+6,626.25); effective rate 9.3%; 1,900/month is 5.7% on 400,000 and unchanged for 36 months",
+  "Repayment schedule does not reach the stated maturity: 220,000 / 5,000 = 44 payments, last on 31 May 2029, not 31 Dec 2029",
+  "No lease liability on the TB although rent is 9,000/month and the Total Debt definition includes any lease liabilities",
+  "Intercompany payable to Northbrook UK 38,000 flagged for the Debt definition (leverage 0.33x if included) and as evidence of a related company outside the perimeter",
+  "Current portion 60,000; Q3 compliance certificate due 14 November 2025",
+  "COGS step from 58% to 60% of revenue from July 2025, and September marketing 6.4% of revenue against 4.0%"
+ ],
+ "skill_defects": [
+  "references/edge-cases.md \"'EBITDA' per agreement vs. book EBITDA\" and references/method.md 'Step 4 — Precise covenant definitions' say to show the bridge adjustment by adjustment, but neither says how to treat an addback whose qualifying event is only inferred from the data (a spike in a P&L line). With the protocol rule 'do not let an assumption decide a conclusion' the agent showed it as conditional rather than applied. One line saying 'apply an addback the user identifies, and ask about candidates the data suggests' would settle it."
+ ],
+ "sample_defects": [
+  "Nothing in the sample identifies the June 2025 professional fees as one-time: monthly_profit_and_loss_36m.csv shows 16,500 against a 2,500 run-rate (16,500 - 2,500 = 14,000) and the summary allows 'one-time professional fees up to 15,000', but no file or intake answer says the June spike is that fee. The expected 14,000 addback rests on an inference; add one line to term_loan_agreement_summary.md or the intake answers.",
+  "term_loan_ledger_2025.csv charges 1,900 interest every month, but at the stated fixed 5.7% the balance of 265,000 falling to 225,000 gives 10,473.75 for Jan-Sep against 17,100 charged (1,900 x 12 / 0.057 = 400,000 implied balance). Either intended as a finding (not in expect) or the rate is wrong.",
+  "term_loan_agreement_summary.md: 220,000 remaining / 5,000 a month = 44 payments, ending 31 May 2029, not the stated 31 December 2029 maturity."
+ ],
+ "summary": "Rota rejected on content; card debt included and headroom shown on both covenants, but the 14,000 fee addback was shown only as conditional since no file says it is one-time."
+}

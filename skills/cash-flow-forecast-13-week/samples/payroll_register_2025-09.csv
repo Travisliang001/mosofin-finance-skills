@@ -1,0 +1,13 @@
+employee,department,gross,income_tax_withheld,social_security_withheld,retirement_401k,net_pay
+E01,Operations,7246,869,554,290,5533
+E02,Operations,4830,580,370,193,3687
+E03,Operations,4830,580,370,193,3687
+E04,Sales,6410,769,490,256,4895
+E05,Sales,5667,680,433,227,4327
+E06,Finance,6874,825,526,275,5248
+E07,Finance,4459,535,341,178,3405
+E08,Warehouse,3994,479,306,160,3049
+E09,Warehouse,3994,479,306,160,3049
+E10,Warehouse,3809,457,291,152,2909
+E11,Admin,3623,435,277,145,2766
+E12,Management,14863,1784,1137,595,11347

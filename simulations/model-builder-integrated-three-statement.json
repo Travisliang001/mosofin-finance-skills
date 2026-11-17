@@ -1,0 +1,15 @@
+{"skill": "model-builder-integrated-three-statement", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 2, "findings_total": 2, "missed": [], "unexpected": [],
+ "skill_defects": [
+  "SKILL.md, 'Stage 1 — Intake', upload checklist asks for 'Chart of accounts, or an account-to-line mapping' but not a trial balance, while references/method.md 'Step 2 — Normalize and map historicals' says to 'sum the mapped accounts and compare to the trial balance total'; on the upload path the mapping check can never run",
+  "SKILL.md, 'Rules that never bend': 'Never builds on historicals that do not tie' — no guidance for a check that cannot be run (as opposed to one that fails); the run set HOLD and built the P&L layer only",
+  "references/method.md, 'Step 3 — Build driver-based forecast schedules': no rule for partial assumptions (e.g. working capital missing) beyond leaving them blank, so the linked balance sheet and cash flow cannot be produced and the 'working model' deliverable in Step 6 is necessarily incomplete"
+ ],
+ "sample_defects": [
+  "chart_of_accounts.csv lists 41 accounts but monthly_balance_sheet_36m.csv carries only 10 lines; 17 accounts (incl. 1600 Investment in Northbrook UK Ltd, 2300 Intercompany Payable) have no visible model line and no TB is supplied to show they are nil",
+  "model_assumptions.md gives no DSO/DIO/DPO, dividend or capex useful-life assumptions, so the balance sheet and cash flow cannot be forecast without generating assumptions, which the skill prohibits",
+  "model_assumptions.md 'single effective rate of 20%' vs monthly_profit_and_loss_36m.csv: no tax line in any of the 36 months, so net income history is either pre-tax or untaxed; the assumption has no historical anchor",
+  "monthly_profit_and_loss_36m.csv 2025-09: software 0 and marketing 29,146 vs a ~18,000 run-rate (4% of 455,400 = 18,216)"
+ ],
+ "summary": "Shift rota rejected on content; four history checks pass with the 60,000 dividend and 7,500 June adjustment; P&L forecast from supplied assumptions only; BS held for blank WC inputs."}

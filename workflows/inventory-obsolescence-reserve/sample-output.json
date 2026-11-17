@@ -1,0 +1,115 @@
+{
+  "workflow": "inventory-obsolescence-reserve",
+  "version": "1.0",
+  "run_id": "inventory-obsolescence-reserve-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-30",
+  "status": "ok",
+  "summary": "4 of 5 item(s) need a reserve; required USD 6066 vs 4000 booked: adjustment 2066.",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "inventory-listing.csv",
+      "role": "items",
+      "verdict": "accepted",
+      "reason": "inventory listing with last-sale dates, 5 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "slow_moving",
+      "sku": "LB-001",
+      "description": "Legacy label printer",
+      "value": 2460,
+      "days_since_sale": 698,
+      "reserve_pct": 100,
+      "reserve": 2460
+    },
+    {
+      "type": "slow_moving",
+      "sku": "SS-310",
+      "description": "Steel shelving kit",
+      "value": 4172,
+      "days_since_sale": 427,
+      "reserve_pct": 50,
+      "reserve": 2086
+    },
+    {
+      "type": "never_sold",
+      "sku": "TP-050",
+      "description": "Tape gun (discontinued)",
+      "value": 900,
+      "days_since_sale": null,
+      "reserve_pct": 100,
+      "reserve": 900
+    },
+    {
+      "type": "slow_moving",
+      "sku": "CB-110",
+      "description": "Corner boards",
+      "value": 2480,
+      "days_since_sale": 231,
+      "reserve_pct": 25,
+      "reserve": 620
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "journal_entry",
+      "date": "2025-09-30",
+      "memo": "Inventory obsolescence reserve to 6066",
+      "lines": [
+        {
+          "account": "5050 Inventory Obsolescence",
+          "debit": 2066,
+          "credit": 0
+        },
+        {
+          "account": "1390 Inventory Reserve",
+          "debit": 0,
+          "credit": 2066
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "items": 5,
+    "inventory_value": 18002,
+    "required_reserve": 6066,
+    "existing_reserve": 4000,
+    "adjustment": 2066
+  },
+  "not_done": [],
+  "sources": [
+    "file inventory-listing.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "as_at": "2025-09-30",
+    "aging_tiers": [
+      {
+        "days": 180,
+        "reserve_pct": 25
+      },
+      {
+        "days": 365,
+        "reserve_pct": 50
+      },
+      {
+        "days": 540,
+        "reserve_pct": 100
+      }
+    ],
+    "never_sold_pct": 100,
+    "existing_reserve": 4000,
+    "reserve_account": "1390 Inventory Reserve",
+    "expense_account": "5050 Inventory Obsolescence",
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

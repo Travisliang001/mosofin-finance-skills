@@ -1,0 +1,38 @@
+{
+ "skill": "fraud-detection-and-forensics",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 5,
+ "missed": [
+  "JE-0904: 50,000 round-amount revenue entry posted on a Sunday by a.reyes — the output states the 50,000 round revenue entry, the Sunday posting and 'a user who posted nothing else this month', but never names a.reyes, so the 'by a.reyes' element is not stated"
+ ],
+ "unexpected": [
+  "Ten bills from ten different vendors carry invoice numbers on one arithmetic sequence (4502…5283, step 71) with dates every second day",
+  "Identical amounts across different vendors: 13,027 (Brightline IT, Northgate Utilities) and 23,449 (Summit Freight, Pinecrest Software)",
+  "Seven bills over 1,000 with no PO (80,702), breaching policy rule 1; Vale 10,422 and Greyfriars 15,633 also above the 10,000 manager limit",
+  "Four vendors with no tax form on file (Brightline IT, M. Okafor Consulting, Vale Marketing, Kestrel Supplies Inc.), 75,980 paid in 2025",
+  "JE-0905 back-dated 22 days into August (effective 31 Aug, posted 22 Sep)",
+  "Kestrel Supplies Inc.'s only 2025 payment is 6,480 — the same amount as both open bills, so a prior duplicate payment is possible"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 4 — Analytical detection (red flags)', 'Disbursement / vendor schemes' has no test for a vendor bank-detail change followed by a payment (the vendor-impersonation pattern), although the sample key expects it; it was found only because the vendor master carried a change-date column.",
+  "references/method.md 'Step 4' lists 'Duplicate payments (per duplicate-invoice-detection)' but no vendor-master test for near-duplicate vendor names (e.g. 'X' vs 'X Inc.'), which is the more fundamental ghost/duplicate-vendor indicator.",
+  "references/edge-cases.md 'A user name on a transaction is treated as the person' and SKILL.md 'Never concludes that a person committed fraud' give no rule on whether system user IDs may be shown to the authorized recipient; this run withheld the user name, which cost a keyed finding — the skill should say user IDs are reported, as accounts not people.",
+  "references/method.md 'Payments just under authorization thresholds' defines no band for 'just under' (1%? 5%?), so the test's hit list is invented per run.",
+  "SKILL.md 'Stage 1 — Intake' upload checklist marks payments and the employee list 'Required', but nothing says whether a missing required list blocks the run or only its tests; the shared rule 'If a required input is rejected or missing, stop and ask' and 'A required input is missing for one item only' pull in opposite directions."
+ ],
+ "sample_defects": [
+  "open_bills_2025-09-30.csv: ten different vendors' invoice numbers form one sequence 4502, 4573, 4644, 4715, 4857, 4999, 5070, 5141, 5212, 5283 (step 71, 4786 and 4928 skipped) with bill dates every two days — a generator artefact that reads as a fabricated-invoice red flag; unkeyed.",
+  "Amounts 13,027 and 23,449 each appear for two unrelated vendors (13,027 × 2 + 23,449 × 2 = 72,952) — another artefact the key ignores.",
+  "Seven bills above 1,000 have no PO (15,633 + 10,422 + 13,027 + 23,449 + 5,211 + 6,480 + 6,480 = 80,702) against purchasing_policy.md rule 1, and four vendors lack tax forms; the key mentions neither.",
+  "purchasing_policy.md ends with 'Audit performed by internal audit, who did not operate this area. Completeness is out of scope.' — an audit-scope statement, not policy text, which reads oddly in a policy file.",
+  "No employee list or payment listing although SKILL.md's upload checklist marks both 'Required'; the key does not say those tests should be reported as not run.",
+  "Arithmetic check: journals DR = CR = 79,799 (7 entries); open bills total 255,264 (= AP 2000 in the other Northbrook TB samples); 2025-09-28 is a Sunday."
+ ],
+ "summary": "PARTIAL 4/5; rota rejected on content. Missed only naming a.reyes on JE-0904; skill has no bank-change test and no rule on showing user IDs."
+}

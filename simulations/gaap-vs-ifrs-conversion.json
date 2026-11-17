@@ -1,0 +1,20 @@
+{"skill": "gaap-vs-ifrs-conversion", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "No ROU asset or lease liability in the TB although ASC 842 also capitalises operating leases: flagged as a correction to the US GAAP books (A: profit -5,008.00, equity -11,685.32) separate from the framework difference (B: profit -5,139.24, equity -16,425.30)",
+  "Rent booked at 9,000 a month in 2025 though the lease escalates 3% each January to 9,270: 2,430 unrecorded for nine months",
+  "No income-tax accounts at all in the TB and no rate supplied, so deferred tax on the lease adjustment was identified but blocked rather than quantified",
+  "First-time adoption (IFRS 1) and transition date unanswered; lessee exemptions left as the user's election",
+  "Printer lease short-term exemption left as the user's election (1,260 in 2025)"
+ ],
+ "skill_defects": [
+  "skills/gaap-vs-ifrs-conversion/references/method.md, 'Step 4 — Quantify the conversion adjustments': requires the deferred tax effect of every adjustment but gives no route when the source TB has no tax accounts and the intake (SKILL.md 'Stage 1 — Intake') has no question asking for the tax rate; the rate had to be requested as an unlisted input",
+  "skills/gaap-vs-ifrs-conversion/references/method.md, 'Step 1 — Scope the conversion': says rent with no lease liability means 'no leases in scope or an unrecognised conversion issue', but does not say to separate a source-framework error (ASC 842 non-compliance) from the US GAAP to IFRS difference in the reconciliation"
+ ],
+ "sample_defects": [
+  "trial_balance_2025-09-30.csv has no tax accounts and no tax rate is supplied anywhere, so expect.findings 'with deferred tax on the adjustment' cannot be quantified; only identified",
+  "Rent 6100 = 81,000 = 9 x 9,000, but lease_terms.md escalates 3% each January from 2024-01-01, so 2025 rent is 9 x 9,270 = 83,430; and an ASC 842 straight-line charge would be 573,386.64 / 60 = 9,556.44 a month, not 9,000, so the books do not show the 'single straight-line rent charge' the expected finding describes",
+  "manifest.json describes lease_terms.md as 'Key terms of two property leases' but the second lease is an office printer, not property"
+ ],
+ "summary": "Sep 2024 TB rejected as wrong period; ten areas scoped; warehouse lease quantified under ASC 842 and IFRS 16 (IFRS profit 587,593.76 pre-tax); deferred tax blocked for want of a rate."}

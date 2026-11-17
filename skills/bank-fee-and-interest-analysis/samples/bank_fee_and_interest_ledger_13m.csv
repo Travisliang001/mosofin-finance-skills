@@ -1,0 +1,53 @@
+month,type,count,amount
+2024-09,Monthly service fee,1,50
+2024-09,Wire fee,4,140
+2024-09,"Merchant fees (Stripe, deducted before payout)",,1389
+2024-09,Interest expense,1,1354
+2024-10,Monthly service fee,1,50
+2024-10,Wire fee,2,70
+2024-10,"Merchant fees (Stripe, deducted before payout)",,1382
+2024-10,Interest expense,1,1330
+2024-11,Monthly service fee,1,50
+2024-11,Wire fee,3,105
+2024-11,"Merchant fees (Stripe, deducted before payout)",,1294
+2024-11,Interest expense,1,1306
+2024-12,Monthly service fee,1,50
+2024-12,Wire fee,4,140
+2024-12,"Merchant fees (Stripe, deducted before payout)",,1250
+2024-12,Interest expense,1,1282
+2025-01,Monthly service fee,1,50
+2025-01,Wire fee,2,70
+2025-01,"Merchant fees (Stripe, deducted before payout)",,1364
+2025-01,Interest expense,1,1259
+2025-02,Monthly service fee,1,50
+2025-02,Wire fee,3,105
+2025-02,"Merchant fees (Stripe, deducted before payout)",,1420
+2025-02,Interest expense,1,1235
+2025-03,Monthly service fee,1,50
+2025-03,Wire fee,4,140
+2025-03,"Merchant fees (Stripe, deducted before payout)",,1506
+2025-03,Interest expense,1,1211
+2025-04,Monthly service fee,1,50
+2025-04,Wire fee,2,70
+2025-04,"Merchant fees (Stripe, deducted before payout)",,1699
+2025-04,Interest expense,1,1188
+2025-05,Monthly service fee,1,50
+2025-05,Wire fee,3,105
+2025-05,"Merchant fees (Stripe, deducted before payout)",,1763
+2025-05,Interest expense,1,1164
+2025-06,Monthly service fee,1,50
+2025-06,Wire fee,4,140
+2025-06,"Merchant fees (Stripe, deducted before payout)",,1779
+2025-06,Interest expense,1,1140
+2025-07,Monthly service fee,1,50
+2025-07,Wire fee,2,70
+2025-07,"Merchant fees (Stripe, deducted before payout)",,1844
+2025-07,Interest expense,1,1116
+2025-08,Monthly service fee,1,50
+2025-08,Wire fee,3,105
+2025-08,"Merchant fees (Stripe, deducted before payout)",,1753
+2025-08,Interest expense,1,1092
+2025-09,Monthly service fee,1,50
+2025-09,Wire fee,1,35
+2025-09,"Merchant fees (Stripe, deducted before payout)",,1737
+2025-09,Interest expense,1,1069

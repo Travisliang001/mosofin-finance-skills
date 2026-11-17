@@ -1,0 +1,33 @@
+{
+ "skill": "bank-fee-and-interest-analysis",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "September ledger books 4 wires / 140 but the statement shows 1 wire / 35: 105 of wire fees unevidenced, held as investigating",
+  "Interest expense flat 1,900 every month on an amortising loan (6,900 payment = 1,900 + 5,000 principal); flagged for loan-schedule check",
+  "No interest income in 13 months on a September average daily balance of 1,257,906; sized at about 12,579 per 1 pp of yield as a sensitivity, not a rate estimate",
+  "Fees YoY Sep +15.4% (1,579 -> 1,822), merchant +17.5%; merchant fees 91% of 20,546 L12 fees",
+  "Wire-to-ACH sized at up to 1,260 a year on 36 wires x 35, assuming zero ACH fee"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' asks for 'Ledger detail' but has no rule for a monthly summary by type (no descriptors), which disables the Step 2 descriptor capture and the Step 3 miscoding scan in references/method.md; the run had to decide this alone.",
+  "references/method.md 'Step 1 — Build a fee taxonomy' puts merchant services in the bank-fee taxonomy, and SKILL.md 'Rules that never bend' forbids calling a books total 'total bank fees' without statements, but neither says that merchant fees are never on the bank statement (they need the processor statement), so a bank statement alone can never complete the missing-postings check for the largest bucket. references/edge-cases.md 'Merchant fees sit with the processor' covers this only for the Mosofin path.",
+  "SKILL.md 'Rules that never bend': 'Never estimates a fee or a rate' conflicts with references/method.md 'Step 5 — Optimization playbook' 'Replace wires with ACH ... multiply by the rate difference' when no fee schedule exists; no rule says whether a per-percentage-point sensitivity or a 'zero ACH fee' assumption is allowed.",
+  "SKILL.md 'Stage 1 — Intake' row D: 'Report the categories found, and do not flag an empty one' applies only if unanswered; when answered (as here), references/method.md 'Step 1' says to 'name any bucket that has no posted fees', but no rule covers a product seen on the statement (ACH) yet absent from the user's product list."
+ ],
+ "sample_defects": [
+  "bank_fee_and_interest_ledger_13m.csv September row 'Wire fee,4,140' conflicts with bank_statement_2025-09.csv, which has one 'WIRE OUT' and one 'WIRE FEE,-35' for a single operating account (manifest product list): 140 - 35 = 105 unexplained. expect.findings does not mention it.",
+  "Merchant fees carry count 0 in every month, so no merchant unit rate can be computed, and no processor statement or card volume is supplied although merchant fees are 18,686 of 20,546 (91%) of L12 fees.",
+  "Interest expense is exactly 1,900 every month for 13 months against an amortising loan (statement 'LOAN PAYMENT TERM LOAN -6900'); not explained by any file.",
+  "Neither file names the company, account or currency; manifest calls the ledger 'Ledger for bank fees and interest' but it is a monthly summary, not ledger detail.",
+  "Arithmetic of key checks out: every wire row = 35 x count (140/4, 105/3, 70/2); merchant fees 1,250-1,844 per month exceed every other category; statement 1,246,642 -> 1,219,776 foots."
+ ],
+ "summary": "PASS: rota rejected on content, all 3 findings hit; also found 3 Sep wire fees (105) booked but absent from the statement, and flat 1,900 monthly interest."
+}

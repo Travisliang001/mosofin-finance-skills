@@ -1,0 +1,34 @@
+{
+ "skill": "financial-statement-builder",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 1,
+ "findings_total": 1,
+ "missed": [],
+ "unexpected": [
+  "No income tax expense or tax payable in either TB despite profit before tax of 605,615 (9M 2025) and 633,096 (FY2024)",
+  "Only prior TB is the 12-month FY2024, so the 9-month income statement has no like-for-like comparative (needs TB at 30 Sep 2024)",
+  "Term loan 220,000 current portion undetermined; repayments of 45,000 in 9 months imply ~60,000 current (current ratio 8.06 vs 6.84 under the two readings)",
+  "Eight balances unchanged Dec 2024 to Sep 2025 (Stripe clearing 6,420, payroll clearing 1,200, payroll tax 5,400, sales tax 2,600, corporate card 7,300, intercompany 38,000, prepaid 18,000, allowance 9,000) while AR rose 33%",
+  "Interest expense flat at 1,900/month in both years although loan principal fell from 265,000 to 220,000",
+  "Intercompany payable to Northbrook UK 38,000 flagged as related-party disclosure"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user': 'never default a framework, a current / non-current split, a rounding basis, or a share count', yet the manual upload checklist and intake never force these answers; on an upload run every package is therefore a draft and the skill gives no instruction for how to lay out statements while the framework is open (this run had to fall back to the generic 'show the result under each answer' rule).",
+  "SKILL.md 'Step 4 — Add comparative period' covers annual comparatives only; it is silent on interim packages, where the balance sheet compares to the prior year-end but the income statement should compare to the same YTD period of the prior year. Nothing tells the run to ask for that prior-YTD TB.",
+  "SKILL.md 'Step 1 — Validate the TB' and 'Edge Cases' handle a post-closing current TB but not a pre-closing comparative TB, where the prior year's net income (633,096 here) must be rolled into retained earnings before the comparative balance sheet balances.",
+  "SKILL.md 'Step 6' and 'Step 7' hand the cash flow and equity statements to other skills, but tie-outs 2–5 in 'Step 8' depend on them; on an upload run with only this skill there is no instruction whether to draft them inline.",
+  "SKILL.md is a single 1,152-line file; the manual-run rules ('After an upload, validate the input before any work', 'The coverage sheet on a manual run') are buried in the shared scope block while 'Step 11 — Output' Sheet 9 still specifies Mosofin-only columns."
+ ],
+ "sample_defects": [
+  "No income tax in either TB and no tax account in the chart for a Ltd company: profit before tax 4,038,600 − 2,370,856 − 1,045,029 − 17,100 = 605,615 with nil tax; the key does not mention it.",
+  "No TB for the nine months to 30 Sep 2024, so the key's 'December 2024 as the comparative balance sheet' leaves the income-statement comparative undefined; the only prior P&L is 12 months (revenue 4,597,600).",
+  "Eight balance-sheet accounts are identical at both dates (e.g. Stripe clearing 6,420, payroll clearing 1,200, prepaid 18,000 with no insurance expense) — stale-looking data the key does not acknowledge.",
+  "Arithmetic check (key holds): 30 Sep 2025 assets 2,836,496 = liabilities 558,564 + equity 2,277,932; 31 Dec 2024 assets 2,212,146 = 539,829 + (250,000 + 789,221 + 633,096); RE roll 789,221 + 633,096 = 1,422,317 matches the 2025 TB."
+ ],
+ "summary": "PASS 1/1; Harlow TB rejected on content. Gaps: skill has no interim-comparative rule, and the sample has no tax and no 9-month 2024 comparative."
+}

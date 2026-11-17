@@ -1,0 +1,74 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "duplicate-invoice-detection input envelope",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "description": "Per-run overrides of any setting.",
+      "properties": {
+        "company": {
+          "default": ""
+        },
+        "currency": {
+          "default": "USD"
+        },
+        "datasource": {
+          "default": "quickbooks"
+        },
+        "data_source_id": {
+          "default": ""
+        },
+        "as_at": {
+          "default": ""
+        },
+        "lookback_days": {
+          "default": 365
+        },
+        "near_days": {
+          "default": 7
+        },
+        "amount_tolerance": {
+          "default": 0.01
+        }
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "bills"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "CSV text, first row = headers"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "company": {
+            "type": "string",
+            "description": "company the file belongs to, if known"
+          }
+        }
+      }
+    }
+  }
+}

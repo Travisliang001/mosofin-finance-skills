@@ -1,0 +1,36 @@
+{
+ "skill": "aml-kyc-procedures",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Entity mismatch: intake says Northbrook Trading Ltd, the file is for Northbrook Payments (a separate entity); flagged and confirmation requested",
+  "Period mismatch: intake says September 2025, activity is quoted for Q3 as a whole",
+  "No written AML policy: programme pillar gap; framework outline only",
+  "C-03 screening match reviewed 1 Aug 2025 but outcome and reviewer not recorded; senior management approval not evidenced",
+  "C-01 screening does not state lists covered or whether owners were screened",
+  "Activity is a summary, not a transaction listing, so pattern tests cannot actually be run",
+  "Implied totals: C-01 46,200, C-02 89,100, C-03 12,000"
+ ],
+ "skill_defects": [
+  "references/mosofin-protocol.md 'After an upload, validate the input before any work' asks 'Is it for the right company and period? The entity named in it ... against what the user confirmed at intake' but gives no verdict rule for a mismatch. The only file here names a different entity from intake; 'accepted with a limit' is defined as 'say what the output will not cover', which does not fit an entity mismatch, and 'rejected' would end the run. I accepted subject to confirmation; the skill should say whether an entity mismatch is a reject or an ask.",
+  "SKILL.md Stage 1 row D: responsible officer 'Blocking for any review list' and row B/C 'Ask again', but there is no rule on whether answers found inside an uploaded file (officer, regime, products) count as intake answers. SKILL.md 'Reads nothing until Stage 1 is answered and you have confirmed the read-back' implies they must come from the user first; on this sample they only exist in the upload.",
+  "SKILL.md 'Never states a legal threshold or requirement from memory as settled' against references/method.md Step 6 'Structuring — deliberately breaking a large amount ... to stay under a reporting threshold. Detect the pattern': with no threshold supplied the skill gives no instruction on how to describe a just-below-round-number pattern. I described it as 'just under 10,000' without asserting a threshold; guidance is needed.",
+  "references/edge-cases.md 'Beneficial ownership opacity' says 'do not accept relationships where the beneficial owner cannot be identified', which is a compliance conclusion, while SKILL.md says this is 'not legal or compliance advice' and decisions sit with the officer. The two pull in different directions for an existing customer such as C-02.",
+  "SKILL.md Stage 1 row E default 'Draft a framework outline only, and list screening as not evidenced' joins two conditions (no policy / no screening tool). Here there is no policy but there is a screening tool with partial results; the default does not say how to treat that split.",
+  "references/method.md Step 6 and Step 9 Sheet 5 assume transaction-level data; the upload checklist in SKILL.md asks for 'Transaction activity for the period' but validation gives no guidance when only per-customer summaries arrive (I used 'accepted with a limit')."
+ ],
+ "sample_defects": [
+  "manifest.json 'company' and intake_answers say 'Northbrook Trading Ltd', but aml_customer_and_activity.md is explicitly for 'Northbrook Payments (separate fictitious entity)'. A skill following its own validation rule ('right company') must query or reject the only input file, yet the key says 'Accepts every file listed under inputs' and does not mention the mismatch. Either the intake answers should name Northbrook Payments or the key should expect the mismatch to be flagged.",
+  "Intake period is 'September 2025 (as at 2025-09-30)' but the activity column is 'Q3 activity' with no monthly split; the period check cannot pass cleanly.",
+  "The key expects 'noting any that only partly covers a required upload', but the single file bundles the customer list, screening results and activity as one-line summaries; no transaction listing exists, so the '9 payments of 9,900 within 6 days' pattern is asserted by the sample rather than detectable from data (9 x 9,900 = 89,100 is the only arithmetic available).",
+  "No currency is stated in the AML file; intake USD belongs to the other entity."
+ ],
+ "summary": "PASS 3/3: C-02 referred to the MLRO, C-03 enhanced due diligence, no screening or suspicion decided; sample's entity (Northbrook Payments) contradicts intake (Northbrook Trading Ltd).",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

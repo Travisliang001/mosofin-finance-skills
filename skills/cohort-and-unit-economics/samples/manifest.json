@@ -1,0 +1,45 @@
+{
+ "skill": "cohort-and-unit-economics",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Business model: transactional. Monthly cohorts over the last 12 months. A customer is lost after 90 days with no invoice. Sales and marketing = account 6200 only.",
+ "inputs": [
+  {
+   "file": "customer_payment_history_12m.csv",
+   "is": "Paid invoices with payment dates, last twelve months"
+  },
+  {
+   "file": "monthly_profit_and_loss_36m.csv",
+   "is": "Monthly profit and loss by line, October 2022 to September 2025"
+  },
+  {
+   "file": "customer_list.csv",
+   "is": "Customer list with terms and contact"
+  }
+ ],
+ "negative": [
+  {
+   "file": "customer_payment_history_12m_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Paid invoices with payment dates, last twelve months'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects customer_payment_history_12m_final.csv: The name suggests it is 'Paid invoices with payment dates, last twelve months'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Builds cohorts from first invoice per customer",
+   "Says channel data and cost-to-serve are not available",
+   "CAC uses the marketing line as the only acquisition cost, and says so"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

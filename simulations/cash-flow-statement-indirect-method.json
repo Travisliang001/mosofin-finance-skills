@@ -1,0 +1,35 @@
+{
+ "skill": "cash-flow-statement-indirect-method",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Operating cash 322,987 with A/R (196,217) and inventory (187,946) uses; ties to 277,987 change in cash",
+  "JE-0904 round 50,000 'Revenue adjustment' to A/R with no support, 25% of the YTD A/R increase",
+  "JE-0906 accrues 1,900 interest already paid within the 6,900 loan payment (possible double count)",
+  "JE-0902 posts to 6150 Insurance, an account in neither TB, and prepaids stay 18,000: GL extract does not agree to TB",
+  "September journals credit Accrued Liabilities 24,099 while the account rose only 1,800 YTD",
+  "No income-tax accounts: cash taxes paid nil, tax status queried",
+  "Comparative period not built (needs 31 Dec 2023 and 30 Sep 2024 balances)"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake', row B says 'Never default the period' and asks for period end and comparative date, but gives no rule when the user names only a month ('September 2025') and the files support a year-to-date bridge; the run had to choose YTD and ask.",
+  "references/output.md 'Output Quality Standards' requires 'Comparative period included', but the 'Upload path — hand over one checklist' in SKILL.md asks for only two balance sheets, which cannot produce a comparative statement (four dates are needed).",
+  "SKILL.md 'Upload path' checklist calls ledger detail 'Required for accuracy' yet the validation rules do not say whether a partial ledger (one month, no fixed-asset or debt movements) is 'accepted with a limit' or a missing required input that forces a stop.",
+  "references/method.md 'Step 7 — Supplemental disclosures' requires cash paid for income taxes but gives no treatment when the books hold no tax accounts at all."
+ ],
+ "sample_defects": [
+  "general_ledger_2025-09.csv does not agree to trial_balance_2025-09-30.csv: JE-0902 posts 1,500 to account 6150 Insurance, which is absent from the TB, while 1300 Prepaid stays 18,000 in both TBs; September journals credit 2100 by 24,099 while 2100 moved only 27,000 -> 28,800 over nine months.",
+  "The ledger extract covers only September and only the bank account plus journals; there is no 1500/1510/2500 movement detail, so 'Investing and financing are built from ledger movements' cannot be tested — capex nil and repayments 45,000 come from TB net changes (265,000 - 220,000 = 45,000).",
+  "JE-0905 is dated 2025-08-31 inside a file named for September 2025.",
+  "Intake 'Period: September 2025 (as at 2025-09-30)' does not state the comparative date; the key expects 31 Dec 2024, which only the uploaded files imply.",
+  "Key arithmetic checks out: 605,615 + 37,800 - 196,217 - 187,946 + 61,935 + 1,800 - 45,000 = 277,987 = 1,237,236 - 959,249."
+ ],
+ "summary": "PASS: wrong-year TB rejected on content; statement ties exactly to 277,987 with depreciation 37,800 and loan repayments 45,000; GL extract disagrees with TB."
+}

@@ -1,0 +1,45 @@
+{
+ "skill": "model-auditor-financial-model-review",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. The model is for the lender. Whole model. Materiality 10,000.",
+ "inputs": [
+  {
+   "file": "model_summary_for_review.csv",
+   "is": "Summary tab of the lender model to be reviewed (actuals extracted 5 October 2025)"
+  },
+  {
+   "file": "monthly_profit_and_loss_36m.csv",
+   "is": "Monthly profit and loss by line, October 2022 to September 2025"
+  },
+  {
+   "file": "monthly_balance_sheet_36m.csv",
+   "is": "Balance sheet at each month end, October 2022 to September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "model_summary_for_review_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Summary tab of the lender model to be reviewed (actuals extracted 5 October 2025)'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects model_summary_for_review_final.csv: The name suggests it is 'Summary tab of the lender model to be reviewed (actuals extracted 5 October 2025)'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "September revenue in the model is 50,000 above the books",
+   "Model balance sheet is out by 12,000",
+   "Issue log with a hold call"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

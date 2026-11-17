@@ -1,0 +1,14 @@
+{"skill": "month-end-close-checklist", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 2, "findings_total": 2, "missed": [], "unexpected": [],
+ "skill_defects": [
+  "SKILL.md, 'Gate 3 — Profile the entity, then interview the user': the upload path has no checklist of its own (the Inputs table is written as Mosofin reads), so the run fell back on the generic rule 'This skill has no upload checklist of its own' and the GL detail needed for cutoff and continuity was never asked for up front",
+  "SKILL.md, 'Step 6 — Tie-out workpaper at close', inter-period continuity: defined as 'this period's opening = last period's closing', which two closing trial balances cannot show; no manual-path guidance on what upload makes it testable",
+  "SKILL.md, 'Gate 3' table, 'Whether this is a soft or hard close — Required': no default stated when unanswered; the run assumed hard close (quarter end) as the conservative reading"
+ ],
+ "sample_defects": [
+  "bank_statement_2025-09.csv vs trial_balance_2025-08-31.csv / 2025-09-30.csv: bank opening 970,887 vs GL 904,810 (bank 66,077 higher) and closing 995,939 vs GL 1,006,479 (GL 10,540 higher); GL moved +101,669 vs bank +25,052, and no GL cash detail is supplied, so the reconciliation cannot be performed — plausibly intended as an open task",
+  "bank_statement_2025-09.csv 'LOAN PAYMENT TERM LOAN' 6,900 vs TB movements 2500 −5,000 and 7000 +1,069 = 6,069 (831 unexplained), not mentioned in expect",
+  "trial_balance_2025-09-30.csv: 6150 Insurance rose 1,500 while 1300 Prepaid stayed at 18,000, inconsistent with recurring_entries.csv 'Insurance release' posted in September"
+ ],
+ "summary": "Harlow TB rejected on content; missed 3,500 software entry found and TB-confirmed; bank rec, accruals and payroll clearing left open with owners to assign; 10,540 bank gap flagged."}

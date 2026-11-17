@@ -1,0 +1,36 @@
+{
+ "skill": "benefits-and-401k-accounting",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Employer match 2,824 shown as unrecorded: payroll expense 76,000 = gross 70,599 + employer FICA 5,401 exactly, with no match in it",
+  "Run-1 employee 401(k) (1,412) due 23 Sep is 5 business days past due at 30 Sep if unremitted; run 2 due 7 Oct",
+  "GL extract does not balance: DR 76,000 vs CR 60,502 (15,498 short); register implies withholding credits of 22,098 vs 5,400 booked",
+  "Net pay over-credited to Payroll Clearing by 1,200 (55,102 vs register 53,902 paid in two runs of 26,951)",
+  "PTO hourly rates in plan terms are about 7.65% above register-implied hourly pay (e.g. E01 41.80 vs 45.00), read as loaded with employer tax",
+  "PTO balances missing for 8 of 12 employees, listed as blocked items"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row C: 'Use what the chart of accounts suggests, and confirm' — on the upload path no chart of accounts is requested in 'Upload path — hand over one checklist', so the default cannot be applied.",
+  "SKILL.md 'Upload path — hand over one checklist' does not ask for remittance records or the 401(k) payable / accrued PTO GL balances, yet references/output.md 'Mosofin additions' requires 'The unremitted-contribution check was performed and its age reported' and references/method.md 'Step 7' requires roll-forwards; on upload the check can never be performed from the checklist items alone.",
+  "references/method.md 'Step 2 — Defined contribution plans' treats the unremitted test as '[auto]' via ledger and bill payments only; there is no upload-path wording for how to age withheld contributions per pay date when only a monthly register is supplied.",
+  "references/method.md 'Step 3 — Compensated absences' says 'Use current pay rates' but gives no rule for whether the rate should include employer payroll tax, and no check of a supplied rate against the register.",
+  "references/method.md 'Step 8 — Output' file name 'Benefits_Accounting_[YYYY]_[EntityName].xlsx' uses a year for what is usually a monthly run, so two months of the same year collide."
+ ],
+ "sample_defects": [
+  "payroll_gl_detail_2025-09.csv does not balance: debits 76,000 vs credits 55,102 + 5,400 = 60,502; register-implied credits are 53,902 + 8,472 + 5,401 + 5,401 + 2,824 = 76,000. Not mentioned in expect.",
+  "GL credits net pay 55,102 while the register net is 53,902 and payments are 2 x 26,951 = 53,902, leaving a 1,200 clearing balance not in expect.",
+  "2160 memo 'Taxes withheld and employer share, unpaid' 5,400 equals only one share of social security (5,401); income tax withheld 8,472 and the other 5,401 are absent.",
+  "PTO hourly rates are about 1.0765 x register monthly gross / 173.33 h (E01 7,246 -> 41.80 x 1.0765 = 45.00), an undocumented loading; PTO balances cover only 4 of 12 employees with no statement that the others are zero.",
+  "No remittance records, so expect 'Asks whether September contributions were remitted' is the most a run can do; plan_terms is a summary, not the plan document the checklist asks for.",
+  "Key arithmetic checks out: 64x45 + 88x39.80 + 40x42.70 + 120x92.30 = 2,880 + 3,502.40 + 1,708 + 11,076 = 19,166.40; employee 401(k) total 2,824 = 4% of 70,599 (rounded per employee)."
+ ],
+ "summary": "PASS: rota rejected on content, all 3 findings hit (match 2,824, PTO 19,166.40, 7-day remittance); also found unbalanced GL extract and 1,200 clearing residue."
+}

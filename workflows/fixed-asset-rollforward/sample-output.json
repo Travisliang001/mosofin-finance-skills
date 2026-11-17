@@ -1,0 +1,73 @@
+{
+  "workflow": "fixed-asset-rollforward",
+  "version": "1.0",
+  "run_id": "fixed-asset-rollforward-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-01 to 2025-09-30",
+  "status": "ok",
+  "summary": "Cost rolls 132000 + 42000 - 12000 = 162000; depreciation expected 1725, posted 1200; 1 finding(s).",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "fa-register.csv",
+      "role": "register",
+      "verdict": "accepted",
+      "reason": "fixed asset register, 4 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "depreciation_not_posted",
+      "asset": "FA-003",
+      "description": "Delivery van",
+      "expected": 525
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "journal_entry",
+      "date": "2025-09-30",
+      "memo": "Depreciation FA-003 2025-09-01 to 2025-09-30",
+      "lines": [
+        {
+          "account": "6800 Depreciation",
+          "debit": 525,
+          "credit": 0
+        },
+        {
+          "account": "1590 Accumulated Depreciation",
+          "debit": 0,
+          "credit": 525
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "opening_cost": 132000,
+    "additions": 42000,
+    "disposals": 12000,
+    "closing_cost": 162000,
+    "depreciation_expected": 1725,
+    "depreciation_posted": 1200
+  },
+  "not_done": [],
+  "sources": [
+    "file fa-register.csv",
+    "Mosofin depn"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30",
+    "depreciation_account": "6800 Depreciation",
+    "accumulated_account": "1590 Accumulated Depreciation",
+    "materiality": 1,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

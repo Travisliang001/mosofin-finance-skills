@@ -1,0 +1,11 @@
+date,account,name,debit,credit,memo
+2025-09-30,6000,Payroll Expense,76000,0,September payroll: gross plus employer social security
+2025-09-30,2150,Payroll Clearing,0,53902,Net pay
+2025-09-30,2160,Payroll Tax Payable,0,19274,"Income tax, employee and employer social security"
+2025-09-30,2170,401(k) Payable,0,2824,Employee 401(k) deferrals
+2025-09-12,2150,Payroll Clearing,26351,0,Payroll run 1
+2025-09-12,1000,Operating Bank Account,0,26351,Payroll run 1
+2025-09-26,2150,Payroll Clearing,26351,0,Payroll run 2
+2025-09-26,1000,Operating Bank Account,0,26351,Payroll run 2
+2025-09-15,2160,Payroll Tax Payable,13874,0,August deposit
+2025-09-15,1000,Operating Bank Account,0,13874,August deposit

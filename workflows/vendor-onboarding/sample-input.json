@@ -1,0 +1,13 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd"
+  },
+  "files": [
+    {
+      "name": "new-vendor-forms.csv",
+      "role": "new_vendors",
+      "company": "Northbrook Trading Ltd",
+      "content": "legal_name,tin,address,email,payment_terms,tax_classification\nMarlow Logistics LLC,84-1234567,\"12 Dock Rd, Newark NJ\",ar@marlow.example,Net 30,LLC-C\nFenwick Print,12-345678,\"4 Mill St, Albany NY\",,Net 15,Sole proprietor\nKestrel Supply Company Inc,61-7654321,\"9 Quarry Ln, Erie PA\",billing@kestrel.example,Net 30,C corporation"
+    }
+  ]
+}

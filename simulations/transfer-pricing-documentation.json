@@ -1,0 +1,31 @@
+{
+ "skill": "transfer-pricing-documentation",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "IC-097 (29 Sep, 3,300 GBP) recorded by the UK only: UK receivable 33,220 GBP x 1.2701 = 42,191 USD vs US 38,000 USD, difference 4,191 USD = IC-097",
+  "UK characterisation contradicted by its numbers: Q3 intercompany goods 23,770 GBP vs 9-month revenue 412,000 (most sales third-party), inventory 47,800 (~52 days of COGS), third-party AR 61,300; possible internal CUP",
+  "UK entity-level mark-up on total costs 9.28% (35,000 / 377,000), inside but near the top of 5.5%-9.5%; labelled a proxy; 6.78% if the Q3 management fee is in revenue",
+  "Management fee runs from the low-function UK subsidiary to the US parent; benefit test raised",
+  "Ledgers cover Q3 2025 only, so the 250,000 local-file test cannot be decided; threshold currency not stated",
+  "Free use of group designs by the UK for its own third-party sales asked about"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' table has no question about free use of group intangibles, although references/method.md 'Step 1 — Map the intercompany transactions' says 'Ask directly: which entities use group IP, and which of them pay for it?'. Add it to question D or E.",
+  "SKILL.md 'Stage 1 — Upload path' checklist asks for intercompany transactions but not for the tested party's revenue split (intercompany vs third party) or the cost base of intercompany goods, without which method.md 'Step 4' can only produce an entity-level proxy and 'Step 8' cannot test the agreed mark-up."
+ ],
+ "sample_defects": [
+  "intercompany_ledger_northbrook_uk.csv has IC-097 (2025-09-29, 3,300 GBP) with no counterpart in intercompany_ledger_northbrook_trading.csv; at the matched-pair rate 1.2701 the gap is 4,191 USD. If intended as a cutoff finding, add it to expect.findings.",
+  "transfer_pricing_inputs.md describes the UK as a contract manufacturer holding little inventory, but trial_balance_northbrook_uk_2025-09-30.csv shows revenue 412,000 GBP against Q3 intercompany goods of 23,770 GBP and inventory 47,800 GBP (~52 days of COGS 251,000 over 273 days). Either intended (then score it) or the TB contradicts the brief.",
+  "Both intercompany ledgers cover July-September 2025 only, so the sample rule 'local file where intercompany transactions exceed 250,000 a year' cannot be tested; the rule also names no currency.",
+  "Expected finding 'Goods at cost plus 8% sit inside the 5.5% to 9.5% range' tests a stated contract price, not conduct: no file gives the cost of the goods shipped, so the realised mark-up cannot be computed."
+ ],
+ "summary": "Staff rota rejected on content; cost plus 8% and the UK's 9.28% proxy mark-up sit inside 5.5%-9.5%; management fee has no agreement; no method or conclusion; IC-097 one-sided."
+}

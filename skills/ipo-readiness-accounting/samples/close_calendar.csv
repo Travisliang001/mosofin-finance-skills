@@ -1,0 +1,7 @@
+month,books_closed_on,working_days_to_close,manual_journals,total_journals,period_reopened
+2025-04,2025-05-14,10,41,58,no
+2025-05,2025-06-13,10,39,55,no
+2025-06,2025-07-16,12,47,61,yes
+2025-07,2025-08-13,9,40,57,no
+2025-08,2025-09-12,9,38,54,yes
+2025-09,2025-10-14,10,42,60,no

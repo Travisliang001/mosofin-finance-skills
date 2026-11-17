@@ -1,0 +1,45 @@
+{
+ "skill": "revenue-recognition-asc606",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Framework ASC 606. No expedients. No modifications.",
+ "inputs": [
+  {
+   "file": "contract_harlow_fabrication.md",
+   "is": "Customer contract with Harlow Fabrication Ltd"
+  },
+  {
+   "file": "harlow_contract_invoices_2025.csv",
+   "is": "Invoices and payments on the Harlow contract to 30 September 2025"
+  },
+  {
+   "file": "accounting_policies.md",
+   "is": "Accounting policies in use"
+  }
+ ],
+ "negative": [
+  {
+   "file": "contract_harlow_fabrication_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Customer contract with Harlow Fabrication Ltd'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects contract_harlow_fabrication_final.csv: The name suggests it is 'Customer contract with Harlow Fabrication Ltd'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Allocates 150,000 on standalone prices: licence 100,000, implementation 25,000, support 25,000",
+   "Recognised to 30 September: 35,417 if implementation is distinct and the hosted licence is over time; billed 67,500; contract liability 32,083",
+   "Asks whether implementation is distinct and whether the hosted licence is recognised over time, and shows the effect of each answer"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

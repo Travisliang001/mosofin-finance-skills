@@ -1,0 +1,32 @@
+{
+ "skill": "recurring-transaction-builder",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Proposed September software accrual Dr 6300 / Cr 2100 3,500 reversing 1 Oct, conditional on service received",
+  "All five entries mapped to existing chart accounts of the right type; active status and tax codes not checkable",
+  "Fixed loan interest 1,069 on a term loan, fixed depreciation 4,200 and an insurance release with no prepaid end are risky to automate a year ahead",
+  "'Day 30' is not month-end in 31-day months; February 2026 rolls to 28 Feb; weekend dates flagged, no roll applied without a holiday calendar",
+  "12-month schedule Oct 2025-Sep 2026: 19,269 a month, 231,228 in total, all Pending"
+ ],
+ "skill_defects": [
+  "SKILL.md has no upload checklist of its own, and its Inputs table (start date, end date, day-of-period rule, GL accounts, counterparty, tax code all 'Required') is not mapped to any upload; the agent must build the checklist under the protocol's fallback rule.",
+  "SKILL.md 'Step 5b — Audit whether the template actually ran' is written only as [auto: read]; there is no upload-path version, so whether a user's 'posted yes/no' flags are adequate evidence for the run audit is not addressed.",
+  "SKILL.md 'Step 3 — Generate the occurrences' covers 'Monthly on the 31st' but not a fixed day such as the 30th, which is ambiguous between 'the 30th' and 'month-end' and needs the same roll rule in February.",
+  "SKILL.md 'Edge Cases' 'Open-ended' says build for '12 or 24 months' without saying which; the run audit's consequence (an entry that did not run) has no instruction on proposing a catch-up accrual.",
+  "SKILL.md describes itself as building a schedule for a named arrangement ('set up a recurring JE for...'); with a register of five existing items and no request for new templates, the skill does not say whether the deliverable is the run audit, the forward schedule or both."
+ ],
+ "sample_defects": [
+  "recurring_entries.csv has no GL accounts, counterparties, start/end dates, cadence or tax codes, so Steps 2b and 5 can only be proposed, not validated; the chart_of_accounts.csv is therefore barely exercised by the key.",
+  "The 'posted_2025-MM' yes/no flags are user assertions, not ledger evidence; there is no GL or JE listing in the set to confirm the September gap.",
+  "Loan interest is a flat 1,069 for three months on a 'Term Loan' (account 2500), implausible for an amortising loan; insurance release 1,500 has no prepaid balance to test exhaustion (account 1300)."
+ ],
+ "summary": "PASS 2/2; rota rejected on content. Software 3,500 not posted in September found; four others ran. Skill lacks an upload checklist and an upload-path run audit."
+}

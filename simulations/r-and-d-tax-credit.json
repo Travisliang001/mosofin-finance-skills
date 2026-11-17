@@ -1,0 +1,34 @@
+{
+ "skill": "r-and-d-tax-credit",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Payroll register covers September 2025 only while the staff split is 'of the year': annual staff cost blocked, not annualised; September P1 staff 2,898.40 + 2,898.00 = 5,796.40",
+  "Payroll register has no employer costs (employee withholdings and 401(k) deferral only)",
+  "Subcontractor restriction rule not on the rate card: lab 8,000 shown gross, qualifying amount blocked; benefit shown as scenarios A 1,704.00 to D 3,579.16",
+  "Including P2 and P3 adds 1,829.90 cost / 219.59 credit on September figures",
+  "Advance-notification / deadline risk flagged at validation; grant, completeness and capitalisation sweeps not possible without a ledger"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' asks for 'Costs by project: staff, materials, subcontractors' but never says the staff cost must cover the whole tax year with employer costs, so a one-month payroll register passes as the staff input; no rule says whether to annualise (the protocol forbids estimating, but the skill is silent).",
+  "SKILL.md 'Rules that never bend' says never supply a rate or rule, and method.md 'Step 4 — Compute qualifying expenditure' says contractors and subcontracted R&D are 'often at a restricted percentage', but there is no instruction for when the rate card is silent on the restriction: include at 100%, exclude, or block.",
+  "SKILL.md 'Stage 1 — Intake' row D default ('List the projects found in the books as candidates only') covers only an unanswered question; there is no rule for projects described but not judged by the user, although the read-back template assumes 'which you judged to qualify'. Whether to compute the benefit with or without the unjudged projects is left to the agent.",
+  "SKILL.md 'Stage 1 — Intake' row E default 'Leave staff cost out, and say so' applies only when the split is unanswered; when the split is given without its basis (as here) the skill does not say whether to use it.",
+  "method.md 'Step 4' completeness and grant sweeps and edge-cases.md 'Capital versus revenue' are written as [auto] ledger reads with no upload-path equivalent; the upload checklist never asks for a vendor ledger, grant account or balance sheet, so on upload these checks silently cannot run.",
+  "edge-cases.md 'Claim notification and deadlines' says flag 'early in the engagement, not in the output', but SKILL.md 'Stage 1 — Intake' has no question for it."
+ ],
+ "sample_defects": [
+  "rd_projects_and_time.md gives staff time as '% of the year' but payroll_register_2025-09.csv is one month: E01 7,246 × 40% = 2,898.40 is a September figure, not the year's; the key 'P1 cost: staff time at 40% and 60%' does not say over what pay base, so no annual P1 cost can be checked.",
+  "The sample rate card states 12% but no subcontractor restriction or cap, so the lab's qualifying amount (8,000 × ?) cannot be computed under the skill's never-supply-a-rule rule; the key lists 'lab 8,000' without saying whether it is gross or qualifying.",
+  "payroll_register_2025-09.csv carries no employer costs (employer social security, employer pension) which most regimes include in staff cost; retirement_401k is an employee deduction (gross 70,599 − 8,472 − 5,401 − 2,824 = 53,902 net).",
+  "rd_projects_and_time.md is a one-line summary per project with no technical narrative, boundary dates or invoices behind 14,200 and 8,000; it is labelled 'project descriptions and time allocation' but contains no time records."
+ ],
+ "summary": "PASS 3/3; rota rejected on content. Gaps: one-month payroll vs 'of the year' staff split, and no subcontractor restriction on the rate card, so the annual claim cannot be computed."
+}

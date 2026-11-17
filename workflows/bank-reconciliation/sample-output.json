@@ -1,0 +1,141 @@
+{
+  "workflow": "bank-reconciliation",
+  "version": "1.0",
+  "run_id": "bank-reconciliation-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-01 to 2025-09-30",
+  "status": "ok",
+  "summary": "4 matched; 2 bank-only and 1 book-only item(s); 2 proposed fee/interest entries.",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "operating-account-sept-2025.csv",
+      "role": "bank_statement",
+      "verdict": "accepted",
+      "reason": "bank statement, 6 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "bank_charge_not_in_books",
+      "date": "2025-09-30",
+      "amount": -45,
+      "description": "MONTHLY SERVICE FEE",
+      "candidates_outside_window": []
+    },
+    {
+      "type": "bank_charge_not_in_books",
+      "date": "2025-09-30",
+      "amount": -15,
+      "description": "WIRE FEE",
+      "candidates_outside_window": []
+    },
+    {
+      "type": "outstanding_payment",
+      "date": "2025-09-26",
+      "amount": -4400,
+      "description": "Orchard Lane Properties rent",
+      "ref": "CHK-2214"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "journal_entry",
+      "date": "2025-09-30",
+      "memo": "Bank charge: MONTHLY SERVICE FEE",
+      "lines": [
+        {
+          "account": "6900 Bank Charges",
+          "debit": 45,
+          "credit": 0
+        },
+        {
+          "account": "1000 Operating Cash",
+          "debit": 0,
+          "credit": 45
+        }
+      ]
+    },
+    {
+      "requires_approval": true,
+      "type": "journal_entry",
+      "date": "2025-09-30",
+      "memo": "Bank charge: WIRE FEE",
+      "lines": [
+        {
+          "account": "6900 Bank Charges",
+          "debit": 15,
+          "credit": 0
+        },
+        {
+          "account": "1000 Operating Cash",
+          "debit": 0,
+          "credit": 15
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "bank_lines": 6,
+    "book_lines": 5,
+    "matched": 4,
+    "bank_only_total": -60,
+    "book_only_total": -4400,
+    "matched_pairs": [
+      {
+        "bank": "B1",
+        "book": "G1",
+        "amount": 18400,
+        "days_apart": 1
+      },
+      {
+        "bank": "B2",
+        "book": "G2",
+        "amount": -42350,
+        "days_apart": 1
+      },
+      {
+        "bank": "B3",
+        "book": "G3",
+        "amount": -6210,
+        "days_apart": 1
+      },
+      {
+        "bank": "B4",
+        "book": "G4",
+        "amount": 2350,
+        "days_apart": 1
+      }
+    ],
+    "unexplained_difference": 0
+  },
+  "not_done": [],
+  "sources": [
+    "file operating-account-sept-2025.csv",
+    "Mosofin gl"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "cash_account": "1000 Operating Cash",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30",
+    "date_window_days": 5,
+    "bank_charge_keywords": [
+      "fee",
+      "charge",
+      "interest",
+      "service"
+    ],
+    "bank_fee_account": "6900 Bank Charges",
+    "interest_income_account": "4900 Interest Income",
+    "statement_closing_balance": 151885,
+    "book_closing_balance": 147545,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

@@ -1,0 +1,49 @@
+{
+ "skill": "subsequent-events-asc855",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Issue date: 20 March 2026.",
+ "inputs": [
+  {
+   "file": "post_period_ledger_2025-10.csv",
+   "is": "Ledger activity from 1 October 2025 to the date of the review"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "ar_aging_detail_2025-09-30.csv",
+   "is": "Open receivables by invoice at 30 September 2025"
+  },
+  {
+   "file": "legal_matters.md",
+   "is": "Open legal matters with management's assessment"
+  }
+ ],
+ "negative": [
+  {
+   "file": "post_period_ledger_2025-10_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Ledger activity from 1 October 2025 to the date of the review'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects post_period_ledger_2025-10_final.csv: The name suggests it is 'Ledger activity from 1 October 2025 to the date of the review'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Foxhall write-off (4,003) and the 52,000 settlement confirm conditions at 30 September: adjusting candidates",
+   "Returned PN-55 panels bear on the inventory reserve",
+   "Asks management by category for events the ledger cannot show"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

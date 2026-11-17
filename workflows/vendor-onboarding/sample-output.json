@@ -1,0 +1,86 @@
+{
+  "workflow": "vendor-onboarding",
+  "version": "1.0",
+  "run_id": "vendor-onboarding-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": null,
+  "status": "ok",
+  "summary": "3 vendor(s) checked: 1 ready to set up, 2 need attention.",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "new-vendor-forms.csv",
+      "role": "new_vendors",
+      "verdict": "accepted",
+      "reason": "new vendor form / W-9 data, 3 rows"
+    }
+  ],
+  "findings": [
+    {
+      "vendor": "Fenwick Print",
+      "type": "missing_fields",
+      "fields": [
+        "email"
+      ]
+    },
+    {
+      "vendor": "Fenwick Print",
+      "type": "tin_invalid_format",
+      "tin_digits_found": 8,
+      "detail": "expected 9 digits"
+    },
+    {
+      "vendor": "Kestrel Supply Company Inc",
+      "type": "possible_duplicate_vendor",
+      "existing": "Kestrel Supply Co",
+      "matched_on": "tin"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "create_vendor",
+      "name": "Marlow Logistics LLC",
+      "tin_last4": "4567",
+      "payment_terms": "Net 30",
+      "email": "ar@marlow.example"
+    },
+    {
+      "requires_approval": true,
+      "type": "information_request",
+      "vendor": "Fenwick Print",
+      "to": null,
+      "ask": [
+        "missing: email",
+        "TIN expected 9 digits: please send a corrected W-9"
+      ]
+    }
+  ],
+  "totals": {
+    "vendors": 3,
+    "ready": 1
+  },
+  "not_done": [],
+  "sources": [
+    "file new-vendor-forms.csv",
+    "Mosofin vendors"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "required_fields": [
+      "legal_name",
+      "tin",
+      "address",
+      "email",
+      "payment_terms",
+      "tax_classification"
+    ],
+    "tin_digits": 9,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

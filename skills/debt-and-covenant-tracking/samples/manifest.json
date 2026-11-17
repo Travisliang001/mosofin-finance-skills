@@ -1,0 +1,49 @@
+{
+ "skill": "debt-and-covenant-tracking",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Test date 30 September 2025, trailing twelve months. Single company is the whole borrowing group.",
+ "inputs": [
+  {
+   "file": "term_loan_agreement_summary.md",
+   "is": "Summary of the term loan agreement, with covenant definitions"
+  },
+  {
+   "file": "term_loan_ledger_2025.csv",
+   "is": "Ledger for account 2500 Term Loan, 2025"
+  },
+  {
+   "file": "monthly_profit_and_loss_36m.csv",
+   "is": "Monthly profit and loss by line, October 2022 to September 2025"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "term_loan_agreement_summary_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Summary of the term loan agreement, with covenant definitions'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects term_loan_agreement_summary_final.csv: The name suggests it is 'Summary of the term loan agreement, with covenant definitions'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Computes covenants on the agreement's definitions: adds back the 14,000 one-time fee and includes the card balance in debt",
+   "Labels any book-only ratio as an input, not a compliance position",
+   "Shows headroom on leverage (limit 2.50x) and interest cover (floor 4.0x)"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

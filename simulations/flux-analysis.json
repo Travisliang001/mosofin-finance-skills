@@ -1,0 +1,18 @@
+{"skill": "flux-analysis", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 5, "findings_total": 5, "missed": [],
+ "unexpected": [
+  "Cost of sales rate stepped from 58.0% to 60.0% of revenue in July 2025 (9,108 YoY effect in September), not new this month",
+  "Marketing 10,930 above its constant 4.0%-of-revenue run rate",
+  "Receivables +23.5% and inventory +28.1% YoY outgrow revenue +15.4% (about 52.0 vs 48.6 days of sales; 75.0 vs 69.9 days of cost of sales)",
+  "Year-over-year cash proof also ties to nil (387,571), including 67,500 dividends/adjustments; 7,500 in June 2025 undescribed"
+ ],
+ "skill_defects": [
+  "references/method.md, 'Step 2 — Apply both thresholds': does not say whether a movement exactly at the percentage threshold trips ('passes' vs the read-back's 'over 10%'); September cash moved +10.0016% MoM, so the verdict hangs on rounding",
+  "references/method.md, 'Step 2 — Apply both thresholds': 'appears from nil, above the amount threshold's half' is ambiguous (half of the amount threshold, or half of the movement?)",
+  "SKILL.md, 'Stage 1 — Intake' upload checklist: ledger detail is only 'Recommended', yet Step 3 cannot explain any flagged movement without it, so most explanations default to 'unexplained: asked'"
+ ],
+ "sample_defects": [
+  "monthly_balance_sheet_36m.csv: prepaid is 18,000 in all 36 months while the P&L releases insurance 1,500 every month (recurring_entries.csv 'Insurance release'); an unreplenished prepaid would fall 1,500/month, so the release has no balance-sheet counterpart. Minor realism issue; does not affect any expected finding"
+ ],
+ "summary": "Rota file rejected on content; all 5 expected findings stated with tied figures, including the software accrual proposal and a nil-difference cash proof; nothing posted or sent."}

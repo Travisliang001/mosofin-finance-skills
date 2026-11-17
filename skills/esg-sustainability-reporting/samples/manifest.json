@@ -1,0 +1,45 @@
+{
+ "skill": "esg-sustainability-reporting",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "esg_activity_data_2025.csv",
+   "is": "Activity data for ESG reporting, January to September 2025"
+  },
+  {
+   "file": "esg_scope_and_factors.md",
+   "is": "ESG scope and emission factor source"
+  },
+  {
+   "file": "profit_and_loss_2025_ytd.csv",
+   "is": "Profit and loss by month, January to September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "esg_activity_data_2025_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Activity data for ESG reporting, January to September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects esg_activity_data_2025_final.csv: The name suggests it is 'Activity data for ESG reporting, January to September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Electricity and diesel have quantities and owners; business flights have spend only and no quantity",
+   "Uses only the sample factors supplied and labels them",
+   "Does not claim assurance readiness"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

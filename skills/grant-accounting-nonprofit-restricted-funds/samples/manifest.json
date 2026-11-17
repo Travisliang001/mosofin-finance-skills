@@ -1,0 +1,41 @@
+{
+ "skill": "grant-accounting-nonprofit-restricted-funds",
+ "company": "Riverside Community Trust",
+ "period": "year to 30 June 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Riverside Community Trust. Period: year to 30 June 2025. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "grant_awards_and_spending.md",
+   "is": "Grant award terms with spending by grant"
+  },
+  {
+   "file": "nonprofit_balances_activity_and_gifts.md",
+   "is": "Balances, activity and gift schedule of a charity (separate fictitious entity)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "grant_awards_and_spending_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Grant award terms with spending by grant'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects grant_awards_and_spending_final.csv: The name suggests it is 'Grant award terms with spending by grant'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "G3 supplies overspent (14,500 against 10,000) and 3,200 is dated after the grant period",
+   "G1 report was due 31 August 2025",
+   "G1 is conditional and the condition is met"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

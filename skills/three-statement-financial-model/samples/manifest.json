@@ -1,0 +1,49 @@
+{
+ "skill": "three-statement-financial-model",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "monthly_profit_and_loss_36m.csv",
+   "is": "Monthly profit and loss by line, October 2022 to September 2025"
+  },
+  {
+   "file": "monthly_balance_sheet_36m.csv",
+   "is": "Balance sheet at each month end, October 2022 to September 2025"
+  },
+  {
+   "file": "model_assumptions.md",
+   "is": "Model assumptions"
+  },
+  {
+   "file": "term_loan_agreement_summary.md",
+   "is": "Summary of the term loan agreement, with covenant definitions"
+  }
+ ],
+ "negative": [
+  {
+   "file": "monthly_profit_and_loss_36m_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Monthly profit and loss by line, October 2022 to September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects monthly_profit_and_loss_36m_final.csv: The name suggests it is 'Monthly profit and loss by line, October 2022 to September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Balance check is zero in every period",
+   "Shows measured history for each driver before using the assumption",
+   "Debt follows the agreed 5,000 a month"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

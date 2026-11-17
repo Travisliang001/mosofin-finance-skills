@@ -1,0 +1,8 @@
+{"skill": "fraud-detection-and-forensics", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PARTIAL", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 4, "findings_total": 5,
+ "missed": ["JE-0904: the output flags the 50,000 round revenue entry by a.reyes with no support and implies (6 of 7 entries by s.patel) that a.reyes posts nothing else, but never states that 28 Sep 2025 is a Sunday; the weekend-posting test named in method.md Step 4 'Statistical / pattern analysis' was not run"],
+ "unexpected": ["JE-0905 back-dated to 31 Aug, posted 22 Sep", "Seven no-PO bills over 1,000 (80,702) against policy rule 1", "Four vendors with no tax form or tax ID (37,745 open)", "Identical amounts across unrelated vendors (23,449; 13,027)", "Vendor invoice numbers from ten vendors on one step-71 sequence"],
+ "skill_defects": [],
+ "sample_defects": ["open_bills_2025-09-30.csv: bill numbers from ten unrelated vendors form one arithmetic sequence (4502, 4573, 4644, 4715, 4857, 4999, 5070, 5141, 5212, 5283: steps of 71 or 142) and bill dates step by 2 days; a generator artefact that a careful screen reports as an anomaly the answer key does not expect"],
+ "summary": "4 of 5 findings hit; missed that JE-0904 was posted on a Sunday (weekend test not run). Staff rota rejected on content; no person accused."}

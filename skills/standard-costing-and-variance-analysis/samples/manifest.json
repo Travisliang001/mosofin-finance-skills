@@ -1,0 +1,46 @@
+{
+ "skill": "standard-costing-and-variance-analysis",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "standard_costs.csv",
+   "is": "Standard costs with effective dates, and September 2025 actuals"
+  },
+  {
+   "file": "variance_account_history.csv",
+   "is": "Purchase price variance posted each month (movement, unfavourable), last twelve months"
+  },
+  {
+   "file": "inventory_purchases_2025-09.csv",
+   "is": "Inventory purchases by item, September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "standard_costs_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Standard costs with effective dates, and September 2025 actuals'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects standard_costs_final.csv: The name suggests it is 'Standard costs with effective dates, and September 2025 actuals'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Purchase price variance 27,500 unfavourable (11,000 units at 2.50 over standard)",
+   "The variance is one-sided and growing for twelve months: the 2023 standard is stale",
+   "Material usage variance 10,400 unfavourable ((2.1 - 2.0) x 5,200 x 20.00)",
+   "Labour rate variance 4,992 unfavourable; efficiency 4,576 favourable (2,496 actual hours against 2,600 standard)"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,33 @@
+{
+ "skill": "gl-coding-assistant",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Chart has no Utilities account: Northgate 1,840 suggested to nearest 6100 Rent (occupancy) at Medium confidence, pending the user's decision or a new account",
+  "Greyfriars 5,000 'RETAINER' flagged as 6400 Professional Fees or 1300 Prepaid Expenses depending on terms",
+  "Amazon Marketplace 214.75 coded 6700 Office Supplies with a possible-split flag",
+  "None of the six uncoded items appears in the September bank lines, so the source account (likely 2050 Corporate Card) is unknown",
+  "No Tier 1 match possible: the GL extract holds one month and no vendor-to-account history; only precedent is JE-0905 legal fee → 6400"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 5 — Output' says 'Uploaded files → .xlsx', which contradicts the later line in the same step 'Ask the user whether they want this workpaper as an Excel (.xlsx) file, and create it only on a yes'.",
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user' marks 'Vendor-to-account mappings (prior coding)' as 'Now [auto], and promoted', but the manual upload checklist ('Ask the user to upload the data') never asks for a prior coded ledger or vendor master, so on upload Tier 1 and the Step 1 vendor-master match silently fall away.",
+  "SKILL.md 'Step 2 — Classify each transaction', 'Tier 2' assigns 'Confidence: High' to any vendor-type match but gives no confidence for the case it describes two paragraphs later, where the chart has no matching account and only a nearest account can be offered.",
+  "SKILL.md 'Step 4 — Special-case rules' has no rule for retainers, deposits or prepayments (expense vs prepaid asset), a common coding decision for legal and professional fees.",
+  "SKILL.md is a single 1,051-line file whose manual-run rules live in the shared Mosofin scope block; 'Step 5' still calls the uncoded-population and coverage sheets 'Mosofin-specific'."
+ ],
+ "sample_defects": [
+  "chart_of_accounts.csv has no Utilities account (6000–7000 are payroll, rent, insurance, repairs, marketing, software, professional fees, bank fees, depreciation, office, travel, postage, cash over/short, interest), yet the key expects the utilities line coded 'to existing accounts'; only a nearest fit such as 6100 Rent is possible, and the skill requires that gap to be flagged.",
+  "None of the six uncoded items appears among the 15 bank lines in general_ledger_2025-09.csv and no source account is given, so the GL adds no Tier 1 history and the manifest's 'Bank and card transactions' description cannot be checked.",
+  "Greyfriars 'LEGAL RETAINER' 5,000 is ambiguous (expense vs prepaid) and the Amazon line is unkeyed; the key covers only four of six lines' coding.",
+  "Arithmetic check: 89.99 + 612.40 + 1,840.00 + 214.75 + 1,240.00 + 5,000.00 = 8,997.14; GL journals DR = CR = 79,799."
+ ],
+ "summary": "PASS 2/2; rota rejected on content. Utilities had no account in the chart (nearest 6100 offered); skill's upload checklist omits the history Tier 1 needs."
+}

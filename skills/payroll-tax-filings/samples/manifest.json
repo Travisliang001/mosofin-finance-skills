@@ -1,0 +1,45 @@
+{
+ "skill": "payroll-tax-filings",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Period: Q3 2025.",
+ "inputs": [
+  {
+   "file": "payroll_register_2025-09.csv",
+   "is": "Payroll register for September 2025"
+  },
+  {
+   "file": "payroll_tax_rules_SAMPLE.md",
+   "is": "Payroll tax rates and deposit schedule supplied for the test (fictitious)"
+  },
+  {
+   "file": "payroll_gl_detail_2025-09.csv",
+   "is": "Ledger detail for payroll accounts, September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "payroll_register_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Payroll register for September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects payroll_register_2025-09_final.csv: The name suggests it is 'Payroll register for September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "September liability at the sample rates; September deposit is due 15 October and unpaid",
+   "July and August deposits were on time",
+   "Works on totals"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

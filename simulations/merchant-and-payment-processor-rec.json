@@ -1,0 +1,37 @@
+{
+ "skill": "merchant-and-payment-processor-rec",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Fee on 29 Sep charge is 3.02% (200/6,620) vs 2.92-2.93% on the other four; overall effective rate 2.94%",
+  "Dispute 200 has no dispute fee and no link to an original charge; refunds not traceable (no IDs)",
+  "1050 Stripe Clearing opening balance not supplied, assumed zero; clearing used once a month and payouts bypass it",
+  "Output-tax under-declaration risk raised as a question (jurisdiction unknown)",
+  "Proposed reclass DR fees 1,431 / refunds 480 / chargebacks 200, CR 4000 Sales Revenue 2,111 with placeholder accounts"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1' row D ('one by one, or one entry per payout') and references/method.md 'Step 8' describe the aggregate approach as a valid choice ('Neither is wrong'), yet the aggregate template credits Revenue at gross; the skill never says that an 'entry per payout' crediting revenue with the NET payout (as here) is itself the Step 7 net-revenue error — a run could accept the user's answer as a declared approach and miss the finding.",
+  "references/method.md 'Step 4' roll-forward assumes payouts pass through clearing; it gives no instruction for books where payouts debit bank against revenue directly and clearing holds only the period-end in-transit amount (the case here), where the roll-forward 'ties' trivially.",
+  "SKILL.md 'Upload path' checklist marks 'Clearing account name, base currency and country — Required, type it in the chat', but the validation step has no rule on whether inferring them from the GL file is acceptable or a missing required input forcing a stop.",
+  "references/method.md 'Step 4' says compare to the processor's 'Available Balance ... plus any Pending', but the upload checklist does not ask for a Stripe balance report at period end, so the definitional comparison cannot be made from the listed uploads.",
+  "references/method.md 'Step 8' says 'Use the real account names from the connected chart (search_accounts, [auto])'; the upload checklist never asks for a chart of accounts, so fee/refund/chargeback accounts must be placeholders.",
+  "references/method.md 'Step 7' requires the output-tax implication, but SKILL.md intake has no jurisdiction question (only 'country' in the upload checklist), so it is routinely unanswered.",
+  "references/method.md 'Step 3' / output.md require the charge-to-payout lag and fee rate to be 'trended', which needs prior periods the checklist never requests."
+ ],
+ "sample_defects": [
+  "stripe_gl_detail_2025-09.csv is described in the manifest as 'Ledger detail for Stripe clearing, revenue and fee accounts', but contains no fee account line and no opening balance for 1050 Stripe Clearing.",
+  "stripe_payouts_2025-09.csv includes a payout dated 2025-10-03, outside the stated September period; correct as in-transit, but the key does not say whether it should be flagged at validation.",
+  "No transaction or payout IDs anywhere, so 'refunds with no original transaction' and 'chargebacks without disputed status' exceptions can never be tested; no currency column despite the multi-currency step.",
+  "Dispute row has fee 0 — Stripe normally charges a dispute fee; unrealistic but harmless.",
+  "29 Sep charge fee 200/6,620 = 3.02% vs ~2.93% elsewhere; the key does not say whether this is an intended rate-drift finding.",
+  "Arithmetic of key checks out: gross 9,800+9,920+11,200+11,140+6,620 = 48,680; fees 287+291+327+326+200 = 1,431; 48,680-1,431-480-200 = 46,569 = 18,842+21,307+6,420."
+ ],
+ "summary": "PASS 3/3; rota rejected on content. Main gap: skill treats 'one entry per payout' as an acceptable approach without saying that crediting revenue with net payouts is the net-revenue error.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

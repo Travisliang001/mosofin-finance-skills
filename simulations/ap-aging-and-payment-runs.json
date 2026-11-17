@@ -1,0 +1,7 @@
+{"skill": "ap-aging-and-payment-runs", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 4, "findings_total": 4, "missed": [],
+ "unexpected": ["Halden Property Management paid 1 day late every month (no open bill)", "Summit INV-4644 is about 2.9x its usual 8,017 monthly bill", "Kestrel Supplies Inc. 6,480 equals 12 x its usual 540 bill", "Pinecrest and Northgate amounts equal Summit's and Brightline's bills"],
+ "skill_defects": ["SKILL.md, 'Step 5 — Prioritize the payment run': cash available is required and never defaulted, but the skill does not say what to output when it is missing (ranked candidate list vs nothing); I showed the ranking with the constrained run marked blocked", "SKILL.md, 'Gate 3 — Profile the entity, then interview the user': no default run window, so 'due this week / next week' buckets in Step 5 rest on an assumed 7/14-day horizon"],
+ "sample_defects": [],
+ "summary": "All 4 findings hit; staff rota rejected on content; aging reconstructed and labelled; payment run correctly blocked on missing cash available."}

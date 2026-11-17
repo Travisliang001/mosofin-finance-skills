@@ -1,0 +1,41 @@
+{
+ "skill": "pensions-and-postretirement-asc715",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "actuarial_report_summary.md",
+   "is": "Summary of the actuary's report on the staff pension plan"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "actuarial_report_summary_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Summary of the actuary's report on the staff pension plan'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects actuarial_report_summary_final.csv: The name suggests it is 'Summary of the actuary's report on the staff pension plan'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Funded status at 30 September: deficit 255,000 against 220,000 in the ledger",
+   "Net periodic cost 63,400 (62,000 + 59,000 - 57,600)",
+   "No pension entry was posted in the nine months"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

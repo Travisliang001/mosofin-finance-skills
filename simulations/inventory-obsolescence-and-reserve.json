@@ -1,0 +1,28 @@
+{
+ "skill": "inventory-obsolescence-and-reserve",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Listing 683,100 ties to TB 1200 Inventory 683,100 (difference 0); no reserve account in the TB, so beginning reserve read as nil pending confirmation",
+  "Reserve proposed as a range: 26,502.80 to recent price (LK-09 15,906.60 + PN-55 10,596.20) or 66,320 full reserve, counted once on the more severe basis",
+  "HG-22 (zero sales Aug-Sep 2025 after ~90/month) and FX-02 (zero in Sep 2025) flagged as watch items, not reserved",
+  "Excess against 12-month history: SB-20 71.1 months of supply, SB-35 41.2, FX-02 37.5, FX-01 32.6 (271,916 in value); no rate proposed without loss evidence",
+  "TR-07 excluded as seasonal but flagged to re-assess if Oct-Nov 2025 sales do not arrive"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row C default 'Propose buckets and rates derived from history' has no fallback when the history holds units only (no write-offs or below-cost sales). references/method.md 'Step 1 — Define reserve policy' derives rates from outcomes the upload checklist never asks for, so on the upload path rates can never be derived as the card promises.",
+  "SKILL.md 'Stage 1 — Intake' upload checklist asks for 'Movement history ... 12 months or more' while references/method.md 'Step 0' says 'Pull a long history deliberately ... over at least 24 months' and edge-cases.md 'A short movement history' says 'Pull at least two years'. The checklist should ask for 24 months."
+ ],
+ "sample_defects": [
+  "selling_prices.csv gives an undated 'recent_selling_price' for LK-09 (28.20) and PN-55 (31.80), yet both have 0 units sold in all 12 months of inventory_movement_12m.csv and last sales in 2024-06 and 2024-02, so the price that drives the expected NRV write-down (15,906.60 + 10,596.20 = 26,502.80) is unevidenced.",
+  "No reserve account detail is supplied although the SKILL.md checklist marks it Required for the roll-forward; the TB has no reserve account, so the roll-forward can only start from an unconfirmed nil."
+ ],
+ "summary": "Shift rota rejected on content; 3 of 3 hit: LK-09/PN-55 >365 days and below cost (26,502.80 minimum), TR-07 306 days but excluded as seasonal. Reserve proposed only. Nothing posted."
+}

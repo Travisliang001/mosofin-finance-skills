@@ -1,0 +1,31 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd",
+    "as_at": "2025-09-30",
+    "credit_limits": {
+      "Harlow Retail": 40000
+    },
+    "exclude_customers": [
+      "Corran Ltd"
+    ]
+  },
+  "files": [
+    {
+      "name": "open-invoices-2025-09-30.csv",
+      "role": "ar_open",
+      "company": "Northbrook Trading Ltd",
+      "content": "customer,invoice_no,invoice_date,due_date,balance,email\nHarlow Retail,INV-1031,2025-06-10,2025-07-10,18400.00,ap@harlowretail.example\nHarlow Retail,INV-1058,2025-08-05,2025-09-04,24650.00,ap@harlowretail.example\nBexley Foods,INV-1062,2025-08-12,2025-09-11,1200.00,accounts@bexley.example\nCorran Ltd,INV-0977,2025-04-02,2025-05-02,6300.00,\nDunmore Hotels,INV-1080,2025-09-15,2025-10-15,9100.00,pay@dunmore.example\nEllis & Co,INV-1012,2025-06-15,2025-07-17,3875.50,"
+    },
+    {
+      "name": "statement-export.csv",
+      "role": "credits",
+      "content": "Date,Description,Amount\n2025-09-02,CARD 4411 FUEL,-82.10\n2025-09-03,TRANSFER IN,5000.00"
+    },
+    {
+      "name": "unapplied-credits.csv",
+      "role": "credits",
+      "company": "Northbrook Trading Ltd",
+      "content": "customer,amount,date\nBexley Foods,1180.00,2025-09-20"
+    }
+  ]
+}

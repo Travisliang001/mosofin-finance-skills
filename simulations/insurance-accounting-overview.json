@@ -1,0 +1,21 @@
+{"skill": "insurance-accounting-overview", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "UPR roll-forward: earned premium 750,000 per policy system vs 820,000 implied by the ledger, so September earned premium overstated by 70,000",
+  "Recoverable on paid claims 123,000 agrees to 30% x 410,000; ceded share of reserves 618,000 and of premium 270,000 shown alongside gross",
+  "Commissions 135,000 = 15.0% of written premium; opening DAC 310,000 = 14.8% of opening UPR, consistent",
+  "Combined effect of the UPR and IBNR differences: result overstated by 130,000 gross, 91,000 net of the 30% quota share",
+  "Case reserves 1,300,000 cannot be tied: no ledger balance given; regulatory regime not stated"
+ ],
+ "skill_defects": [
+  "SKILL.md upload checklist lists premium and policy data, claims data and the actuary's report, reinsurance terms and prior schedules, but no trial balance or ledger balances, although the frontmatter promises 'schedules tied to the ledger' and references/method.md 'Step 6 — Close deliverables' says the GL reconciliations 'are the point of the close'. On the upload path the ledger side only exists if the user happens to include it.",
+  "references/method.md '1) Premium and unearned premium', the UPR reasonableness test ('UPR should sit near half of annual written premium'), has no rule for a monthly close where only one month of written premium is supplied; it silently cannot run.",
+  "references/method.md '3) Reinsurance' requires gross and ceded to both appear but does not say whether a proposed gross reserve or UPR correction should carry its ceded counterpart; under a quota share the net effect (91,000 here) differs materially from the gross (130,000)."
+ ],
+ "sample_defects": [
+  "insurer_close_schedules_2025-09.md gives the ledger side for UPR and IBNR only; case reserves (1,300,000), the recoverable, commissions payable and DAC have no ledger balance, so only two of the close's GL ties can run.",
+  "Closing deferred acquisition costs and September DAC amortisation are not given, only opening DAC 310,000 and commissions paid 135,000.",
+  "The file states no currency (USD comes from intake) and one month of written premium (900,000) only, so the annual UPR reasonableness indicator cannot be computed."
+ ],
+ "summary": "PASS 3/3: UPR 2,250,000 vs ledger 2,180,000, IBNR 760,000 vs 700,000 not re-estimated, 48,000 recoverable over 90 days; upload checklist never asks for the ledger."}

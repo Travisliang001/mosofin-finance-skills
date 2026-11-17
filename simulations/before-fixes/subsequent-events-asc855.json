@@ -1,0 +1,31 @@
+{
+ "skill": "subsequent-events-asc855",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 3,
+ "missed": [
+  "Returned PN-55 panels bear on the inventory reserve: the run treated the 8,200 credit note as a revenue / cutoff candidate (pre-period invoice?) and noted the odd coding to 1200 Inventory, but never linked the returned panels to the inventory reserve or NRV at 30 Sep"
+ ],
+ "unexpected": [
+  "Bracket settlement 52,000 coded to 6400 Professional Fees in October; proposed accrual at 30 Sep less any amount already in accrued liabilities 28,800; insurance recovery (10,000 deductible) kept separate, not netted",
+  "Pennine Retail Group 112,071 received 6 Oct: favourable evidence surfaced alongside the adverse items",
+  "Harlow Fabrication 248,157 open (48,200 at 95 days) with no October activity; items over 90 days 52,203 against a 9,000 allowance",
+  "AR aging 798,360 tied to TB 1100",
+  "Post-period ledger covers October 2025 only; 1 Nov 2025 to 20 Mar 2026 listed as unswept and the window stated as still open",
+  "Issue-date definition (issued vs available to be issued) not given; asked"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 2b — What the sweep actually looks for' has no pattern for goods returned after the period end; the only inventory pattern is 'Inventory sold after the period end below its carrying cost', and the credit-note pattern routes to revenue-recognition-asc606 only. Add 'goods returned after period end: NRV / inventory reserve evidence, see inventory-obsolescence-and-reserve'.",
+  "SKILL.md 'Stage 1 — Intake' question D default 'Test every reserve and accrual account found' gives no instruction when an estimate has no account (here no inventory reserve exists in the TB), so an estimate that should exist but was never booked is not tested."
+ ],
+ "sample_defects": [
+  "Manifest input post_period_ledger_2025-10.csv 'is: Ledger activity from 1 October 2025 to the date of the review', but it holds 4 entries dated 6 to 20 Oct 2025 against an issue date of 20 Mar 2026; either describe it as October only or extend it.",
+  "post_period_ledger_2025-10.csv posts 'Credit note issued: returned PN-55 panels' as -8,200 to 1200 Inventory, i.e. a credit that reduces inventory. A customer return would debit inventory (goods come back) and credit AR or revenue; as coded it reads as a write-down. No inventory reserve account exists in trial_balance_2025-09-30.csv, so the expected 'bears on the inventory reserve' finding has no reserve to test against. Add a reserve account or an NRV note to the fixture, and an invoice reference to the credit note."
+ ],
+ "summary": "Staff rota rejected on content; 52,000 settlement and Foxhall 4,003 write-off raised as adjusting candidates and enquiry asked by category; returned panels not tied to the inventory reserve."
+}

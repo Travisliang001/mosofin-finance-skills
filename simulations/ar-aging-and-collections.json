@@ -1,0 +1,39 @@
+{
+ "skill": "ar-aging-and-collections",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Harlow exposure 248,157 exceeds its 200,000 credit limit by 48,157",
+  "Harlow paid later invoice INV-18004 on 20 Sep while leaving INV-20418 unpaid (skipped invoice; dispute not inferred)",
+  "Chronic late payers from history: Harlow ~86-88 days, Foxhall ~75, Tideswell ~59-62 on 30-day terms; every customer slows 3 days per invoice",
+  "Overdue 372,407 = 46.5% of gross 800,510; over-90 52,203 = 6.5%; WADPD 16.8; top-5 = 73.2%",
+  "No independent summary/GL tie-out; DSO not computed",
+  "days_to_pay column disagrees with dates on 49 of 60 history rows"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Input plan': 'As-of date ... Never silently default it' and 'Independent totals ... Derive from detail and disclose' are the only stated defaults; the manual checklist ('Ask the user to upload the data') is generic and never lists what THIS skill needs on upload (aging detail, aging summary or GL balance, customer master, credit sales), so 'list every required input still missing' has no defined required set.",
+  "SKILL.md opening: 'Use this skill only after the Mosofin workspace and the company file are confirmed' contradicts 'Before you start — this skill works with or without Mosofin'.",
+  "SKILL.md 'Guardrails': 'End a live-data response with one Data sources line naming the Mosofin calls' and '6. Deliver' file name 'QuickBooks_AR_Aging_Collections_YYYY-MM-DD.xlsx / [Datasource]_...' give no upload-path equivalent; '2. Normalize' 'Set Source to the exact Mosofin tool used, or to the user-supplied fallback' is the only hint.",
+  "SKILL.md '5. Analyze': overdue %, over-90 % and 'Top-five customer concentration' do not say whether the denominator is gross invoices or A/R net of unapplied credits (800,510 vs 798,360 here), while Validation scenario 12 says 'show gross and net totals distinctly'.",
+  "SKILL.md '2. Normalize' requires Original and Open Balance columns and 'Use open balance'; no rule for an upload with a single amount column. Also no bucket rule for a credit memo with no due date (scenario 9 'Do not guess a bucket' is written for invoices).",
+  "SKILL.md '5. Analyze' action bands stop at 'Over 90 — escalation review under the user's approved policy' and 'Draft expectations' do not say whether to draft anything for over-90 when no policy is supplied; a chronic-late-payer threshold is also undefined (scenario 6).",
+  "Credit limits appear nowhere in the skill (Input plan, Analyze, Exceptions), although a customer master with limits is a natural upload; over-limit exposure is found only if the agent volunteers it.",
+  "SKILL.md '3. Reconcile' assumes a summary capability; on upload with detail only the step collapses to a disclosure — fine, but the validation step gives no guidance on whether a missing summary is a 'required input missing → stop and ask' or 'accepted with a limit'."
+ ],
+ "sample_defects": [
+  "customer_payment_history_12m.csv: days_to_pay disagrees with paid_date - invoice_date on 49 of 60 rows. E.g. Castleton INV-18200 2024-10-10 -> 2024-10-28 = 18 days, file says 25; Harlow INV-18002 2025-02-10 -> 2025-04-28 = 77, file says 88; Marlow INV-18400 = 18, file says 23. Paid dates look clamped to the 28th.",
+  "Key omits Harlow's credit-limit breach: 48,200 + 199,957 = 248,157 vs customer_list credit_limit 200,000 (48,157 over), and uses no finding from the payment-history or customer-list files at all, so two of three accepted inputs are untested by expect.findings.",
+  "'Harlow about 31%' holds on either base: 248,157 / 798,360 = 31.08% net, / 800,510 = 31.00% gross — but the key does not say which base, nor state total A/R (net 798,360).",
+  "ar_aging_detail has a single 'amount' column (no original vs open), no currency/entity column, and days_overdue shows 0 instead of negative for not-yet-due rows; CM-0312 has a blank due date and days_overdue 0.",
+  "Invoice numbering/date oddities: INV-20907 dated 2025-04-23 is numbered after INV-20418 dated 2025-05-28; history INV-18004 (2025-06-10) vs open INV-20418 (2025-05-28) are 2,400 numbers apart for dates 2 weeks apart.",
+  "No aging summary, GL balance or credit-sales figure in the sample, so the skill's reconcile step and DSO can never be exercised."
+ ],
+ "summary": "PASS 3/3; rota rejected on content. Main gaps: payment-history days_to_pay is wrong on 49/60 rows, and key/skill ignore Harlow's 48,157 credit-limit breach.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

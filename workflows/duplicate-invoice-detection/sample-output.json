@@ -1,0 +1,91 @@
+{
+  "workflow": "duplicate-invoice-detection",
+  "version": "1.0",
+  "run_id": "duplicate-invoice-detection-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-30",
+  "status": "ok",
+  "summary": "2 possible duplicate pair(s) among 6 bill(s) from the last 365 days.",
+  "read_only": true,
+  "validation": [],
+  "findings": [
+    {
+      "type": "same_invoice_number",
+      "confidence": "high",
+      "vendor": "Kestrel Supply Co",
+      "first": {
+        "bill_no": "INV-4471",
+        "date": "2025-09-03",
+        "amount": 6210,
+        "status": "Paid"
+      },
+      "second": {
+        "bill_no": "INV4471",
+        "date": "2025-09-17",
+        "amount": 6210,
+        "status": "Open"
+      },
+      "days_apart": 14,
+      "amount_at_risk": 6210
+    },
+    {
+      "type": "same_amount_near_date",
+      "confidence": "medium",
+      "vendor": "Ashby Metals",
+      "first": {
+        "bill_no": "AM-2290",
+        "date": "2025-09-18",
+        "amount": 6560,
+        "status": "Open"
+      },
+      "second": {
+        "bill_no": "AM-2301",
+        "date": "2025-09-22",
+        "amount": 6560,
+        "status": "Open"
+      },
+      "days_apart": 4,
+      "amount_at_risk": 6560
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "hold_bill",
+      "vendor": "Kestrel Supply Co",
+      "bill": "INV4471",
+      "reason": "same_invoice_number with INV-4471",
+      "note": null
+    },
+    {
+      "requires_approval": true,
+      "type": "hold_bill",
+      "vendor": "Ashby Metals",
+      "bill": "AM-2301",
+      "reason": "same_amount_near_date with AM-2290",
+      "note": null
+    }
+  ],
+  "totals": {
+    "bills_checked": 6,
+    "pairs": 2,
+    "amount_at_risk": 12770
+  },
+  "not_done": [],
+  "sources": [
+    "Mosofin bills"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "as_at": "2025-09-30",
+    "lookback_days": 365,
+    "near_days": 7,
+    "amount_tolerance": 0.01,
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

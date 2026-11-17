@@ -1,0 +1,37 @@
+{
+ "skill": "construction-percentage-of-completion",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "C-11 contract asset 7,500 (387,500 revenue vs 380,000 billed); C-12 contract liability 15,000 (375,000 vs 390,000), presented separately, not netted",
+  "C-12 loss split: 25,000 already through costs to date, remaining provision 5,000",
+  "Backlog: C-11 512,500, C-12 75,000",
+  "Over-time criterion and single performance obligation assumed and flagged for confirmation",
+  "Period figures and catch-up not computable: no prior-period cumulative figures",
+  "Proposed entries given as cumulative target positions because book balances were not supplied"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1' row C default 'Ask again for the tagging' has no meaning on the upload path, where costs arrive per contract; the card should say tagging is not applicable when costs are supplied by contract.",
+  "references/method.md 'Step 1 — Confirm over-time recognition criteria' and 'Step 2' are [manual] with 'Confirm per contract' but the Stage 1 intake table never asks for them and gives no default. A strict agent either stops or silently assumes over-time; the card should add an intake row or a stated default ('assume over-time, single obligation, and flag').",
+  "references/method.md 'Step 7' gives the provision formula but not its presentation against the contract balance in 'Step 8' (US practice often presents the loss provision within billings in excess / as a separate liability). The skill is silent on whether C-12's 5,000 provision sits with or apart from its 15,000 contract liability.",
+  "references/method.md 'Step 11' and the Stage 5 instruction to present 'entries as proposals' assume the agent knows what is already booked. On an upload with no ledger balances, entries can only be cumulative targets; the skill does not say so.",
+  "SKILL.md upload checklist lists four separate Required uploads (contract list, estimates, costs and billings) each as XLSX; one combined CSV covered three of them. Validation wording ('Accepts every file ... noting any that only partly covers') is in the answer key but not in the skill text.",
+  "Coverage sheet ('Sheet 9') columns demand display_name, tool used and policy per contract; no manual-run variant.",
+  "SKILL.md 'Stage 1' row D: 'Blocking for that contract' — the protocol in mosofin-protocol.md says 'If a required input is rejected or missing, stop and ask ... do not carry on with the files that passed as though the set were complete.' The card's per-contract blocking and the protocol's whole-run stop conflict; the card should state that the other contracts proceed with the gap labelled."
+ ],
+ "sample_defects": [
+  "No prior-period cumulative figures or earlier estimates, so 'Step 6 — catch-up' (one of the skill's core mechanics) cannot be tested.",
+  "Key finding 2 says 'loss 30,000 provided in full' without the split: (480,000 − 450,000) − (400,000 − 375,000) = 5,000 additional provision; 25,000 is already in cost over revenue. A run that booked a further 30,000 provision (double-counting) would match the key's wording.",
+  "Key omits the C-12 contract liability: revenue 450,000 x 400,000/480,000 = 375,000 vs billed 390,000 = 15,000 liability. The key only tests C-11's asset side, so the 'do not net across contracts' rule is untested.",
+  "The company is 'Northbrook Trading Ltd' (a trading company in the other samples) running construction contracts; file carries no company name, currency, scope, term, estimate owner or variation status.",
+  "C-11 % complete: 310,000/720,000 = 43.06%, which the key rounds to 43.1% — fine; revenue 900,000 x 0.430556 = 387,500 confirmed."
+ ],
+ "summary": "PASS 3/3: rota rejected; C-11 43.1%/387,500, C-12 loss 30,000 (5,000 further provision), C-13 not computed. Key omits C-12 liability and the provision split.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

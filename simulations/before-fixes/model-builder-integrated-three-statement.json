@@ -1,0 +1,38 @@
+{
+ "skill": "model-builder-integrated-three-statement",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PARTIAL",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 1,
+ "findings_total": 2,
+ "missed": [
+  "Historical side ties to the statements — the run found P&L, balance sheet and cash tie in every month but reported the retained-earnings roll failing in Mar 2025 (60,000) and Jun 2025 (7,500), so it did not state that the history ties; it paused the forecast layer per method.md Step 2"
+ ],
+ "unexpected": [
+  "Retained earnings roll-forward breaks: Mar 2025 (60,000) and Jun 2025 (7,500), presented as a source issue list; cash roll only ties if they were cash payments",
+  "Gross margin stepped down to 40.0% in Jul-Sep 2025 vs 42.0% in the prior 33 months; the 41% assumption sits above the run-rate",
+  "Revenue growth assumption 8% vs 15.4% history in both years; opex 4% vs 7.3% and 9.2%",
+  "DSO 48.7 -> 52.4 -> 56.1 and DIO 69.8 -> 75.4 -> 82.9 days lengthening; no working-capital assumption supplied, left blank",
+  "One-offs: professional fees 16,500 in Jun 2025 (vs 2,500) and marketing 29,146 = 6.4% of revenue in Sep 2025 (vs 4.0%)",
+  "Tax assumption 20% against zero tax in all 36 months; capex 80,000 unanchored (no capex in 36 months)",
+  "Chart holds an investment in and intercompany payable to Northbrook UK; asked whether the model is single-entity",
+  "Mapping-completeness test not run: no trial balance uploaded"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' asks for statements and a chart of accounts but no trial balance, while references/method.md 'Step 2 — Normalize and map historicals' calls the TB-vs-mapping test 'The most valuable of the five'; on the upload path that validation can never run.",
+  "SKILL.md 'Stage 1 — Intake' row D lists growth, margin, working capital, capex, debt, tax and headcount but not dividends/distributions, although references/method.md 'Step 4 — Link the three statements' item 5 needs them for the retained-earnings link and Step 2 says the RE roll 'Frequently fails — distributions'.",
+  "references/method.md 'Step 2 — Normalize and map historicals' says 'Then stop' on a failed tie-out but does not say whether the [auto] driver history of Step 3 may still be shown while paused; the run had to choose.",
+  "SKILL.md 'Rules that never bend' says 'Never uses an open period as the opening balance sheet without saying so', but on the upload path no intake question asks whether the opening month is closed (the 'last closed period' check exists only in Gates for Mosofin).",
+  "references/method.md 'Step 3 — Build driver-based forecast schedules' never defines DSO/DIO/DPO (year-end vs average balance, annual vs trailing revenue); the only definition is an example in 'Step 7 — Evolve the skill' ('DSO on trailing 3-month revenue')."
+ ],
+ "sample_defects": [
+  "The key expects 'Historical side ties to the statements', but retained earnings does not roll: Mar 2025 RE 1,475,325 -> 1,478,738 = +3,413 vs net income 63,413 (gap 60,000); Jun 2025 1,636,845 -> 1,703,272 = +66,427 vs 73,927 (gap 7,500). No dividend line exists in either file, so a correct run must raise a source issue and pause.",
+  "model_assumptions.md gives no working-capital, headcount, dividend or capex useful-life inputs, so 'Forecast uses only the assumptions supplied' cannot produce a complete forecast; DSO/DIO/DPO must stay blank.",
+  "Tax assumption 20% while all 36 P&L months show net income = revenue - costs with no tax line, and the balance sheet has no tax payable line.",
+  "No trial balance is supplied although the chart lists 41 accounts, several (1600 Investment in Northbrook UK, 2300 Intercompany Payable, 2400 Deferred Revenue, 3200 Dividends) with no line in the 10-line balance sheet; the mapping test cannot run."
+ ],
+ "summary": "PARTIAL 1/2: rota rejected on content; run found RE roll breaks (60,000 Mar 2025, 7,500 Jun 2025) so did not state history ties, contrary to the key."
+}

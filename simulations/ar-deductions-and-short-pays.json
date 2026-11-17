@@ -1,0 +1,10 @@
+{"skill": "ar-deductions-and-short-pays", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 7, "findings_total": 7, "missed": [], "unexpected": [],
+ "skill_defects": [
+  "SKILL.md, 'Upload path — hand over one checklist' (read-back example): the example names 'Northbrook Trading', 'as at 30 September 2025' and 'write-off up to 50, approved by the credit manager', i.e. the sample set's company, date and policy. The skill card leaks the test fixture; a generic placeholder company and limit would keep the blind run blind.",
+  "references/method.md, 'Step 1 — Build the deduction log' vs references/edge-cases.md, 'A short payment with no reason': the method maps a blank reason to 'unexplained' and keeps it in the log, while the edge case says it is 'not a deduction until the customer says why'. Both lead to 'needs backup', but the card does not say whether such an item counts in the log total (it was counted here, giving 6,028.50)."
+ ],
+ "sample_defects": [],
+ "summary": "All 7 findings hit; staff rota rejected on content; read-only held. Minor skill defect: SKILL.md read-back example reuses the sample's company and write-off policy."
+}

@@ -1,0 +1,13 @@
+{"skill": "subsequent-events-asc855", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [], "unexpected": [],
+ "skill_defects": [
+  "SKILL.md, 'Stage 1 — Intake', upload checklist: asks for 'Ledger detail from the balance sheet date to today' without naming a posting-date column, while references/method.md 'Step 5 — Document conclusions' requires event date and posting date recorded separately and references/edge-cases.md ('A transaction dated before the period end but posted after it') needs both to separate cutoff errors from subsequent events",
+  "SKILL.md, 'Stage 1 — Intake', row C: when the issue date is given but not the definition (issued vs available to be issued), no default is stated; the run had to leave the definition open"
+ ],
+ "sample_defects": [
+  "post_period_ledger_2025-10.csv: manifest calls it 'Ledger activity from 1 October 2025 to the date of the review', but it holds 4 lines dated 6–20 Oct for a company with 4,038,600 of nine-month revenue, so it cannot be the full post-period population the method sweeps; it also has no posting-date column",
+  "trial_balance_2025-09-30.csv: no inventory reserve account exists, so the expected finding that the PN-55 return 'bears on the inventory reserve' has no period-end reserve balance to test against",
+  "legal_matters.md vs trial_balance_2025-09-30.csv: the probable claim's low estimate (40,000) exceeds total Accrued Liabilities (28,800), so the period-end accrual for the claim cannot be identified; plausibly intended, but not stated in expect"
+ ],
+ "summary": "Shift rota rejected on content; Foxhall write-off and 52,000 settlement flagged as adjusting candidates, PN-55 return tied to NRV, enquiry by category; partial ledger flagged."}

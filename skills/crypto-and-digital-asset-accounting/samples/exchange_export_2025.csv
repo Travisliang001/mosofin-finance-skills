@@ -1,0 +1,7 @@
+date,asset,type,quantity,usd_amount,price_source
+2025-02-10,BTC,buy,1.5,63000,exchange
+2025-05-20,BTC,buy,0.5,26000,exchange
+2025-08-04,BTC,sell,-0.4,22800,exchange
+2025-06-01,USDC,buy,50000,50000,exchange
+2025-09-30,BTC,closing price per unit,1,58000,exchange closing price 30 Sep 2025
+2025-09-30,USDC,closing price per unit,1,1.0,exchange closing price 30 Sep 2025

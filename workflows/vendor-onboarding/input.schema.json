@@ -1,0 +1,76 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "vendor-onboarding input envelope",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "description": "Per-run overrides of any setting.",
+      "properties": {
+        "company": {
+          "default": ""
+        },
+        "currency": {
+          "default": "USD"
+        },
+        "datasource": {
+          "default": "quickbooks"
+        },
+        "data_source_id": {
+          "default": ""
+        },
+        "required_fields": {
+          "default": [
+            "legal_name",
+            "tin",
+            "address",
+            "email",
+            "payment_terms",
+            "tax_classification"
+          ]
+        },
+        "tin_digits": {
+          "default": 9
+        }
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "new_vendors",
+              "vendors"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "CSV text, first row = headers"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "company": {
+            "type": "string",
+            "description": "company the file belongs to, if known"
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,35 @@
+{
+ "skill": "audit-prep-pbc-list",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "March dividend of 60,000 not recorded: RE 1,422,317 = 789,221 + 2024 profit 633,096 exactly; with the dividend it would be 1,362,317",
+  "Harlow acquisition (1 July 2025) not visible in Northbrook TB: no investment, goodwill, consideration or new debt; FA cost unchanged",
+  "Professional fees YTD 36,500 exceed full-year 2024 30,000: possible deal costs",
+  "Nine balances unchanged since 31 Dec 2024 (petty cash, Stripe clearing, allowance, prepaids, card, payroll clearing, payroll tax, sales tax, intercompany 38,000): close weakness",
+  "Allowance 9,000 unchanged while A/R grew 196,217 (+32.6%)",
+  "Accumulated depreciation and term-loan roll-forwards tie (273,400 + 37,800 = 311,200; 265,000 - 45,000 = 220,000)",
+  "No independent reviewer: S. Patel owns every non-inventory item",
+  "Restructuring approved October 2025 flagged for year-end memo"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row B asks for 'company and period' but gives no rule when the intake period (September 2025, as at 2025-09-30) differs from the audit period in an uploaded file (year to 31 Dec 2025); the shared rule 'The file names a different company or period from the intake answers. Reject it' would, read literally, reject audit_inputs.md, which the key expects accepted.",
+  "references/method.md 'Step 7 — Anticipate adjustments' lists analytics (unusual JEs, round numbers, sharp movers) but not an equity roll-forward against known events; the unrecorded 60,000 dividend and the unrecorded Harlow acquisition, the two most consequential issues in the sample, are found only by agent initiative.",
+  "references/edge-cases.md 'Group audit / component auditors' and SKILL.md Mosofin-path note 'With several company files, ask whether this is a single audit or a group audit' have no upload-path equivalent; a second company's TB arriving by upload is handled only by the generic 'different company' reject rule, with no prompt to ask about group scope after an acquisition.",
+  "references/method.md 'Step 3 — Specify what makes each item audit-ready' requires 'a named reviewer who is not the preparer', but Stage 1 row E only asks for owners; nothing asks for reviewers, so the gap is always discovered late."
+ ],
+ "sample_defects": [
+  "audit_inputs.md states a 60,000 dividend in March 2025 and a 1 July acquisition of Harlow Fabrication, but trial_balance_2025-09-30.csv records neither: retained earnings 1,422,317 = 789,221 + 633,096 (2024 profit) with no dividend; no investment or goodwill account. expect.findings ignores both, so a run that missed them would still PASS.",
+  "The intake answer gives 'Period: September 2025 (as at 2025-09-30)' while audit_inputs.md gives a year-to-31-December-2025 audit; the two periods conflict and the key does not say which governs.",
+  "trial_balance_2025-09-30_v2.csv (Harlow) is the TB of a company Northbrook acquired on 1 July per audit_inputs.md; rejecting it is right for a single-entity run, but the sample does not say whether the audit is consolidated, which would make it a needed component input.",
+  "No A/R or A/P aging is supplied although auditor requests A2 and A5 are agings, so the skill's 'subledger-to-GL reconciliation' (method.md Step 2, its highest-value unaided schedule) cannot be exercised."
+ ],
+ "summary": "PASS 3/3: Harlow TB rejected as another company; mapped to A1-A8, documents left to named owners, timeline back from 9 Feb 2026; also found unrecorded dividend and acquisition."
+}

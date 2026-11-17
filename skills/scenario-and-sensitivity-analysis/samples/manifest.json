@@ -1,0 +1,49 @@
+{
+ "skill": "scenario-and-sensitivity-analysis",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "forecast_2025-10_to_2026-09.csv",
+   "is": "Management forecast for the next twelve months, by line"
+  },
+  {
+   "file": "monthly_profit_and_loss_36m.csv",
+   "is": "Monthly profit and loss by line, October 2022 to September 2025"
+  },
+  {
+   "file": "monthly_balance_sheet_36m.csv",
+   "is": "Balance sheet at each month end, October 2022 to September 2025"
+  },
+  {
+   "file": "scenario_request.md",
+   "is": "Scenario and sensitivity request"
+  }
+ ],
+ "negative": [
+  {
+   "file": "forecast_2025-10_to_2026-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Management forecast for the next twelve months, by line'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects forecast_2025-10_to_2026-09_final.csv: The name suggests it is 'Management forecast for the next twelve months, by line'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Proposes ranges from 36 months of history and stops for the user to accept them before running sensitivities",
+   "Runs the three named scenarios on a cash bridge against the 250,000 minimum cash threshold",
+   "States each range's source"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

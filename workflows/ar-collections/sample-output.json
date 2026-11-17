@@ -1,0 +1,139 @@
+{
+  "workflow": "ar-collections",
+  "version": "1.0",
+  "run_id": "ar-collections-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2025-09-30",
+  "status": "partial",
+  "summary": "2 collection draft(s) across 5 customer(s); USD 63525.50 open, USD 46925.50 being chased.",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "open-invoices-2025-09-30.csv",
+      "role": "ar_open",
+      "verdict": "accepted",
+      "reason": "open A/R invoice list, 6 rows"
+    },
+    {
+      "file": "statement-export.csv",
+      "role": "credits",
+      "verdict": "rejected",
+      "reason": "not a unapplied credits / payments list: missing column(s) customer"
+    },
+    {
+      "file": "unapplied-credits.csv",
+      "role": "credits",
+      "verdict": "accepted",
+      "reason": "unapplied credits / payments list, 1 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "over_credit_limit",
+      "customer": "Harlow Retail",
+      "open_balance": 43050,
+      "credit_limit": 40000,
+      "excess": 3050
+    },
+    {
+      "type": "unapplied_credit_netted",
+      "customer": "Bexley Foods",
+      "credit": 1180,
+      "overdue": 1200,
+      "net_due": 20
+    },
+    {
+      "type": "below_min_balance",
+      "customer": "Bexley Foods",
+      "net_due": 20,
+      "min_balance": 50
+    },
+    {
+      "type": "excluded_customer",
+      "customer": "Corran Ltd",
+      "open_balance": 6300
+    },
+    {
+      "type": "no_email_on_file",
+      "customer": "Ellis & Co"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "email_draft",
+      "channel": "email",
+      "customer": "Harlow Retail",
+      "to": "ap@harlowretail.example",
+      "bucket": "61-90",
+      "oldest_days_overdue": 82,
+      "amount_due": 43050,
+      "invoices": [
+        "INV-1031",
+        "INV-1058"
+      ],
+      "subject": "Northbrook Trading Ltd: USD 43050.00 overdue (final notice)",
+      "body": "Hello Harlow Retail,\n\nOur records show the following invoices are past due:\n\n  INV-1031  due 2025-07-10  USD 18400.00  (82 days overdue)\n  INV-1058  due 2025-09-04  USD 24650.00  (26 days overdue)\n\nAfter credits of USD 0.00, USD 43050.00 is outstanding. Please arrange payment or let us know if anything is in dispute.\n\nThank you,\nAccounts Receivable"
+    },
+    {
+      "requires_approval": true,
+      "type": "email_draft",
+      "channel": "email",
+      "customer": "Ellis & Co",
+      "to": null,
+      "bucket": "61-90",
+      "oldest_days_overdue": 75,
+      "amount_due": 3875.5,
+      "invoices": [
+        "INV-1012"
+      ],
+      "subject": "Northbrook Trading Ltd: USD 3875.50 overdue (final notice)",
+      "body": "Hello Ellis & Co,\n\nOur records show the following invoices are past due:\n\n  INV-1012  due 2025-07-17  USD 3875.50  (75 days overdue)\n\nAfter credits of USD 0.00, USD 3875.50 is outstanding. Please arrange payment or let us know if anything is in dispute.\n\nThank you,\nAccounts Receivable"
+    }
+  ],
+  "totals": {
+    "open_balance": 63525.5,
+    "customers": 5,
+    "drafts": 2,
+    "amount_chased": 46925.5
+  },
+  "not_done": [
+    "file statement-export.csv rejected: not a unapplied credits / payments list: missing column(s) customer"
+  ],
+  "sources": [
+    "file open-invoices-2025-09-30.csv",
+    "file unapplied-credits.csv"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "as_at": "2025-09-30",
+    "buckets": [
+      30,
+      60,
+      90
+    ],
+    "min_balance": 50,
+    "exclude_customers": [
+      "Corran Ltd"
+    ],
+    "credit_limits": {
+      "Harlow Retail": 40000
+    },
+    "tones": {
+      "1-30": "friendly reminder",
+      "31-60": "firm reminder",
+      "61-90": "final notice",
+      "90+": "escalation: account on hold pending payment",
+      "default": "reminder"
+    },
+    "sender_name": "Accounts Receivable",
+    "subject_template": "{{company}}: {{currency}} {{net}} overdue ({{tone}})",
+    "body_template": "Hello {{customer}},\n\nOur records show the following invoices are past due:\n\n{{lines}}\n\nAfter credits of {{currency}} {{credit}}, {{currency}} {{net}} is outstanding. Please arrange payment or let us know if anything is in dispute.\n\nThank you,\n{{sender}}",
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

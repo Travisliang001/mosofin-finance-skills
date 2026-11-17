@@ -1,0 +1,32 @@
+{
+ "skill": "pensions-and-postretirement-asc715",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Trial balance has no pension liability, pension expense or AOCI account; the summary's 'pension liability 220,000' matches only 2500 Term Loan 220,000, so the opening liability appears never recognised (prior-period error) or held off this TB",
+  "OCI asset loss 16,600 (expected return 57,600 - actual 41,000); liability movement 35,000 = 63,400 + 16,600 - 45,000",
+  "Contribution entry (45,000) held pending because no pension account exists to show where the cash was booked",
+  "Chart cannot present service cost separately from other components, so ASC 715 presentation and the components disclosure cannot come from the ledger",
+  "Amendments assumed none and stated as an assumption; amortisation and opening AOCI not in the summary"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row C ('Ask again') and row B ('Never default the period') have no rule for when the answers arrive inside the uploaded report; the protocol's 'A fact the intake asks for arrives inside a file' rule had to be applied by inference.",
+  "references/method.md 'Step 5 — Journal entries' gives no entry for recognising an opening liability that was never booked (prior-period error), though 'Step 0b' says a prior-year error 'carried forward' is common.",
+  "references/method.md 'Step 0b' compares the AOCI pension component but the upload checklist in SKILL.md 'Upload path — hand over one checklist' does not ask for the opening AOCI balance, so the AOCI roll-forward (Step 7 'Sheet 6') can never run on upload.",
+  "references/method.md 'Step 4' does not say whether the report's components are for the year or the nine months to the measurement date, which matters for an interim (30 September) run."
+ ],
+ "sample_defects": [
+  "actuarial_report_summary.md states 'Ledger: pension liability 220,000', but trial_balance_2025-09-30.csv has no pension account; the only 220,000 balance is 2500 Term Loan. Expect's 'against 220,000 in the ledger' is therefore not supported by the TB.",
+  "The ledger statement is inside the actuary's summary, a document the actuary would not author.",
+  "No contributions account or payment appears in the TB for the 45,000 the report says was contributed.",
+  "Key arithmetic checks out: 1,180,000 + 62,000 + 59,000 - 36,000 = 1,265,000; 960,000 + 41,000 + 45,000 - 36,000 = 1,010,000; funded status -255,000; NPBC 62,000 + 59,000 - 57,600 = 63,400; TB foots at 6,546,018."
+ ],
+ "summary": "PASS: rota rejected on content; deficit 255,000 vs 220,000, NPBC 63,400, no entry posted; also found the TB has no pension account and 220,000 is the term loan."
+}

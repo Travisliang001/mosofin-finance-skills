@@ -1,0 +1,46 @@
+{
+ "skill": "credit-limit-and-customer-risk",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "customer_payment_history_12m.csv",
+   "is": "Paid invoices with payment dates, last twelve months"
+  },
+  {
+   "file": "ar_aging_detail_2025-09-30.csv",
+   "is": "Open receivables by invoice at 30 September 2025"
+  },
+  {
+   "file": "credit_request_and_policy.md",
+   "is": "Credit request, customer financials and credit policy"
+  }
+ ],
+ "negative": [
+  {
+   "file": "customer_payment_history_12m_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Paid invoices with payment dates, last twelve months'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects customer_payment_history_12m_final.csv: The name suggests it is 'Paid invoices with payment dates, last twelve months'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Harlow pays in about 88 days on average against 30-day terms",
+   "Exposure about 248,000, of which 48,200 is 95 days overdue",
+   "Harlow is about 31% of receivables, above the 25% policy limit",
+   "Says no bureau report or references were supplied"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

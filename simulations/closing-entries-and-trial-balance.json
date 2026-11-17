@@ -1,0 +1,27 @@
+{
+ "skill": "closing-entries-and-trial-balance",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 1,
+ "findings_total": 1,
+ "missed": [],
+ "unexpected": [
+  "No income tax expense or tax-payable account for a Ltd with pre-tax profit 633,096; flagged as a possibly unposted tax provision and a reason not to close yet",
+  "Auto-close test (Step 0b) reported as not runnable; entries held pending the 1 Jan 2025 TB",
+  "Seven chart accounts with no TB line (1160, 6150, 6160, 6700, 6800, 6900, 6950) asked to be confirmed as zero",
+  "Entity type proposed as corporation from Share Capital / Retained Earnings and asked, not assumed"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 0b — Test whether the year is already closed' names only three states (not closed / auto-closed / closed by explicit entry). On the upload path the test usually cannot run (no new-year TB uploaded), and the skill does not say whether to still propose entries or what to call that state; the run had to invent 'state unknown — do not post until confirmed'. Add a fourth state for the manual path.",
+  "Minor: SKILL.md 'Gate 3' lists the 1 January TB only implicitly (via Step 0 and Step 0b), not in the Inputs table, so a manual-run checklist built from Gate 3 does not ask for it up front."
+ ],
+ "sample_defects": [
+  "Manifest negative 'trial_balance_september.csv' calls it 'the wrong year (30 September 2024)'. 30 Sep 2024 is inside FY2024, so it is the wrong period, not the wrong year; and the file carries no date at all. Content evidence: RE 789,221 equals the December opening RE, and Sales Revenue 3,499,900 is a 9-month YTD (Dec 4,597,600 − Sep 3,499,900 = 1,097,700 for Q4). Reword to 'interim September TB, not the year-end TB'.",
+  "trial_balance_2024-12-31.csv has no income tax expense for a corporation with pre-tax profit 4,597,600 − 3,964,504 = 633,096. Either intended (then add it to expect.findings) or an omission in the fixture."
+ ],
+ "summary": "September TB rejected as an interim period; FY2024 closed to RE 1,422,317 (NI 633,096) with a balancing post-close TB of 2,494,546. All entries proposals; nothing posted."
+}

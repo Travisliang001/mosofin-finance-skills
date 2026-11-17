@@ -1,0 +1,44 @@
+{
+ "skill": "intangibles-and-amortization",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Framework US GAAP. No register exists.",
+ "inputs": [
+  {
+   "file": "acquisition_terms_and_valuation.md",
+   "is": "Acquisition terms and the valuer's fair values"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "accounting_policies.md",
+   "is": "Accounting policies in use"
+  }
+ ],
+ "negative": [
+  {
+   "file": "acquisition_terms_and_valuation_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Acquisition terms and the valuer's fair values'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects acquisition_terms_and_valuation_final.csv: The name suggests it is 'Acquisition terms and the valuer's fair values'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Customer relationships 260,000 and trade name 90,000 from the acquisition are not in the trial balance",
+   "Asks for useful lives; computes nothing without them"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

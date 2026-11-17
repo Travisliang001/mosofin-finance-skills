@@ -1,0 +1,131 @@
+{
+  "workflow": "invoice-ingestion",
+  "version": "1.0",
+  "run_id": "invoice-ingestion-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": null,
+  "status": "ok",
+  "summary": "2 invoice(s), 4 line(s) read; 2 item(s) to review before entry.",
+  "read_only": true,
+  "validation": [
+    {
+      "file": "extracted-invoice-lines.csv",
+      "role": "invoice_lines",
+      "verdict": "accepted",
+      "reason": "supplier invoice lines, 4 rows"
+    }
+  ],
+  "findings": [
+    {
+      "type": "unknown_vendor",
+      "vendor": "Brightline Analytics",
+      "invoice": "BA-0091"
+    },
+    {
+      "type": "uncoded_line",
+      "vendor": "Brightline Analytics",
+      "invoice": "BA-0091",
+      "description": "Onboarding workshop",
+      "amount": 950,
+      "coded_to": "6999 Uncategorised: review"
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "bill_draft",
+      "vendor": "Kestrel Supply Co",
+      "vendor_on_file": true,
+      "bill_no": "INV-4502",
+      "date": "2025-09-26",
+      "due_date": "2025-10-26",
+      "total": 2680,
+      "lines": [
+        {
+          "description": "Pallet wrap 200 rolls",
+          "amount": 2500,
+          "account": "5100 Packaging",
+          "basis": "rule \"pallet|wrap|packag|corner board\""
+        },
+        {
+          "description": "Freight",
+          "amount": 180,
+          "account": "5200 Freight In",
+          "basis": "rule \"freight|shipping|courier\""
+        }
+      ]
+    },
+    {
+      "requires_approval": true,
+      "type": "create_vendor",
+      "name": "Brightline Analytics",
+      "reason": "on invoice BA-0091, not in the vendor list"
+    },
+    {
+      "requires_approval": true,
+      "type": "bill_draft",
+      "vendor": "Brightline Analytics",
+      "vendor_on_file": false,
+      "bill_no": "BA-0091",
+      "date": "2025-09-28",
+      "due_date": "2025-10-28",
+      "total": 5750,
+      "lines": [
+        {
+          "description": "Annual software subscription",
+          "amount": 4800,
+          "account": "6150 Software",
+          "basis": "rule \"software|subscription|licen\""
+        },
+        {
+          "description": "Onboarding workshop",
+          "amount": 950,
+          "account": "6999 Uncategorised: review",
+          "basis": "no rule matched: review"
+        }
+      ]
+    }
+  ],
+  "totals": {
+    "invoices": 2,
+    "lines": 4,
+    "amount": 8430
+  },
+  "not_done": [],
+  "sources": [
+    "file extracted-invoice-lines.csv",
+    "Mosofin vendors"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "default_expense_account": "6999 Uncategorised: review",
+    "coding_rules": [
+      {
+        "keyword": "software|subscription|licen",
+        "account": "6150 Software"
+      },
+      {
+        "keyword": "freight|shipping|courier",
+        "account": "5200 Freight In"
+      },
+      {
+        "keyword": "rent|lease",
+        "account": "6100 Rent"
+      },
+      {
+        "keyword": "repair|maintenance",
+        "account": "6170 Repairs and Maintenance"
+      },
+      {
+        "keyword": "pallet|wrap|packag|corner board",
+        "account": "5100 Packaging"
+      }
+    ],
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

@@ -1,0 +1,33 @@
+{
+ "skill": "real-estate-and-property-accounting",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Unit 7 2025 rent billed 108,000 disagrees with the lease: year 2 is 12 x 8,500 = 102,000, so 6,000 over (108,000 = the year-3 rate)",
+  "Straight-line figures: total 524,000 / 60 = 8,733.33 a month; deferred rent receivable 24,800 at end 2024, 27,600 at end 2025, 26,900 at 30 Sep 2025; 24,800 may be a prior-period error if never booked",
+  "Period conflict: intake says as at 30 Sep 2025, schedule is full-year 2025",
+  "Plot 12 work pause flagged as an impairment indicator; depreciation 22,500 and 15,000 a year recomputed with expected accumulated balances",
+  "Unit 7 in service from April 2021 but leased only from 2024: use in 2021-23 unknown"
+ ],
+ "skill_defects": [
+  "method.md 'Step 0 — Read the property position before classifying anything' and its four contradiction tests are written only as [auto] ledger reads; there is no upload-path instruction for running them on a summary schedule, so on upload they silently reduce to whatever the schedule happens to state.",
+  "method.md 'Step 2 — Initial measurement' and edge-cases.md 'Capitalised interest' say capitalisation 'Stops when the asset is ready for its intended use' but never mention suspension during an extended pause in development (ASC 835-20 / IAS 23), which is the sample's actual case; the agent must supply the rule itself.",
+  "SKILL.md 'Stage 1 — Intake' row B 'Never default the period' gives no rule for a schedule whose period (full-year 2025) differs from the intake answer (as at 30 Sep 2025); the protocol's different-period rule speaks of rejecting, which would block the only input.",
+  "method.md 'Step 4 — Rental income' straight-lining test detects absence of a deferred rent balance but gives no instruction on catch-up of prior-year straight-lining (a prior-period error) nor a cross-reference to restatement-and-prior-period-adjustment.",
+  "No step checks billed rent against the contractual schedule, although lease terms are a required upload; the 6,000 over-billing is found only if the agent volunteers it."
+ ],
+ "sample_defects": [
+  "property_schedule.md: Unit 7 '2025 rent billed 108,000' contradicts its own lease summary — lease from 1 Jan 2024, year 2 (2025) at 8,000 + 500 = 8,500 a month = 102,000; 108,000 = 12 x 9,000 (year 3). Not in the key.",
+  "Intake period 'September 2025 (as at 2025-09-30)' vs schedule 'Period: 2025' with full-year rent and costs; the key does not say which period's figures are expected.",
+  "The schedule gives no accumulated depreciation, carrying amounts, deferred rent balance or ledger, so 'Land is not depreciated' can only be asserted, never tested (Test 0a needs the ledger).",
+  "Plot 12 gives the 6,000 post-pause interest but no pause date, borrowing rate or interest incurred, so the ceiling check cannot be run; Unit 7 in service 2021-04-01 vs lease from 2024-01-01 is unexplained."
+ ],
+ "summary": "PASS 3/3; rota rejected on content. Extra: Unit 7 billed 108,000 vs 102,000 per the lease (6,000 over); skill omits suspension of interest capitalisation during a pause."
+}

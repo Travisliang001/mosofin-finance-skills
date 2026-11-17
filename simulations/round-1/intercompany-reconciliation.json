@@ -1,0 +1,38 @@
+{
+ "skill": "intercompany-reconciliation",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Pair difference quantified: UK 33,220 GBP x 1.27 = 42,189.40 USD vs 38,000; difference 4,189.40 = IC-097 4,191.00 timing + FX (1.60)",
+  "Rate difference also on IC-071 (1.50 at closing rate; 0.39 at the 1.2698 transaction rate)",
+  "No transaction rate supplied for 18 Sep or 29 Sep; none invented",
+  "Ageing: IC-071 82 days, IC-082 49 days, nothing settled since July",
+  "Settlement proposed on the agreed 38,000 USD / 29,920 GBP only; IC-097 excluded",
+  "Unrealised profit in inventory and revenue/expense elimination not quantified; 80% holding does not reduce the elimination"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 3' and 'Step 5 — Currency handling': 'Convert each entity's IC balance ... using the period-end rate for balance sheet items or the transaction-date rate for P&L items'. For line-level matching (Step 2) it does not say which rate to use to compare a GBP line with its USD mirror. Closing rate gives IC-071 +1.50, transaction rate gives −0.39; the size and even the sign of the 'FX' component depend on an unstated choice.",
+  "references/method.md 'Step 3': 'separate the difference into its components ... timing, FX, and true mismatch' gives no definition that separates them. An item on one side only, dated one day before period end, is 'cut-off timing' or 'one side missed posting' (Step 4 table) depending on a later-period ledger the upload checklist never asks for. The skill should add the following period's IC postings to the upload checklist or say to label it 'timing or missed posting — not determinable'.",
+  "SKILL.md 'Stage 1' row D default 'Propose the accounts and names found, and wait for a yes' — when the uploaded ledgers carry no account number or name at all there is nothing to propose; and the upload checklist lists 'Intercompany account list for each company (D) — Required', which makes this a blocking missing input under mosofin-protocol.md 'If a required input is rejected or missing, stop and ask'. The sample provides none, so a strict reading stops the run.",
+  "references/method.md 'Step 2': 'A window of several days — agreed with the user, and stated' and output.md 'The date window and amount tolerance used are stated' — no default when the user has not agreed one, and no question for it in Stage 1's intake table.",
+  "references/method.md 'Step 7 — Elimination entries': 'Eliminate the agreed amount, and carry the difference explicitly' does not say where the carried difference sits (goods in transit, suspense, CTA) or whether to propose the missing entry in the entity's own books, which 'Step 4' ('Post the missing entry') implies. Mixed 'post' wording in a read-only skill.",
+  "SKILL.md 'Never supplies an FX rate' vs method.md Step 7/Step 4 requiring a USD amount for a missing entry: no instruction on what to show when the transaction-date rate is absent (I showed the closing-rate figure as indicative only).",
+  "references/method.md 'Step 8' sheets 7-8 and output.md refer to display_name, Gate 2 and mock per entity; no manual-run variant of the coverage sheet."
+ ],
+ "sample_defects": [
+  "Key finding 2 says 'Small rate differences on IC-082 and IC-093' and omits IC-071. On the data: IC-071 9,450 GBP x 1.27 = 12,001.50 vs 12,000 (1.50); at the supplied 10 Jul transaction rate 1.2698 = 11,999.61 (0.39). Either way IC-071 also differs. IC-082: 14,570 x 1.27 = 18,503.90 vs 18,500 (3.90). IC-093: 5,900 x 1.27 = 7,493.00 vs 7,500 (−7.00).",
+  "fx_rates.csv gives transaction rates for 10 Jul and 12 Aug but none for 18 Sep (IC-093) or 29 Sep (IC-097), so the one line the key says has a 'rate difference' (IC-093) cannot be tested at its transaction rate; includes an irrelevant 'historical (equity)' rate and an average rate that no step of this skill uses.",
+  "Key finding 3 states only the two balances (33,220 GBP vs 38,000 USD) with no translated difference. Expected: 33,220 x 1.27 = 42,189.40; difference 4,189.40, of which IC-097 is 4,191.00 and rate differences net (1.60). Without it the key cannot catch a run that compares GBP to USD untranslated.",
+  "Neither ledger names its company, account or counterparty inside the file (only the file name and 'UK'/'US' in descriptions); the required 'intercompany account list' input is not in the sample, and intake_answers names only Northbrook Trading Ltd as 'Company' although the skill needs the group.",
+  "Trading's ledger describes IC-071 as 'Management fee from UK' with a payable; a subsidiary charging its parent a management fee is unusual and may be reversed in direction — not addressed by the key.",
+  "No October data, so the timing vs missed-posting question the skill makes central for IC-097 is unanswerable."
+ ],
+ "summary": "PASS 3/3: rota rejected; IC-097 on UK only, rate differences, 33,220 GBP vs 38,000 USD (4,189.40 after translation). Key omits IC-071 rate difference and the translated gap.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

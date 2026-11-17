@@ -1,0 +1,30 @@
+{
+ "skill": "vat-gst-international",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Zero-rated export of 14,570 is to a related company (Northbrook Trading Ltd) with no proof of export; 2,914 at risk if disallowed",
+  "Reverse-charge output leg is posted as a 'purchase' line with VAT -1,200; it belongs with output tax on the return (output 20,800, input 9,400)",
+  "The 180 difference runs the wrong way for a recovered blocked cost: recovery would give 11,220, not 11,580",
+  "Country of registration is never named in any file"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' marks 'VAT account detail' required for the reconciliation, but references/method.md 'Step 8 — Reconciliation' gives no rule for when only a closing control balance arrives; the collected-not-remitted test silently cannot run.",
+  "SKILL.md 'Stage 1 — Intake', row B asks which countries the entity is registered in, but nothing says what to do when the rules file answers 'one country' without naming it; references/method.md 'Step 9 — Output' file name needs [Country].",
+  "references/method.md 'Step 7 — Return preparation' does not say how to present the reverse charge when the books record the output leg as a negative purchase line; the expected key and a box-based return read the same 1,200 differently (input 8,200 vs 9,400)."
+ ],
+ "sample_defects": [
+  "vat_rules_SAMPLE.md control balance 11,580 = 11,400 + 180, but recovering the blocked 180 would lower the payable to 19,600 - 8,200 - 180 = 11,220; the planted difference has no consistent posting behind it.",
+  "expect.findings 'recoverable input VAT 8,200' excludes the reverse-charge input leg; on a return both legs show: output 19,600 + 1,200 = 20,800, input 8,200 + 1,200 = 9,400, net 11,400.",
+  "No VAT control account detail is supplied although the skill's checklist marks it required; only a balance inside the rules file.",
+  "vat_rules_SAMPLE.md says 'Registered in one country' without naming it."
+ ],
+ "summary": "PASS: rota rejected on content; output 19,600, input 8,200, RC 1,200 nets nil, blocked 180 excluded, 11,400 vs 11,580 control (difference 180)."
+}

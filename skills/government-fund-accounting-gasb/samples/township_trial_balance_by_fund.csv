@@ -1,0 +1,11 @@
+fund,fund_type,account,amount
+General,governmental,Cash,820000
+General,governmental,Property tax receivable,140000
+General,governmental,Accounts payable,-95000
+General,governmental,Fund balance,-865000
+Road,special revenue,Cash,310000
+Road,special revenue,Fund balance,-310000
+Water,enterprise,Cash,190000
+Water,enterprise,Capital assets net,2400000
+Water,enterprise,Revenue bonds,-1500000
+Water,enterprise,Net position,-1090000

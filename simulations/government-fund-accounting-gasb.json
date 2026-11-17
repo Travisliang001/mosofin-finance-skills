@@ -1,0 +1,24 @@
+{"skill": "government-fund-accounting-gasb", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "All three funds self-balance (General 960,000 = 95,000 + 865,000; Road 310,000; Water 2,590,000 = 1,500,000 + 1,090,000)",
+  "Property tax receivable 140,000 needs the availability test; if none is available, General unassigned falls from 615,000 to 475,000",
+  "Governmental activities net position (partial) 2,735,000: NIICA 2,200,000, restricted 310,000, unrestricted 225,000; pension deferrals, accrued interest and compensated absences missing",
+  "Water net position 1,090,000: NIICA 900,000, unrestricted 190,000; total primary government (partial) 3,825,000",
+  "Major funds: Road major on assets (24.4% of governmental, 8.0% of combined); Water major; revenue/expenditure elements untested",
+  "Whether part of the 640,000 net pension liability belongs to the Water fund is not stated"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 6b — Major fund determination' says 'a size threshold test ... both within the fund category and across the government' but never states the thresholds (10% / 5%), while SKILL.md 'Rules that never bend' says 'Never states a current standard from memory as settled.' A run must either supply the percentages from memory or skip the arithmetic the step calls '[auto]'.",
+  "references/method.md 'Step 5 — Build government-wide statements' requires 'every item quantified and sourced ... with no unexplained residual' but gives no upload-path rule for when known reconciling items (pension deferred outflows/inflows, accrued interest) are simply not supplied: whether to present a partial net position or stop.",
+  "references/method.md 'Step 6 — Special items' (Pensions and OPEB) does not address splitting the net pension liability between governmental and business-type activities, which the government-wide statements need whenever an enterprise fund exists.",
+  "SKILL.md upload checklist has no row for post-year-end collections of receivables, although references/method.md 'Step 2' says the availability test 'can be measured' from receipts after year-end; on the upload path it can never run unless the user is asked for them."
+ ],
+ "sample_defects": [
+  "township_trial_balance_by_fund.csv holds balance sheet accounts only (10 rows, no revenue or expenditure lines), so no operating statement, Statement of Activities, net-change reconciliation, or revenue/expenditure major-fund test can be built. The key does not expect them, but the file is described as a 'trial balance'.",
+  "General fund carries property tax receivable 140,000 with no post-year-end collection data, so the availability test cannot run; if none were available, unassigned would be 865,000 - 200,000 - 50,000 - 140,000 = 475,000, not the key's implied remainder of 615,000.",
+  "township_notes.md gives the net pension liability 640,000 with no deferred outflows or inflows of resources and no governmental/Water split, so the government-wide bridge (1,175,000 + 3,100,000 - 900,000 - 640,000 = 2,735,000) is necessarily incomplete.",
+  "township_trial_balance_by_fund.csv names no government, period or currency; they can only be user-asserted."
+ ],
+ "summary": "PASS 3/3: General 200,000 committed / 50,000 assigned / 615,000 unassigned, Road restricted, bridge 1,175,000 to 2,735,000; Step 6b omits the major-fund thresholds."}

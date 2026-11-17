@@ -1,0 +1,120 @@
+{
+  "workflow": "sales-tax-compliance-monitor",
+  "version": "1.0",
+  "run_id": "sales-tax-compliance-monitor-2025-10-01T07:00:00.000Z",
+  "company": "Northbrook Trading Ltd",
+  "currency": "USD",
+  "period": "2024-10-01 to 2025-09-30",
+  "status": "ok",
+  "summary": "4 state(s) with sales; 1 crossed nexus without registration, 1 approaching.",
+  "read_only": true,
+  "validation": [],
+  "findings": [
+    {
+      "type": "nexus_crossed_not_registered",
+      "state": "NJ",
+      "sales": 109350,
+      "transactions": 30,
+      "threshold_amount": 100000,
+      "threshold_transactions": 200,
+      "pct_of_threshold": 109.35,
+      "test": "sales"
+    },
+    {
+      "type": "approaching_nexus",
+      "state": "PA",
+      "sales": 86400,
+      "transactions": 12,
+      "threshold_amount": 100000,
+      "threshold_transactions": 200,
+      "pct_of_threshold": 86.4,
+      "test": "sales"
+    },
+    {
+      "type": "nexus_registered",
+      "state": "NY",
+      "sales": 520000,
+      "transactions": 40,
+      "threshold_amount": 500000,
+      "threshold_transactions": 100,
+      "pct_of_threshold": 104,
+      "test": "sales"
+    },
+    {
+      "type": "sales_without_state",
+      "count": 1,
+      "amount": 950
+    }
+  ],
+  "proposed_actions": [
+    {
+      "requires_approval": true,
+      "type": "registration_review",
+      "state": "NJ",
+      "reason": "sales at 109.35% of the threshold",
+      "note": "Confirm the threshold and measurement period with the state before registering."
+    }
+  ],
+  "totals": {
+    "states": 4,
+    "sales": 737750,
+    "by_state": [
+      {
+        "state": "NY",
+        "sales": 520000,
+        "transactions": 40
+      },
+      {
+        "state": "NJ",
+        "sales": 109350,
+        "transactions": 30
+      },
+      {
+        "state": "PA",
+        "sales": 86400,
+        "transactions": 12
+      },
+      {
+        "state": "CA",
+        "sales": 22000,
+        "transactions": 1
+      }
+    ]
+  },
+  "not_done": [],
+  "sources": [
+    "Mosofin invoices"
+  ],
+  "mock_data": false,
+  "settings_used": {
+    "company": "Northbrook Trading Ltd",
+    "currency": "USD",
+    "datasource": "quickbooks",
+    "data_source_id": "",
+    "window_start": "2024-10-01",
+    "as_at": "2025-09-30",
+    "warn_pct": 80,
+    "registered_states": [
+      "NY"
+    ],
+    "thresholds": {
+      "default": {
+        "amount": 100000,
+        "transactions": 200
+      },
+      "CA": {
+        "amount": 500000,
+        "transactions": null
+      },
+      "TX": {
+        "amount": 500000,
+        "transactions": null
+      },
+      "NY": {
+        "amount": 500000,
+        "transactions": 100
+      }
+    },
+    "run_at": "2025-10-01T07:00:00.000Z"
+  }
+}

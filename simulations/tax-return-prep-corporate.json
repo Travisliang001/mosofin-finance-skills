@@ -1,0 +1,31 @@
+{
+ "skill": "tax-return-prep-corporate",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Taxable profit 560,339 (614,939 + 50,400 - 105,000) and tax 112,068 at 20%, shown only on the assumption that the 2025 card applies to 2024",
+  "The 'prior year' summary is titled 2024 and states taxable profit 305,000 / tax 61,000, which cannot be reconciled to the 2024 TB; asked which year it is",
+  "Rate card is stated for tax year 2025, not 2024; flagged as a year mismatch",
+  "No tax expense, payable or deferred tax in the 2024 TB although the summary states a 9,000 DTL; provision appears unbooked",
+  "25% SL ceiling: FA-004, FA-005 and FA-008 are more than four years in service; full-year convention on the rest gives 71,000 and tax 118,868",
+  "Related-party balances with Northbrook UK Ltd (investment 104,800, payable 38,000); standalone assumed and stated"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' question C treats rates as answered or unanswered; it has no rule for rates supplied with a different stated year than the tax year (here a 2025 card for a 2024 computation), although the never-bend rule requires 'its source and its year'. Say whether that is blocking or an assumption to show.",
+  "references/method.md 'Step 4 — Tax depreciation / capital allowances' says prior written-down values come from the prior return but gives no instruction when a straight-line-on-cost rule would exceed remaining tax value and no WDV per asset is supplied; the run had to choose between 105,000 and a capped figure."
+ ],
+ "sample_defects": [
+  "prior_year_tax_computation_summary.md is headed '2024 tax computation' with taxable profit 305,000, while the intake tax year is 2024 and trial_balance_2024-12-31.csv gives pre-tax profit 4,597,600 - 3,982,661 = 614,939; 614,939 + 50,400 - 105,000 = 560,339, not 305,000. Either retitle it 2023 (a true prior year) or make the figures agree.",
+  "tax_rates_and_rules_SAMPLE.md states 'Tax year: calendar 2025' and 'Brought forward at 1 Jan 2025', but this skill's intake is tax year 2024. Add a 2024 card or set the intake to 2025.",
+  "Expected 105,000 = 25% x 420,000 ignores that FA-004 (2020-09), FA-005 (2020-01) and FA-008 (2019-05) are over four years old in 2024 and would be fully allowed under 25% SL; the summary's WDV 101,600 at 31 Dec 2024 also cannot be reproduced from the register.",
+  "fixed_asset_register.csv straight-line book depreciation for 2024 is about 58,431 (e.g. 96,000/10 + 54,000/7 + 62,000/5 + 88,000/10 + 36,000/5 + 58,000/8 + 14,000/3 + 800), not the TB's 50,400."
+ ],
+ "summary": "Sep 2024 interim TB rejected; book depreciation 50,400 replaced by 105,000 (taxable 560,339, tax 112,068 on the 2025 card assumed); disallowables listed as candidates only; not tax advice."
+}

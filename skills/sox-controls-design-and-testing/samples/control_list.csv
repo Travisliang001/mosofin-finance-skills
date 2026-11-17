@@ -1,0 +1,7 @@
+control,process,description,leaves_trace_in_books,evidence_location
+C1,Purchase-to-pay,Purchase orders approved before goods are ordered,yes,PO approval fields
+C2,Purchase-to-pay,Invoice matched to PO and receipt before payment,yes,"bill, PO and receipt records"
+C3,Purchase-to-pay,Vendor bank detail changes verified by call-back,no,AP call-back log (paper)
+C4,Close,Journals reviewed by a second person,yes,user and posting fields
+C5,Close,Bank reconciliation reviewed and signed monthly,no,signed PDF in the close folder
+C6,Close,No posting to closed periods,yes,posting dates

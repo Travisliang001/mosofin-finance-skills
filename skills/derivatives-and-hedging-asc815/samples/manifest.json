@@ -1,0 +1,45 @@
+{
+ "skill": "derivatives-and-hedging-asc815",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "interest_rate_swap.md",
+   "is": "Interest rate swap confirmation and bank valuation"
+  },
+  {
+   "file": "term_loan_agreement_summary.md",
+   "is": "Summary of the term loan agreement, with covenant definitions"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "interest_rate_swap_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Interest rate swap confirmation and bank valuation'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects interest_rate_swap_final.csv: The name suggests it is 'Interest rate swap confirmation and bank valuation'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Hedge documentation is dated 14 February, after the 1 January trade date",
+   "The term loan is fixed rate, so a pay-fixed swap does not hedge it: asks",
+   "Ledger shows 2,900 against the bank's 3,400"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

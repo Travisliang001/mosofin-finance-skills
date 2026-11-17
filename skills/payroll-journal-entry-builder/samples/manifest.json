@@ -1,0 +1,44 @@
+{
+ "skill": "payroll-journal-entry-builder",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "payroll_register_2025-09.csv",
+   "is": "Payroll register for September 2025"
+  },
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  },
+  {
+   "file": "payroll_tax_rules_SAMPLE.md",
+   "is": "Payroll tax rates and deposit schedule supplied for the test (fictitious)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "payroll_register_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Payroll register for September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects payroll_register_2025-09_final.csv: The name suggests it is 'Payroll register for September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Builds a balanced payroll entry: gross, withholdings, employer social security at 7.65%, net pay",
+   "Total payroll expense 76,000"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,7 @@
+{"skill": "three-way-match", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 7, "findings_total": 7, "missed": [],
+ "unexpected": ["Noted that no-PO bills from Northgate (13,027) and Pinecrest (23,449) repeat the exact amounts of PO-backed bills from Brightline and Summit; reported as an observation, not a duplicate", "Noted PO-1044 missing from the PO sequence"],
+ "skill_defects": ["references/edge-cases.md, 'Goods received before the PO was issued': tests receipt date against PO date, but the sample PO file has only an approval date; the skill gives no rule for which date stands in when the PO issue date is absent (I used the approval date and said so)"],
+ "sample_defects": [],
+ "summary": "All 7 findings hit; staff rota rejected on content; header-level match, two-way by omission for services stated; no-PO bills listed 80,702."}

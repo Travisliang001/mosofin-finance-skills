@@ -11,10 +11,34 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Shared blocks in sync
+        run: |
+          chmod +x .github/sync-shared.sh
+          .github/sync-shared.sh --check
+
       - name: Skill conformance
         run: |
-          chmod +x scripts/validate-skill.sh
-          scripts/validate-skill.sh skills
+          chmod +x .github/validate-skill.sh
+          .github/validate-skill.sh skills
+
+      - name: Read-only audit, upload validation and sample coverage
+        run: python3 .github/audit-skills.py --check
+
+      - name: Sample data is generated, not hand-edited
+        run: python3 .github/samples/build.py --check
+
+      - name: n8n workflows are read-only and generated
+        run: |
+          node .github/workflows-src/build.js --check
+          node .github/validate-workflows.js workflows
+
+      - name: Dashboard conformance
+        run: |
+          chmod +x .github/validate-dashboard.sh
+          .github/validate-dashboard.sh dashboards
+
+      - name: Skill explanation pages are current and carry no method detail
+        run: python3 .github/build-pages.py --check
 
       - name: No .DS_Store committed
         run: |
@@ -24,9 +48,15 @@ jobs:
             exit 1
           fi
 
-      - name: Queue covers every skill
+      - name: Every shipped skill is in the queue
         run: |
-          q=$(grep -vc '^#' deploy-queue.tsv)
-          s=$(find skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
-          echo "queue rows: $q   skill folders: $s"
-          [ "$q" -eq "$s" ] || { echo "::error::queue and skills/ disagree"; exit 1; }
+          total=$(grep -vc '^#' deploy-queue.tsv)
+          shipped=$(find skills -mindepth 1 -maxdepth 1 -type d | wc -l | tr -d ' ')
+          echo "shipped $shipped of $total planned skills"
+          rc=0
+          for d in skills/*/; do
+            n=$(basename "$d")
+            grep -qP "^[^#]*\t${n}\t" deploy-queue.tsv || {
+              echo "::error::$n is not listed in deploy-queue.tsv"; rc=1; }
+          done
+          exit $rc

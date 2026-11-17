@@ -1,0 +1,34 @@
+{
+ "skill": "restatement-and-prior-period-adjustment",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "2024 TB revenue 4,597,600 disagrees with issued 4,731,300 by 133,700 (not the 86,000 error); TB pre-tax result 614,939 vs issued net income 331,596; left unexplained",
+  "JE-0904: 50,000 round-sum 'Revenue adjustment' Dr AR / Cr Revenue posted same day by a.reyes (the CEO in the related-party sample); support requested, no allegation",
+  "JE-0907: 9,999 marketing accrual with no memo",
+  "Rollover and iron curtain both shown: 2024 overstated 36,100 pre-tax; balance-sheet error reversed to nil by 30 Sep 2025; 2025 income understated 36,100 unless corrected",
+  "5% pre-tax benchmark cannot be applied (no pre-tax income in the extract); error stays below 5% only if pre-tax income exceeds 722,000; 10.9% of after-tax net income, 1.8% of revenue",
+  "Proposed restatement entry Dr 3100 36,100 / Dr 5000 49,900 / Cr 4000 86,000 (tax not computed) alongside the out-of-period path"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Rules that never bend' says 'Never supplies a threshold' and Stage 1 row F asks for benchmarks, but gives no rule when the benchmark is supplied and its base (pre-tax income) is not; the agent must improvise an indicator.",
+  "method.md 'Step 0 — Sweep for prior-period postings' is written for the annual issued period and an [auto] ledger read; it does not say whether postings into a closed month of the current year (JE-0905) belong in the sweep, nor how to sweep from a one-month JE upload.",
+  "method.md 'Step 2' asks for the income tax effect '[auto] for the gross effect' but neither Stage 1 nor the upload checklist asks for a tax rate, so on upload the tax effect is always blocked.",
+  "method.md 'Step 4 — Determine the correction method' does not address a counterbalancing error that has already reversed on the balance sheet by the current date, which changes what an out-of-period adjustment would even post; the agent must reason it out.",
+  "SKILL.md 'Upload path — hand over one checklist' asks for 'Issued financial statements' as PDF but the protocol's summary rule lets a one-paragraph extract stand in; the skill does not say that a summary without pre-tax income or balance sheet blocks Steps 3 and 6."
+ ],
+ "sample_defects": [
+  "trial_balance_2024-12-31.csv revenue 4,597,600 vs issued 4,731,300: 133,700 difference unexplained and not in the key; TB income before tax 614,939 vs issued net income 331,596 implies 283,343 tax (46%), with no tax accounts in the TB.",
+  "issued_statements_2024_extract.md states the auditors' materiality as 5% of pre-tax income but gives only after-tax net income 331,596, so the key's 'against the 5% benchmark' cannot be computed (5% of 331,596 = 16,580 is a floor, not the benchmark).",
+  "JE-0904 (50,000 round revenue adjustment posted by a.reyes) and JE-0907 (9,999 accrual, no memo) are conspicuous anomalies in the JE file that the key ignores.",
+  "No 2025 benchmarks or tax rate in the set, so the Little r test and the tax effect can never be exercised."
+ ],
+ "summary": "PASS 3/3; rota rejected on content. Gaps: TB revenue is 133,700 below issued; 5% pre-tax benchmark unusable without pre-tax income; key ignores JE-0904 and JE-0907."
+}

@@ -1,0 +1,14 @@
+{
+  "settings": {
+    "company": "Northbrook Group",
+    "as_at": "2025-09-30"
+  },
+  "files": [
+    {
+      "name": "ic-balances-sept.csv",
+      "role": "balances",
+      "company": "Northbrook Group",
+      "content": "entity,counterparty,balance\nNorthbrook Trading Ltd,Northbrook UK,104800\nNorthbrook UK,Northbrook Trading Ltd,-104800\nNorthbrook Trading Ltd,Northbrook Logistics,-22500\nNorthbrook Logistics,Northbrook Trading Ltd,22500\nNorthbrook UK,Northbrook Logistics,18000\nNorthbrook Logistics,Northbrook UK,-15600"
+    }
+  ]
+}

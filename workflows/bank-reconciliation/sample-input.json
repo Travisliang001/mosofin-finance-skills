@@ -1,0 +1,17 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30",
+    "statement_closing_balance": 151885,
+    "book_closing_balance": 147545
+  },
+  "files": [
+    {
+      "name": "operating-account-sept-2025.csv",
+      "role": "bank_statement",
+      "company": "Northbrook Trading Ltd",
+      "content": "date,description,amount\n2025-09-02,HARLOW RETAIL PAYMENT,18400.00\n2025-09-05,PAYROLL NET PAY,-42350.00\n2025-09-09,KESTREL SUPPLY CO,-6210.00\n2025-09-15,ACH BEXLEY FOODS,2350.00\n2025-09-30,MONTHLY SERVICE FEE,-45.00\n2025-09-30,WIRE FEE,-15.00"
+    }
+  ]
+}

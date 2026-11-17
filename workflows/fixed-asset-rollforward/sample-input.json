@@ -1,0 +1,15 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd",
+    "period_start": "2025-09-01",
+    "period_end": "2025-09-30"
+  },
+  "files": [
+    {
+      "name": "fa-register.csv",
+      "role": "register",
+      "company": "Northbrook Trading Ltd",
+      "content": "asset_id,description,cost,salvage,in_service_date,life_months,disposed_date\nFA-001,Warehouse racking,84000,0,2023-01-15,120,\nFA-002,Forklift,36000,6000,2024-03-01,60,\nFA-003,Delivery van,42000,4200,2025-09-10,72,\nFA-004,Old server,12000,0,2021-06-01,48,2025-09-20"
+    }
+  ]
+}

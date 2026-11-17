@@ -1,0 +1,32 @@
+{
+ "skill": "related-party-disclosures-asc850",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Halden rent is 81,000 over Oct 2024-Sep 2025 but only 60,750 billed in calendar 2025 to September; vendor_master paid_2025 is a 12-month figure",
+  "Halden on 0-day terms and paid 1 day after billing vs 15-30 days for every third-party vendor (arm's-length evidence, not concluded)",
+  "Intercompany Q3 total 38,000 (goods 26,000, management fee 12,000); fee direction unclear; no balance supplied",
+  "Ledger candidates left open: M. Okafor Consulting (individual-named sole proprietor, no tax form) and Kestrel Supplies / Kestrel Supplies Inc. (probable duplicate vendor)",
+  "Customer-side and GL named-account procedures not run; period-end balances missing"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' requires 'Period-end receivable and payable balances by party' but none of the method's upload-path procedures says what to do without them beyond the generic protocol; method.md 'Step 3' treats balances as an [auto] live read only.",
+  "method.md 'Step 2 — Completeness procedures' and 'Three additional [auto] detections' (both masters, accounts named for people) have no upload equivalent and the upload checklist does not ask for a customer master, employee list or chart of accounts, so on upload three of the four procedures silently cannot run.",
+  "SKILL.md 'Stage 1 — Intake' row B 'Never default the period' gives no rule when the uploads cover different windows (12 months to Sep 2025, Q3 2025) from the intake period; ASC 850 disclosures are for the reporting period, which is never established.",
+  "method.md 'Step 3' does not address transactions with a consolidated subsidiary (eliminated in consolidated statements, disclosable in standalone statements); output.md 'Section A' asks for standalone vs consolidated only implicitly via 'all files read'."
+ ],
+ "sample_defects": [
+  "Key says 'Halden Property Management (rent, 81,000 in 2025)', but bill_payment_history_12m.csv has 12 bills of 6,750 dated 2024-10-05 to 2025-09-05: 81,000 is Oct 2024-Sep 2025; calendar 2025 to September is 9 x 6,750 = 60,750. vendor_master paid_2025 = 81,000 carries the same error.",
+  "Manifest describes intercompany_ledger_northbrook_trading.csv as 'balance with Northbrook UK Ltd', but the file holds three Q3 transactions (-12,000, -18,500, -7,500 = -38,000) and no balance; the sign of 'Management fee from UK' is ambiguous.",
+  "Vendor_master paid_2025 disagrees with the bill history for vendors with 11 bills: Brightline 41,800 vs 38,313; M. Okafor 18,500 vs 16,962; Kestrel Supplies Inc. 6,480 vs 5,940; Greyfriars 27,400 vs 25,113.",
+  "No customer master, balances, GL or employee list in the set, so only one of the four completeness procedures can be exercised."
+ ],
+ "summary": "PASS 3/3; rota rejected on content. Key's 'Halden 81,000 in 2025' is really Oct 2024-Sep 2025 (60,750 in 2025); intercompany file has no balance despite its description."
+}

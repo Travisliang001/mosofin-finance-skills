@@ -1,0 +1,28 @@
+{
+ "skill": "inventory-to-gl-reconciliation",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Headline: no physical count on file, so GL = listing is agreement between records, not evidence of existence; nil by construction if the listing and GL are one system",
+  "Single inventory account 1200 with no category split and no reserve contra reported as a structural limitation",
+  "No-sale items totalled 86,216 (12.6% of 683,100), 66,320 unsold for over a year, routed to inventory-obsolescence-and-reserve",
+  "Negative-quantity check run: none",
+  "No entries proposed: shrinkage and cut-off entries need a count and a boundary population"
+ ],
+ "skill_defects": [
+  "SKILL.md has no upload checklist of its own: 'Gate 3 — Profile the entity, then interview the user' is a Mosofin-path table with struck-through [auto] rows, so the upload path relies on the generic rule 'This skill has no upload checklist of its own. Build one'. Card-format skills carry an explicit 'Upload path — hand over one checklist'; this single-file skill should too (count sheet, TB, item listing, boundary transactions, reserve detail).",
+  "SKILL.md 'Gate 3' marks 'Whether the subledger is a separate system' and 'When the last physical count was performed' as Required but gives no default for an unanswered question, although 'Step 0b' says the answer decides what the reconciliation proves; the run had to fall back on the generic conservative-reading rule and show both answers."
+ ],
+ "sample_defects": [
+  "No count sheet is supplied, although SKILL.md 'Gate 3' marks physical count results Required and 'Step 2' calls the count 'the leg that matters'; the sample can only exercise the GL-to-listing leg, which may be nil by construction.",
+  "inventory_movement_12m.csv (units sold only) feeds no step of this skill's method: it has no receipts, values or boundary dates for cut-off or a quantity roll-forward. Its only use is the no-sale finding, which the listing's last_sale_date already supports (2025-09-30 minus 2024-11-28 = 306 days for TR-07)."
+ ],
+ "summary": "Shift rota rejected on content; 2 of 2 hit: listing 683,100 = account 1200 (nil by construction if one system), LK-09/PN-55/TR-07 unsold 306+ days. No count on file. Nothing posted."
+}

@@ -1,0 +1,33 @@
+{
+ "skill": "lease-accounting-asc842-ifrs16",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "3% January escalation not in the ledger: 2025 rent booked at 9,000 vs contract 9,270; shortfall 270 x 9 = 2,430 (arrears or unbooked)",
+  "Warehouse measured: PV 495,030.73 at commencement; straight-line 9,556.44 a month; liability 347,450.60 (current 96,058.73) and ROU 338,195.28 at 30 Sep 2025",
+  "Balanced catch-up proposal 349,880.61 including a 6,677.33 prior-year (2024) correction and 5,008.00 2025 expense true-up",
+  "Classification left provisional (operating): fair value and economic life not supplied",
+  "Printer expense (180 a month) not visible in Rent; asked which line holds it",
+  "Disclosure maturity analysis 381,956.64 undiscounted; lease liability flagged for covenant definitions"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row D falls back to 'Run the search for unrecorded leases only' when agreements are missing, but on the upload path that search ('references/method.md Step 0b Test 2') needs a vendor payment history that the 'Upload path — hand over one checklist' table never asks for; only 'Lease balances and payments in the ledger' (Recommended) is listed.",
+  "references/method.md 'Step 0b — Search for unrecognised leases' and 'Step 5 — Initial measurement' give no procedure for a lease found unrecognised part-way through its term: no catch-up entry pattern, no split between prior-period correction and current-year expense, and no pointer to materiality or an error-correction skill.",
+  "references/method.md 'Step 3 — Determine the discount rate' asks for the rate, basis and date but not the compounding convention (annual rate / 12 vs effective monthly), which changes the liability; the agent had to assume 0.5% a month.",
+  "SKILL.md 'Stage 1 — Intake' has no row for fair value and economic life although 'references/method.md Step 4' needs both for ASC 842 classification; the Mosofin path says to state they are needed, the upload checklist omits them."
+ ],
+ "sample_defects": [
+  "lease_terms.md specifies a 3% escalation each January, but profit_and_loss_2025_ytd.csv books rent at 9,000 every month of 2025 (contract 9,270; 9 x 270 = 2,430 gap); expect.findings does not mention it.",
+  "No 2024 P&L is supplied, so the 2024 portion of the catch-up (straight-line 114,677.33 vs presumed 108,000 booked) cannot be evidenced.",
+  "manifest.json describes lease_terms.md as 'Key terms of two property leases' but the second lease is an office printer (equipment), not property.",
+  "No fair value or economic life for the warehouse, so ASC 842 classification cannot be completed; expect.findings does not test classification."
+ ],
+ "summary": "PASS 3/3: rota rejected on content; warehouse measured at 6.0% (liability 347,451), printer short-term, 9,000/month rent with no ROU flagged, renewal judgement asked; escalation gap found."
+}

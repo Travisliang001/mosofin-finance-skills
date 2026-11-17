@@ -1,0 +1,36 @@
+{
+ "skill": "1099-and-t4a-prep",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Possible duplicate vendor: Kestrel Supplies (412,300, W-9) and Kestrel Supplies Inc. (6,480, no form), different masked IDs",
+  "LLC payees (Orchard Packaging 188,400, Halden Property Management 81,000, Vale Marketing 9,200) listed for review because LLC tax classification is unknown",
+  "Halden may be rent (1099-MISC), Orchard may be goods; no rule supplied and no account coding in the files",
+  "Payment file treated as year to date (to 30 September), not a complete reporting year",
+  "Backup withholding flagged for the three payees without forms; rate not supplied",
+  "Summit Freight bank details changed 16 September 2025",
+  "Pinecrest may fall under a non-resident return instead"
+ ],
+ "skill_defects": [
+  "SKILL.md Stage 1 row B asks for 'which reporting year, with exact dates' (If unanswered: 'Ask again') but nothing says what to do when the run is made before year end: intake said 'as at 2025-09-30' with reporting year 2025. references/method.md Step 4 'Payment date in the reporting year' assumes a complete year. I had to invent the 'preparation list, year to date' label.",
+  "references/method.md Step 1 'Then filter' covers corporations but says nothing about LLCs, whose reportability depends on the tax classification on the W-9. SKILL.md 'Never decides that a payee is or is not reportable where the rule is unclear' pushed all three LLCs into 'for review', including Vale Marketing Studio, which the answer key treats as plainly reportable-without-form. The method should say how to treat an LLC when the rule card is silent.",
+  "references/method.md Step 1 'Include only payments in scope of the form' and Step 2 rely on ledger account coding; the SKILL.md upload checklist ('Payments by vendor for the year, with method') does not ask for the nature of each payment, so services versus goods versus rent cannot be established from the upload the skill requests.",
+  "SKILL.md Stage 1 row C: 'Blocking. List payments by vendor, with no reportable flag' covers the case where no rules are supplied, but not a partial rule set (1099-NEC rule supplied, 1099-MISC not). No instruction on whether to flag rent-like payees or leave them out.",
+  "references/method.md Steps 1-6 and references/output.md 'Output Quality Standards' are phrased around tool names and coverage-sheet verdicts; 'Amounts reconcile to GL totals' cannot be met on an upload run and the skill does not say to report that as not done.",
+  "references/method.md Step 6 says to reconcile backup withholding, while SKILL.md forbids supplying a rate; no upload-path instruction on what to output when the rule card is silent on withholding."
+ ],
+ "sample_defects": [
+  "payments_by_vendor_2025.csv has no dates and no company name, while intake gives the position 'as at 2025-09-30' and the rule card gives a reporting year to 31 December 2025; the sample cannot say whether 'paid_2025' is nine months or twelve. The key ignores this.",
+  "vendor_master.csv shows a masked tax ID for every vendor, including the four with tax_form_on_file = none (Brightline ...1111, Okafor ...1185, Kestrel Supplies Inc. ...1222, Vale ...1296). An ID on file with no form is inconsistent unless explained; it weakens the 'no form' finding.",
+  "The key's findings do not mention the planted-looking duplicate 'Kestrel Supplies' / 'Kestrel Supplies Inc.' (412,300 + 6,480 = 418,780) or the LLC ambiguity for Orchard Packaging (188,400) and Halden Property Management (81,000). The key never states the expected reportable list or total, so the central output of the skill is ungraded.",
+  "The rule card says 'Corporations are not reported, except legal services', but the only legal vendor (Greyfriars Legal LLP) is a partnership, so the exception is never actually exercised by the data."
+ ],
+ "summary": "PASS 3/3: three vendors without forms, corporations excluded with Greyfriars reportable, Pinecrest excluded; key gives no expected reportable list and ignores LLCs and the Kestrel duplicate.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

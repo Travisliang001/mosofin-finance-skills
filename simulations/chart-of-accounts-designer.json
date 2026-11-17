@@ -1,0 +1,34 @@
+{
+ "skill": "chart-of-accounts-designer",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Seven chart accounts carry no balance (6150, 6160, 6700, 6800, 6900, 6950, 1160); none retired without ledger counts",
+  "6150 Insurance nil while Prepaid Expenses holds 18,000: flagged for investigation rather than retirement",
+  "7000 Interest Expense sits in the operating range; proposed 8100 so it falls below covenant EBITDA",
+  "Missing always-required accounts: bad debt expense and FX gain/loss",
+  "No income-tax accounts for a company with share capital; tax accounts withheld for want of a jurisdiction",
+  "2150 Payroll Clearing holds a 1,200 credit although a clearing account should sit at nil"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 0b — Measure account usage' classifies only on transaction count and last activity date; the 'Upload path' checklist in SKILL.md accepts 'Trial balance, or activity by account', and a trial balance carries neither, so the upload path cannot produce the classification the step requires and no fallback is stated.",
+  "SKILL.md 'Upload path — hand over one checklist' requires 'active status' in the chart export, but the validation rules do not say whether a chart without it is a missing required input or accepted with a limit.",
+  "references/method.md 'Step 3 — Industry-specific accounts' table has no 'Distribution / wholesale' row, so a confirmed distribution industry has no defined account set.",
+  "references/method.md 'Step 6 — Output', Sheet 2 needs the target system's import template, but intake row C accepts 'the same accounting system' on the upload path where that system is never named."
+ ],
+ "sample_defects": [
+  "chart_of_accounts.csv has no active/inactive column although the skill's checklist requires one, and lists 1160 Employee Advances after 6950 (out of numeric order).",
+  "trial_balance_2025-09-30.csv gives balances only for a 9-month YTD window, so usage (transaction counts, last activity) cannot be measured; the seven nil-balance accounts can only be called inferred retire candidates.",
+  "chart_of_accounts_request.md says 'the same accounting system' without naming it, so the import-template step cannot run.",
+  "The TB shows Prepaid Expenses 18,000 with no balance in 6150 Insurance, a plausible stuck-prepaid signal the key does not mention.",
+  "Count check: 36 chart accounts, 29 in the TB (debits = credits), 7 chart-only accounts; every TB account exists in the chart."
+ ],
+ "summary": "PASS: rota rejected on content; one-time professional fees split to 6410 for covenant, all 36 accounts mapped, no account with a balance removed; usage inferred from balances only."
+}

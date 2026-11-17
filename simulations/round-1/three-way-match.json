@@ -1,0 +1,39 @@
+{
+ "skill": "three-way-match",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 5,
+ "findings_total": 5,
+ "missed": [],
+ "unexpected": [
+  "Exception 12 (approved beyond authority) on PO-1040 (87,016.80), PO-1041 (41,687.00), PO-1043 (13,027.02): all approved by J. Marsh whose limit is 10,000 — total 141,730.82",
+  "PO-1040 variance 1,566.20 breaches the total tolerance of 25 even though 1.80% is inside the 2% price tolerance; reported as Hold and as a just-inside-tolerance pattern",
+  "Seven bills (80,702) carry no PO and cannot be matched",
+  "Brightline bill dated 9 Sep, before receipt (10 Sep) and approval (12 Sep)",
+  "Identical amounts across different vendors (13,027; 23,449) and sequence gaps GRN-773 / PO-1044",
+  "Bills are header-only so match is header-level; tax, currency and entity tests not run"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 3 — Apply tolerances' lists price, quantity and total tolerances but never says how they combine. PO-1040 is inside the price tolerance (1.80% < 2%) and 1,566.20 over the total tolerance (25); the skill gives no rule for whether that is 'within tolerance → auto-match' or an exception.",
+  "references/method.md 'Step 4' table: exceptions 3 ('Quantity overbilling') and 4 ('Short-shipment billed in full') have the identical description 'Invoice qty > GRN qty' — indistinguishable; 90-of-100 could be raised as either or both.",
+  "references/method.md 'Step 1' says invoices entered as a single line 'limit the match to header level' but gives no procedure for a header-only bill against a one-line PO (infer unit price from total? raise exception 1 or only a total variance?).",
+  "SKILL.md Stage 1 and method.md say nothing about bills with no PO reference (7 of 12 here). Exception 5 is 'invoice line has no matching PO line'; whether a wholly non-PO bill is exception 5, out of scope, or a separate status is undefined.",
+  "references/edge-cases.md 'Goods received before the PO was issued' tests receipt date against PO date; the method's PO field list has both 'PO date' and 'approval timestamp' but no rule for receipt-before-approval when only the approval date exists.",
+  "references/method.md 'Step 4' exception 9 is 'paid already' (prior invoice); a duplicate between two open bills is only covered by pointing to another skill ('see duplicate-invoice-detection'), so severity/handling inside this skill is unclear.",
+  "SKILL.md 'Upload path' checklist marks tolerance policy and approval matrix 'Type it in the chat', and references/method.md 'Inputs' calls the matrix Optional while SKILL.md says Recommended — inconsistent, and no guidance on validating an uploaded policy document.",
+  "references/output.md Sections A–B (workspace name, capability map from get_datasource_tools, fixture flag) have no upload-path wording."
+ ],
+ "sample_defects": [
+  "Answer key omits the approval-limit breaches although approval_matrix_and_tolerances.md makes exception 12 runnable and Critical: J. Marsh (limit 10,000) approved PO-1040 4,000 x 21.7542 = 87,016.80, PO-1041 100 x 416.87 = 41,687.00, PO-1043 6 x 2,171.17 = 13,027.02. Either the key is incomplete or the PO data was not meant to breach.",
+  "Key says only 'billed price is 1.8% above PO' for PO-1040 (88,583 / 87,016.80 = 1.0180) without stating the expected verdict; total tolerance 25 is exceeded by 1,566.20, so 'within 2%' and 'exception' are both defensible.",
+  "open_bills has no line detail (qty, unit price, tax), so 'billed price' and '100 cartons billed' in the key are inferred from totals, not in the data; manifest calls purchase_orders.csv 'with lines' but there is one line per PO and no PO date/currency.",
+  "Seven of twelve bills have no PO (80,702 of 255,264); the key is silent on the expected treatment.",
+  "approval_matrix_and_tolerances.md ends with a short-pay write-off / unapplied-cash line that belongs to the cash-application sample, and no file names the company or currency.",
+  "Brightline bill 4715 is dated 2025-09-09, a day before GRN-774 (10 Sep) — key mentions only receipt-before-approval."
+ ],
+ "summary": "PASS 5/5; rota rejected on content. Main gap is in the key: it omits three POs approved above J. Marsh's 10,000 limit, and the skill has no rule for combining tolerances.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

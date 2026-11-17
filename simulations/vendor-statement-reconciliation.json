@@ -1,0 +1,36 @@
+{
+ "skill": "vendor-statement-reconciliation",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Two vendor records ('Kestrel Supplies' and 'Kestrel Supplies Inc.') — the duplicate sits under the second record",
+  "Double-payment risk: both copies of INV-4471 are open and due 5/6 October",
+  "Full reconciliation: statement 98,983 vs ledger 101,543 (both records), difference (2,560) = +3,920 − 6,480, unexplained 0",
+  "Payment history stops at June 2025, so a July-September payment of 4388 cannot be ruled out",
+  "No vendor has an August bill in the history; pattern break flagged",
+  "Kestrel is 40% of open AP (101,543 of 255,264)"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 0 — Decide which vendors to reconcile' is written only for [auto]; 'Gate 1' table says 'Step 0's prioritisation does not run' with no datasource, yet 'Outputs' still requires 'Sheet 5: Vendor Prioritisation' and 'Output Quality Standards' requires 'Vendors are prioritised by amount and by whether they have ever been reconciled'. On an upload with an open-bills listing it is unclear whether to rank or skip.",
+  "SKILL.md 'Gate 3' and 'Step 4 — Resolution playbook': no stated default when owner, target date, dispute log or reconciliation policy are unanswered. 'Every exception gets all three' cannot be met on an upload run without inventing an owner; the skill should say 'leave blank and flag'.",
+  "SKILL.md 'Inputs': 'AP ageing / vendor ledger — Export — Required' does not say whether an open-items-only listing satisfies it. 'Edge Cases' warns about open-item vs balance-forward for the statement but not for the ledger extract; with only open bills, 'paid but not applied' and 'misapplied payment' in Step 3 cannot be tested and the skill does not say so.",
+  "SKILL.md 'Step 1' normalisation ('INV-0042, 42 and 0042 are one document') and 'Step 3' duplicates give no rule for deciding which of two duplicate ledger entries is the original when they sit under different vendor records and dates differ by a day; the reversal entry therefore has no stated target.",
+  "SKILL.md 'Step 5' says 'Reverse duplicates' while the shared block says the skill 'does not tell you to delete or overwrite the original'. Drafting a reversing entry is consistent, but the wording 'Reverse duplicates' / next action 'reverse duplicate' reads as an instruction; should say 'draft a reversing entry'.",
+  "Coverage sheet 'Section A/B' requires workspace name, display_name and capability map; no manual-run variant is given."
+ ],
+ "sample_defects": [
+  "bill_payment_history_12m.csv stops at 2025-06-28 although named '12m' and the period is September 2025: no July-September payments or bills. A careful run cannot rule out that statement invoice 4388 (14 Aug) was entered and paid in Jul-Sep, so the key's 'not in open payables' is supportable but 'unrecorded liability' is not provable from the data.",
+  "The key's finding 2 does not mention that the second copy sits under a different vendor record ('Kestrel Supplies Inc.', bill_no 'INV4471', dated 2025-09-06 not 09-05). That is the substance of the test (duplicate-vendor check + number normalisation) and the key would pass a run that never noticed the second vendor record.",
+  "'Kestrel Supplies Inc.' has its own distinct paid history (3300-3303 at 540 each), which makes it look like a genuinely separate account rather than a stray duplicate record; the data is ambiguous on whether Inc. is the same supplier, and the key is silent.",
+  "No expected figure for the reconciliation itself (statement 98,983; ledger 95,063 on the main record or 101,543 on both; difference 3,920 or −2,560). The key cannot catch a run that gets the arithmetic wrong.",
+  "Statement and ledger files carry no currency; open_bills and history carry no entity name, so 'right company' is checkable only for the statement."
+ ],
+ "summary": "PASS 2/2: rota rejected, 4388 missing and INV-4471 duplicated across two vendor records found; key omits the second vendor record and any reconciliation totals.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

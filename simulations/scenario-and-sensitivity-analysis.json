@@ -1,0 +1,14 @@
+{"skill": "scenario-and-sensitivity-analysis", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [], "unexpected": [],
+ "skill_defects": [
+  "references/method.md, 'Step 2b — Ground the ranges in observed history': no rule for a driver whose history has effectively zero volatility outside the Mosofin fixture case ('Measuring volatility from fixture data' in Anti-patterns covers mock reads only); the run had to decide on its own to leave revenue growth unranged and give a per-1pp sensitivity",
+  "SKILL.md, 'Stage 1 — Intake', row B: 'With outputs only, say that the user must run the scenarios in their own model', but the method gives no guidance when the user instead prescribes a simple cash bridge over the outputs, as here; the run used the bridge and also told the user to re-run in the model",
+  "references/method.md, 'Step 2b' opening: 'Stop when the ranges are proposed ... The validation wait does not count as this one' — on an upload run the stop was noted and the run continued per the brief, so this stop is never exercised in a single-pass simulation"
+ ],
+ "sample_defects": [
+  "monthly_profit_and_loss_36m.csv: revenue YoY growth is 15.37%–15.41% in all 24 observable months (sd 0.01pp), so no growth range can be measured, although scenario_request.md asks to 'propose from history' for revenue growth",
+  "scenario_request.md bridge (profit + depreciation − 5,000) vs monthly_balance_sheet_36m.csv: for Jan–Sep 2025 the bridge gives +590,541 but cash rose 202,613 (dividends 67,500; working capital ~320,428), so the prescribed bridge materially overstates cash",
+  "Threshold 250,000 vs minimum bridged cash 1,157,192 in the worst named scenario: no scenario comes within 900,000 of the threshold, so the breakeven test is trivially unbreached (breach needs a 375,631/month revenue loss)"
+ ],
+ "summary": "Shift rota rejected on content; ranges proposed from 36 months with sources and a noted stop; three scenarios run on the cash bridge vs 250,000; bridge's missing working capital flagged."}

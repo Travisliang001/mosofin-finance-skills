@@ -1,0 +1,35 @@
+{
+ "skill": "budget-vs-actual-analysis",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Revenue 2.91% U in every month (YTD 121,158 U), flagged as permanent with cause to be confirmed; no invented cause",
+  "Gross-profit shortfall YTD 168,576 split into volume 53,485 and cost-rate 115,091; budget itself stepped COGS from 55.2% to 57.1% in July",
+  "Operating income YTD 179,506 (22.4%) U; Sep 30,057 (34.9%) U",
+  "Budget covers only Jan-Sep, so no full-year comparison; run-rate impact about 20,000 operating income a month given as arithmetic only",
+  "Budget version unnamed in the file; labelled 'budget_2025 (version unnamed)' and asked for confirmation",
+  "Note on grading: the gross-margin finding was stated as cost of sales 58.0% Jan-Jun vs 60.0% from July (and Sep GM 40.0%), i.e. GM 42% -> 40%, counted as hit"
+ ],
+ "skill_defects": [
+  "SKILL.md has no upload checklist of its own: unlike the card-format skills ('Upload path — hand over one checklist'), the single-file skill relies only on the shared 'What a manual run actually does, gate by gate' block, so the run must work out from the Gate 3 inputs table (written as '[auto]') that budget, actuals, prior year and driver data are all uploads.",
+  "SKILL.md 'Step 4 — Apply materiality filter': 'if not provided, ask — don't assume' and 'If the user declines to set thresholds ... explain everything above zero' leave the unanswered-but-not-declined case open on a run that must proceed.",
+  "SKILL.md 'Gate 3' says 'never default ... which budget version is being compared to', but the 'Edge Cases', 'Mid-year budget revision' rule covers only a system holding several budgets; there is no rule for a single uploaded budget with no version name.",
+  "SKILL.md 'Step 7 — Roll up and assess full-year impact' assumes a full-year budget exists; no edge case covers a budget supplied for part of the year only.",
+  "SKILL.md 'Step 3 — Classify favorable / unfavorable' says to take line type 'from the connected chart of accounts ... rather than inferring it from the account's name'; on the upload path there is no chart of accounts and no stated fallback."
+ ],
+ "sample_defects": [
+  "budget_2025.csv is derived from the actuals, not an independent plan: revenue = actual x 1.03 (371,000 x 1.03 = 382,130), COGS = actual x 0.98 (215,180 x 0.98 = 210,876), marketing = 4% of ACTUAL revenue (Sep 18,216 = 4% x 455,400, not 4% x 469,062 = 18,762), bank fees equal actual.",
+  "budget_2025.csv includes June professional fees of 16,500, so the expected finding 'one-time 14,000 in June 2025' is not a budget variance (variance 0); expect.findings tests the actuals' history rather than variance against budget.",
+  "expect.findings omits the main budget variances: revenue 121,158 (2.9%) U YTD and gross profit 168,576 U YTD, operating income 179,506 U.",
+  "Manifest calls the budget 'Approved 2025 budget' but the file carries no version or approval label; the budget covers Jan-Sep only, so no full-year comparison is possible.",
+  "Arithmetic of key checks out: Sep marketing 29,146 / 455,400 = 6.4% vs 4.0% norm (+60%); COGS 58.0% Jan-Jun and 60.0% Jul-Sep, so GM 42% -> 40%; June professional fees 16,500 - 2,500 = 14,000."
+ ],
+ "summary": "PASS: rota rejected on content, all 3 findings hit; main variances (revenue -2.9% every month, 115,091 cost-rate) explained with causes left to be confirmed."
+}

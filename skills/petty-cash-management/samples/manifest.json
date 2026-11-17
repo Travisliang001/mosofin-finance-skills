@@ -1,0 +1,42 @@
+{
+ "skill": "petty-cash-management",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Receipt threshold 25. No shortage tolerance.",
+ "inputs": [
+  {
+   "file": "petty_cash_count_and_vouchers.md",
+   "is": "Petty cash count and voucher list, head office float"
+  },
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  }
+ ],
+ "negative": [
+  {
+   "file": "petty_cash_count_and_vouchers_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Petty cash count and voucher list, head office float'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects petty_cash_count_and_vouchers_final.csv: The name suggests it is 'Petty cash count and voucher list, head office float'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Cash 182.40 + September vouchers 258.10 + IOU 30.00 = 470.50 against a 500.00 float: shortage 29.50",
+   "Voucher 105 (2 October) was handed in after the count and belongs to October",
+   "Voucher 102 (31.00) has no receipt and is over the 25 threshold",
+   "The IOU is an employee advance (1160), not an expense"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

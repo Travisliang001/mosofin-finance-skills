@@ -1,0 +1,32 @@
+{
+ "skill": "payroll-reconciliation",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "August tax deposit 13,874 is booked in the GL (DR 2160 / CR 1000, 15 Sep) but does not appear on the operating bank statement; flagged as a possible missed remittance",
+  "401(k) Payable 2,824 accrued with no remittance in September",
+  "Step 5 (taxable wage bases) reported NOT PERFORMED: register has no taxable-wage columns and no wage base rules were supplied",
+  "Register-to-GL tie noted as same-postings basis; employer SS 5,401 inferred as 76,000 - 70,599 because the register has no employer-cost column",
+  "Unrelated bank debit ACH UNKNOWN ORIG 88213, 1,240 on 24 Sep, passed to bank-reconciliation"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 3 — Reconcile withholding and employer liabilities': the roll-forward needs an opening balance, but 'Gate 3 — Profile the entity, then interview the user' strikes through 'GL payroll accounts activity' as 'Now [auto]', so on the upload path the opening balances of each liability are never asked for.",
+  "SKILL.md 'Gate 3': remittance due dates are 'Required for the overdue flag' and must never be defaulted, but there is no instruction on what to report when a GL remittance has no matching bank line — the most consequential case here (13,874).",
+  "SKILL.md 'Step 1 — Reconcile payroll register to GL': assumes the register carries employer costs; no rule for a register without employer columns where employer cost can only be inferred from the GL, which makes the tie circular.",
+  "SKILL.md 'Payroll data is personal' says refer to one-person items 'by reference number' but gives no reference format; the output had to invent one (PR-09-01)."
+ ],
+ "sample_defects": [
+  "Expect 'Payroll tax payable 5,400 is unpaid at month end' is the September movement 19,274 - 13,874 = 5,400, which equals the closing balance only if 2160 opened September at zero; if August's 13,874 was accrued in August, the closing balance is 19,274. No opening balance is supplied to settle it.",
+  "payroll_gl_detail_2025-09.csv records the August deposit 13,874 from 1000 Operating Bank on 15 Sep, but bank_statement_2025-09.csv shows no such debit (15 Sep lines are KESTREL wire 64,200 and fee 35); GL bank credits 66,576 vs payroll bank debits 52,702. Not mentioned in expect.",
+  "Net pay residual checks out: 53,902 - 2 x 26,351 = 1,200 credit in 2150.",
+  "The register has no employer-cost column; employer SS 7.65% x 70,599 = 5,400.82 vs GL-implied 76,000 - 70,599 = 5,401."
+ ],
+ "summary": "PASS: rota rejected on content; 1,200 net-pay residual in clearing and 5,400 on 2160 stated; also found the 13,874 August deposit missing from the bank statement."
+}

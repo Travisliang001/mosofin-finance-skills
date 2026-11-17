@@ -1,0 +1,28 @@
+{
+ "skill": "consolidation-and-eliminations",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Parent TB carries no investment-in-subsidiary account, so elimination E cannot be drafted and UK share capital (USD 131,000) stays in consolidated equity",
+  "UK opening RE and CTA not separable (combined 63,098.40) without prior consolidated balances",
+  "IC revenue elimination at 38,000 with a 450.40 average-rate translation gap to CTA; per-item rate rounding (0.39 / -3.90 / 7.00) shown",
+  "Unrealised profit in parent inventory left uncomputed; sensitivity up to GBP 7,999 at the UK's 39.1% margin, not proposed",
+  "Provisional consolidated BS 3,086,178.00 = 570,222.60 + 2,515,955.40; NI 649,540 (NCI 8,785)"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 5 — Elimination entries', E: gives no instruction for when the parent's TB has no investment-in-subsidiary account (common on uploads: investment held at cost elsewhere or never booked). The run had to decide to leave sub equity un-eliminated and flag it; the skill should say to stop E, name the gap and state the effect on parent-attributable equity.",
+  "references/method.md 'Step 5', A and B: no guidance on which rate to use when eliminating IC revenue translated at the average rate against a parent expense booked at transaction rates (the run sent the 450.40 gap to CTA). Minor."
+ ],
+ "sample_defects": [
+  "trial_balance_2025-09-30.csv (parent) has no Investment in Northbrook UK account although group_structure.md says the parent has owned 80% since 2019; the investment-against-equity elimination is therefore impossible. If intended, add it to expect.findings; if not, add an investment line (and acquisition-date RE to group_structure.md).",
+  "Prior consolidated balances are not supplied, so the UK's opening RE 52,420 GBP cannot be translated: CTA is not determinable (238,023.40 - 131,000 - 43,925 = 63,098.40 is RE + CTA combined). Expect.findings asks only for the rates, so this does not cost a hit, but CTA in OCI cannot be shown."
+ ],
+ "summary": "Harlow Fabrication TB rejected as another company; 3 of 3 hit: rates 1.27/1.255/1.31, IC eliminated with IC-097 4,191 shown unmatched, NCI 20%. No parent investment account. Nothing posted."
+}

@@ -1,0 +1,61 @@
+{
+ "skill": "balance-sheet-reconciliations",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "bank_statement_2025-09.csv",
+   "is": "Bank statement, operating account, September 2025 (opening 970,887, closing 995,939)"
+  },
+  {
+   "file": "cash_account_ledger_2025-09.csv",
+   "is": "Ledger for account 1000 Operating Bank Account, September 2025 (closing 1,006,479)"
+  },
+  {
+   "file": "ar_aging_detail_2025-09-30.csv",
+   "is": "Open receivables by invoice at 30 September 2025"
+  },
+  {
+   "file": "open_bills_2025-09-30.csv",
+   "is": "Open payables by bill at 30 September 2025"
+  },
+  {
+   "file": "inventory_listing_2025-09-30.csv",
+   "is": "Inventory by item at 30 September 2025, with last sale date"
+  },
+  {
+   "file": "fixed_asset_register.csv",
+   "is": "Fixed asset register"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong period (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong period (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Bank: check 2291 (3,150) outstanding, deposit 12,400 in transit, service fees 50 and unknown debit 1,240 not in the books",
+   "Receivables and inventory sub-ledgers agree to the trial balance",
+   "FA-008 was sold in July 2025 and is still on the register"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

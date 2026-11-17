@@ -1,0 +1,27 @@
+{
+ "skill": "contingencies-and-litigation-asc450",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Accrual proposed as gross 40,000 with an explicit caveat that the 2100 opening balance was not supplied, so the movement against any existing provision could not be confirmed",
+  "Supplier counterclaim assessment is undated; flagged as stale by default",
+  "Completeness sweep run on limited data: JE-0905 legal fee 3,800 with no firm or matter named, and CHECK 2287 8,400 with no payee, raised as questions",
+  "Possible insurance response above the 10,000 deductible (30,000 of the 40,000) described but not recognised",
+  "GL extract does not foot (259,778 / 276,104) because bank lines are cash side only; noted as a limit, not an error"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake', upload checklist row 'Ledger detail for legal expense, accruals and settlements' does not ask for the opening balance and make-up of the accrued liability account, which references/method.md 'Step 3 — Measure accrual and record' needs to propose only the movement. A one-month GL extract satisfies the checklist yet leaves Step 3 unable to rule out re-accrual."
+ ],
+ "sample_defects": [
+  "general_ledger_2025-09.csv contains no dedicated litigation/provision account and no opening balance for 2100, so 'propose only the movement' cannot be tested; harmless to the expected findings, but the sample does not exercise the re-accrual hazard the skill stresses.",
+  "legal_matters.md: the supplier counterclaim row has 'General counsel' with no date while the other two are dated 28 Sep 2025; if unintentional, add a date, otherwise add 'flags the undated assessment' to expect.findings."
+ ],
+ "summary": "Shift rota rejected on content; 3 of 3 hit: accrue 40,000 low end with range disclosed, employment claim disclosed only, insurance not netted. Accrual movement unconfirmable. Nothing posted."
+}

@@ -1,0 +1,34 @@
+{
+ "skill": "ap-accrual-cutoff",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "PO-1040 Kestrel billed 88,583 vs PO value 87,016.80: 1,566.20 (1.80%) over PO price",
+  "PO-1042 Summit Freight has no approver or approval date",
+  "PO-1043 Brightline approved 12 Sep, after its bill (9 Sep) and receipt (10 Sep)",
+  "Freight accrual 5,800 may double-count PO-1042 'Freight, September' billed 23,449 on 7 Sep; shown as 11,850 vs 6,050",
+  "Northgate bill 5141 of 13,027 is 7x the 1,850 monthly average and equals Brightline bill 4715 exactly",
+  "Likely duplicate bill Kestrel INV-4471 / Kestrel Supplies Inc. INV4471, 6,480",
+  "Numbering gaps GRN-773 and PO-1044",
+  "Step 3 subsequent-invoice review not run: no post-period bills uploaded"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 1 — Identify accrual candidates from open POs (GRNI)' and 'Step 2 — Identify recurring-vendor accruals' give no rule for a service PO billed in full in advance of the month (PO-1042 'Freight, September') against a separately evidenced late-month delivery; the 'No double-counting' standard in 'Output Quality Standards' only covers GRNI vs subsequent invoice, not PO-billed vs candidate list.",
+  "SKILL.md 'Step 1': only GRNI (received > invoiced) is defined; the reverse case (invoiced > received, here PO-1041 10 cartons, 4,168.70) has no stated treatment or output sheet, though 'Sheet 6: Exceptions / Open Items' is the natural home.",
+  "SKILL.md 'Gate 3' Inputs table marks 'Subsequent-event window' Required with only 'Common answer is \"up to the date the books close\"', and 'Chart of accounts' Required — usually [auto]; on a manual run neither has an upload default, so Step 5 JEs cannot carry real account names, which 'Output Quality Standards' requires."
+ ],
+ "sample_defects": [
+  "accrual_candidates_2025-09.csv lists Summit Freight 'Freight, last week of September' 5,800, while purchase_orders.csv PO-1042 is 'Freight, September' qty 1 at 23,449, billed in full on INV-4644 dated 7 Sep. The key asserts 5,800 is 'received and not billed'; the samples do not rule out that the September freight PO covered it.",
+  "open_bills_2025-09-30.csv: Northgate Utilities bill 5141 is 13,027, against the candidate file's 'prior three months average' of 1,850 for the same vendor, and is identical to Brightline bill 4715 (13,027) — looks like a generator artefact.",
+  "No post-period bills, chart of accounts or trial balance are supplied, so Steps 3 and 5 (real account names) and the reversal check cannot be exercised; expect.findings tests only Step 1-2.",
+  "expect.findings omits the duplicate Kestrel bill (INV-4471 / INV4471, 6,480), PO-1043 approved after bill and receipt, PO-1042 with no approver and PO-1040 billed 1.80% over PO price, all present in the data."
+ ],
+ "summary": "PASS 2/2: rota rejected on content; PO-1041 90 of 100 received and fully billed; freight 5,800 accrued with a double-count caveat against PO-1042."
+}

@@ -1,0 +1,37 @@
+{
+ "skill": "accruals-and-deferrals",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "JE-0904 Dr AR / Cr Sales 50,000 'Revenue adjustment' dated a Sunday, no customer or basis: unsupported revenue accrual",
+  "JE-0907 Marketing 9,999 to 2100 with no memo, just under 10,000: unsupported accrual",
+  "JE-0905 legal fee 3,800 back-dated to 2025-08-31 inside the September extract",
+  "JE-0906 accrues a full month of interest (1,900) although the loan was paid 22 Sep; if that payment covered interest to 22 Sep only ~489 is owed; shown both ways",
+  "Accrued wages 8,400 cannot be recomputed without the pay calendar; 52,310 x 2/10 = 10,462 on one reading; CHECK 2287 for exactly 8,400 on 3 Sep",
+  "2100 has no reversal or settlement debits in September; implied opening 4,701; roll-forward not possible",
+  "Tideswell Hotels 'Deposit' 12,400 on 30 Sep may be deferred revenue; TB has no deferred revenue account",
+  "Ledger releases only 1,500 from 1300 while the schedule implies 3,000, yet 1300 equals the post-September schedule balance; 6150 Insurance not in TB",
+  "No freight or utilities expense account in the TB for two of the three proposed accruals"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Gate 3 — Profile the entity, then interview the user': 'Reversal policy' and 'Categories of accruals / deferrals in scope' are marked Required with no default, while the same section says 'Propose sensible defaults where reasonable'. On an upload run with these unanswered the agent must invent the reversal pattern; Step 4 ('Reverses on the first day of the next period') is the only implied default.",
+  "SKILL.md description says 'Do NOT use for AP-specific GRNI accruals — use ap-accrual-cutoff', but 'Step 1 — Identify accrual categories' gives no rule for telling a goods-received freight or materials item (GRNI) from a service accrual, so the same received-not-billed list can be accrued by both skills.",
+  "SKILL.md 'Step 6 — Roll-forward by category' and 'Gate 3' Inputs table never ask for an opening balance or prior-period TB on a manual run; the roll-forward, the skill's main control against compounding accruals, has no stated upload requirement and so is silently skippable.",
+  "SKILL.md 'Step 1'-'Step 3' only cover identifying new accruals; there is no step to review accruals already booked in the period (JE support, memo, round amounts), though 'Step 6' assumes the booked accruals are right. Unsupported booked entries (here JE-0904, JE-0907) are found only by agent initiative."
+ ],
+ "sample_defects": [
+  "general_ledger_2025-09.csv posts JE-0902 to account 6150 Insurance, which is not in trial_balance_2025-09-30.csv (29 accounts, none 6150).",
+  "Prepaid ledger and schedule disagree: prepaid_schedule.csv implies September amortisation of 1,500 + 1,000 + 500 = 3,000, the ledger releases only 1,500 (JE-0902), yet TB 1300 = 18,000 = schedule remaining after the full 3,000. Opening would have to be 19,500, not the schedule's 21,000 at 31 Aug.",
+  "manifest.json describes accrual_candidates as 'Goods and services received ... not yet billed', which is GRNI territory the skill's description routes to ap-accrual-cutoff; the same file is reused in the ap-accrual-cutoff sample set.",
+  "trial_balance_september.csv (the 2024 decoy) carries identical YTD interest 17,100 although its principal is 60,000 higher (280,000 vs 220,000), and identical 1300 = 18,000; the decoy is detectable only by accumulated depreciation (50,400 = 12 x 4,200) and loan principal (60,000 = 12 x 5,000).",
+  "The ledger contains material anomalies (JE-0904 50,000 unsupported revenue, JE-0907 9,999 no memo, JE-0905 back-dated, JE-0906 interest after a 22 Sep payment) that expect.findings does not list, so a run that ignored them would still PASS."
+ ],
+ "summary": "PASS 2/2: 2024 TB rejected on accumulated depreciation and loan principal; three accruals 11,850 proposed; JE-0902 noted; extra flags on JE-0904/0907/0906."
+}

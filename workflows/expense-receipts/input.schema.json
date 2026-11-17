@@ -1,0 +1,80 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "expense-receipts input envelope",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "description": "Per-run overrides of any setting.",
+      "properties": {
+        "company": {
+          "default": ""
+        },
+        "currency": {
+          "default": "USD"
+        },
+        "datasource": {
+          "default": "quickbooks"
+        },
+        "data_source_id": {
+          "default": ""
+        },
+        "category_limits": {
+          "default": {
+            "meals": 75,
+            "hotel": 250,
+            "taxi": 60,
+            "mileage": 200,
+            "other": 500
+          }
+        },
+        "receipt_required_over": {
+          "default": 25
+        },
+        "flag_weekends": {
+          "default": true
+        },
+        "duplicate_window_days": {
+          "default": 0
+        }
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "expenses"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "CSV text, first row = headers"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "company": {
+            "type": "string",
+            "description": "company the file belongs to, if known"
+          }
+        }
+      }
+    }
+  }
+}

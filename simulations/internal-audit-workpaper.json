@@ -1,0 +1,30 @@
+{
+ "skill": "internal-audit-workpaper",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "F1: 7 of 12 open bills (80,702, 31.6% of 255,264) have no PO, all over 1,000, against clause 1",
+  "Possible duplicate: Kestrel Supplies INV-4471 and Kestrel Supplies Inc. INV4471, 6,480 each; the second vendor record has no tax form and was already paid 6,480 in 2025",
+  "PO-1040 billed 88,583 vs PO 87,016.80 (1,566.20 over, +1.8%), raised as an observation because the policy sets no price tolerance",
+  "Summit Freight bill (due 22 Sep) overdue and open after the 16 Sep bank change: payment-diversion risk, recommend holding payment",
+  "PO-1040 87,016.80 and PO-1041 41,687 approved by A. Reyes are also above 10,000; clause 2 left pending for all three POs until approver roles are known",
+  "Sequence gaps PO-1044 and GRN-773 noted"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 3 — Build the audit program' says the procedure types are verdict-mapped in 'the mapping at the top of this file', but the mapping table is in references/overview.md ('What the workspace changes: two and a half procedure types'), not method.md. Broken pointer.",
+  "SKILL.md 'Stage 1 — Intake' upload checklist asks for transaction data, criteria, process notes and prior reports, but not for the approver roles / delegation-of-authority list or master-data change logs (vendor creation, bank-detail verification). A purchasing policy with approval limits or call-back rules, the most common P2P criteria, cannot be tested without them."
+ ],
+ "sample_defects": [
+  "Expected finding says J. Marsh approved PO-1043 'above his 10,000 limit (13,027)', but no file gives any approver's role. purchasing_policy.md clause 2 sets managers <= 10,000 and the CEO above; if J. Marsh were the CEO, 13,027.02 (6 x 2,171.17) is compliant. The run stated the facts (J. Marsh, 13,027.02 > 10,000) and held the limit conclusion pending the role; counted as hit on the stated facts.",
+  "A. Reyes approved PO-1040 (4,000 x 21.7542 = 87,016.80) and PO-1041 (100 x 416.87 = 41,687.00), both above 10,000, and is equally unidentified, so the expected finding singling out J. Marsh is not derivable from the files.",
+  "purchase_orders.csv has no order-placed date, so clause 1 ('approved before the order is placed') can only be tested against receipt and bill dates."
+ ],
+ "summary": "Shift rota rejected on content; 4 of 4 hit against the policy: PO-1042 unapproved, PO-1043 approved after receipt, PO-1041 90 of 100 received, Summit bank change unverified. Nothing posted."
+}

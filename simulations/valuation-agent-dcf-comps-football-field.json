@@ -1,0 +1,34 @@
+{
+ "skill": "valuation-agent-dcf-comps-football-field",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Forecast is Jan-Sep 2025 actuals x 1.10 on every line, carrying the June professional-fee spike, the September marketing spike and the 60% COGS step forward",
+  "Supplied cost of debt 5.7% vs 6.3% annualised from the TB (10,474 / 9 x 12 / 220,000) and 8.0% implied by the forecast's own October interest (1,463 x 12 / 220,000)",
+  "One-year forecast puts terminal value at 92.6% of EV; Case A implied exit multiple 10.2x sits above every comparable",
+  "No lease liability on the TB despite rent of 9,000 a month",
+  "Debt-like/cash-like candidates outside the user's net debt definition: Stripe clearing 6,420, investment in Northbrook UK Ltd 104,800, intercompany payable 38,000",
+  "TB carries no income-tax expense or payable while the market data applies 20%"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist', row 'Forecast model': does not say the forecast must include capex, working capital and tax or run several years, which references/method.md 'Step 2 — Build the DCF' needs for unlevered FCF; a 12-month P&L-only forecast passes the checklist.",
+  "SKILL.md 'Stage 1 — Intake' has no question on the comps multiple basis (LTM or NTM) or the fiscal year end, and references/method.md 'Step 5 — Build comparable screens' never says which period's EBITDA the multiples apply to; an upload run must assume it.",
+  "SKILL.md 'Stage 1 — Intake' has no question on control versus minority basis, though references/edge-cases.md 'Minority versus control basis' and method.md 'Anti-patterns' require the basis to be stated.",
+  "references/method.md 'Step 7 — Deliver the valuation package', file naming: 'Entity display_name on every sheet' has no upload-path rule; only the protocol's coverage-sheet line ('Name the output file with the company name the user gave') covers it."
+ ],
+ "sample_defects": [
+  "forecast_2025-10_to_2026-09.csv is exactly 1.10 x the TB's Jan-Sep 2025 lines (revenue 4,442,460 / 4,038,600 = 1.100; professional fees 40,150 / 36,500 = 1.100), so it repeats the June one-off (18,150 = 16,500 x 1.1) and grows depreciation 10% with no capex.",
+  "The forecast has no capex, working capital or tax and covers one year, so the DCF the key expects is terminal-value driven: TV = 92.6% of EV at WACC 10.71%, g 2.5%.",
+  "market_data_supplied.md gives a source and date only for the risk-free rate and the trading comps; ERP, beta, size premium, cost of debt, tax rate ('20% (sample)'), debt weight, precedents and terminal growth have none.",
+  "Supplied pre-tax cost of debt 5.7% conflicts with the files: TB interest 10,474 / 9 x 12 / 220,000 = 6.3%; forecast October interest 1,463 x 12 / 220,000 = 8.0%.",
+  "trial_balance_2025-09-30.csv has an investment in Northbrook UK Ltd (104,800) and an intercompany payable (38,000) that the net debt definition does not address, and no tax line (NI 594,241 pre-tax); expect.findings checks no figure (net cash on the definition = 1,003,479 - 220,000 - 7,300 = 776,179)."
+ ],
+ "summary": "PASS: rota rejected on content; WACC 10.71% built input by input, TV 92.6% of EV, net cash 776,179 on term loan + card less cash; forecast is YTD x 1.10."
+}

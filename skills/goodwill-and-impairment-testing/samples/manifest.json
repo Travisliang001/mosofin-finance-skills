@@ -1,0 +1,41 @@
+{
+ "skill": "goodwill-and-impairment-testing",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "impairment_inputs.md",
+   "is": "Carrying amounts, goodwill allocation, projections and discount rate"
+  },
+  {
+   "file": "acquisition_terms_and_valuation.md",
+   "is": "Acquisition terms and the valuer's fair values"
+  }
+ ],
+ "negative": [
+  {
+   "file": "impairment_inputs_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Carrying amounts, goodwill allocation, projections and discount rate'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects impairment_inputs_final.csv: The name suggests it is 'Carrying amounts, goodwill allocation, projections and discount rate'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Loss of a major customer is a triggering event",
+   "Value from the projections at 10.5% is above the 1,620,000 carrying amount: no impairment indicated, with sensitivity shown",
+   "Concludes nothing"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

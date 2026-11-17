@@ -1,0 +1,44 @@
+{
+ "skill": "vendor-statement-reconciliation",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "kestrel_supplies_statement_2025-09.txt",
+   "is": "Statement from the vendor Kestrel Supplies at 30 September 2025"
+  },
+  {
+   "file": "open_bills_2025-09-30.csv",
+   "is": "Open payables by bill at 30 September 2025"
+  },
+  {
+   "file": "bill_payment_history_12m.csv",
+   "is": "Bills paid, with due and paid dates, last twelve months"
+  }
+ ],
+ "negative": [
+  {
+   "file": "kestrel_supplies_statement_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Statement from the vendor Kestrel Supplies at 30 September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects kestrel_supplies_statement_2025-09_final.csv: The name suggests it is 'Statement from the vendor Kestrel Supplies at 30 September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Statement 98,983 against 95,063 open on the Kestrel Supplies record: difference 3,920 is invoice 4388 (14 August), not in the books and not in the payment history",
+   "INV-4471 (6,480) is also open under a second vendor record, Kestrel Supplies Inc., as INV4471: a likely duplicate to review"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

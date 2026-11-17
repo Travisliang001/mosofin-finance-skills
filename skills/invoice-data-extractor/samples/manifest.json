@@ -1,0 +1,40 @@
+{
+ "skill": "invoice-data-extractor",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "invoice_kestrel_INV-4471.txt",
+   "is": "A supplier invoice as received (text of the PDF)"
+  },
+  {
+   "file": "vendor_master.csv",
+   "is": "Vendor master with terms, tax form status and bank change date"
+  }
+ ],
+ "negative": [
+  {
+   "file": "invoice_kestrel_INV-4471_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'A supplier invoice as received (text of the PDF)'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects invoice_kestrel_INV-4471_final.csv: The name suggests it is 'A supplier invoice as received (text of the PDF)'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Extracts vendor Kestrel Supplies, INV-4471, 5 September 2025, net 6,000, tax 480, total 6,480, terms net 30",
+   "Arithmetic checks: 300 x 20.00 = 6,000"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

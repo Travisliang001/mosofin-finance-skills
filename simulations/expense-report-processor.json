@@ -1,0 +1,37 @@
+{
+ "skill": "expense-report-processor",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "Hotel 438.00 may exceed the 250/night cap by 188.00 if a single night (nights not stated)",
+  "Meal line lacks attendees/business purpose; Uber has blank purpose and is a Sunday ride (possible personal)",
+  "Implied mileage rate 142.00/220 = 0.6455 per mile; '220 miles' sits in the purpose field",
+  "Chart of accounts has no travel/meals/lodging accounts and no employee reimbursement payable: coding left as PLACEHOLDER — REMAP REQUIRED",
+  "Payment method (card vs out-of-pocket) absent, so corporate-card duplicate check not run",
+  "Reimbursement: max supportable 1,381.15; supportable today 862.40; disallowed 774.50"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Step 3 — Code to GL accounts' assumes the COA is connected ('[auto] here — the COA is connected'); the placeholder fallback appears only under Edge Cases 'The COA read is disabled'. No instruction for an uploaded COA that simply lacks T&E accounts (as here).",
+  "SKILL.md 'Step 1 — Parse the report' requires payment method and employee name but the validation step gives no rule for whether their absence is 'accepted with a limit' or a missing required input; Step 4's 'Less: Corporate-card-paid items' then cannot be computed and the skill does not say what to assume.",
+  "SKILL.md 'Step 2 — Lodging' says 'Per-night caps from policy' but gives no rule when the number of nights is not on the report.",
+  "SKILL.md 'Step 4 — Calculate reimbursement' has no line for items held pending evidence (missing receipt, unconfirmed mileage rate) — only 'disallowed' and 'personal' — so 'net reimbursable' is ambiguous while queries are open.",
+  "SKILL.md 'Step 4' 'Plus: Mileage at provided rate' double-counts if the mileage line already carries an amount (142.00 here); the skill does not say whether to replace or validate the claimed amount.",
+  "SKILL.md 'Gate 3' table lists 'Expense report — Required' but the manual-mode checklist never names the employee identity or the card statement as uploads, so the ledger duplicate test (called 'the highest-value finding this skill produces') has no upload-path source.",
+  "SKILL.md 'Step 6' severity emoji (🔴🟡🟢) conflicts with the repo's general no-emoji output conventions — minor."
+ ],
+ "sample_defects": [
+  "expense_report_E04_2025-09.csv has no employee, currency, payment-method, nights or attendee columns; E04 is known only from the file name, which the validation rule says not to rely on.",
+  "chart_of_accounts.csv (same file as journal-entry-review) has no travel, meals, lodging or reimbursement-payable account, so Step 3 cannot code to real accounts; the key does not say this should be flagged.",
+  "Key omits the hotel per-night question: 438.00 vs 250/night cap is a breach of 188.00 unless two nights; the data cannot settle it.",
+  "Mileage line puts '220 miles' in business_purpose and leaves purpose blank; the key only mentions the missing rate.",
+  "Arithmetic: total 612.40+438+438+486.50+38.75+142 = 2,155.65; meal 486.50/2 = 243.25 vs 75 cap, excess 336.50."
+ ],
+ "summary": "PASS 4/4; rota rejected on content. Main gap: skill assumes a connected COA, and the uploaded chart has no T&E accounts, so coding falls to placeholders.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

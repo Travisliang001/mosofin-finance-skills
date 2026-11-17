@@ -1,0 +1,48 @@
+{
+ "skill": "ap-accrual-cutoff",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "open_bills_2025-09-30.csv",
+   "is": "Open payables by bill at 30 September 2025"
+  },
+  {
+   "file": "purchase_orders.csv",
+   "is": "Purchase orders with lines and approval"
+  },
+  {
+   "file": "goods_receipts.csv",
+   "is": "Goods receipt notes"
+  },
+  {
+   "file": "accrual_candidates_2025-09.csv",
+   "is": "Goods and services received by 30 September 2025 and not yet billed"
+  }
+ ],
+ "negative": [
+  {
+   "file": "open_bills_2025-09-30_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Open payables by bill at 30 September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects open_bills_2025-09-30_final.csv: The name suggests it is 'Open payables by bill at 30 September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "PO-1041: 100 cartons ordered and billed, 90 received (GRN-772)",
+   "Freight for the last week of September (5,800) is received and not billed"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

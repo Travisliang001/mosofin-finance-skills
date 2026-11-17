@@ -1,0 +1,49 @@
+{
+ "skill": "cash-application",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "lockbox_2025-09-22_to_26.csv",
+   "is": "Bank lockbox file: receipts 22 to 26 September 2025"
+  },
+  {
+   "file": "remittance_advice.txt",
+   "is": "Remittance advice received with the lockbox payments"
+  },
+  {
+   "file": "ar_aging_detail_2025-09-30.csv",
+   "is": "Open receivables by invoice at 30 September 2025"
+  },
+  {
+   "file": "cash_application_policy.md",
+   "is": "Cash application policy"
+  }
+ ],
+ "negative": [
+  {
+   "file": "lockbox_2025-09-22_to_26_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Bank lockbox file: receipts 22 to 26 September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects lockbox_2025-09-22_to_26_final.csv: The name suggests it is 'Bank lockbox file: receipts 22 to 26 September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Ridgeway pays INV-20611 short by 500 (deduction DM-118), above the 50 write-off limit",
+   "Ashby reference 'INV20685' needs matching to INV-20685 style numbering",
+   "Receipt of 4,003 from an unknown payer matches Foxhall's balance by amount only: propose, do not apply"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

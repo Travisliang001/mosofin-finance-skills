@@ -1,0 +1,7 @@
+{"skill": "debt-and-covenant-tracking", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": ["No lease liability on the TB despite 9,000/month rent while Total Debt includes leases: flagged as a possible understatement", "Intercompany payable 38,000 queried as debt-like (leverage 0.33x if counted)", "Dividends 67,500 YTD with no basket in the summary", "September 2025 software 0 / marketing 29,146 possible misposting", "Current portion 60,000 not split on the TB"],
+ "skill_defects": ["references/method.md, 'Step 2 — Build amortization schedules': requires the historic side from ledger movements but gives no rule when the ledger covers only part of the TTM test period (here Jan-Sep of Oct-Sep); I used P&L interest for Oct-Dec 2024 and said so", "references/method.md, 'Step 0b — Debt-like item sweep': sweeps for recorded lease liabilities only; it does not prompt a check for rent expensed with no lease liability recorded, which is the case where a 'Total Debt includes leases' definition is most likely to be understated"],
+ "sample_defects": [],
+ "summary": "All 3 findings hit: leverage 0.28x vs 2.50x, interest cover 55.99x vs 4.0x on Covenant EBITDA 805,750 and Total Debt 227,300; staff rota rejected on content."}

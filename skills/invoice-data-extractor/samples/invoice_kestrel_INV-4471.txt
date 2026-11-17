@@ -1,0 +1,11 @@
+KESTREL SUPPLIES
+INVOICE INV-4471        Date: 5 September 2025     Terms: Net 30
+Bill to: Northbrook Trading Ltd
+
+Qty  Item                 Unit     Amount
+300  Steel bracket SB-20  20.00   6,000.00
+
+Subtotal 6,000.00
+Sales tax 8% 480.00
+TOTAL DUE 6,480.00 USD
+Remit to: account ending 4471

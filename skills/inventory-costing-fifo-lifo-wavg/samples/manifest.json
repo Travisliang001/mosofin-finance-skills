@@ -1,0 +1,44 @@
+{
+ "skill": "inventory-costing-fifo-lifo-wavg",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. US GAAP. Perpetual. No standard costing.",
+ "inputs": [
+  {
+   "file": "inventory_purchases_2025-09.csv",
+   "is": "Inventory purchases by item, September 2025"
+  },
+  {
+   "file": "inventory_listing_2025-09-30.csv",
+   "is": "Inventory by item at 30 September 2025, with last sale date"
+  },
+  {
+   "file": "accounting_policies.md",
+   "is": "Accounting policies in use"
+  }
+ ],
+ "negative": [
+  {
+   "file": "inventory_purchases_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Inventory purchases by item, September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects inventory_purchases_2025-09_final.csv: The name suggests it is 'Inventory purchases by item, September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Applies weighted average as the policy states",
+   "Says opening layers were not supplied"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

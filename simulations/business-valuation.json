@@ -1,0 +1,35 @@
+{
+ "skill": "business-valuation",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Forecast is FY25 x 1.10 line by line, replicating the June professional-fee spike, the September marketing spike and the 60% COGS step",
+  "Supplied cost of debt 5.7% vs actual 9.2% (interest 22,800 / average debt 247,500)",
+  "DCF case A implied exit multiple 10.1x sits above every comparable; FY25 historical FCFF 397,593 vs forecast FCFF 725,867",
+  "Zero capex for 36 months; working capital absorbs about 38% of revenue growth",
+  "Net debt definition names a card balance the balance sheet does not show; debt is one line",
+  "Six of eight rate inputs and all three precedents carry no source or date; listed as open"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake', row D: one question covers both forecast and normalised earnings, with the single default 'Use reported earnings, run no cash flow approach'; it does not say what to do when a forecast is uploaded but normalised earnings are not.",
+  "SKILL.md 'Stage 1 — Intake' has no question on the level of value (interest valued, control vs minority), yet references/method.md 'Step 1' and 'Step 8 — Adjustments' depend on it; every upload run must assume it.",
+  "SKILL.md 'Upload path — hand over one checklist', row 'Forecast': does not say the forecast must run 5-10 years and include capex, working capital and tax, which references/method.md 'Step 3' needs for FCFF; a P&L-only forecast passes the checklist and cannot support a DCF.",
+  "references/method.md 'Step 11 — Output', file naming: '[Target]' is defined only as the connected display_name; no upload-path rule (the protocol's 'Name the output file with the company name the user gave' covers it only indirectly)."
+ ],
+ "sample_defects": [
+  "forecast_2025-10_to_2026-09.csv is exactly 1.10 x each FY25 month on every line, so it carries the one-offs forward (professional fees 16,500 x 1.1 = 18,150 in June; marketing 29,146 x 1.1 = 32,061 in September) and grows depreciation and interest despite zero capex and an amortising loan; 12 months with no capex, working capital or tax cannot support the DCF the key expects.",
+  "market_data_supplied.md gives a source and date only for the risk-free rate and the comps; ERP, beta, size premium, cost of debt, tax rate ('20% (sample)'), debt weight, terminal growth and the precedents have none, yet expect.findings says 'Uses only the market data supplied, with sources'.",
+  "Net debt definition is 'term loan plus card balance less cash' but monthly_balance_sheet_36m.csv has only one 'debt' line (220,000 at Sep 2025); the card balance cannot be found.",
+  "monthly_profit_and_loss_36m.csv has no tax line: net_income = revenue minus all lines (e.g. Oct 2022: 282,000 - 259,068 = 22,932), so the company appears untaxed while the market data applies 20%.",
+  "Supplied pre-tax cost of debt 5.7% conflicts with the books: 12 x 1,900 = 22,800 interest / average FY25 debt 247,500 = 9.2%.",
+  "expect.findings are generic (three approaches, sources, analysis not opinion) and check no figure; arithmetic of WACC from the file: 0.8 x (4.2 + 1.1 x 5.5 + 2.0) + 0.2 x 5.7 x 0.8 = 10.71%."
+ ],
+ "summary": "PASS: rota rejected on content, three approaches to a 6.0m-7.7m EV range with sourced/unsourced inputs flagged; forecast is LTM x 1.1 with one-offs carried forward."
+}

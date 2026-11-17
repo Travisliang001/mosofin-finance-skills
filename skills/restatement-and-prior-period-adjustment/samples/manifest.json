@@ -1,0 +1,45 @@
+{
+ "skill": "restatement-and-prior-period-adjustment",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "issued_statements_2024_extract.md",
+   "is": "Extract of the issued 2024 financial statements"
+  },
+  {
+   "file": "journal_entries_2025-09.csv",
+   "is": "Journal entries dated September 2025, with user and posting date; most were posted 1 to 3 October, after the 30 September trial balance was drawn"
+  },
+  {
+   "file": "trial_balance_2024-12-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 December 2024"
+  }
+ ],
+ "negative": [
+  {
+   "file": "issued_statements_2024_extract_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Extract of the issued 2024 financial statements'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects issued_statements_2024_extract_final.csv: The name suggests it is 'Extract of the issued 2024 financial statements'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Revenue 86,000 and cost 49,900 belong in 2025: 2024 income overstated by 36,100",
+   "Sets out materiality factors against the 5% benchmark without concluding",
+   "JE-0905: dated 31 August, posted 22 September, after the August close"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

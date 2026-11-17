@@ -1,0 +1,33 @@
+{
+ "skill": "derivatives-and-hedging-asc815",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Trial balance at 30 September 2025 has no derivative liability or OCI account although the swap summary says 2,900 of each is recorded",
+  "Interest Expense 17,100 vs about 10,474 implied by fixed 5.7% on the loan balances; 6,626 unexplained, no swap settlement identified",
+  "Valuation is the counterparty's (and lender's) own mark; no independent check or credit adjustment",
+  "Swap notional 200,000 (not stated as amortising) vs loan balance 220,000 amortising 5,000 a month",
+  "Proposed entries if not designated: 500 movement and 2,900 OCI reclass to earnings, cumulative loss 3,400"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Never assumes hedge accounting applies' and 'Never concludes that a hedge is effective', but neither SKILL.md nor references/method.md Step 2 says what to do when the designation itself is incoherent (cash flow hedge of a fixed-rate item). The skill has no rule for 'designation documented but hedged item does not qualify'; I had to state the inconsistency and default to not designated without concluding, which the skill does not describe.",
+  "references/method.md Step 0b checks 1 and 2 are written as [auto] ledger reads ('Where any of these cannot be run because the relevant tool is unavailable, record the check as not performed'); on the upload path there is no instruction on running them from a trial balance only, and the SKILL.md upload checklist marks ledger detail only 'Recommended', so the checks the output standards require ('The settlement completeness sweep was run') can never be met from the minimum upload.",
+  "references/method.md Step 0b check 3 says 'Flag the gap in days and the amount at stake', but the upload checklist asks only for valuations 'at the reporting date', so the amount at stake for the documentation gap can never be produced on the upload path.",
+  "SKILL.md Stage 1 row F default 'Report amounts in other comprehensive income as not assessed' conflicts with references/output.md 'The OCI reclassification check was run, and any amount stranded ... is reported' when the instrument may not qualify at all.",
+  "references/output.md requires 'Account names in every proposed JE are the real names from the connected chart of accounts'; no upload-path fallback when the uploaded trial balance has no derivative accounts."
+ ],
+ "sample_defects": [
+  "interest_rate_swap.md says the ledger carries a derivative liability of 2,900 and an OCI debit of 2,900, but trial_balance_2025-09-30.csv (29 accounts, debits = credits = 6,589,681) contains no derivative or OCI account. The two inputs contradict each other; the key's finding 'Ledger shows 2,900' is supported only by the summary's narrative, not by the ledger file supplied.",
+  "Term loan per trial balance 220,000 implies 72 monthly repayments of 5,000 from 580,000, i.e. a loan drawn about six years before 30 September 2025, but it matures 31 December 2029; a 580,000 loan repaid at 5,000 a month needs 116 months. Plausible only with a balloon, which the summary does not mention.",
+  "Interest Expense 17,100 for nine months is about 63% above fixed 5.7% on the implied loan balances (about 10,474); the key does not use this, but it is the only available evidence for the settlement completeness check and is unexplained by the sample.",
+  "The key's validation line 'Accepts every file listed under inputs' does not anticipate that the swap file is a summary rather than the confirmation, bank statement and memo the skill marks Required."
+ ],
+ "summary": "PASS 3/3: 44-day documentation gap, fixed-rate loan cannot be a cash flow hedged item, 2,900 vs 3,400; sample's trial balance has no derivative or OCI account despite the summary.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

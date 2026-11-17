@@ -1,0 +1,26 @@
+date,description,amount
+2025-01-01,Opening balance,4500
+2025-01-02,"Insurance paid, Calder Mutual",18000
+2025-01-31,Insurance release,-1500
+2025-02-28,Insurance release,-1500
+2025-03-31,Insurance release,-1500
+2025-04-30,Insurance release,-1500
+2025-05-31,Insurance release,-1500
+2025-06-30,Insurance release,-1500
+2025-07-31,Insurance release,-1500
+2025-08-31,Insurance release,-1500
+2025-09-30,Insurance release,-1500
+2025-01-31,Maintenance contract release,-500
+2025-02-28,Maintenance contract release,-500
+2025-03-31,Maintenance contract release,-500
+2025-04-30,Maintenance contract release,-500
+2025-05-31,Maintenance contract release,-500
+2025-06-30,Maintenance contract release,-500
+2025-07-31,Maintenance contract release,-500
+2025-08-31,Maintenance contract release,-500
+2025-09-30,Maintenance contract release,-500
+2025-07-01,"Software licence paid, Pinecrest Software",12000
+2025-07-31,Software licence release,-1000
+2025-08-31,Software licence release,-1000
+2025-09-30,Software licence release,-1000
+2025-08-15,"Trade show deposit, ExpoWest",4500

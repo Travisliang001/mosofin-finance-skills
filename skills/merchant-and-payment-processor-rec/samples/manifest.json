@@ -1,0 +1,49 @@
+{
+ "skill": "merchant-and-payment-processor-rec",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Processor: Stripe. Sales are recorded one entry per payout. No reserve.",
+ "inputs": [
+  {
+   "file": "stripe_payouts_2025-09.csv",
+   "is": "Stripe payout report, September 2025"
+  },
+  {
+   "file": "stripe_balance_transactions_2025-09.csv",
+   "is": "Stripe balance transactions, September 2025"
+  },
+  {
+   "file": "stripe_gl_detail_2025-09.csv",
+   "is": "Ledger detail for Stripe clearing, revenue and fee accounts, September 2025"
+  },
+  {
+   "file": "bank_statement_2025-09.csv",
+   "is": "Bank statement, operating account, September 2025 (opening 970,887, closing 995,939)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "stripe_payouts_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Stripe payout report, September 2025'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects stripe_payouts_2025-09_final.csv: The name suggests it is 'Stripe payout report, September 2025'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Revenue is recorded net of fees: gross sales 48,680 against 46,569 booked, so revenue and fees are both understated by 2,111",
+   "Difference 2,111 is fees 1,431, refunds 480 and one dispute 200",
+   "6,420 held at Stripe at month end was paid out on 3 October"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

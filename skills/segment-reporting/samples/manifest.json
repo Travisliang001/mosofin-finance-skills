@@ -1,0 +1,45 @@
+{
+ "skill": "segment-reporting",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. ASC 280. The decision maker is the CEO, who reviews the three divisions. Profit measure: operating profit before central costs.",
+ "inputs": [
+  {
+   "file": "segment_results_2025.csv",
+   "is": "Results by division as reviewed by the CEO, 2025 year to date"
+  },
+  {
+   "file": "profit_and_loss_2025_ytd.csv",
+   "is": "Profit and loss by month, January to September 2025"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "segment_results_2025_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Results by division as reviewed by the CEO, 2025 year to date'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects segment_results_2025_final.csv: The name suggests it is 'Results by division as reviewed by the CEO, 2025 year to date'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Three divisions tested against the 10% thresholds; Services is below on profit",
+   "Segment revenue reconciles to total revenue",
+   "Central costs appear as a reconciling item"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,49 @@
+{
+ "skill": "tax-return-prep-corporate",
+ "company": "Northbrook Trading Ltd",
+ "period": "tax year 2024",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: tax year 2024. Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Jurisdiction 'Sampleland'.",
+ "inputs": [
+  {
+   "file": "trial_balance_2024-12-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 December 2024"
+  },
+  {
+   "file": "tax_rates_and_rules_SAMPLE.md",
+   "is": "Tax rates and rules supplied by the user for the test (fictitious)"
+  },
+  {
+   "file": "prior_year_tax_computation_summary.md",
+   "is": "Summary of the 2024 tax computation"
+  },
+  {
+   "file": "fixed_asset_register.csv",
+   "is": "Fixed asset register"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_september.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September **2024** (the wrong year)",
+   "why": "It is the right kind of document for the wrong period (30 September 2024). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_september.csv: It is the right kind of document for the wrong period (30 September 2024). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Replaces book depreciation with 25% of cost (105,000)",
+   "Lists candidate disallowables; none are added back without the user's schedule matching an account",
+   "Says it is not tax advice"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

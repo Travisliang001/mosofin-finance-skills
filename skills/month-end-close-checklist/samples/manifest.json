@@ -1,0 +1,52 @@
+{
+ "skill": "month-end-close-checklist",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "trial_balance_2025-08-31.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 31 August 2025"
+  },
+  {
+   "file": "chart_of_accounts.csv",
+   "is": "Chart of accounts"
+  },
+  {
+   "file": "recurring_entries.csv",
+   "is": "Recurring entries that should post each month, with what posted in September 2025"
+  },
+  {
+   "file": "bank_statement_2025-09.csv",
+   "is": "Bank statement, operating account, September 2025 (opening 970,887, closing 995,939)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_2025-09-30_v2.csv",
+   "is": "Trial balance of a different company, Harlow Fabrication Ltd, at 30 September 2025",
+   "why": "It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_2025-09-30_v2.csv: It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Software subscription recurring entry did not post in September",
+   "Bank reconciliation, accruals and payroll clearing appear as open tasks, with owners left for the user to name"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

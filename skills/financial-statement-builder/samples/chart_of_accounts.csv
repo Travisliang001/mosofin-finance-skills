@@ -1,0 +1,42 @@
+account,name,type
+1000,Operating Bank Account,Bank
+1010,Petty Cash,Bank
+1050,Stripe Clearing,Other Current Asset
+1100,Accounts Receivable,Accounts Receivable
+1150,Allowance for Doubtful Accounts,Other Current Asset
+1200,Inventory,Other Current Asset
+1300,Prepaid Expenses,Other Current Asset
+1500,Fixed Assets - Cost,Fixed Asset
+1600,Investment in Northbrook UK Ltd,Other Asset
+1510,Accumulated Depreciation,Fixed Asset
+2000,Accounts Payable,Accounts Payable
+2050,Corporate Card Payable,Credit Card
+2100,Accrued Liabilities,Other Current Liability
+2150,Payroll Clearing,Other Current Liability
+2160,Payroll Tax Payable,Other Current Liability
+2170,401(k) Payable,Other Current Liability
+2200,Sales Tax Payable,Other Current Liability
+2300,Intercompany Payable - Northbrook UK,Other Current Liability
+2500,Term Loan,Long Term Liability
+3000,Share Capital,Equity
+3100,Retained Earnings,Equity
+3200,Dividends and Adjustments,Equity
+4000,Sales Revenue,Income
+5000,Cost of Goods Sold,Cost of Goods Sold
+6000,Payroll Expense,Expense
+6100,Rent,Expense
+6150,Insurance,Expense
+6160,Repairs and Maintenance,Expense
+6170,Utilities,Expense
+2400,Deferred Revenue,Other Current Liability
+6200,Marketing,Expense
+6300,Software,Expense
+6400,Professional Fees,Expense
+6500,Bank Fees,Expense
+6600,Depreciation,Expense
+6700,Office Supplies,Expense
+6800,Travel and Meals,Expense
+6900,Postage and Delivery,Expense
+6950,Cash Over and Short,Expense
+1160,Employee Advances,Other Current Asset
+7000,Interest Expense,Expense

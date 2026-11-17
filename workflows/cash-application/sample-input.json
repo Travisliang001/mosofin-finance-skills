@@ -1,0 +1,19 @@
+{
+  "settings": {
+    "company": "Northbrook Trading Ltd"
+  },
+  "files": [
+    {
+      "name": "receipts-sept.csv",
+      "role": "payments",
+      "company": "Northbrook Trading Ltd",
+      "content": "date,customer,amount,reference\n2025-09-22,Harlow Retail,18400.00,REMIT INV-1031\n2025-09-23,Ellis & Co,5075.50,payment\n2025-09-24,Bexley Foods,600.00,\n2025-09-25,Dunmore Hotels,4000.00,part payment"
+    },
+    {
+      "name": "open-invoices.csv",
+      "role": "invoices",
+      "company": "Northbrook Trading Ltd",
+      "content": "customer,invoice_no,balance\nHarlow Retail,INV-1031,18400.00\nHarlow Retail,INV-1058,24650.00\nEllis & Co,INV-1012,3875.50\nEllis & Co,INV-1044,1200.00\nBexley Foods,INV-1062,600.00\nBexley Foods,INV-1071,600.00\nDunmore Hotels,INV-1080,9100.00"
+    }
+  ]
+}

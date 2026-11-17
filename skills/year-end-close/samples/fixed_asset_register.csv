@@ -1,0 +1,9 @@
+asset,description,in_service,cost,useful_life_years
+FA-001,Warehouse racking,2021-03-01,96000,10
+FA-002,Forklift,2021-06-15,54000,7
+FA-003,Delivery van,2022-01-10,62000,5
+FA-004,Office fit-out,2020-09-01,88000,10
+FA-005,Servers,2020-01-20,36000,5
+FA-006,Packing line,2023-04-01,58000,8
+FA-007,Laptops batch 1,2022-08-01,14000,3
+FA-008,Delivery van (sold Jul 2025),2019-05-01,12000,5

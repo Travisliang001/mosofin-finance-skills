@@ -1,0 +1,100 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "ar-collections input envelope",
+  "type": "object",
+  "properties": {
+    "settings": {
+      "type": "object",
+      "description": "Per-run overrides of any setting.",
+      "properties": {
+        "company": {
+          "default": ""
+        },
+        "currency": {
+          "default": "USD"
+        },
+        "datasource": {
+          "default": "quickbooks"
+        },
+        "data_source_id": {
+          "default": ""
+        },
+        "as_at": {
+          "default": ""
+        },
+        "buckets": {
+          "default": [
+            30,
+            60,
+            90
+          ]
+        },
+        "min_balance": {
+          "default": 50
+        },
+        "exclude_customers": {
+          "default": []
+        },
+        "credit_limits": {
+          "default": {}
+        },
+        "tones": {
+          "default": {
+            "1-30": "friendly reminder",
+            "31-60": "firm reminder",
+            "61-90": "final notice",
+            "90+": "escalation: account on hold pending payment",
+            "default": "reminder"
+          }
+        },
+        "sender_name": {
+          "default": "Accounts Receivable"
+        },
+        "subject_template": {
+          "default": "{{company}}: {{currency}} {{net}} overdue ({{tone}})"
+        },
+        "body_template": {
+          "default": "Hello {{customer}},\n\nOur records show the following invoices are past due:\n\n{{lines}}\n\nAfter credits of {{currency}} {{credit}}, {{currency}} {{net}} is outstanding. Please arrange payment or let us know if anything is in dispute.\n\nThank you,\n{{sender}}"
+        }
+      }
+    },
+    "parameters": {
+      "type": "object"
+    },
+    "files": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "name",
+          "role"
+        ],
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "role": {
+            "enum": [
+              "ar_open",
+              "credits"
+            ]
+          },
+          "content": {
+            "type": "string",
+            "description": "CSV text, first row = headers"
+          },
+          "rows": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "company": {
+            "type": "string",
+            "description": "company the file belongs to, if known"
+          }
+        }
+      }
+    }
+  }
+}

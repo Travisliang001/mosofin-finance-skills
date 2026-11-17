@@ -1,0 +1,33 @@
+{
+ "skill": "bank-reconciliation",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 2,
+ "findings_total": 2,
+ "missed": [],
+ "unexpected": [
+  "Bridge ties at 1,229,026 only if the unknown 1,240 ACH debit is a valid charge; run declined to call the account reconciled and held that entry",
+  "Two identical payroll lines (52,310) tested as duplicate and cleared as bi-weekly",
+  "Proposed materiality default of USD 100 (skill gives no figure)",
+  "Loan payment 6,900 not split principal/interest (noted as out of scope)"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake', row F: 'Ask; do not assume. Propose a default and say that you proposed it' — no default value is given, so each run invents its own threshold.",
+  "SKILL.md 'Upload path — hand over one checklist' does not ask for a chart of accounts, yet references/method.md 'Step 5 — Propose corrections' requires 'the real account names from the connected chart of accounts'; on the upload path the entries can only use generic names.",
+  "references/method.md 'Step 1': 'Continue instead with the book-side preparation described at the top of this file' — nothing at the top of method.md describes it (dangling reference).",
+  "references/output.md 'Coverage sheet' columns (Tool used, Policy, mock) and references/method.md 'Step 0' are written only for the Mosofin path; no upload-path variant of the coverage sheet is given.",
+  "references/method.md 'Step 4' lists 'Unknown (needs research)' but neither method.md nor output.md says on which ladder an unidentified bank debit sits, nor whether the run may be called reconciled while it is open ('ties to the cent' vs 'anything left over is an unidentified item').",
+  "SKILL.md checklist marks 'ending balance (a trial balance works)' and 'Account name(s), masked identifier' as Required, but the validation wording gives no rule for whether a ledger-derived ending balance satisfies the requirement or is a 'missing required input' that forces a stop."
+ ],
+ "sample_defects": [
+  "manifest inputs describes the ledger as 'account 1000 Operating Bank Account' and the statement as 'operating account', but neither CSV carries an account name/number or company name, and intake_answers does not answer question B (which account) — a strict run must flag the account as unconfirmed.",
+  "Neither file names the entity or currency (only 'PAYROLL NORTHBROOK TRADING' in a description), so the 'right company' validation question cannot be answered from content.",
+  "No trial balance / stated GL ending balance is supplied although the skill marks it Required; 1,230,316 is only obtainable by summing the ledger (1,246,642 + net -16,326). The key's expect.validation says 'accepts every file' and does not say whether the missing ending balance, account identifier or prior rec should be listed as missing.",
+  "Arithmetic of key checks out: 1,219,776 + 12,400 - 3,150 = 1,229,026 = 1,230,316 - 50 - 1,240."
+ ],
+ "summary": "PASS: rota rejected on content, both findings hit, bridge ties at 1,229,026; main gap is unanswered account/ending-balance inputs the skill calls required.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

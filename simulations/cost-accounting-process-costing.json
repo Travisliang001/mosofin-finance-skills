@@ -1,0 +1,29 @@
+{
+  "skill": "cost-accounting-process-costing",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 2,
+  "findings_total": 2,
+  "missed": [],
+  "unexpected": [
+    "Opening WIP cost arrives as one total per department (Mixing 14,500; Filling 9,900), so weighted-average cost per EU by element is indeterminate; results shown as a range: Mixing transferred out 182,941.48-184,160.44, closing WIP 24,339.56-25,558.52",
+    "Costs-added rates fixed: Mixing materials 6.30, conversion 3.7363; Filling materials 1.8333, conversion 3.1150; EU Mixing 20,000/18,200, Filling 18,000/18,000/16,950",
+    "Ledger half of Step 6 not run: no WIP account detail uploaded, named as a missing required input",
+    "Filling started 17,000 agrees to Mixing completed 17,000"
+  ],
+  "skill_defects": [
+    "references/method.md 'Step 4 — Compute cost per equivalent unit': the weighted-average formula '(Costs in beginning WIP + costs added) / equivalent units' does not say it is applied per cost element, nor what to do when opening WIP cost is not split by element; SKILL.md 'Upload path — hand over one checklist' does not ask for that split",
+    "SKILL.md 'Stage 1 — Intake' row E asks where materials are added once, not per department; with two departments the answer has to be assumed to apply to both",
+    "SKILL.md 'Stage 1 — Intake' has no question for the transfer basis between departments, though references/method.md 'Step 1' and references/edge-cases.md 'Transfer pricing above cost' depend on it"
+  ],
+  "sample_defects": [
+    "production_report_2025-09.csv gives opening_wip_cost as a single figure (Mixing 14,500; Filling 9,900) with no materials/conversion/transferred-in split, so weighted average cannot give one answer: Mixing materials/EU ranges (126,000+0)/20,000 = 6.30 to (126,000+14,500)/20,000 = 7.025",
+    "manifest.json expect.findings 'Asks for the method and where materials are added before computing' conflicts with intake_answers, which already answer both ('Weighted average. Materials added at the start.'); the run can only confirm them in the read-back, which it did",
+    "No WIP account detail file is supplied although SKILL.md lists it as required for the reconciliation, and expect.findings does not test that the ledger reconciliation is reported as not done"
+  ],
+  "summary": "Rota rejected on content; units tie 20,000 and 18,000; EU and costs-added rates computed; opening WIP unsplit so assigned costs given as a range; ledger rec not run; nothing posted."
+}

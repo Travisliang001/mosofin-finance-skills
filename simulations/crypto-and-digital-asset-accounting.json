@@ -1,0 +1,28 @@
+{
+  "skill": "crypto-and-digital-asset-accounting",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 3,
+  "findings_total": 3,
+  "missed": [],
+  "unexpected": [
+    "Net fiat to the exchange 139,000 - 22,800 = 116,200 with no digital asset account in the trial balance; asks where the cash legs were booked",
+    "Measurement shown under both answers because ASU 2023-08 adoption is unconfirmed: fair value 1.6 x 58,000 = 92,800 with 20,600 unrealised gain, or cost 72,200 less impairment that cannot be concluded without a price series",
+    "USDC classification left open pending redemption rights; 50,000 on either reading",
+    "Holdings derived from trades, not evidenced by an exchange balance statement; price rows lack venue name and timestamp",
+    "Tax treatment referred to a specialist, not addressed"
+  ],
+  "skill_defects": [
+    "SKILL.md 'Stage 1 — Intake' row B asks only 'US GAAP or IFRS?', while references/method.md 'Step 1 — Classify the digital asset' and references/edge-cases.md 'Standards changed recently' require confirming ASU 2023-08 adoption and scope; the intake never asks it, so a user who answers 'US GAAP' leaves the measurement model undecided",
+    "references/method.md 'Step 0b — Completeness sweep' lists only Mosofin [auto] signals and says to record the sweep as 'not performed' if tools are unavailable; it gives no upload-path version (e.g. a trial balance with no digital asset account against an export showing purchases), which is the sweep this sample set actually exercises"
+  ],
+  "sample_defects": [
+    "exchange_export_2025.csv mixes trade rows with two 'closing price per unit' rows (quantity 1, usd_amount 58,000 and 1.0) in the same columns, with venue 'exchange closing price 30 Sep 2025' but no exchange name or time, so the skill's 'a price without a timestamp and a venue is not evidence' rule is necessarily breached by the only price supplied",
+    "The sample set has no exchange balance statement, so holdings of 1.6 BTC (1.5 + 0.5 - 0.4) and 50,000 USDC can only be derived from trades, not evidenced as the skill requires for existence"
+  ],
+  "summary": "Rota rejected on content; 1.6 BTC and 50,000 USDC derived; FIFO sale cost 16,800, gain 6,000; no crypto account in TB; standard confirmation requested, both models shown; nothing posted."
+}

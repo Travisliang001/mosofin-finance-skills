@@ -1,0 +1,37 @@
+{
+ "skill": "quickbooks-ar-aging-collections",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Harlow Fabrication open 248,157 exceeds its 200,000 credit limit by 48,157; the 199,957 invoice was raised while INV-20418 was overdue",
+  "Foxhall INV-20907 is dated 2025-04-23 but customer_list gives Foxhall's first invoice date as 2025-07-10",
+  "Bucket-level tie: summary Current 425,953 = detail 428,103 less CM-0312 2,150; detail 91-120 48,200 + Over 120 4,003 = summary '91 and over' 52,203",
+  "Overdue 372,407 = 46.5% of gross 800,510; over-90 52,203 = 6.5%; WADPD 16.8; top-five 584,371 = 73.2%",
+  "GL control-account comparison, DSO and payment-behaviour ranking not run for want of TB, credit sales and history"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' row E default 'Use three bands by days overdue' disagrees with method.md 'Recommended action bands', which defines four day-based bands (1–30, 31–60, 61–90, Over 90) plus Disputed and Bankruptcy, and with the six calculated ageing buckets.",
+  "method.md 'Resolve the request' item 2 'As-of date — use the user's date; otherwise use today's and state which you used' contradicts SKILL.md 'Stage 1 — Intake' row B 'Never default the date.'",
+  "SKILL.md 'Upload path — hand over one checklist' lists only the summary, detail, contact list and disputes, yet method.md 'A near-substitute is not a substitute' says to run the A/R control-account comparison against the trial balance ('Run it'); the upload checklist never asks for a TB or A/R balance, nor for credit sales (DSO) or paid-invoice history (payment behaviour).",
+  "method.md '3. Normalize the invoice table' requires Original Amount and Open Balance and says 'Do not replace open balance with original invoice amount', but gives no rule for an export with a single amount column; nor a bucket rule for a credit memo with no due date.",
+  "method.md 'Analyze and prioritize' does not say whether overdue %, over-90 % and top-five concentration use gross invoices or A/R net of unapplied credits (800,510 vs 798,360 here), and 'Rank overdue customers primarily by age and open balance' gives no rule for combining the two (Foxhall 4,003 at 130 days vs Harlow 48,200 at 95).",
+  "Credit limits appear nowhere in the skill (input plan, checks before chasing, exceptions), although the customer list it recommends carries them; Harlow's 48,157 over-limit is found only if the agent volunteers it.",
+  "method.md 'Recommended action bands' marks 61–90 and Over 90 '[manual]' and SKILL.md row F says 'Draft for everyone in the action bands'; whether to produce a draft for 61–90 / Over 90 when no escalation policy is supplied is left undecided.",
+  "The skill has no references/edge-cases.md, unlike the other card-format skills; BRIEF.md step 1 expects one."
+ ],
+ "sample_defects": [
+  "Foxhall Garden Centres: ar_aging_detail INV-20907 invoice_date 2025-04-23 is 78 days before customer_list first_invoice_date 2025-07-10 (2025-07-10 − 2025-04-23 = 78 days); the 130-day item cannot predate the customer. Not in the key.",
+  "Key omits Harlow's credit-limit breach: 48,200 + 199,957 = 248,157 vs credit_limit 200,000, 48,157 over; customer_list.csv is otherwise untested by expect.findings.",
+  "AR_Aging_Summary_QuickBooks.csv carries no report header (company, as-of date, basis) as a real QuickBooks export does, so the 'right company and period' validation question can only ever be answered as user-asserted.",
+  "ar_aging_detail has a single 'amount' column and shows days_overdue 0 for not-yet-due rows (e.g. Elmfield due 2025-10-26 → −26, file says 0); CM-0312 has a blank due date.",
+  "No trial balance or A/R control balance in the sample set, so the GL comparison that method.md insists on can never be exercised."
+ ],
+ "summary": "PASS 3/3; rota rejected on content, summary ties to detail. Gaps: Foxhall invoice predates the customer; key and skill ignore Harlow's 48,157 credit-limit breach."
+}

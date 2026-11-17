@@ -1,0 +1,26 @@
+{"skill": "grant-accounting-nonprofit-restricted-funds", "mode": "agent run, upload path", "round": 2, "samples": "corrected sample set",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "G3 State seniors grant (60,000) is absent from contributions received: 640,000 = 200,000 + 150,000 + 290,000; either unrecorded or misclassified as unrestricted",
+  "Trial balance does not balance: debits 1,037,000 vs credits 915,000, difference 122,000",
+  "G3 in-period spend 60,300 exceeds the 60,000 award by 300; release limited to 59,000-60,000",
+  "G1 has 18,000 unspent (30,000 before indirect) at the end of its grant period; refund clause to check",
+  "Indirect budgets for G1 and G2 are 10% of the award (11.1% of direct budget), not 10% of direct cost as stated",
+  "Releases 120,000 (G1) and 160,000 (G2); restricted net assets roll forward 95,000 + 350,000 - 280,000 = 165,000 excluding G3",
+  "G2 award began January 2024; an unconditional promise would normally be recognised when made, so recognition in this year needs confirming"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 4 — Track allowable costs and compliance' lists four Mosofin checks (overspend, spend outside period, untagged spend, dormant grants) but no check for an unspent balance at the end of a grant period, which on a reimbursement or refund-clause award is a liability; G1 ends 30 June 2025 with 18,000-30,000 unspent.",
+  "references/method.md 'Step 3 — Recognize revenue and restrictions' caps release at the award but says nothing on whether spend above a budget-category cap qualifies for release; on G3 this moves the release between 59,000 and 60,000.",
+  "references/method.md 'Step 3' and 'Step 1 — Classify funding' do not address timing for a multi-year unconditional award whose promise predates the period (G2, January 2024): recognition when promised versus when received is left unstated.",
+  "references/method.md 'Step 6 — Output', Sheet 5 requires the roll-forward 'reconciled to the net asset accounts in the ledger' with no upload-path rule for when the opening restricted balance is not split by grant or the uploaded balances do not balance."
+ ],
+ "sample_defects": [
+  "nonprofit_trial_balance_and_gifts.md does not balance: debits 412,000 + 210,000 + 150,000 + 120,000 + 90,000 + 24,000 + 31,000 = 1,037,000; credits 180,000 + 95,000 + 640,000 = 915,000; difference 122,000.",
+  "grant_awards_and_spending.md lists G3 State seniors grant 60,000 (unconditional) but the gift table and contributions of 640,000 (200,000 + 150,000 + 290,000) do not include it, an inconsistency between the two files the key does not mention.",
+  "grant_awards_and_spending.md says 'Indirect cost rate: 10% of direct costs' but budgets indirect at 15,000 / 135,000 and 20,000 / 180,000 = 11.1% of direct (10% of the award).",
+  "G3 spend of 3,200 'dated July 2025' sits inside a year-to-30-June-2025 spending figure; it is after the fiscal year-end as well as the grant period.",
+  "grant_awards_and_spending.md names no organisation or currency."
+ ],
+ "summary": "PASS 3/3: G3 supplies over cap and 3,200 after period, G1 report 31 Aug 2025, G1 condition met; sample TB out by 122,000 and G3 missing from contributions."}

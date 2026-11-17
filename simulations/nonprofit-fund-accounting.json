@@ -1,0 +1,31 @@
+{
+ "skill": "nonprofit-fund-accounting",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "State seniors grant overspent 63,500 vs 60,000: release capped at 60,000, 3,500 borne by unrestricted",
+  "Harlow release may be understated: direct Youth spend 210,000 (255,600 with allocated shared) vs 160,000 per schedule; alternative split 115,000 / 235,000 shown",
+  "City grant 30,000 unspent at the end of its year: possible right of return / liability",
+  "Total releases 340,000 netting to zero; closing restricted 165,000, unrestricted 185,000; roll-forward ties",
+  "Functional split: programme 571,200 (91.4%), M&G 17,100 (2.7%), fundraising 36,700 (5.9%); 18.2% allocated on judgment; rent split on staff time not floor area",
+  "Liquidity: 412,000 cash less 165,000 restricted = 247,000 available"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 3 — Track and release restrictions' says 'purpose restrictions release as qualifying costs are incurred, capped at the restricted amount' but gives no rule for when a donor's own 'spent on purpose' figure is lower than the qualifying programme spend (Harlow 160,000 vs Youth 210,000), nor for ordering opening restricted balances against new gifts from the same donor.",
+  "references/method.md 'Step 2 — Recognize contributions and grants' covers conditional vs unconditional but not a grant that combines a met condition with a time-bound purpose and unspent funds at the end of the period (City grant 30,000), where a right of return may make the balance a liability.",
+  "SKILL.md 'Upload path — hand over one checklist' requires opening and closing trial balances, yet the only sample input is a summary; the skill relies on the generic protocol rule ('A summary arrives where the checklist asks for a listing') with no statement of which statements (cash flow) the summary cannot support."
+ ],
+ "sample_defects": [
+  "Harlow 'spent on purpose' 160,000 while Youth programme expenses are 210,000 direct and 295,000 of Harlow money (95,000 b/f + 200,000) was available; nothing says why 50,000 of Youth spend does not qualify, so the key's 160,000 release rests on the schedule alone.",
+  "City grant is for the 'year to June 2025' with 150,000 - 120,000 = 30,000 unspent at 30 June 2025; the sample is silent on whether it is returnable, which decides whether it is restricted net assets or a liability.",
+  "Programme expenses are given as one line per programme with no natural classification, so the required natural x functional matrix cannot be built."
+ ],
+ "summary": "PASS 3/3: rota rejected on content; releases 340,000 proposed (Harlow 160,000), City condition met, staff-time split applied; Harlow spend figure ambiguous in sample."
+}

@@ -1,0 +1,11 @@
+account,name,debit,credit
+1000,Bank,84200,0
+1100,Accounts Receivable,61300,0
+1300,Intercompany Receivable - Northbrook Trading,33220,0
+1200,Inventory,47800,0
+2000,Accounts Payable,0,39100
+3000,Share Capital,0,100000
+3100,Retained Earnings,0,52420
+4000,Sales Revenue,0,412000
+5000,Cost of Goods Sold,251000,0
+6000,Operating Expenses,126000,0

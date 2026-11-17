@@ -1,0 +1,30 @@
+{
+  "skill": "credit-limit-and-customer-risk",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 4,
+  "findings_total": 4,
+  "missed": [],
+  "unexpected": [
+    "Exposure 248,157 exceeds the current 200,000 limit by 48,157; peak exposure in the 12 months seen 471,498 (12-17 Sep 2025)",
+    "Days-to-pay rising 76 to 100, +6 per invoice; 46-70 days late on net 30",
+    "Request of ~40,000/month understates 12-month invoicing of 1,116,706 = 93,059/month; invoice size rose every time",
+    "Customer ratios from the supplied summary: current ratio 1.12, debt/equity 2.33, net margin 1.8%, working capital 200,000",
+    "Tier C bordering D; recommends cutting the limit to 50,000, declining net 45, with a plan since the limit is 198,157 below exposure",
+    "Portfolio triggers: Foxhall 130 days overdue, Tideswell 67, Ridgeway 41; Calder Print unapplied credit note -2,150"
+  ],
+  "skill_defects": [
+    "SKILL.md 'Stage 1 — Intake' row E asks for 'tier ceilings' but not which tier each ceiling belongs to, while references/method.md 'Step 4 — Build a credit score' defines five tiers A-F; a three-figure policy (50,000 / 150,000 / 300,000) has to be mapped by assumption",
+    "references/method.md 'Step 2 — Quantitative analysis' defines Debt-to-Equity as Total Liabilities / Total Equity but gives no rule for a summary that supplies only 'total debt'; the run had to caveat that leverage may be understated"
+  ],
+  "sample_defects": [
+    "credit_request_and_policy.md gives three tier ceilings '50,000 / 150,000 / 300,000' with no tier labels, against the skill's four credit-granting tiers A-D",
+    "credit_request_and_policy.md gives 'total debt 1.4m' rather than total liabilities, so the skill's D/E (Total Liabilities / Total Equity) cannot be computed as defined",
+    "customer_payment_history_12m.csv: every customer's days-to-pay rises by exactly 3 days per invoice (e.g. Castleton 25, 28, 31, 34, 37) and Harlow by exactly 6, so the 'whole ledger is deteriorating' trigger fires for all 12 customers as an artefact of generation"
+  ],
+  "summary": "Rota rejected on content; Harlow pays in 88 days on net 30, exposure 248,157 (48,200 95 days overdue) over 200,000 limit, 31.1% of AR vs 25% cap; no bureau; limit cut proposed only."
+}

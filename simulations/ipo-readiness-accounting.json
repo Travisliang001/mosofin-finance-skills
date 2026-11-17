@@ -1,0 +1,34 @@
+{
+ "skill": "ipo-readiness-accounting",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "Manual journals measured at 247 of 345 (71.6%) by count, 70.0-77.0% every month; about 40 a month sizes the SOX workstream",
+  "June quarter-end is the slowest close (12 working days, 77.0% manual) and was also reopened",
+  "Holiday basis in the close log is inconsistent: August's 9 days excludes Labor Day (10 weekdays) while June's 12 counts 4 July as a working day",
+  "2025 grant stock compensation: 20,000 x 1.10 = 22,000; 458.33 a month; 2,750 to 30 Sep 2025; booking unverifiable without statements",
+  "Options 80,000 = 7.4% fully diluted; 60,000 opening options have no grant history",
+  "2025 and 2026 audits not yet done; 2023-2024 audit standard unknown, PCAOB re-audit risk flagged",
+  "Revenue spreadsheets and stock compensation scoped as live memo areas; four memo areas left unscoped for lack of statements"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Rules that never bend' says 'Never asserts close speed. It measures it from posting dates.', but the 'Upload path — hand over one checklist' table asks only for a 'Close calendar and task list', not a journal listing with posting dates; on the upload path the rule cannot be met and no fallback (e.g. measure from close-completion dates, label it user-supplied) is stated.",
+  "references/method.md 'Step 0b — Measure what is usually asserted (Mosofin addition)' is marked '[auto] throughout' and has no upload-path wording: it does not say which of the five measurements a close calendar can support (close days, manual count, reopenings) and which it cannot (50/80/100% posting distribution, last adjusting entry, value split, suspense ages).",
+  "SKILL.md 'Stage 1 — Intake' row D asks which years must be audited but nothing in references/ states how to frame the answer when the user does not know; combined with 'Never states a filing requirement from memory as settled' the skill gives no structured way to show the result under each filer-status answer.",
+  "references/method.md 'Step 4 — Equity and EPS readiness' lists cap-table validation, instruments, 409A and diluted EPS but no step to compute stock-compensation expense from grant terms or to check it against the books, though the cap table supplies grant-date fair value and vesting."
+ ],
+ "sample_defects": [
+  "The upload checklist marks 'Financial statements for the years to be presented' as Required, but no statements are in the sample; the comparable-data check, memo scoping from the accounts and the instrument scan (method.md Steps 0b.3, 3, 4) cannot be exercised, and expect.findings tests none of them.",
+  "close_calendar.csv holiday basis is inconsistent: 2025-08 closed 2025-09-12 = 10 weekdays (Sep 1-12) but is stated 9 (Labor Day excluded); 2025-06 closed 2025-07-16 = 12 weekdays (Jul 1-16) stated 12 (4 July counted as working).",
+  "cap_table.csv gives full terms for the 20,000 2025 grant (20,000 x 1.10 = 22,000; 2,750 to 30 Sep) but none for the 60,000 opening options, and no books to test whether stock compensation is recorded; the equity workstream is only partly testable.",
+  "expect.findings has no equity or controls finding although ipo_readiness_inputs.md states 'No control assessment has been done' and revenue runs on spreadsheets; a run that ignored the equity and ICFR workstreams would still PASS."
+ ],
+ "summary": "PASS 4/4: shift roster rejected on content; close 9-12 working days, 71.6% manual journals, June and August reopened, 2022 unaudited; stock comp 2,750 to date also computed."
+}

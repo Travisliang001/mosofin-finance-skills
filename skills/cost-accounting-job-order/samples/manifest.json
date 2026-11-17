@@ -1,0 +1,41 @@
+{
+ "skill": "cost-accounting-job-order",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "job_costs_2025-09.csv",
+   "is": "Costs by job, September 2025 (jobs tagged as projects)"
+  },
+  {
+   "file": "job_costing_policy.md",
+   "is": "Job costing policy"
+  }
+ ],
+ "negative": [
+  {
+   "file": "job_costs_2025-09_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Costs by job, September 2025 (jobs tagged as projects)'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects job_costs_2025-09_final.csv: The name suggests it is 'Costs by job, September 2025 (jobs tagged as projects)'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Untagged direct cost 4,540 is shown apart, not spread",
+   "J-301: materials 18,400 + labour 210 h at 46 + overhead 210 h at 28",
+   "J-298 is closed and still shows cost in September"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

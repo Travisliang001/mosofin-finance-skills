@@ -1,0 +1,33 @@
+{
+ "skill": "working-capital-optimization",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "DSO trend shown from Sep 2023 (45.1) rather than Oct 2022 (43.4 on actual days); drift to 52.0 and DPO fall to 33.0 stated, with AP paying faster quantified at 15,614",
+  "Operating working capital rise of 264,687 split into growth 150,187 and days deterioration 114,500",
+  "Harlow Fabrication's agreed 45-day terms are recorded at 30 days; INV-20418 48,200 is 80 days past due even on 45 days",
+  "AR ageing 798,360 vs balance-sheet AR 789,360 (difference 9,000, likely allowance)",
+  "Bill history covers 864,228 of 3,007,522 COGS, 8 vendors only",
+  "Retained earnings breaks of -60,000 (Mar 2025) and -7,500 (Jun 2025), read as distributions"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 1 — Diagnose: compute the cash conversion cycle' uses 'x Period days' without fixing the convention (30 days, actual days, or 365/12); the starting DSO is 42.0 or 43.4 depending on the choice, and February shows an artificial dip on actual days.",
+  "SKILL.md 'Stage 1 — Intake', row D and references/method.md 'Step 5 — Identify levers per component' do not say whether 'pay on terms, not earlier' counts as stretching for a supplier the user has ring-fenced; the skill has to guess how to treat Kestrel.",
+  "SKILL.md 'Upload path — hand over one checklist' asks for 'Payables detail by vendor, with terms and payment dates' but gives no rule when the detail covers only part of COGS; DPO is then computed from the balance sheet while the timing analysis covers a subset."
+ ],
+ "sample_defects": [
+  "expect.findings attributes the DPO fall (38 to 33) to bills paid earlier, but bill_payment_history_12m.csv shows the same timing every month for 12 months (Kestrel and Orchard always day 18 of 30); the fall is in the balance-sheet ratio (Oct 2022 207,176 / 163,560 x 31 = 39.3; Sep 2025 300,564 / 273,240 x 30 = 33.0), not evidenced by bill timing.",
+  "ar_aging_detail_2025-09-30.csv totals 798,360 against balance-sheet AR 789,360 (difference 9,000) with no allowance shown.",
+  "working_capital_terms.md gives Harlow Fabrication 45-day terms but its invoices carry 30-day due dates (INV-20418 2025-05-28 to 2025-06-27), so its days_overdue (95) is on the wrong terms.",
+  "Expected 'DSO from about 42' holds only on a 30-day convention (394,800 / 282,000 x 30 = 42.0); on actual days it is 43.4.",
+  "bill_payment_history_12m.csv totals 864,228 over 12 months against COGS of 3,007,522, so most supplier spend has no payment detail."
+ ],
+ "summary": "PASS: rota rejected on content; CCC 73 to 94 days, DSO up to 52, DPO down to 33, Kestrel/Orchard paid 12 days early, 3 slow SKUs 86,216, Kestrel excluded per guardrail."
+}

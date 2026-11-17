@@ -1,0 +1,32 @@
+{
+ "skill": "restructuring-and-severance-asc420",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Board approval (3 October) is also after the period end, not only the communication",
+  "Non-recognised subsequent event disclosure of 52,700 if September statements are issued after 14 October",
+  "Lease penalty recognised on termination (date not given), not on announcement; TB has no ROU asset or lease liability, only Rent 81,000, so the lease model must be confirmed before a 420 exit liability (route to lease-accounting-asc842-ifrs16)",
+  "Statutory versus discretionary split and pre-existing severance policy not stated",
+  "Reserve roll-forward nil at 30 September; no restructuring account exists in the TB",
+  "Reserve challenge tests A-D not run; Test D date set at 31 December 2025"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake', upload checklist marks 'Reserve account detail' as 'Required for the roll-forward', and references/mosofin-protocol.md 'After an upload, validate the input before any work' says 'If a required input is rejected or missing, stop and ask'. For a new plan with no reserve yet there is nothing to upload; the skill does not say that a nil reserve (no account in the TB) satisfies the requirement, so a strict reading stops the run.",
+  "references/edge-cases.md 'Communication after the period end' covers a plan 'approved before the year end and communicated after it' only; it does not cover the case where approval itself is after the period end, nor say what the roll-forward and entries should look like for a period with nothing to recognise.",
+  "references/method.md 'Step 1 — A flag on facility exit costs and leases' makes the ROU check '[auto] ... One read of the chart' only; it gives no upload-path instruction (read the TB for an ROU asset) and no instruction for when the TB shows rent but no ROU asset (short-term lease, private-company election, or a missing ASC 842 adoption).",
+  "references/output.md 'Coverage and Provenance sheet (mandatory)' Sections A-B are written for the Mosofin path (display_name, get_datasource_tools, effective_policy, mock); the manual-run substitution lives only in mosofin-protocol.md, so the two have to be merged by hand."
+ ],
+ "sample_defects": [
+  "manifest.json inputs call restructuring_plan.md the 'Approved restructuring plan', but it is a one-page summary standing in for three separate Required uploads in SKILL.md (the approved plan as PDF, cost by group as XLSX, contracts with penalties); validation must accept it only with a limit.",
+  "The plan exits a lease (penalty 15,000) while the TB shows Rent 81,000 and no ROU asset or lease liability (33 accounts, debits = credits = 6,546,018). The expected finding '15,000 once the triggers are met' does not engage the skill's own rule to confirm the lease model before building a 420 exit liability, so the sample leaves that branch untested.",
+  "Arithmetic is internally consistent: 26,000 + 11,700 = 37,700 severance; + 15,000 = 52,700; implied weekly pay 26,000 / 24 = 1,083.33 and 11,700 / 12 = 975.00."
+ ],
+ "summary": "PASS 3/3: nothing recognised at 30 Sep (communicated 14 Oct), severance 37,700 and lease 15,000 once triggered, no names; rota rejected on content."
+}

@@ -1,0 +1,134 @@
+{
+  "name": "Mosofin: Expense receipt checker",
+  "nodes": [
+    {
+      "id": "06-01",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        400
+      ],
+      "webhookId": "mosofin-expense-receipts",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mosofin-expense-receipts",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "06-02",
+      "name": "Settings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// expense-receipts: Settings. EVERY configurable value for this workflow lives here; edit this node only.\n// Any of them can also be overridden for one run by sending { \"settings\": { ... } } in the webhook body.\nconst settings = {\n  \"company\": \"\",\n  \"currency\": \"USD\",\n  \"datasource\": \"quickbooks\",\n  \"data_source_id\": \"\",\n  \"category_limits\": {\n    \"meals\": 75,\n    \"hotel\": 250,\n    \"taxi\": 60,\n    \"mileage\": 200,\n    \"other\": 500\n  },\n  \"receipt_required_over\": 25,\n  \"flag_weekends\": true,\n  \"duplicate_window_days\": 0\n};\nconst trig = $input.first().json || {};\nconst body = trig.body && typeof trig.body === 'object' ? trig.body : {};\nif (body.settings && typeof body.settings === 'object') Object.assign(settings, body.settings);\nsettings.run_at = new Date().toISOString();\nreturn [{ json: { settings, body } }];\n"
+      }
+    },
+    {
+      "id": "06-03",
+      "name": "Parse Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Input envelope: { settings?, parameters?, files?: [{ name, role, content (CSV) | rows | text | fields, company? }] }\nconst body = $input.first().json.body || {};\nreturn [{ json: { parameters: body.parameters || {}, files: Array.isArray(body.files) ? body.files : [] } }];\n"
+      }
+    },
+    {
+      "id": "06-04",
+      "name": "Compute",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        780,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// expense-receipts: compute. Every configurable value is in the Settings node, not here.\n// Shared helpers, inlined into every workflow's Compute node. No dependencies; runs in n8n's Code node and in Node.\nconst num = (v) => { if (typeof v === 'number') return v; const n = parseFloat(String(v ?? '').replace(/[, $£€]/g, '')); return isNaN(n) ? 0 : n; };\nconst r2 = (n) => Math.round(n * 100) / 100;\nconst day = (s) => { const d = new Date(String(s).slice(0, 10) + 'T00:00:00Z'); return isNaN(d) ? null : d; };\nconst daysBetween = (a, b) => { const x = day(a), y = day(b); return x && y ? Math.round((y - x) / 86400000) : null; };\nconst normNo = (s) => String(s ?? '').toUpperCase().replace(/^(INV|BILL|NO|#)[-\\s]*/i, '').replace(/[^A-Z0-9]/g, '').replace(/^0+/, '');\nconst normName = (s) => String(s ?? '').toUpperCase().replace(/\\b(INC|LTD|LLC|LLP|CO|CORP|LIMITED|GROUP|GRP)\\b\\.?/g, '').replace(/[^A-Z0-9]/g, '');\nconst sum = (a, f) => r2(a.reduce((t, x) => t + num(f ? f(x) : x), 0));\n\nfunction parseCSV(text) {\n  const rows = []; let row = [], cell = '', q = false;\n  for (let i = 0; i < text.length; i++) {\n    const c = text[i];\n    if (q) { if (c === '\"' && text[i + 1] === '\"') { cell += '\"'; i++; } else if (c === '\"') q = false; else cell += c; }\n    else if (c === '\"') q = true;\n    else if (c === ',') { row.push(cell); cell = ''; }\n    else if (c === '\\n' || c === '\\r') { if (c === '\\r' && text[i + 1] === '\\n') i++; row.push(cell); cell = ''; if (row.some((x) => x !== '')) rows.push(row); row = []; }\n    else cell += c;\n  }\n  if (cell !== '' || row.length) { row.push(cell); rows.push(row); }\n  if (!rows.length) return [];\n  const head = rows[0].map((h) => h.trim());\n  return rows.slice(1).map((r) => Object.fromEntries(head.map((h, i) => [h, (r[i] ?? '').trim()])));\n}\n\n// A supplied file is { name, role, rows | content (CSV text) | text | fields }.\nconst rowsOf = (f) => (f ? (Array.isArray(f.rows) ? f.rows : f.content ? parseCSV(f.content) : []) : []);\n\n// Rename source columns to the names the logic uses. `map` is { logicName: [candidate source names] }.\nfunction pick(rows, map) {\n  return rows.map((r) => {\n    const keys = Object.keys(r), o = { _raw: r };\n    for (const [k, cands] of Object.entries(map)) {\n      const hit = [].concat(cands).find((c) => keys.find((x) => x.toLowerCase() === String(c).toLowerCase()));\n      const key = hit && keys.find((x) => x.toLowerCase() === String(hit).toLowerCase());\n      o[k] = key ? r[key] : undefined;\n    }\n    return o;\n  });\n}\n\n// Unwrap a Mosofin gateway reply (MCP tools/call over HTTP) into an array of rows. Tolerant of shape.\nfunction unwrap(resp) {\n  if (resp == null) return { rows: [], error: 'no response' };\n  if (typeof resp.data === 'string' && /^\\s*(event|data):/m.test(resp.data)) {\n    // Streamable-HTTP reply delivered as server-sent events: take the last data: line.\n    const last = resp.data.split('\\n').filter((l) => l.startsWith('data:')).pop();\n    try { resp = JSON.parse(last.slice(5)); } catch (e) { return { rows: [], error: 'event-stream reply was not JSON' }; }\n  }\n  if (resp.error) return { rows: [], error: typeof resp.error === 'string' ? resp.error : (resp.error.message || JSON.stringify(resp.error)) };\n  let v = resp.result ?? resp;\n  if (v.isError) return { rows: [], error: (v.content && v.content[0] && v.content[0].text) || 'tool error' };\n  if (v.structuredContent) v = v.structuredContent;\n  else if (Array.isArray(v.content) && v.content[0] && v.content[0].text) { try { v = JSON.parse(v.content[0].text); } catch (e) { return { rows: [], error: 'reply was not JSON' }; } }\n  if (v && v.status && /approval_required|tool_policy_disabled|entity_required/.test(v.status)) return { rows: [], error: v.status };\n  const mock = !!(v && v.mock);\n  if (Array.isArray(v)) return { rows: v, mock };\n  for (const k of ['rows', 'data', 'items', 'results', 'records']) if (v && Array.isArray(v[k])) return { rows: v[k], mock };\n  return { rows: v ? [v] : [], mock };\n}\n\n// The validation gate: every supplied file is checked on its content before any work.\n// spec: { role: { required: bool, columns: [[alternatives...], ...], what: 'bank statement' } }\nfunction validateFiles(files, spec, settings) {\n  const verdicts = [], byRole = {};\n  for (const f of files || []) {\n    const s = spec[f.role];\n    if (!s) { verdicts.push({ file: f.name, role: f.role || null, verdict: 'set aside', reason: 'no step of this workflow uses it' }); continue; }\n    const rows = rowsOf(f), cols = rows.length ? Object.keys(rows[0]).map((c) => c.toLowerCase()) : [];\n    const isText = s.text && (f.text || f.fields);\n    const missing = isText ? [] : (s.columns || []).filter((alts) => ![].concat(alts).some((a) => cols.includes(String(a).toLowerCase()))).map((a) => [].concat(a)[0]);\n    if (!isText && !rows.length) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: 'no readable rows' }); continue; }\n    if (missing.length) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: `not a ${s.what}: missing column(s) ${missing.join(', ')}` }); continue; }\n    const named = f.company || (rows[0] && rows[0].company);\n    if (named && settings.company && normName(named) !== normName(settings.company)) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: `names a different company: ${named}` }); continue; }\n    verdicts.push({ file: f.name, role: f.role, verdict: named ? 'accepted' : 'accepted with a limit', reason: named ? `${s.what}, ${rows.length} rows` : `${s.what}, ${rows.length || 1} rows; company and period are as stated by the caller` });\n    byRole[f.role] = f;\n  }\n  const missingRequired = Object.entries(spec).filter(([role, s]) => s.required && !byRole[role]).map(([role, s]) => ({ role, what: s.what }));\n  return { verdicts, byRole, missingRequired };\n}\n\n// The one output shape every workflow returns.\nfunction envelope(workflow, settings, o) {\n  const errors = (o.read_errors || []).concat((o.missing || []).map((m) => `required input missing or rejected: ${m.what} (role \"${m.role}\")`));\n  const status = o.status || (errors.length && o.blocked ? 'error' : errors.length || (o.not_done || []).length ? 'partial' : 'ok');\n  return {\n    workflow, version: '1.0', run_id: `${workflow}-${settings.run_at || new Date().toISOString()}`,\n    company: settings.company || null, currency: settings.currency || null, period: o.period || settings.as_at || null,\n    status, summary: o.summary || '', read_only: true,\n    validation: o.validation || [], findings: o.findings || [], proposed_actions: (o.proposed_actions || []).map((a) => ({ requires_approval: true, ...a })),\n    totals: o.totals || {}, not_done: (o.not_done || []).concat(errors),\n    sources: o.sources || [], mock_data: !!o.mock, settings_used: o.settings_used || {},\n  };\n}\nconst fill = (tpl, v) => String(tpl).replace(/\\{\\{\\s*(\\w+)\\s*\\}\\}/g, (_, k) => (v[k] ?? ''));\n\n// ---- this workflow ----\nconst FILE_SPEC = {\n  \"expenses\": {\n    \"required\": true,\n    \"what\": \"expense report lines\",\n    \"columns\": [\n      [\n        \"employee\",\n        \"name\"\n      ],\n      [\n        \"date\"\n      ],\n      [\n        \"merchant\",\n        \"vendor\"\n      ],\n      [\n        \"category\"\n      ],\n      [\n        \"amount\"\n      ]\n    ]\n  }\n};\nfunction compute(S, files, R) {\n  const V = validateFiles(files, FILE_SPEC, S);\n  const covered = [], sources = [];\n  // src(readKey, fileRole, columnMap): Mosofin read first, uploaded file as fallback.\n  const src = (key, role, map) => {\n    const r = key && R[key], ok = !!(r && !r.error && r.rows.length), f = role && V.byRole[role];\n    const rows = ok ? r.rows : f ? rowsOf(f) : [];\n    if (key && !ok && f) covered.push(key);\n    const from = ok ? 'Mosofin ' + key : f ? 'file ' + f.name : null;\n    if (from && !sources.includes(from)) sources.push(from);\n    return { rows: map ? pick(rows, map) : rows, from, have: !!from };\n  };\n  let o;\n  try { o = (function () {\n    const rows = src(null, 'expenses', { emp: ['employee', 'name'], date: ['date'], merchant: ['merchant', 'vendor'], cat: ['category'], amt: ['amount'], receipt: ['receipt', 'receipt_attached', 'has_receipt'] }).rows.map((r, i) => ({ line: i + 1, emp: r.emp, date: r.date, merchant: r.merchant, cat: String(r.cat || 'other').toLowerCase(), amt: num(r.amt), receipt: /^(y|yes|true|1)$/i.test(String(r.receipt || '')) }));\n    if (!rows.length) return { status: 'error', blocked: true, summary: 'No readable expense lines.' };\n    const findings = [], bad = new Set();\n    const flag = (r, type, extra) => { bad.add(r.line); findings.push({ type, line: r.line, employee: r.emp, date: r.date, merchant: r.merchant, category: r.cat, amount: r.amt, ...extra }); };\n    for (const r of rows) {\n      const lim = S.category_limits[r.cat] ?? S.category_limits.other;\n      if (lim != null && r.amt > lim) flag(r, 'over_policy_limit', { limit: lim, excess: r2(r.amt - lim) });\n      if (r.amt > S.receipt_required_over && !r.receipt) flag(r, 'missing_receipt', { threshold: S.receipt_required_over });\n      const d = day(r.date); if (S.flag_weekends && d && [0, 6].includes(d.getUTCDay())) flag(r, 'weekend_expense', {});\n    }\n    for (let i = 0; i < rows.length; i++) for (let j = i + 1; j < rows.length; j++) { const a = rows[i], b = rows[j];\n      if (normName(a.emp) === normName(b.emp) && normName(a.merchant) === normName(b.merchant) && Math.abs(a.amt - b.amt) < 0.005 && Math.abs(daysBetween(a.date, b.date)) <= S.duplicate_window_days) flag(b, 'duplicate_in_batch', { duplicate_of_line: a.line }); }\n    const byEmp = {};\n    for (const r of rows) { const e = (byEmp[r.emp] = byEmp[r.emp] || { employee: r.emp, clean: [], held: 0 }); if (bad.has(r.line)) e.held = r2(e.held + r.amt); else e.clean.push(r); }\n    const actions = Object.values(byEmp).filter((e) => e.clean.length).map((e) => ({ type: 'approve_reimbursement', employee: e.employee, amount: sum(e.clean, (x) => x.amt), lines: e.clean.map((x) => x.line), held_amount: e.held }));\n    return { summary: `${rows.length} line(s) from ${Object.keys(byEmp).length} employee(s); ${rows.length - bad.size} clean, ${bad.size} held with ${findings.length} exception(s).`, findings, proposed_actions: actions,\n      totals: { lines: rows.length, total: sum(rows, (x) => x.amt), clean: sum(rows.filter((r) => !bad.has(r.line)), (x) => x.amt), held: sum(rows.filter((r) => bad.has(r.line)), (x) => x.amt) } };\n  })(); }\n  catch (e) { o = { status: 'error', blocked: true, summary: 'The workflow could not compute: ' + e.message }; }\n  const unused = Object.keys(R).filter((k) => R[k] && R[k].error && !covered.includes(k));\n  o.read_errors = unused.map((k) => 'Mosofin read ' + k + ' unavailable (' + R[k].error + ')' + ([].includes(k) ? '; step skipped' : ''));\n  o.not_done = (o.not_done || []).concat(V.verdicts.filter((v) => v.verdict === 'rejected').map((v) => 'file ' + v.file + ' rejected: ' + v.reason));\n  o.validation = V.verdicts; o.mock = o.mock || Object.values(R).some((v) => v && v.mock);\n  o.sources = (o.sources || []).concat(sources); o.settings_used = S;\n  if (V.missingRequired.length) { o.missing = V.missingRequired; if (true) { o.status = 'error'; o.blocked = true; } }\n  return envelope(\"expense-receipts\", S, o);\n}\n\n// ---- n8n glue ----\nconst S = $('Settings').first().json.settings;\nconst input = $('Parse Input').first().json;\nconst R = {};\n\nreturn [{ json: compute(S, input.files || [], R) }];\n"
+      }
+    },
+    {
+      "id": "06-05",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1040,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Parse Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Input": {
+      "main": [
+        [
+          {
+            "node": "Compute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "mosofin": {
+      "workflow": "expense-receipts",
+      "version": "1.0",
+      "read_only": true,
+      "output": "one JSON envelope (v1.0) returned to the caller; posts, sends and pays nothing"
+    }
+  }
+}

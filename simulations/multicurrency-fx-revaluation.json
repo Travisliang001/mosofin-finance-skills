@@ -1,0 +1,29 @@
+{
+ "skill": "multicurrency-fx-revaluation",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Tideswell invoice booked at 1.25, a rate matching none of the transaction-date rates (1.2698-1.27); the 360 may be a booking error rather than FX",
+  "Intercompany booked rate 1.2701 does not reproduce booked USD: 29,920 x 1.2701 = 38,001.39 vs 38,000 (implied 1.27005)",
+  "No FX gain/loss or CTA account in the chart or TB; the proposed entry has no account to credit",
+  "Investment in Northbrook UK 104,800 classed non-monetary (= GBP 80,000 at the 2019 rate 1.31); translation of the UK sub not done for want of its TB"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Upload path — hand over one checklist' marks 'Trial balance of each foreign operation' as Required, yet a pure transaction-FX revaluation of a single USD entity does not need it; the checklist does not say it is required only when translation is in scope, so every upload run must list it as missing.",
+  "SKILL.md 'Stage 1 — Intake' row E says 'Check the books for revaluation entries, and ask again before proposing one', but references/method.md 'Step 7 — Build the FX revaluation entries' lets the proposal stand when 'Nothing was posted'; the two do not say which wins when the FX gain/loss detail is simply missing.",
+  "references/method.md 'Step 7' gives the entry pattern with an 'FX Loss / FX Gain' account but no instruction for a chart that has no FX account; the run could only leave the credit line unnamed."
+ ],
+ "sample_defects": [
+  "foreign_currency_balances_2025-09-30.csv gives booked_rate 1.2701 for the intercompany payable, but 29,920 x 1.2701 = 38,001.39, not the booked 38,000 (implied 1.27005).",
+  "Tideswell receivable booked at 1.25 while fx_rates.csv lists no rate of 1.25 and no transaction date for that invoice (transaction rates are 1.2698-1.27), so whether the 360 is FX or a booking error cannot be told.",
+  "No FX gain/loss account in the chart or TB, so the required 'FX gain and loss account detail' upload cannot exist and the proposed entry has no credit account."
+ ],
+ "summary": "PASS 3/3: rota rejected on content; unrealized gain 360 + 1.60 = 361.60 proposed, auto-revaluation question held open; sample booked rates do not quite tie."
+}

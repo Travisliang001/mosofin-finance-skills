@@ -1,0 +1,32 @@
+{
+ "skill": "three-statement-financial-model",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Retained earnings breaks in history: Mar 2025 -60,000 and Jun 2025 -7,500 with no P&L line",
+  "No tax expense in any of the 36 historical months; the 20% forecast tax is a break from history",
+  "TTM revenue growth +15.4% against an 8% assumption, shown as a deliberate departure",
+  "Covenant compliance computed: Sep 2025 TTM covenant EBITDA 802,250 incl. the 14,000 one-time legal add-back; interest cover 55.7x, leverage 0.27x; compliant through Sep 2028",
+  "Covenant EBITDA definition adds back interest and depreciation but not tax; corporate card (in Total Debt) not shown in the condensed BS",
+  "Capex 80,000 left undepreciated because no useful life was given; working-capital days held at trailing-12-month averages as labelled placeholders"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake' question D default 'Show the measured history of each driver and ask again' plus the never-bend rule 'Never sets an assumption for the user' leave no way to complete the forecast when working-capital days are unanswered; the run had to invent 'trailing-12-month placeholder'. State the placeholder rule explicitly or say the forecast stops there.",
+  "references/method.md 'Step 3 — Build the supporting schedules' (PP&E) needs a depreciation policy for capex, but SKILL.md 'Stage 1' question E asks only 'What is planned for capex' and never for the life or method of new assets.",
+  "references/method.md 'Step 7 — Add outputs and checks' lists leverage and interest coverage as generic ratios but has no step to compute loan covenants on the agreement's own definitions, although the upload checklist invites debt schedules and lenders' covenant tests are a primary use of such a model."
+ ],
+ "sample_defects": [
+  "term_loan_agreement_summary.md defines Covenant EBITDA as 'net income + interest + depreciation' with no tax add-back; harmless in history (no tax in monthly_profit_and_loss_36m.csv) but, with the 20% tax in model_assumptions.md, forecast covenant EBITDA is after tax. Probably unintended.",
+  "model_assumptions.md gives no DSO/DIO/DPO, no useful life for the 80,000 2026 capex and no tax payment timing, although the skill requires all of them.",
+  "monthly_profit_and_loss_36m.csv carries no income tax in any month while 2024 net income is 614,939, inconsistent with a 20% effective rate and with other Northbrook fixtures (tax-return-prep-corporate summary: 2024 tax 61,000).",
+  "Total Debt includes the corporate card balance, but monthly_balance_sheet_36m.csv has no card line, so the leverage covenant cannot be computed exactly."
+ ],
+ "summary": "Staff rota rejected on content; 36-month forecast balances to zero every month, drivers measured against history first, loan amortises 5,000 a month to May 2029; covenants compliant."
+}

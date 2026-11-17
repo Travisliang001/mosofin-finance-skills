@@ -1,0 +1,58 @@
+{
+ "skill": "consolidation-and-eliminations",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default. Consolidation date 30 September 2025. US GAAP.",
+ "inputs": [
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  },
+  {
+   "file": "trial_balance_northbrook_uk_2025-09-30.csv",
+   "is": "Trial balance of Northbrook UK Ltd at 30 September 2025 (GBP)"
+  },
+  {
+   "file": "fx_rates.csv",
+   "is": "Exchange rates supplied by the user (source: the company's bank)"
+  },
+  {
+   "file": "group_structure.md",
+   "is": "Group structure"
+  },
+  {
+   "file": "intercompany_ledger_northbrook_trading.csv",
+   "is": "Intercompany ledger in the books of Northbrook Trading Ltd: balance with Northbrook UK Ltd (USD)"
+  },
+  {
+   "file": "intercompany_ledger_northbrook_uk.csv",
+   "is": "Intercompany ledger in the books of Northbrook UK Ltd: balance with Northbrook Trading Ltd (GBP)"
+  }
+ ],
+ "negative": [
+  {
+   "file": "trial_balance_2025-09-30_v2.csv",
+   "is": "Trial balance of a different company, Harlow Fabrication Ltd, at 30 September 2025",
+   "why": "It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects trial_balance_2025-09-30_v2.csv: It is a trial balance for a different company (Harlow Fabrication Ltd). Reject it.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Translates the UK at closing 1.2700 and average 1.2550, share capital at 1.3100",
+   "Eliminates the 104,800 investment against 80% of UK share capital at 1.3100 (no goodwill)",
+   "Eliminates the intercompany balance and shows the unmatched IC-097 difference",
+   "Non-controlling interest at 20%"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

@@ -1,0 +1,24 @@
+{
+  "skill": "standard-costing-and-variance-analysis",
+  "mode": "agent run, upload path",
+  "round": 2,
+  "samples": "corrected sample set",
+  "result": "PASS",
+  "validation": "PASS",
+  "read_only": "PASS",
+  "findings_hit": 4,
+  "findings_total": 4,
+  "missed": [],
+  "unexpected": [
+    "September PPV computed (27,500) agrees exactly to the September posting in variance_account_history.csv",
+    "Bridge 322,400 standard + 38,316 variances + 1,600 stock build = 362,316, residual 0; flagged that the labour half ties by construction because actual labour is rebuilt from per-unit figures",
+    "C-12 (2,340) and FX-01 (21,000) purchases have no standard and are excluded, not forced",
+    "Overhead variances not computed: no overhead data in the sample set"
+  ],
+  "skill_defects": [
+    "Minor: references/method.md 'Step 3 — Build a variance bridge' calls the bridge 'a tie-out that genuinely reaches across two systems' with no upload-path caveat; when actuals arrive as per-unit summaries in the same file as the standards (as here), the tie is by construction and the method does not say so.",
+    "Minor: references/method.md 'Step 0' Test 0b ('Are the variance accounts clearing?') needs balances, but SKILL.md 'Stage 1' upload checklist asks only for 'Variance account history', which a user may (as here) supply as postings per month; the checklist could name balances."
+  ],
+  "sample_defects": [],
+  "summary": "Rota rejected on content; PPV 27,500 U, 12-month one-sided growing PPV against 2023 standard, usage 10,400 U, rate 4,992 U, efficiency 4,576 F; nothing posted."
+}

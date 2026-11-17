@@ -1,0 +1,324 @@
+{
+  "name": "Mosofin: Scheduled financial pack",
+  "nodes": [
+    {
+      "id": "12-01",
+      "name": "Schedule",
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.2,
+      "position": [
+        0,
+        200
+      ],
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "field": "cronExpression",
+              "expression": "0 9 5 * *"
+            }
+          ]
+        }
+      }
+    },
+    {
+      "id": "12-02",
+      "name": "Webhook",
+      "type": "n8n-nodes-base.webhook",
+      "typeVersion": 2,
+      "position": [
+        0,
+        400
+      ],
+      "webhookId": "mosofin-scheduled-financial-pack",
+      "parameters": {
+        "httpMethod": "POST",
+        "path": "mosofin-scheduled-financial-pack",
+        "responseMode": "responseNode",
+        "options": {}
+      }
+    },
+    {
+      "id": "12-03",
+      "name": "Settings",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        260,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// scheduled-financial-pack: Settings. EVERY configurable value for this workflow lives here; edit this node only.\n// Any of them can also be overridden for one run by sending { \"settings\": { ... } } in the webhook body.\nconst settings = {\n  \"company\": \"\",\n  \"currency\": \"USD\",\n  \"datasource\": \"quickbooks\",\n  \"data_source_id\": \"\",\n  \"period_start\": \"\",\n  \"period_end\": \"\",\n  \"prior_start\": \"\",\n  \"prior_end\": \"\",\n  \"highlight_pct\": 10,\n  \"highlight_abs\": 5000,\n  \"recipients\": []\n};\nconst trig = $input.first().json || {};\nconst body = trig.body && typeof trig.body === 'object' ? trig.body : {};\nif (body.settings && typeof body.settings === 'object') Object.assign(settings, body.settings);\nsettings.run_at = new Date().toISOString();\nreturn [{ json: { settings, body } }];\n"
+      }
+    },
+    {
+      "id": "12-04",
+      "name": "Parse Input",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        520,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// Input envelope: { settings?, parameters?, files?: [{ name, role, content (CSV) | rows | text | fields, company? }] }\nconst body = $input.first().json.body || {};\nreturn [{ json: { parameters: body.parameters || {}, files: Array.isArray(body.files) ? body.files : [] } }];\n"
+      }
+    },
+    {
+      "id": "12-05",
+      "name": "Mosofin: pl",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        780,
+        300
+      ],
+      "notes": "Read-only Mosofin read: get_profit_and_loss",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Mosofin API Key"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "https://mcp.mosofin.com/mcp",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json, text/event-stream"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'invoke_datasource_api_tool', arguments: { datasource: $('Settings').first().json.settings.datasource, data_source_id: $('Settings').first().json.settings.data_source_id, tool_name: 'get_profit_and_loss', params: { start_date: $('Settings').first().json.settings.period_start, end_date: $('Settings').first().json.settings.period_end } } } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "12-06",
+      "name": "Mosofin: pl_prior",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1040,
+        300
+      ],
+      "notes": "Read-only Mosofin read: get_profit_and_loss",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Mosofin API Key"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "https://mcp.mosofin.com/mcp",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json, text/event-stream"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'invoke_datasource_api_tool', arguments: { datasource: $('Settings').first().json.settings.datasource, data_source_id: $('Settings').first().json.settings.data_source_id, tool_name: 'get_profit_and_loss', params: { start_date: $('Settings').first().json.settings.prior_start, end_date: $('Settings').first().json.settings.prior_end } } } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "12-07",
+      "name": "Mosofin: bs",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.2,
+      "position": [
+        1300,
+        300
+      ],
+      "notes": "Read-only Mosofin read: get_balance_sheet",
+      "credentials": {
+        "httpHeaderAuth": {
+          "id": "",
+          "name": "Mosofin API Key"
+        }
+      },
+      "parameters": {
+        "method": "POST",
+        "url": "https://mcp.mosofin.com/mcp",
+        "authentication": "genericCredentialType",
+        "genericAuthType": "httpHeaderAuth",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "Accept",
+              "value": "application/json, text/event-stream"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify({ jsonrpc: '2.0', id: 1, method: 'tools/call', params: { name: 'invoke_datasource_api_tool', arguments: { datasource: $('Settings').first().json.settings.datasource, data_source_id: $('Settings').first().json.settings.data_source_id, tool_name: 'get_balance_sheet', params: { as_of_date: $('Settings').first().json.settings.period_end } } } }) }}",
+        "options": {
+          "response": {
+            "response": {
+              "neverError": true
+            }
+          }
+        }
+      }
+    },
+    {
+      "id": "12-08",
+      "name": "Compute",
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1560,
+        300
+      ],
+      "parameters": {
+        "jsCode": "// scheduled-financial-pack: compute. Every configurable value is in the Settings node, not here.\n// Shared helpers, inlined into every workflow's Compute node. No dependencies; runs in n8n's Code node and in Node.\nconst num = (v) => { if (typeof v === 'number') return v; const n = parseFloat(String(v ?? '').replace(/[, $£€]/g, '')); return isNaN(n) ? 0 : n; };\nconst r2 = (n) => Math.round(n * 100) / 100;\nconst day = (s) => { const d = new Date(String(s).slice(0, 10) + 'T00:00:00Z'); return isNaN(d) ? null : d; };\nconst daysBetween = (a, b) => { const x = day(a), y = day(b); return x && y ? Math.round((y - x) / 86400000) : null; };\nconst normNo = (s) => String(s ?? '').toUpperCase().replace(/^(INV|BILL|NO|#)[-\\s]*/i, '').replace(/[^A-Z0-9]/g, '').replace(/^0+/, '');\nconst normName = (s) => String(s ?? '').toUpperCase().replace(/\\b(INC|LTD|LLC|LLP|CO|CORP|LIMITED|GROUP|GRP)\\b\\.?/g, '').replace(/[^A-Z0-9]/g, '');\nconst sum = (a, f) => r2(a.reduce((t, x) => t + num(f ? f(x) : x), 0));\n\nfunction parseCSV(text) {\n  const rows = []; let row = [], cell = '', q = false;\n  for (let i = 0; i < text.length; i++) {\n    const c = text[i];\n    if (q) { if (c === '\"' && text[i + 1] === '\"') { cell += '\"'; i++; } else if (c === '\"') q = false; else cell += c; }\n    else if (c === '\"') q = true;\n    else if (c === ',') { row.push(cell); cell = ''; }\n    else if (c === '\\n' || c === '\\r') { if (c === '\\r' && text[i + 1] === '\\n') i++; row.push(cell); cell = ''; if (row.some((x) => x !== '')) rows.push(row); row = []; }\n    else cell += c;\n  }\n  if (cell !== '' || row.length) { row.push(cell); rows.push(row); }\n  if (!rows.length) return [];\n  const head = rows[0].map((h) => h.trim());\n  return rows.slice(1).map((r) => Object.fromEntries(head.map((h, i) => [h, (r[i] ?? '').trim()])));\n}\n\n// A supplied file is { name, role, rows | content (CSV text) | text | fields }.\nconst rowsOf = (f) => (f ? (Array.isArray(f.rows) ? f.rows : f.content ? parseCSV(f.content) : []) : []);\n\n// Rename source columns to the names the logic uses. `map` is { logicName: [candidate source names] }.\nfunction pick(rows, map) {\n  return rows.map((r) => {\n    const keys = Object.keys(r), o = { _raw: r };\n    for (const [k, cands] of Object.entries(map)) {\n      const hit = [].concat(cands).find((c) => keys.find((x) => x.toLowerCase() === String(c).toLowerCase()));\n      const key = hit && keys.find((x) => x.toLowerCase() === String(hit).toLowerCase());\n      o[k] = key ? r[key] : undefined;\n    }\n    return o;\n  });\n}\n\n// Unwrap a Mosofin gateway reply (MCP tools/call over HTTP) into an array of rows. Tolerant of shape.\nfunction unwrap(resp) {\n  if (resp == null) return { rows: [], error: 'no response' };\n  if (typeof resp.data === 'string' && /^\\s*(event|data):/m.test(resp.data)) {\n    // Streamable-HTTP reply delivered as server-sent events: take the last data: line.\n    const last = resp.data.split('\\n').filter((l) => l.startsWith('data:')).pop();\n    try { resp = JSON.parse(last.slice(5)); } catch (e) { return { rows: [], error: 'event-stream reply was not JSON' }; }\n  }\n  if (resp.error) return { rows: [], error: typeof resp.error === 'string' ? resp.error : (resp.error.message || JSON.stringify(resp.error)) };\n  let v = resp.result ?? resp;\n  if (v.isError) return { rows: [], error: (v.content && v.content[0] && v.content[0].text) || 'tool error' };\n  if (v.structuredContent) v = v.structuredContent;\n  else if (Array.isArray(v.content) && v.content[0] && v.content[0].text) { try { v = JSON.parse(v.content[0].text); } catch (e) { return { rows: [], error: 'reply was not JSON' }; } }\n  if (v && v.status && /approval_required|tool_policy_disabled|entity_required/.test(v.status)) return { rows: [], error: v.status };\n  const mock = !!(v && v.mock);\n  if (Array.isArray(v)) return { rows: v, mock };\n  for (const k of ['rows', 'data', 'items', 'results', 'records']) if (v && Array.isArray(v[k])) return { rows: v[k], mock };\n  return { rows: v ? [v] : [], mock };\n}\n\n// The validation gate: every supplied file is checked on its content before any work.\n// spec: { role: { required: bool, columns: [[alternatives...], ...], what: 'bank statement' } }\nfunction validateFiles(files, spec, settings) {\n  const verdicts = [], byRole = {};\n  for (const f of files || []) {\n    const s = spec[f.role];\n    if (!s) { verdicts.push({ file: f.name, role: f.role || null, verdict: 'set aside', reason: 'no step of this workflow uses it' }); continue; }\n    const rows = rowsOf(f), cols = rows.length ? Object.keys(rows[0]).map((c) => c.toLowerCase()) : [];\n    const isText = s.text && (f.text || f.fields);\n    const missing = isText ? [] : (s.columns || []).filter((alts) => ![].concat(alts).some((a) => cols.includes(String(a).toLowerCase()))).map((a) => [].concat(a)[0]);\n    if (!isText && !rows.length) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: 'no readable rows' }); continue; }\n    if (missing.length) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: `not a ${s.what}: missing column(s) ${missing.join(', ')}` }); continue; }\n    const named = f.company || (rows[0] && rows[0].company);\n    if (named && settings.company && normName(named) !== normName(settings.company)) { verdicts.push({ file: f.name, role: f.role, verdict: 'rejected', reason: `names a different company: ${named}` }); continue; }\n    verdicts.push({ file: f.name, role: f.role, verdict: named ? 'accepted' : 'accepted with a limit', reason: named ? `${s.what}, ${rows.length} rows` : `${s.what}, ${rows.length || 1} rows; company and period are as stated by the caller` });\n    byRole[f.role] = f;\n  }\n  const missingRequired = Object.entries(spec).filter(([role, s]) => s.required && !byRole[role]).map(([role, s]) => ({ role, what: s.what }));\n  return { verdicts, byRole, missingRequired };\n}\n\n// The one output shape every workflow returns.\nfunction envelope(workflow, settings, o) {\n  const errors = (o.read_errors || []).concat((o.missing || []).map((m) => `required input missing or rejected: ${m.what} (role \"${m.role}\")`));\n  const status = o.status || (errors.length && o.blocked ? 'error' : errors.length || (o.not_done || []).length ? 'partial' : 'ok');\n  return {\n    workflow, version: '1.0', run_id: `${workflow}-${settings.run_at || new Date().toISOString()}`,\n    company: settings.company || null, currency: settings.currency || null, period: o.period || settings.as_at || null,\n    status, summary: o.summary || '', read_only: true,\n    validation: o.validation || [], findings: o.findings || [], proposed_actions: (o.proposed_actions || []).map((a) => ({ requires_approval: true, ...a })),\n    totals: o.totals || {}, not_done: (o.not_done || []).concat(errors),\n    sources: o.sources || [], mock_data: !!o.mock, settings_used: o.settings_used || {},\n  };\n}\nconst fill = (tpl, v) => String(tpl).replace(/\\{\\{\\s*(\\w+)\\s*\\}\\}/g, (_, k) => (v[k] ?? ''));\n\n// ---- this workflow ----\nconst FILE_SPEC = {\n  \"pl\": {\n    \"required\": false,\n    \"what\": \"P&L by account\",\n    \"columns\": [\n      [\n        \"account\"\n      ],\n      [\n        \"amount\",\n        \"total\"\n      ]\n    ]\n  },\n  \"pl_prior\": {\n    \"required\": false,\n    \"what\": \"prior-period P&L by account\",\n    \"columns\": [\n      [\n        \"account\"\n      ],\n      [\n        \"amount\",\n        \"total\"\n      ]\n    ]\n  },\n  \"bs\": {\n    \"required\": false,\n    \"what\": \"balance sheet by account\",\n    \"columns\": [\n      [\n        \"account\"\n      ],\n      [\n        \"amount\",\n        \"balance\",\n        \"total\"\n      ]\n    ]\n  }\n};\nfunction compute(S, files, R) {\n  const V = validateFiles(files, FILE_SPEC, S);\n  const covered = [], sources = [];\n  // src(readKey, fileRole, columnMap): Mosofin read first, uploaded file as fallback.\n  const src = (key, role, map) => {\n    const r = key && R[key], ok = !!(r && !r.error && r.rows.length), f = role && V.byRole[role];\n    const rows = ok ? r.rows : f ? rowsOf(f) : [];\n    if (key && !ok && f) covered.push(key);\n    const from = ok ? 'Mosofin ' + key : f ? 'file ' + f.name : null;\n    if (from && !sources.includes(from)) sources.push(from);\n    return { rows: map ? pick(rows, map) : rows, from, have: !!from };\n  };\n  let o;\n  try { o = (function () {\n    const M = { account: ['account', 'name', 'Account'], amt: ['amount', 'total', 'balance', 'Amount'], type: ['type', 'account_type', 'section', 'AccountType'] };\n    const pl = src('pl', 'pl', M).rows, pp = src('pl_prior', 'pl_prior', M).rows, bs = src('bs', 'bs', M).rows;\n    if (!pl.length) return { status: 'error', blocked: true, summary: 'No P&L for the period from Mosofin or a file.' };\n    const cls = (r) => { const t = String(r.type || '').toLowerCase(), n = String(r.account || '').trim()[0];\n      if (/income|revenue|sales/.test(t) && !/other expense/.test(t)) return 'revenue'; if (/cost of/.test(t)) return 'cogs'; if (/expense/.test(t)) return 'expense';\n      if (/asset/.test(t)) return 'asset'; if (/liabilit/.test(t)) return 'liability'; if (/equity/.test(t)) return 'equity';\n      return { 1: 'asset', 2: 'liability', 3: 'equity', 4: 'revenue', 5: 'cogs' }[n] || 'expense'; };\n    const prior = {}; pp.forEach((r) => (prior[r.account] = r2((prior[r.account] || 0) + num(r.amt))));\n    const lines = pl.map((r) => { const c = num(r.amt), p = pp.length ? prior[r.account] || 0 : null, d = p == null ? null : r2(c - p);\n      return { account: r.account, class: cls(r), current: c, prior: p, change: d, change_pct: p ? r2((d / Math.abs(p)) * 100) : null }; });\n    const tot = (k, rows, f) => sum(rows.filter((x) => cls(x) === k), f);\n    const rev = tot('revenue', pl, (x) => x.amt), cogs = tot('cogs', pl, (x) => x.amt), exp = tot('expense', pl, (x) => x.amt);\n    const t = { revenue: rev, cogs, gross_profit: r2(rev - cogs), gross_margin_pct: rev ? r2(((rev - cogs) / rev) * 100) : null, expenses: exp, net_income: r2(rev - cogs - exp) };\n    if (pp.length) { const pr = tot('revenue', pp, (x) => x.amt), pc = tot('cogs', pp, (x) => x.amt), pe = tot('expense', pp, (x) => x.amt); t.prior_net_income = r2(pr - pc - pe); t.prior_revenue = pr; }\n    const findings = lines.filter((l) => l.change != null && Math.abs(l.change) >= S.highlight_abs && (l.change_pct == null || Math.abs(l.change_pct) >= S.highlight_pct)).map((l) => ({ type: 'highlight', account: l.account, current: l.current, prior: l.prior, change: l.change, change_pct: l.change_pct }));\n    let bsTables = null; const not_done = [];\n    if (bs.length) { const A = tot('asset', bs, (x) => x.amt), L = tot('liability', bs, (x) => x.amt), E = tot('equity', bs, (x) => x.amt);\n      bsTables = { assets: A, liabilities: L, equity: E, lines: bs.map((r) => ({ account: r.account, class: cls(r), amount: num(r.amt) })) };\n      t.balance_sheet_difference = r2(A - L - E);\n      if (Math.abs(t.balance_sheet_difference) >= 0.01) findings.push({ type: 'balance_sheet_does_not_balance', assets: A, liabilities: L, equity: E, difference: t.balance_sheet_difference }); }\n    else not_done.push('No balance sheet: the pack has the P&L only.');\n    if (!pp.length) not_done.push('No prior period: comparatives and highlights were skipped.');\n    const blocked = findings.some((f) => f.type === 'balance_sheet_does_not_balance');\n    return { period: `${S.period_start} to ${S.period_end}`, summary: `Pack for ${S.period_start} to ${S.period_end}: revenue ${S.currency} ${rev}, net income ${S.currency} ${t.net_income}; ${findings.filter((f) => f.type === 'highlight').length} highlight(s).${blocked ? ' Balance sheet does not balance: hold the pack.' : ''}`,\n      findings, totals: t, not_done,\n      proposed_actions: blocked ? [] : [{ type: 'deliver_report', report: 'monthly financial pack', recipients: S.recipients, payload: { profit_and_loss: { lines, totals: t }, balance_sheet: bsTables, highlights: findings.filter((f) => f.type === 'highlight') } }] };\n  })(); }\n  catch (e) { o = { status: 'error', blocked: true, summary: 'The workflow could not compute: ' + e.message }; }\n  const unused = Object.keys(R).filter((k) => R[k] && R[k].error && !covered.includes(k));\n  o.read_errors = unused.map((k) => 'Mosofin read ' + k + ' unavailable (' + R[k].error + ')' + ([\"pl_prior\"].includes(k) ? '; step skipped' : ''));\n  o.not_done = (o.not_done || []).concat(V.verdicts.filter((v) => v.verdict === 'rejected').map((v) => 'file ' + v.file + ' rejected: ' + v.reason));\n  o.validation = V.verdicts; o.mock = o.mock || Object.values(R).some((v) => v && v.mock);\n  o.sources = (o.sources || []).concat(sources); o.settings_used = S;\n  if (V.missingRequired.length) { o.missing = V.missingRequired; if (false) { o.status = 'error'; o.blocked = true; } }\n  return envelope(\"scheduled-financial-pack\", S, o);\n}\n\n// ---- n8n glue ----\nconst S = $('Settings').first().json.settings;\nconst input = $('Parse Input').first().json;\nconst R = {};\ntry { R[\"pl\"] = unwrap($('Mosofin: pl').first().json); } catch (e) { R[\"pl\"] = { rows: [], error: 'not reached' }; }\ntry { R[\"pl_prior\"] = unwrap($('Mosofin: pl_prior').first().json); } catch (e) { R[\"pl_prior\"] = { rows: [], error: 'not reached' }; }\ntry { R[\"bs\"] = unwrap($('Mosofin: bs').first().json); } catch (e) { R[\"bs\"] = { rows: [], error: 'not reached' }; }\nreturn [{ json: compute(S, input.files || [], R) }];\n"
+      }
+    },
+    {
+      "id": "12-09",
+      "name": "Respond",
+      "type": "n8n-nodes-base.respondToWebhook",
+      "typeVersion": 1.1,
+      "position": [
+        1820,
+        300
+      ],
+      "parameters": {
+        "respondWith": "json",
+        "responseBody": "={{ JSON.stringify($json) }}",
+        "options": {}
+      }
+    }
+  ],
+  "connections": {
+    "Schedule": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Webhook": {
+      "main": [
+        [
+          {
+            "node": "Settings",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Settings": {
+      "main": [
+        [
+          {
+            "node": "Parse Input",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Input": {
+      "main": [
+        [
+          {
+            "node": "Mosofin: pl",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mosofin: pl": {
+      "main": [
+        [
+          {
+            "node": "Mosofin: pl_prior",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mosofin: pl_prior": {
+      "main": [
+        [
+          {
+            "node": "Mosofin: bs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Mosofin: bs": {
+      "main": [
+        [
+          {
+            "node": "Compute",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compute": {
+      "main": [
+        [
+          {
+            "node": "Respond",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "settings": {
+    "executionOrder": "v1"
+  },
+  "pinData": {},
+  "meta": {
+    "mosofin": {
+      "workflow": "scheduled-financial-pack",
+      "version": "1.0",
+      "read_only": true,
+      "output": "one JSON envelope (v1.0) returned to the caller; posts, sends and pays nothing"
+    }
+  }
+}

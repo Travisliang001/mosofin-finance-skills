@@ -1,0 +1,41 @@
+{
+ "skill": "restructuring-and-severance-asc420",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "restructuring_plan.md",
+   "is": "Approved restructuring plan"
+  },
+  {
+   "file": "trial_balance_2025-09-30.csv",
+   "is": "Trial balance of Northbrook Trading Ltd at 30 September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "restructuring_plan_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Approved restructuring plan'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects restructuring_plan_final.csv: The name suggests it is 'Approved restructuring plan'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Communication on 14 October is after 30 September: nothing recognised at 30 September",
+   "Severance 37,700 and lease penalty 15,000 once the triggers are met",
+   "No names recorded"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

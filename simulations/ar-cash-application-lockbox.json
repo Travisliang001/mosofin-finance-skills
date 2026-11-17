@@ -1,0 +1,32 @@
+{
+ "skill": "ar-cash-application-lockbox",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Ridgeway 500 deduction is over the 50 write-off limit, so it stays open; no credit memo explains it",
+  "Ashby reference INV20685 normalised to INV-20685 for a level-1 match",
+  "The 30 Sep aging still shows all four invoices paid 22-25 Sep as open (328,209); open A/R after the proposals would be 466,648",
+  "Unapplied 4,003 held as a credit in 1100 per policy, not 2100",
+  "Calder Print CM-0312 (-2,150) open credit unapplied against INV-20796",
+  "Bank tie not done: no bank statement or deposit report; daily lockbox totals listed only",
+  "Payer alias list built from the four confirmed matches"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 2 — Match hierarchy' level 2 'Exact amount to a single invoice' is [auto] and 'Strong', with only a same-amount ambiguity check; it gives no rule for an exact-amount match whose payer is unidentified (UNKNOWN PAYER 4471 vs Foxhall). Whether that is level 2 (accept) or level 5 (fuzzy, never auto-accept) is left to the agent.",
+  "references/method.md 'Step 5 — Tie to bank' and SKILL.md row C treat the lockbox file as the bank side, yet the tie is defined as receipts to deposits; on the upload path with only a lockbox file (no statement or deposit report) the skill does not say whether the lockbox file itself counts as bank evidence or the tie is not done.",
+  "references/method.md 'Step 3 — Exceptions' has no check that the open-invoice listing post-dates the receipts; an aging 'as at 30 Sep' still showing 22-25 Sep receipts open is caught only by agent initiative, though it decides whether Step 4 is a proposal to apply or a review of a recorded application."
+ ],
+ "sample_defects": [
+  "ar_aging_detail_2025-09-30.csv is dated 30 Sep but still carries INV-20537, INV-20574, INV-20611 and INV-20685 open in full (112,071 + 88,056 + 72,046 + 56,036 = 328,209) although the lockbox shows them paid 22-25 Sep; its total 798,360 equals the trial balance A/R in the accruals sample, which implies the receipts were never posted.",
+  "Lockbox file has no bank trace IDs and there is no deposit report or statement, so method.md Step 5 (tie to bank, fee and batch-split differences) cannot be exercised by any run.",
+  "The unknown payer is named 'UNKNOWN PAYER 4471', echoing the Kestrel INV-4471 duplicate used in the AP samples; harmless but could mislead a cross-sample reviewer."
+ ],
+ "summary": "PASS 3/3: rota rejected; Ridgeway 500 short-pay kept open, Castleton matched via remittance, unknown 4,003 proposed against Foxhall by amount only and parked."
+}

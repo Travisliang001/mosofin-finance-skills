@@ -1,0 +1,35 @@
+{
+ "skill": "ap-invoice-processing-and-3way-match",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 4,
+ "findings_total": 4,
+ "missed": [],
+ "unexpected": [
+  "Kestrel 4502 billed 88,583 vs PO 87,016.80: +1.80% per unit (inside 2%) but +1,566.20 total (over 25); exception under the both-tests reading, shown both ways",
+  "Batch labelled 3-way for 3 bills (143,297) and 2-way for 2 service bills (31,265); 7 non-PO bills (80,702) unmatched",
+  "PO-1045 and PO-1042 lack the signed service confirmation the matrix requires",
+  "Summit 15-day and Northgate 21-day terms conflict with 30-day due dates on the bills",
+  "Four vendors lack a W-9; Pinecrest is a foreign corporation (W-8BEN-E)",
+  "Sequence gaps PO-1044 and GRN-773",
+  "No utilities or cleaning account in the chart for Northgate and Dale coding",
+  "First-pass match rate 2 of 5 on amounts, 0 of 5 including controls"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 4 — Match logic' speaks of 'tolerances confirmed at Gate 3 ... a percentage and usually with an absolute floor' but gives no rule for combining a price % with a separate total cap (the sample's 'price 2%, quantity exact, total 25'); whether a 1.80% / 1,566.20 variance is an exception depends on a reading the skill does not settle.",
+  "SKILL.md 'Stage 1 — Intake' row D says if unanswered 'Expect an exact match and flag every variance', but the tolerance arrived inside an uploaded file; the shared rule 'A fact the intake asks for arrives inside a file' says use it only once confirmed in the read-back, which on a simulated run with an assumed 'go ahead' is never explicitly confirmed.",
+  "references/method.md 'Step 6 — Posting' assumes bills carry coding to review ('Where the bill is already posted, this step becomes a review'); there is no instruction for an entered-bill listing that carries no account coding, which is the typical upload.",
+  "references/method.md 'Step 2 — Vendor and compliance checks' covers bank-detail change control and tax forms but not checking the PO approver against the approval matrix limit or the PO date against bill/receipt dates; the expected PO-1043 finding (approved after receipt, above J. Marsh's limit) depends on agent initiative under Step 5 'Missing PO'."
+ ],
+ "sample_defects": [
+  "open_bills_2025-09-30.csv has no line detail, quantity, tax or account columns, so method.md Step 3 (total math, tax checks) and Step 6 coding review cannot be exercised; per-unit price can only be inferred as total ÷ PO quantity (88,583 / 4,000 = 22.14575).",
+  "approval_matrix_and_tolerances.md 'price 2%, quantity exact, total 25' is ambiguous for Kestrel 4502: +1.80% per unit is inside 2% but the total variance 1,566.20 is far over 25; the key does not say whether this is an expected exception.",
+  "chart_of_accounts.csv has no utilities or cleaning expense account, so Northgate Utilities 5141 and Dale Cleaning INV-5283 cannot be coded from the supplied chart.",
+  "Same open_bills file and vendor master are reused across ap-accrual-cutoff, ap-aging-and-payment-runs and this skill, carrying the 30-day due dates that contradict vendor_master terms for Summit (15) and Northgate (21)."
+ ],
+ "summary": "PASS 4/4: rota rejected; PO-1041 short receipt, Kestrel duplicate, Summit bank change and PO-1042/1043 approval faults found; match labelled 3-way for 3 bills, 2-way for 2."
+}

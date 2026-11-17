@@ -1,0 +1,14 @@
+{"skill": "year-end-close", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 2, "findings_total": 2, "missed": [], "unexpected": [],
+ "skill_defects": [
+  "SKILL.md, 'Stage 1 — Intake', upload checklist: 'Trial balance at the year end ... Required' with no guidance for a planning run before the year end, when that TB cannot exist yet; the run had to improvise a planning mode",
+  "references/method.md, 'Step 1 — Run the standard monthly and quarterly close': only '[auto] by delegation' is described; nothing says what to do on a manual run without the period TB",
+  "references/method.md, 'Tax provision (full year)': the true-up is '[auto] to compute' but neither the method nor the upload checklist says which person owns it on a manual run, so the tax true-up was left as 'not done' rather than given an owner"
+ ],
+ "sample_defects": [
+  "manifest.json inputs: journal_entries_2025-09.csv is described as 'posted 1 to 3 October, after the 30 September trial balance was drawn', but no Northbrook 30 Sep 2025 TB is in the set (the only 30 Sep TB is Harlow's, the negative file), so that cutoff cannot be tested",
+  "fixed_asset_register.csv vs trial_balance_2024-12-31.csv: straight-line 2024 depreciation on the register is 58,431 vs 6600 Depreciation 50,400, and accumulated 211,741 vs 1510 at 273,400; the register has no accumulated column to explain either gap",
+  "journal_entries_2025-09.csv JE-0901: 4,200 = 50,400/12, while the register's active assets in Sep 2025 give 3,813.69 (FA-005 ended Jan 2025, FA-007 Aug 2025, FA-008 sold) — plausibly intended, but not in expect"
+ ],
+ "summary": "Harlow TB rejected on content, four files accepted with limits; plan built from the 2024 TB and audit inputs with owners, people's tasks marked, nothing posted."}

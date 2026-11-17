@@ -12,7 +12,42 @@
    that string is composed by whichever MCP client is running.
 5. **Never print a numeric tenant or workspace id.** Name the workspace.
 6. **Keep the professional term.** Add plain language alongside it; do not replace it.
-7. Run `scripts/validate-skill.sh skills` before opening a PR.
+7. Run `.github/validate-skill.sh skills` before opening a PR.
+
+## Two genres, two standards
+
+| Folder | Genre | Checked by |
+|--------|-------|-----------|
+| `skills/` | Written analysis, four-gate protocol | `.github/validate-skill.sh` |
+| `dashboards/` | Interactive HTML output, visual spec + generator | `.github/validate-dashboard.sh` |
+
+A dashboard skill is **not** held to the analysis protocol — no four gates, no
+`[auto]`/`[manual]` verdicts, no coverage sheet, no seed-to-evolved step. Those describe how
+an analysis is produced and say nothing useful about building a dashboard. What it *is* held
+to comes from its own SKILL.md: the user chooses the data path, every number traces to a tool
+result or an uploaded file, nothing is interpolated, the run is read-only, the UI spec is
+authoritative, the template is generated rather than hand-edited, and the output is verified
+before it is shown.
+
+## Shared onboarding and guardrail text
+
+The onboarding sequence and the write guardrails are **identical in every skill and
+generated from one place** — [`.github/shared/`](.github/shared/README.md). Each skill
+carries its own full copy because skills are distributed standalone, but the copies are
+produced by a script, never by hand.
+
+```bash
+.github/sync-shared.sh            # propagate .github/shared/*.md into every skill
+.github/sync-shared.sh --check    # verify nothing drifted (CI runs this)
+```
+
+Editing that text inside a `SKILL.md` will be reverted by the next sync and will fail
+CI in the meantime. Edit `.github/shared/onboarding-inline.md` or
+`.github/shared/write-guardrail.md` instead.
+
+The onboarding **steps** are not synced at all: they live once at
+[`shared/onboarding.md`](shared/onboarding.md) and every skill links there, so editing
+that file is the whole job.
 
 ## Adding a reference file
 
@@ -22,4 +57,4 @@ identifiers in a reference — they go stale silently and a reader trusting them
 
 ## Style
 
-See `docs/conventions/house-style.md`. Do not mix the two styles within one file.
+Do not mix section-naming styles within one file.

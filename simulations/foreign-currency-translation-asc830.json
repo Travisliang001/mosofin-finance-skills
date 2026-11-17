@@ -1,0 +1,21 @@
+{"skill": "foreign-currency-translation-asc830", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 2, "findings_total": 2, "missed": [],
+ "unexpected": [
+  "0.26 difference between proof (2,960.86) and plug (2,960.60) traced to last year's rounding: 152,420 x 1.2530 = 190,982.26 carried as 190,982",
+  "CTA split with 20% non-controlling interest: closing group (2,368.48), NCI (592.12); movement group 2,492.91, NCI 623.23",
+  "Parent's side of the 33,220 GBP (42,189.40 USD) intercompany receivable not uploaded, so the pre-translation match and elimination were not done",
+  "No approver recorded for any rate in fx_rates.csv",
+  "Average-rate seasonality test not possible without a monthly P&L; Jul-Sep transaction rates (1.2698-1.2700) sit above the 1.2550 average",
+  "Denomination of the intercompany receivable asked: if USD, it needs remeasurement in the UK books first"
+ ],
+ "skill_defects": [
+  "skills/foreign-currency-translation-asc830/references/method.md, 'Step 3b — Prove CTA independently': the formula does not say whether the proof runs at 100% or at the group's share; the NCI split appears only under 'Both entity scenarios', so a partly owned subsidiary's proof basis is left to judgement"
+ ],
+ "sample_defects": [
+  "fx_rates.csv has four 'transaction' rates (2025-07-10, 2025-08-12, 2025-09-18, 2025-09-29) that no step can use: there are no dividends, capital movements or remeasured items in the UK TB",
+  "fx_rates.csv gives a source ('bank rate sheet') but no approver for any rate, while method.md Step 6 calls approval 'the single most important control'",
+  "group_structure.md carries opening net assets as 190,982 USD though 152,420 x 1.2530 = 190,982.26, which leaves a 0.26 unexplained difference in the CTA proof unless the reader traces it",
+  "The intercompany pair cannot be tested: the parent's payable is not in this sample folder"
+ ],
+ "summary": "Rota rejected on content; UK TB translated (capital 1.31, profit 1.255, net assets 1.27); CTA proved 6,077 Dr + 3,116 = 2,961 Dr vs plug 2,960.60, 0.26 rounding explained."}

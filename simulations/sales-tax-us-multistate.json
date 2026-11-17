@@ -1,0 +1,36 @@
+{
+ "skill": "sales-tax-us-multistate",
+ "mode": "agent run, upload path",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Transaction-count thresholds also exceeded (Ohio 402 vs 200, Georgia 260 vs 200)",
+  "Untaxed sales in states to review total 452,000 (12.9% of sales)",
+  "Crossing (trigger) dates not computable from one total per state",
+  "Indicative exposure not quantified because no rates were supplied",
+  "Effective rates collected: Texas 6.25%, California 7.25%, flat, not checkable without expected rates",
+  "Sales file does not state company, period end or whether 'state' is ship-to or billing",
+  "Voluntary disclosure sequencing flagged before registering"
+ ],
+ "skill_defects": [
+  "SKILL.md Stage 1 row D says missing thresholds and rates are 'Blocking for any threshold test or rate check', and the upload checklist lists 'Thresholds and rates with source' as one Required item. It does not say what happens when thresholds are supplied but rates are not ('applied by the company's tax engine'). I ran the threshold test and skipped exposure; under references/mosofin-protocol.md 'If a required input is rejected or missing, stop and ask' a strict reading would stop.",
+  "references/method.md Step 1 'The trigger date, and why it is the point of the whole exercise' and Step 1b 'Quantify the exposure per state' assume transaction-level history. Neither says what to do on the upload path when the user gives one total per state; the SKILL.md upload checklist asks only for 'Sales by ship-to state, with tax collected' and never asks for monthly or transaction detail, so the skill's 'most valuable single output' cannot be produced from the upload it requests.",
+  "SKILL.md 'Rules that never bend' says 'Never concludes that nexus exists', but references/method.md Step 1 says to document 'economic nexus Y/N' per state and Step 10 Sheet 1 has an 'Economic Nexus' column, and Step 1b names rows 'Nexus, NOT registered — Live exposure'. The card and the method contradict each other on whether a Y/N is written.",
+  "references/method.md Step 1 says 'Rolling and prior-calendar-year totals ... compute both bases'; the upload checklist does not ask for prior-year sales, so the prior-year basis cannot be run and nothing tells the agent to say so.",
+  "SKILL.md Stage 1 row C treats registration as an intake answer and the checklist wants a 'Registration list with dates' as a separate Required upload; no wording covers the case where registration is a column inside the sales file.",
+  "references/output.md Sections A-B are Mosofin-only (workspace name, get_datasource_tools, effective_policy); no upload-path equivalent."
+ ],
+ "sample_defects": [
+  "sales_by_state_2025.csv names no company and no period end; 'right company and period' can only be taken from the file name, which the validation step says not to rely on. Intake says both 'Period: September 2025' and 'Period: 2025 year to date', two different period statements.",
+  "The sales file has no monthly detail, so the skill's central output (the date each threshold was crossed) and any exposure figure cannot be tested by this sample; the key expects neither.",
+  "sales_tax_thresholds_SAMPLE.md gives no thresholds for Texas or California and no rates, so the skill's Step 4 rate check and Step 1b exposure quantification are untestable; the effective rates in the data (115,000/1,840,000 = 6.25%; 81,200/1,120,000 = 7.25%) have nothing to be compared with.",
+  "The sample column is called 'state' while the key describes it as 'Sales by ship-to state'; the file itself does not say ship-to, and the skill requires the address field to be stated."
+ ],
+ "summary": "PASS 3/3: Ohio and Georgia over sample thresholds and unregistered, Oregon no sales tax, no nexus conclusion; crossing dates and exposure not computable from the sample.",
+ "round": 1,
+ "samples": "first sample set, before the fixes from these runs"
+}

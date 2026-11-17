@@ -1,0 +1,41 @@
+{
+ "skill": "personal-tax-return-prep",
+ "company": "Northbrook Trading Ltd",
+ "period": "September 2025",
+ "how": "Upload path only. Give the intake answers, upload every file in this folder, and check the result against 'expect'.",
+ "intake_answers": "Company: Northbrook Trading Ltd. Period: September 2025 (as at 2025-09-30). Currency: USD. Data source: upload only, Mosofin is not used. Where the files do not answer an intake question, say so and let the skill apply its stated default.",
+ "inputs": [
+  {
+   "file": "personal_tax_documents_SAMPLE.md",
+   "is": "Personal income documents for the owner (fictitious)"
+  },
+  {
+   "file": "payroll_register_2025-09.csv",
+   "is": "Payroll register for September 2025"
+  }
+ ],
+ "negative": [
+  {
+   "file": "personal_tax_documents_SAMPLE_final.csv",
+   "is": "A staff rota (not an accounting document)",
+   "why": "The name suggests it is 'Personal income documents for the owner (fictitious)'. The content is a staff rota. Reject it on content, not on name."
+  }
+ ],
+ "expect": {
+  "validation": [
+   "Shows one validation table before any work, with a verdict per file",
+   "Accepts every file listed under inputs",
+   "Rejects personal_tax_documents_SAMPLE_final.csv: The name suggests it is 'Personal income documents for the owner (fictitious)'. The content is a staff rota. Reject it on content, not on name.",
+   "Lists any required upload that is still missing, and waits for an answer"
+  ],
+  "findings": [
+   "Salary and withholding for E12 taken from the payroll register for one month only: says a full year is needed",
+   "Dividend 48,000, interest 1,240, net rental 11,500",
+   "Saves nothing and repeats no tax or account number"
+  ],
+  "read_only": [
+   "Posts, sends, pays and files nothing",
+   "Presents every entry as a proposal"
+  ]
+ }
+}

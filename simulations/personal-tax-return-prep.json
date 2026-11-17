@@ -1,0 +1,19 @@
+{"skill": "personal-tax-return-prep", "mode": "agent run, upload path", "round": 3, "samples": "sample set after the final fixes",
+ "result": "PASS", "validation": "PASS", "read_only": "PASS",
+ "findings_hit": 3, "findings_total": 3, "missed": [],
+ "unexpected": [
+  "Joint filing stated but no spouse income supplied and the rate card has a single schedule; flagged as a required missing input",
+  "Tax expressed as a formula in full-year salary S: 7,500 + 30% x (S - 1,260), because taxable income excluding salary is 48,740",
+  "Retirement 401k and social-security contributions on the register have no relief rule on the rate card; left open",
+  "Only the taxpayer's own payroll row (E12) used; the other 11 employees' rows treated as third-party data and not read into the work",
+  "Tax currency of Sampleland not stated; assumed USD and flagged"
+ ],
+ "skill_defects": [
+  "skills/personal-tax-return-prep/references/method.md, 'Both entity scenarios': the privacy rule covers entities and other owners ('Read only the entities the taxpayer has an interest in') but says nothing about other individuals' rows inside an uploaded document such as a full payroll register; the run had to apply it by analogy",
+  "skills/personal-tax-return-prep/SKILL.md, 'Stage 1 — Intake', row D: filing status 'Ask again' if unanswered, but no step says that a joint filing needs the spouse's income on the upload checklist; the 'Upload path — hand over one checklist' table omits it"
+ ],
+ "sample_defects": [
+  "personal_tax_documents_SAMPLE.md says 'Filing jointly' but supplies no spouse figures and a single rate schedule (15% to 50,000, 30% above), so the joint position cannot be computed",
+  "Intake answers give 'Period: September 2025 (as at 2025-09-30)' for a personal return whose tax year is 2025; the period has to be overridden from the document"
+ ],
+ "summary": "Rota rejected on content; dividend 48,000, interest 1,240, net rental 11,500 computed; salary blocked as one month only, tax given as a formula; nothing saved or repeated."}

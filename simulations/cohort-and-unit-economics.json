@@ -1,0 +1,31 @@
+{
+ "skill": "cohort-and-unit-economics",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "All 12 customers first appear in Oct/Nov 2024, the first two months of the file, while the P&L shows revenue from Oct 2022: cohorts are left-censored; CAC under the 'predates window' reading is not computable, and Reading A ratios (CAC 2,459, LTV/CAC >=38x) were withheld as artefacts",
+  "Customer invoices 2,801,789 reconcile to only 66.6% of P&L revenue 4,203,800 (Oct 2024 - Jul 2025), and 0 of 932,500 for Aug-Sep 2025",
+  "Six Oct-2024 customers read as lost under the 90-day rule (112 days since 10 Jun 2025) but flagged as possibly unpaid August invoices missing from a paid-invoice history",
+  "Revenue retention 100/120/140/160/180% at bi-monthly ages (expansion); bi-monthly billing noted against a naive monthly active test",
+  "Gross margin steps from 42% to 40% from Jul 2025",
+  "Account 6200 is exactly 4.0% of revenue in 35 of 36 months, then 6.4% in Sep 2025 (+10,930): looks like commission or allocation, a poor CAC base",
+  "Concentration: Harlow Fabrication 31% of file revenue; days-to-pay rising 3 days per invoice for every customer (referred to ar-aging)"
+ ],
+ "skill_defects": [
+  "SKILL.md 'Stage 1 — Intake', upload checklist row 'Revenue by customer by month, or the invoice list with customer, date and amount' does not say the list must reach back to each customer's first-ever invoice, nor that it must include unpaid invoices. A 12-month paid-invoice history satisfies the checklist as written yet makes 'first invoice' the window edge and turns unpaid recent invoices into apparent churn. Add: 'covering each customer's full history, paid and unpaid'.",
+  "references/edge-cases.md 'History does not reach far enough' is framed as Mosofin-specific (a recently added connector); the same left-censoring applies on the upload path and should be stated for uploads too."
+ ],
+ "sample_defects": [
+  "customer_payment_history_12m.csv: all 12 customers' first invoices fall on 2024-10-10 or 2024-11-10 (the first two months of the window) and none is acquired afterwards, while monthly_profit_and_loss_36m.csv shows 282,000 revenue in 2022-10. The cohort analysis the manifest expects ('Builds cohorts from first invoice') is therefore degenerate: 2 cohorts, 0 acquisitions in 10 months, CAC = spend / 0.",
+  "Customer invoices do not tie to P&L revenue: 2,801,789 / 4,203,800 = 66.6% for Oct 2024 - Jul 2025, and no invoices for Aug-Sep 2025 against 477,100 + 455,400 = 932,500 of revenue. If intended, add it to expect.findings; if not, regenerate.",
+  "monthly_profit_and_loss_36m.csv marketing = 0.04 x revenue in every month except 2025-09 (29,146 vs 18,216), and COGS = 0.58 x revenue to 2025-06 then 0.60: generator artefacts that a careful run will report as findings not in expect."
+ ],
+ "summary": "Shift rota rejected on content; 3 of 3 findings hit. Run also showed the 12m file is left-censored and covers only 66.6% of revenue, so no CAC/LTV verdict was given. Nothing posted."
+}

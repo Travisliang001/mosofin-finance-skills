@@ -1,0 +1,31 @@
+{
+ "skill": "segment-reporting",
+ "mode": "agent run, upload path",
+ "round": 2,
+ "samples": "corrected sample set",
+ "result": "PASS",
+ "validation": "PASS",
+ "read_only": "PASS",
+ "findings_hit": 3,
+ "findings_total": 3,
+ "missed": [],
+ "unexpected": [
+  "Services fails all three 10% tests (revenue 8.0%, profit 6.7%, assets 8.0%), not only profit, so it goes to All Other",
+  "75% coverage test: Fixings + Packaging = 3,715,512 = 92.0% of external revenue",
+  "Central costs of 285,285 are a derived balancing figure (890,000 - 604,715); itemisation requested before publication",
+  "Unallocated assets 213,959 (2,713,959 TB total vs 2,500,000 segment assets); TB is the parent's ledger (investment in Northbrook UK Ltd 104,800)",
+  "Major-customer test and geographic disclosures not done: no customer-level or country data",
+  "Intersegment revenue assumed nil, pricing basis not supplied"
+ ],
+ "skill_defects": [
+  "references/method.md 'Step 6 — Reconciliations' says reconciling items must be 'itemised and explained individually — never one balancing figure', but gives no upload-path instruction for when the segment file carries only a total profit measure and the central-cost residual can only be derived; it does not say whether to present it labelled as derived or to block the reconciliation.",
+  "SKILL.md 'Stage 1 — Intake' upload checklist asks for 'Consolidated statements for the period', and the only file supplied is a single-entity TB containing an investment in a subsidiary; neither SKILL.md nor references/edge-cases.md tells the validator to check whether the 'consolidated' figures actually are consolidated before reconciling assets to them.",
+  "references/method.md 'Step 3' tests use 'reported revenue (external + intersegment)'; SKILL.md intake row F says 'Show intersegment amounts as recorded' but gives no rule for a segment file with no intersegment column at all (assume nil, or block the revenue test)."
+ ],
+ "sample_defects": [
+  "manifest.json expect.findings says 'Services is below on profit', but Services is below 10% on all three tests: revenue 323,088 / 4,038,600 = 8.0%, profit 60,000 / 890,000 = 6.7%, assets 200,000 / 2,500,000 = 8.0%. Stating only profit understates the result.",
+  "segment_results_2025.csv carries no period, no intersegment column and no central-cost detail; central costs can only be derived (890,000 - (594,241 + 10,474) = 285,285), so 'Central costs appear as a reconciling item' is met only as a single balancing figure, which method.md Step 6 forbids.",
+  "Segment assets total 2,500,000 against TB total assets of 2,713,959 (gross debit assets 3,034,159 less allowance 9,000 and accumulated depreciation 311,200 = 2,713,959), leaving 213,959 unallocated that no file explains."
+ ],
+ "summary": "PASS 3/3: Services below 10% on profit (and revenue, assets), revenue reconciles at 4,038,600, central costs 285,285 shown as derived reconciling item."
+}

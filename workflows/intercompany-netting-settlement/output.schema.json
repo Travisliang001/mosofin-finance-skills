@@ -1,0 +1,130 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "Mosofin workflow output envelope v1.0",
+  "type": "object",
+  "required": [
+    "workflow",
+    "version",
+    "run_id",
+    "status",
+    "summary",
+    "read_only",
+    "validation",
+    "findings",
+    "proposed_actions",
+    "totals",
+    "not_done",
+    "sources",
+    "mock_data",
+    "settings_used"
+  ],
+  "properties": {
+    "workflow": {
+      "type": "string"
+    },
+    "version": {
+      "const": "1.0"
+    },
+    "run_id": {
+      "type": "string"
+    },
+    "company": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "currency": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "period": {
+      "type": [
+        "string",
+        "null"
+      ]
+    },
+    "status": {
+      "enum": [
+        "ok",
+        "partial",
+        "error"
+      ],
+      "description": "ok: everything ran; partial: ran with something skipped (see not_done); error: stopped, nothing to act on"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "read_only": {
+      "const": true
+    },
+    "validation": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "file",
+          "verdict",
+          "reason"
+        ],
+        "properties": {
+          "verdict": {
+            "enum": [
+              "accepted",
+              "accepted with a limit",
+              "rejected",
+              "set aside"
+            ]
+          }
+        }
+      }
+    },
+    "findings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type"
+        ]
+      }
+    },
+    "proposed_actions": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "type",
+          "requires_approval"
+        ],
+        "properties": {
+          "requires_approval": {
+            "const": true
+          }
+        }
+      }
+    },
+    "totals": {
+      "type": "object"
+    },
+    "not_done": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "mock_data": {
+      "type": "boolean"
+    },
+    "settings_used": {
+      "type": "object"
+    }
+  }
+}
