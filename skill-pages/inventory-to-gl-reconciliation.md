@@ -12,9 +12,7 @@ Helps you reconcile inventory subledger or physical counts to the GL using your 
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "reconcile inventory to the GL"
 - "physical count variance"
@@ -29,36 +27,35 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| ~~Inventory subledger / system extract~~ | Confirm whether it is a separate system. (Recommended) |
-| ~~GL inventory balance(s) at period end~~ | From the trial balance, by account. (Recommended) |
-| **Physical count results** — counted SKUs, quantity, location | **The only leg that tests existence.** Ask when it was last done. (Recommended) |
-| **Period being reconciled** | (Required) |
-| ~~Chart of accounts~~ | Including which accounts are which inventory category. (Recommended) |
-| **Inventory locations / warehouses** | Readable where location tracking is used. (Recommended) |
-| **Standard cost vs. actual cost variance accounts** | (Recommended) |
-| **In-transit / consignment inventory** — quantity and value | **Title terms are contractual.** (Recommended) |
-| **Inventory reserve / write-down policy** | See [inventory-obsolescence-and-reserve](inventory-obsolescence-and-reserve.md). (Recommended) |
-| **Whether the subledger is a separate system** | **Decides what this reconciliation proves.** (Required — Mosofin addition) |
-| **When the last physical count was performed** | If never, that is the finding. (Required — Mosofin addition) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and the period. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Inventory subledger / system extract | Recommended |
+| GL inventory balance(s) at period end | Recommended |
+| Physical count results — counted SKUs, quantity, location | Recommended |
+| Period being reconciled | Required |
+| Chart of accounts | Recommended |
+| Inventory locations / warehouses | Recommended |
+| Standard cost vs. actual cost variance accounts | Recommended |
+| In-transit / consignment inventory — quantity and value | Recommended |
+| Inventory reserve / write-down policy | Recommended |
+| Whether the subledger is a separate system | Required |
+| When the last physical count was performed | Required |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period being reconciled, Whether the subledger is a separate system, When the last physical count was performed. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs a reconciled inventory workpaper with variances explained, shrinkage analysis, the cleanup JEs, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Reconciliation Summary
 - GL to Subledger Detail
@@ -67,7 +64,6 @@ Outputs a reconciled inventory workpaper with variances explained, shrinkage ana
 - Write-Downs and Reserves
 - GL Posting
 - Ledger Checks
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

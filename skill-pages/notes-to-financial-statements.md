@@ -14,7 +14,7 @@ Use it when you ask to draft or review notes or footnotes to the accounts, a dis
 
 Not for:
 
-- Building the statements themselves (use [financial-statement-builder](financial-statement-builder.md)) or for the audit request list (use [audit-prep-pbc-list](audit-prep-pbc-list.md)).
+- Building the statements themselves (use [financial-statement-builder](financial-statement-builder.md)) or the audit request list (use [audit-prep-pbc-list](audit-prep-pbc-list.md)).
 
 ## What it asks you first
 
@@ -48,13 +48,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces draft notes with every gap flagged, and issues nothing.
 
+The workpaper has these sheets:
+
 - Disclosure Checklist
 - Supporting Data References
 - Tie-Out
 - Open Items
 - Subsequent Events Candidates
 - Policy Consistency
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

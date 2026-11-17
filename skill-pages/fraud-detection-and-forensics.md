@@ -14,7 +14,7 @@ Use it when you ask for a fraud risk assessment, red-flag or anomaly testing, a 
 
 Not for:
 
-- Duplicate payments alone (use [duplicate-invoice-detection](duplicate-invoice-detection.md)) or for routine journal entry review (use [journal-entry-review](journal-entry-review.md)).
+- Duplicate payments alone (use [duplicate-invoice-detection](duplicate-invoice-detection.md)) or routine journal entry review (use [journal-entry-review](journal-entry-review.md)).
 
 ## What it asks you first
 
@@ -49,6 +49,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces indicators, a workplan and a coverage sheet, accuses no one, and changes no record.
 
+The workpaper has these sheets:
+
 - Engagement Scope & Boundaries
 - Fraud Risk Assessment
 - Analytical Red Flags
@@ -58,7 +60,6 @@ Produces indicators, a workplan and a coverage sheet, accuses no one, and change
 - Control Failures & Remediation
 - Escalation & Professional Involvement
 - Tests Not Run
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

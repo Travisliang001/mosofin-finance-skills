@@ -14,7 +14,7 @@ Use it when you ask about FX revaluation, unrealised or realised FX gains and lo
 
 Not for:
 
-- Intercompany mismatches (use [intercompany-reconciliation](intercompany-reconciliation.md)) or for building a general journal entry (use [journal-entry-builder](journal-entry-builder.md)).
+- Intercompany mismatches (use [intercompany-reconciliation](intercompany-reconciliation.md)) or building a general journal entry (use [journal-entry-builder](journal-entry-builder.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Proposes entries for a person to post, and never supplies an exchange rate.
 
+The workpaper has these sheets:
+
 - Functional Currency Determinations
 - Transaction FX
 - Translation Workpaper
@@ -56,7 +58,6 @@ Proposes entries for a person to post, and never supplies an exchange rate.
 - Hedge Accounting
 - Disclosure Data
 - Posted vs. Proposed
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

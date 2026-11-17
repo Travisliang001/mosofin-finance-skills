@@ -2,7 +2,7 @@
 
 > Month-on-month and year-on-year movements over two thresholds, each with a driver and evidence, and a cash proof.
 
-**Skill:** `flux-analysis`  ·  **Area:** Movement analysis and customer deductions  ·  **Automated with Mosofin connected:** 78%  ·  **Read-only**
+**Skill:** `flux-analysis`  ·  **Area:** Flux analysis and customer deductions  ·  **Automated with Mosofin connected:** 78%  ·  **Read-only**
 
 ## What it does
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the flux schedule, explanations, proposed entries and a coverage sheet, and posts nothing.
+
+The workpaper has these sheets:
 
 - Flux schedule
 - Explanations

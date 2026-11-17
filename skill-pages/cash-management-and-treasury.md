@@ -14,7 +14,7 @@ Use it when you ask about treasury or cash management, too many bank accounts, c
 
 Not for:
 
-- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)), for bank charges (use [bank-fee-and-interest-analysis](bank-fee-and-interest-analysis.md)) or for loan covenants (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
+- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)), for bank charges (use [bank-fee-and-interest-analysis](bank-fee-and-interest-analysis.md)) or loan covenants (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the map, the policies and a coverage sheet, and moves no money.
 
+The workpaper has these sheets:
+
 - Bank Account Map
 - Recommended Structure
 - Liquidity Policy
@@ -56,7 +58,6 @@ Produces the map, the policies and a coverage sheet, and moves no money.
 - FX Exposure & Policy
 - Treasury KPIs
 - Counterparty Risk
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
@@ -65,7 +66,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Asks before using Mosofin.** A connected account is not permission to read it.
 - **Never moves money, opens or closes an account, or changes anything in any system.**
 - **Never presents a designed control as a tested one.**
-- **Never names an investment product, a bank or a rate as a recommendation.** It sets the policy criteria; the choice is your.
+- **Never names an investment product, a bank or a rate as a recommendation.** It sets the policy criteria; the choice is yours.
 - **Never counts cash that cannot be moved as available.** Trapped cash is shown apart.
 
 ---

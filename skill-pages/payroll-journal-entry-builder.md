@@ -12,9 +12,7 @@ Helps you build the journal entries that record payroll in the general ledger, a
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "book the payroll journal"
 - "payroll journal entry"
@@ -30,34 +28,33 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Payroll register / report for the run** | (Recommended) |
-| **Pay period and pay date** | (Required) |
-| ~~Chart of accounts mapping~~ | **Real accounts.** Confirm which account holds which liability. (Recommended) |
-| ~~Department / cost center allocation~~ | (Recommended) |
-| ~~Accounting basis~~ — cash or accrual | Readable from the reads; **whether a period-end accrual is needed follows from the dates.** (Recommended) |
-| **Funding / payment details** — bank account, timing | (Recommended) |
-| **Employer contribution details** | (Recommended) |
-| **Whether a payroll clearing account is used** | (Required — Mosofin addition) |
-| **Any capitalized labor in this run** | Nothing in the register flags it. (Recommended) |
-| **Confirm scope** | Read back the entity by name, the pay period and the run. (Required) |
-| **Confirm any profile contradiction** | e.g. withholding types for a country the entity does not operate in. (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Payroll register / report for the run | Recommended |
+| Pay period and pay date | Required |
+| Chart of accounts mapping | Recommended |
+| Department / cost center allocation | Recommended |
+| Accounting basis — cash or accrual | Recommended |
+| Funding / payment details — bank account, timing | Recommended |
+| Employer contribution details | Recommended |
+| Whether a payroll clearing account is used | Required |
+| Any capitalized labor in this run | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Pay period and pay date, Whether a payroll clearing account is used. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs balanced payroll journal entries with gross-to-net breakdown, employer costs, accruals, clearing, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Journal Entries
 - Gross-to-Net Reconciliation
@@ -66,7 +63,6 @@ Outputs balanced payroll journal entries with gross-to-net breakdown, employer c
 - Liability Summary
 - Validation
 - Run Comparison
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

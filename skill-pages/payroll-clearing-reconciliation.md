@@ -12,9 +12,7 @@ Helps you reconcile payroll clearing, payroll suspense, payroll liability, or an
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "reconcile payroll clearing"
 - "payroll suspense balance"
@@ -29,35 +27,34 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Period being reconciled** | (Required) |
-| ~~GL balances for each payroll account~~ | **Confirm which accounts are in scope.** (Recommended) |
-| **Payroll register(s) for the period** | (Recommended) |
-| **Remittance / payment evidence** | (Recommended) |
-| ~~Chart of accounts~~ | (Recommended) |
-| ~~Tax jurisdiction~~ | Country from the profile. (Recommended) |
-| **Benefit provider statements** | (Recommended) |
-| **Prior period reconciliation** | (Recommended) |
-| **The remittance cadence per liability** | **Monthly, semi-weekly, quarterly.The expected-balance pattern depends on it entirely.** (Required — Mosofin addition) |
-| **Materiality threshold** for write-offs | (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and the accounts covered. (Required) |
-| **Confirm any profile contradiction** | e.g. withholding accounts for a jurisdiction the entity does not operate in. (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Period being reconciled | Required |
+| GL balances for each payroll account | Recommended |
+| Payroll register(s) for the period | Recommended |
+| Remittance / payment evidence | Recommended |
+| Chart of accounts | Recommended |
+| Tax jurisdiction | Recommended |
+| Benefit provider statements | Recommended |
+| Prior period reconciliation | Recommended |
+| The remittance cadence per liability | Required |
+| Materiality threshold for write-offs | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period being reconciled, The remittance cadence per liability. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs a payroll clearing reconciliation with itemized differences, clearing JEs, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Account number and name
 - Period

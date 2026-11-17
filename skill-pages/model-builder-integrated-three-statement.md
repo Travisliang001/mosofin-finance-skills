@@ -14,7 +14,7 @@ Use it when you ask to build a working financial model quickly from their actual
 
 Not for:
 
-- The full build of debt, tax and circularity is the point (use [three-statement-financial-model](three-statement-financial-model.md)), for an operating budget (use [budget-builder](budget-builder.md)) or for testing assumptions (use [scenario-and-sensitivity-analysis](scenario-and-sensitivity-analysis.md)).
+- The full build of debt, tax and circularity is the point (use [three-statement-financial-model](three-statement-financial-model.md)), for an operating budget (use [budget-builder](budget-builder.md)) or testing assumptions (use [scenario-and-sensitivity-analysis](scenario-and-sensitivity-analysis.md)).
 
 ## What it asks you first
 

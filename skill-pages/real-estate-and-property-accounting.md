@@ -14,7 +14,7 @@ Use it when you ask about investment property, capitalising development costs or
 
 Not for:
 
-- Leases as a tenant (use [lease-accounting-asc842-ifrs16](lease-accounting-asc842-ifrs16.md)) or for other fixed assets (use [fixed-asset-register-and-depreciation](fixed-asset-register-and-depreciation.md)).
+- Leases as a tenant (use [lease-accounting-asc842-ifrs16](lease-accounting-asc842-ifrs16.md)) or other fixed assets (use [fixed-asset-register-and-depreciation](fixed-asset-register-and-depreciation.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the schedules and proposed entries, and never supplies a valuation.
+
+The workpaper has these sheets:
 
 - Property Register
 - Classification & Use

@@ -40,6 +40,9 @@ jobs:
       - name: Skill explanation pages are current and carry no method detail
         run: python3 .github/build-pages.py --check
 
+      - name: Explanation pages pass the reader scenarios
+        run: python3 .github/test-pages.py
+
       - name: No .DS_Store committed
         run: |
           if find . -name .DS_Store -not -path './.git/*' | grep -q .; then

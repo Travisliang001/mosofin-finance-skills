@@ -14,7 +14,7 @@ Use it when you ask for a KPI dashboard, a financial or metrics dashboard, a boa
 
 Not for:
 
-- A variance report against budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)), for the statement set itself (use [financial-statement-builder](financial-statement-builder.md)) or for a multi-entity cash forecast dashboard (use multi-entity-forecast-dashboard).
+- A variance report against budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)), for the statement set itself (use [financial-statement-builder](financial-statement-builder.md)) or a multi-entity cash forecast dashboard (use multi-entity-forecast-dashboard).
 
 ## What it asks you first
 
@@ -49,11 +49,12 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces a dashboard, its definitions and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Dashboard tab
 - Data tab
 - Definitions tab
 - Source tab
-- Coverage tab
 - Not Available tab
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.

@@ -14,7 +14,7 @@ Use it when you ask for a tax projection, estimated tax payments, how much to se
 
 Not for:
 
-- The return itself (use [tax-return-prep-corporate](tax-return-prep-corporate.md) or [personal-tax-return-prep](personal-tax-return-prep.md)) or for the provision in the accounts (use [corporate-tax-provision-asc740](corporate-tax-provision-asc740.md)).
+- The return itself (use [tax-return-prep-corporate](tax-return-prep-corporate.md) or [personal-tax-return-prep](personal-tax-return-prep.md)) or the provision in the accounts (use [corporate-tax-provision-asc740](corporate-tax-provision-asc740.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing.
 
+The workpaper has these sheets:
+
 - Tax Projection Summary
 - Income/Profit Projection
 - Estimated Payments Schedule
@@ -56,7 +58,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Sensitivity
 - Open Items / Professional Advice
 - Threshold Map
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

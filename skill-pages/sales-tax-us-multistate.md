@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing.
 
+The workpaper has these sheets:
+
 - Nexus Map
 - Taxability Matrix
 - Return Figures by State
@@ -56,7 +58,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Use Tax
 - Open Items / Confirmations Needed
 - Exposure Summary
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

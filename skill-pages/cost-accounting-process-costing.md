@@ -14,7 +14,7 @@ Use it when you ask for process costing, equivalent units, cost per unit in cont
 
 Not for:
 
-- Costing discrete jobs (use [cost-accounting-job-order](cost-accounting-job-order.md)) or for standard cost variances (use [standard-costing-and-variance-analysis](standard-costing-and-variance-analysis.md)).
+- Costing discrete jobs (use [cost-accounting-job-order](cost-accounting-job-order.md)) or standard cost variances (use [standard-costing-and-variance-analysis](standard-costing-and-variance-analysis.md)).
 
 ## What it asks you first
 
@@ -46,6 +46,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the production cost report and proposed entries, and posts nothing.
+
+The workpaper has these sheets:
 
 - Departmental cost of production report
 - Equivalent unit schedule

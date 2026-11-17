@@ -12,9 +12,7 @@ Use this skill whenever you want a short-term cash flow forecast from your books
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "build a 13-week cash forecast"
 - "short-term cash flow"
@@ -32,29 +30,26 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Opening cash balance** — by account, as of the start date | Pulled. Confirm which accounts count as available cash, and **exclude restricted cash**. (Required) |
-| **Forecast horizon** — default 13 weeks; can be 6, 8, 17, 26 | Ask; see the seasonality edge case before defaulting to 13. (Required) |
-| **AR / open invoices with expected collection timing** | Invoices and due dates pull; the expected pay date is derived from history and then confirmed. (Recommended) |
-| **AP / open bills with payment timing** | Due dates pull; **which bills you intend to pay when is a decision**, not data. (Recommended) |
-| **Payroll schedule** — pay dates and amounts | Historical payroll outflows are visible and give the rhythm; the forward amounts are not. (Recommended) |
-| **Recurring receipts and disbursements** — rent, debt service, taxes, subscriptions | (Recommended) |
-| **Expected new sales / bookings cash timing** | (Recommended) |
-| **Minimum cash threshold / covenant** — the floor to stay above | Ask for the covenant's **exact definition** of cash; see the edge case. (Recommended) |
-| **Available credit facility** — undrawn revolver, etc. | Including borrowing-base mechanics and any clean-down requirement. (Recommended) |
-| **Functional currency (and FX if multi-currency)** | (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, **and whether cash is pooled**. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | Record what was not supplied. (Required) |
+| Opening cash balance — by account, as of the start date | Required |
+| Forecast horizon — default 13 weeks; can be 6, 8, 17, 26 | Required |
+| AR / open invoices with expected collection timing | Recommended |
+| AP / open bills with payment timing | Recommended |
+| Payroll schedule — pay dates and amounts | Recommended |
+| Recurring receipts and disbursements — rent, debt service, taxes, subscriptions | Recommended |
+| Expected new sales / bookings cash timing | Recommended |
+| Minimum cash threshold / covenant — the floor to stay above | Recommended |
+| Available credit facility — undrawn revolver, etc. | Recommended |
+| Functional currency (and FX if multi-currency) | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Opening cash balance, Forecast horizon. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -62,13 +57,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs a weekly direct cash forecast with receipts, disbursements, net cash, minimum-balance / covenant alerts, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - 13-Week Cash Forecast
 - AR Collection Detail
 - AP / Disbursement Detail
 - Liquidity Alerts
 - Sensitivities
 - Forecast vs. Actual Tracker
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

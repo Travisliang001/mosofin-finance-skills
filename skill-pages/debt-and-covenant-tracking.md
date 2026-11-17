@@ -14,7 +14,7 @@ Use it when you ask to track debt or loan covenants, check covenant compliance o
 
 Not for:
 
-- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or for interest accruals alone (use [accruals-and-deferrals](accruals-and-deferrals.md)).
+- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or interest accruals alone (use [accruals-and-deferrals](accruals-and-deferrals.md)).
 
 ## What it asks you first
 
@@ -49,6 +49,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the schedules, the covenant position and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Facility Inventory
 - Amortization Schedules
 - Covenant Register
@@ -58,7 +60,6 @@ Produces the schedules, the covenant position and a coverage sheet, and posts no
 - Compliance Calendar
 - Breach / Waiver Log
 - Debt-Like Item Sweep
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

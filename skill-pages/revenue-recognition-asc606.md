@@ -14,7 +14,7 @@ Use it when you ask how to recognise revenue on a contract, about deferred reven
 
 Not for:
 
-- Raising an invoice (use [customer-invoicing](customer-invoicing.md)) or for period-end deferrals in general (use [accruals-and-deferrals](accruals-and-deferrals.md)).
+- Raising an invoice (use [customer-invoicing](customer-invoicing.md)) or period-end deferrals in general (use [accruals-and-deferrals](accruals-and-deferrals.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the analysis, the schedule and proposed entries, and posts nothing.
+
+The workpaper has these sheets:
 
 - Contract Summary
 - Five-Step Analysis

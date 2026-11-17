@@ -14,7 +14,7 @@ Use it when you ask to review, audit or sanity-check a financial model before it
 
 Not for:
 
-- Building a model (use [three-statement-financial-model](three-statement-financial-model.md) or [model-builder-integrated-three-statement](model-builder-integrated-three-statement.md)) or for running scenarios (use [scenario-and-sensitivity-analysis](scenario-and-sensitivity-analysis.md)).
+- Building a model (use [three-statement-financial-model](three-statement-financial-model.md) or [model-builder-integrated-three-statement](model-builder-integrated-three-statement.md)) or running scenarios (use [scenario-and-sensitivity-analysis](scenario-and-sensitivity-analysis.md)).
 
 ## What it asks you first
 
@@ -47,13 +47,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces an issue log and a recommendation, changes no model, and gives no opinion on the assumptions.
 
+The workpaper has these sheets:
+
 - Review Scope
 - Source Tie-Out
 - Formula Integrity Exceptions
 - Statement and Schedule Checks
 - Scenario and Sensitivity Tests
 - Issue Log
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

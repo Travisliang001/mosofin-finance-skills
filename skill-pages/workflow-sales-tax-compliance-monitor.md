@@ -1,6 +1,6 @@
 # Sales tax nexus monitor (workflow)
 
-> Checks Mosofin data on a schedule or on demand and proposes registration reviews.
+> Checks your books on a schedule or on demand and proposes registration reviews.
 
 **Workflow:** `sales-tax-compliance-monitor`  ·  **Runs in:** n8n  ·  **Read-only**
 
@@ -8,16 +8,13 @@
 
 Totals sales and transaction counts by ship-to state over a trailing window and compares them with each state's economic-nexus thresholds. Flags states crossed where the company is not registered, and states approaching the line.
 
-- Sales by ship-to state over `window_start`..`as_at` from Mosofin invoices (file fallback).
-- Each state is tested on sales and, where the state has one, transaction count; the higher percentage counts.
-- Crossed and not in `registered_states` → registration review; at or above `warn_pct` → approaching.
-- Thresholds are settings, not law: the README and every action say to confirm them.
+It runs inside n8n, an automation tool you host, and reads your books only through your Mosofin connection, the same read-only connection the skills use.
 
 ## When it runs
 
-Runs monthly on its own, and whenever something sends it a request.
+It runs monthly on its own, and whenever another step sends it a request.
 
-With a Mosofin data source set, it reads customer invoices through the Mosofin gateway. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
+With a Mosofin data source set, it reads customer invoices through your Mosofin connection. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
 
 ## What you send it
 
@@ -29,12 +26,12 @@ Every file is checked on its content before any work: right kind of document, ri
 
 ## What you can change
 
-Every setting sits in one place, and any of them can be overridden for a single run.
+Every setting sits in one place in the workflow, and any of them can be overridden for a single run by the request that starts it.
 
 | Setting | Meaning |
 |---|---|
 | `company` | Company the run is for; a file naming another company is rejected |
-| `currency` | Reporting currency, echoed in the envelope |
+| `currency` | Reporting currency, shown in the result |
 | `datasource` | Mosofin datasource name (e.g. quickbooks, xero) |
 | `window_start` | Start of the measurement window (e.g. 12 months back) |
 | `as_at` | As-at date (YYYY-MM-DD); empty = run date |
@@ -44,15 +41,15 @@ Every setting sits in one place, and any of them can be overridden for a single 
 
 ## What comes back
 
-One result for the next step to use: an email connector, a chat post, a dashboard or another tool. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
+One structured result (JSON), for the next step in your automation to use: an email tool, a chat post, a dashboard or another workflow. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
 
 **It proposes:** Registration reviews.
 
 ## What it never does
 
-- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.
+- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through your Mosofin connection.
 - **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.
-- **Never trusts a file by its name.** Each file is checked on its content before it is used.
+- **Never takes a file at face value.** Each file is checked on its content, not its name, before it is used.
 
 ---
 

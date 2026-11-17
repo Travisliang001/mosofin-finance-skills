@@ -14,7 +14,7 @@ Use it when you ask about stock compensation expense, options, RSUs, an ESPP, ve
 
 Not for:
 
-- The statement of equity (use [statement-of-equity-changes](statement-of-equity-changes.md)) or for the payroll entry (use [payroll-journal-entry-builder](payroll-journal-entry-builder.md)).
+- The statement of equity (use [statement-of-equity-changes](statement-of-equity-changes.md)) or the payroll entry (use [payroll-journal-entry-builder](payroll-journal-entry-builder.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the schedule and proposed entries, and never values an award.
 
+The workpaper has these sheets:
+
 - Expense Summary
 - Award-by-Award Expense Schedule
 - Vesting Condition Analysis
@@ -56,7 +58,6 @@ Produces the schedule and proposed entries, and never values an award.
 - Disclosures
 - Open Items / Specialist Review
 - Recorded vs. Schedule
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

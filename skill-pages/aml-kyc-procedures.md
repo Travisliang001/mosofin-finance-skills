@@ -14,7 +14,7 @@ Use it when you ask about AML or KYC procedures, customer due diligence, risk ra
 
 Not for:
 
-- Fraud red-flag testing (use [fraud-detection-and-forensics](fraud-detection-and-forensics.md)) or for vendor tax forms (use [vendor-onboarding-and-w9-tin](vendor-onboarding-and-w9-tin.md)).
+- Fraud red-flag testing (use [fraud-detection-and-forensics](fraud-detection-and-forensics.md)) or vendor tax forms (use [vendor-onboarding-and-w9-tin](vendor-onboarding-and-w9-tin.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces framework documents and review lists for the responsible officer, is not legal or compliance advice, screens no one and files nothing.
 
+The workpaper has these sheets:
+
 - Risk Assessment Model
 - CDD/EDD Checklist
 - Customer Risk Rating
@@ -55,7 +57,6 @@ Produces framework documents and review lists for the responsible officer, is no
 - Transaction Monitoring
 - Escalation Register
 - Regulatory Confirmations Needed
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -14,7 +14,7 @@ Use it when you ask to optimise working capital, improve the cash conversion cyc
 
 Not for:
 
-- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or for chasing overdue invoices (use [ar-aging-and-collections](ar-aging-and-collections.md)).
+- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or chasing overdue invoices (use [ar-aging-and-collections](ar-aging-and-collections.md)).
 
 ## What it asks you first
 
@@ -49,6 +49,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces a diagnostic, a sized plan and a coverage sheet, changes no terms and contacts no one.
+
+The workpaper has these sheets:
 
 - Executive Summary
 - Cash Conversion Cycle Diagnostic

@@ -14,7 +14,7 @@ Use it when you ask about getting finance ready for an IPO, a public-company rea
 
 Not for:
 
-- Preparing a filing (use [sec-10q-10k-prep](sec-10q-10k-prep.md)) or for testing controls (use [sox-controls-design-and-testing](sox-controls-design-and-testing.md)).
+- Preparing a filing (use [sec-10q-10k-prep](sec-10q-10k-prep.md)) or testing controls (use [sox-controls-design-and-testing](sox-controls-design-and-testing.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the roadmap and a gap list, and is not legal or securities advice.
 
+The workpaper has these sheets:
+
 - Readiness Roadmap with Timeline
 - Measured Baseline
 - Gap Assessment by Workstream
@@ -55,7 +57,6 @@ Produces the roadmap and a gap list, and is not legal or securities advice.
 - Close Calendar + RACI
 - Memo Library Index
 - SOX Readiness Plan and Evidence Framework
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

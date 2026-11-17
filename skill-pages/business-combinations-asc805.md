@@ -14,7 +14,7 @@ Use it when you ask about purchase accounting, a purchase price allocation, good
 
 Not for:
 
-- The group consolidation afterwards (use [consolidation-and-eliminations](consolidation-and-eliminations.md)) or for the later impairment test (use [goodwill-and-impairment-testing](goodwill-and-impairment-testing.md)).
+- The group consolidation afterwards (use [consolidation-and-eliminations](consolidation-and-eliminations.md)) or the later impairment test (use [goodwill-and-impairment-testing](goodwill-and-impairment-testing.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the allocation schedule and a proposed entry, and never supplies a fair value.
+
+The workpaper has these sheets:
 
 - Deal Summary & Acquirer/Date Determination
 - Consideration Transferred

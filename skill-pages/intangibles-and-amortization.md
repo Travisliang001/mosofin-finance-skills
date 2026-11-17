@@ -14,7 +14,7 @@ Use it when you ask about intangible assets, amortisation, capitalised software 
 
 Not for:
 
-- Tangible assets (use [fixed-asset-register-and-depreciation](fixed-asset-register-and-depreciation.md)) or for prepaid expenses (use [prepaid-amortization-schedule](prepaid-amortization-schedule.md)).
+- Tangible assets (use [fixed-asset-register-and-depreciation](fixed-asset-register-and-depreciation.md)) or prepaid expenses (use [prepaid-amortization-schedule](prepaid-amortization-schedule.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the register, schedules and proposed entries, and posts nothing.
+
+The workpaper has these sheets:
 
 - Intangibles Register
 - Amortization Schedule

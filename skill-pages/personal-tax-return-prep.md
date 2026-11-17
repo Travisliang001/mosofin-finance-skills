@@ -14,7 +14,7 @@ Use it when you ask to prepare or organise a personal tax return, compute an ind
 
 Not for:
 
-- A company's return (use [tax-return-prep-corporate](tax-return-prep-corporate.md)) or for a projection (use [tax-planning-and-projections](tax-planning-and-projections.md)).
+- A company's return (use [tax-return-prep-corporate](tax-return-prep-corporate.md)) or a projection (use [tax-planning-and-projections](tax-planning-and-projections.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing. Handles one person's tax data and saves none of it.
 
+The workpaper has these sheets:
+
 - Tax Computation Summary
 - Income Detail
 - Deductions & Reliefs
@@ -57,7 +59,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Open Items / Confirmations
 - Business-Sourced Figures
 - Statutory Values Used
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

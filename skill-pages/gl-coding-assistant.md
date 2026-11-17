@@ -12,9 +12,7 @@ Helps you assign GL account codes, expense categories, or tax codes to transacti
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "what account should this go to"
 - "code these expenses"
@@ -28,27 +26,24 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Transactions to code** | **Offer to find them**: uncategorized and suspense accounts are readable. (Recommended) |
-| ~~Chart of accounts~~ | **No placeholders unless the read is unavailable.** (Recommended) |
-| ~~Entity jurisdiction~~ | (Recommended) |
-| ~~Entity industry~~ | From the profile where set. (Recommended) |
-| ~~Vendor-to-account mappings (prior coding)~~ | **Derived from ledger history with counts.** The strongest evidence available. (Recommended) |
-| **Coding policy / rules** | Any house rules that override history. (Recommended) |
-| **Capitalization threshold** | (Recommended) |
-| **Tax code list** | (Recommended) |
-| **Confirm scope** | Read back the entity by name and the batch being coded. (Required) |
-| **Confirm any profile contradiction** | e.g. transactions in a currency the entity does not use. (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Transactions to code | Recommended |
+| Chart of accounts | Recommended |
+| Entity jurisdiction | Recommended |
+| Entity industry | Recommended |
+| Vendor-to-account mappings (prior coding) | Recommended |
+| Coding policy / rules | Recommended |
+| Capitalization threshold | Recommended |
+| Tax code list | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, it asks for the ledger detail and listings the work needs as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 

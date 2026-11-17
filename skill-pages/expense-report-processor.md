@@ -12,9 +12,7 @@ Helps you process, review, or post employee expense reports against your books.
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "review these expense claims"
 - "check this expense report against policy"
@@ -28,29 +26,26 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Expense report** | The claims themselves. (Recommended) |
-| **T&E policy document or parameters** | (Recommended) |
-| **Receipts** | Images are not on this surface. (Recommended) |
-| ~~Employee details~~ | (Recommended) |
-| ~~Chart of accounts~~ | **No placeholder coding.** (Recommended) |
-| **Tax jurisdiction** | (Recommended) |
-| **Mileage rate** (per-km or per-mi) | **Never supply a prevailing rate from memory.** (Recommended) |
-| **Per-diem table** | Same rule. (Recommended) |
-| ~~Functional currency~~ | From the company profile. (Recommended) |
-| **FX rate source** | Central bank close, accounting system rate, or report-date rate. **Do not assume a source.** (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and the report period. (Required) |
-| **Confirm any profile contradiction** | e.g. claims in a currency the entity does not transact in. (Required if one appears) |
-| **Confirm manual evidence** | Record what was supplied and as at when. (Required) |
+| Expense report | Recommended |
+| T&E policy document or parameters | Recommended |
+| Receipts | Recommended |
+| Employee details | Recommended |
+| Chart of accounts | Recommended |
+| Tax jurisdiction | Recommended |
+| Mileage rate (per-km or per-mi) | Recommended |
+| Per-diem table | Recommended |
+| Functional currency | Recommended |
+| FX rate source | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, it asks for the ledger detail and listings the work needs as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -58,12 +53,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs a policy-validated, GL-coded expense report ready for reimbursement and posting, with a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Summary
 - Line Detail
 - Exceptions
 - GL Posting Inputs
 - Ledger Checks
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

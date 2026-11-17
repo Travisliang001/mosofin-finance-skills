@@ -14,7 +14,7 @@ Use it when you ask about SOX, ICFR, internal controls over financial reporting,
 
 Not for:
 
-- A general internal audit (use [internal-audit-workpaper](internal-audit-workpaper.md)) or for fraud red-flag testing (use [fraud-detection-and-forensics](fraud-detection-and-forensics.md)).
+- A general internal audit (use [internal-audit-workpaper](internal-audit-workpaper.md)) or fraud red-flag testing (use [fraud-detection-and-forensics](fraud-detection-and-forensics.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the matrix, test results and a coverage sheet, and concludes on no severity.
 
+The workpaper has these sheets:
+
 - Scoping
 - Risk and Control Matrix
 - Process Documentation
@@ -57,7 +59,6 @@ Produces the matrix, test results and a coverage sheet, and concludes on no seve
 - Deficiency Evaluation
 - Remediation Tracker
 - Full-Population Test Detail
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

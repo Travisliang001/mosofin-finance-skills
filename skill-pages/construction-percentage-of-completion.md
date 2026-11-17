@@ -14,7 +14,7 @@ Use it when you ask about percentage of completion, cost-to-cost, over- and unde
 
 Not for:
 
-- Costing jobs without revenue recognition (use [cost-accounting-job-order](cost-accounting-job-order.md)) or for revenue contracts in general (use [revenue-recognition-asc606](revenue-recognition-asc606.md)).
+- Costing jobs without revenue recognition (use [cost-accounting-job-order](cost-accounting-job-order.md)) or revenue contracts in general (use [revenue-recognition-asc606](revenue-recognition-asc606.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the contract schedule and proposed entries, and never estimates cost to complete.
 
+The workpaper has these sheets:
+
 - Contract Register
 - Cost & Estimate Tracking
 - Revenue & Margin Recognition
@@ -56,7 +58,6 @@ Produces the contract schedule and proposed entries, and never estimates cost to
 - Billings Reconciliation
 - Modifications Log
 - Disclosures
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

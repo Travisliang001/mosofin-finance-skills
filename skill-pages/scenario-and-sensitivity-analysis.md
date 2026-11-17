@@ -14,7 +14,7 @@ Use it when you ask for scenario analysis, sensitivity analysis, a tornado chart
 
 Not for:
 
-- Building the forecast itself (use [rolling-forecast](rolling-forecast.md)) or for tracking covenants (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
+- Building the forecast itself (use [rolling-forecast](rolling-forecast.md)) or tracking covenants (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the analysis and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Summary of Findings
 - Scenarios
 - Single-Variable Sensitivities
@@ -55,7 +57,6 @@ Produces the analysis and a coverage sheet, and posts nothing.
 - Threshold / Breakeven
 - Probability-Weighted / Monte Carlo
 - Driver History and Ranges
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

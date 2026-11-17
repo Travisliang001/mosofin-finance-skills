@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the checklist, the schedules and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Year-End Calendar
 - PBC List
 - Lead Schedules Index

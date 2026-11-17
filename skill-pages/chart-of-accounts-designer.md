@@ -14,7 +14,7 @@ Use it when you ask to design, clean up, simplify or restructure a chart of acco
 
 Not for:
 
-- Coding individual transactions (use [gl-coding-assistant](gl-coding-assistant.md)) or for building a journal entry (use [journal-entry-builder](journal-entry-builder.md)).
+- Coding individual transactions (use [gl-coding-assistant](gl-coding-assistant.md)) or building a journal entry (use [journal-entry-builder](journal-entry-builder.md)).
 
 ## What it asks you first
 
@@ -47,12 +47,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the proposed chart, the mapping and a coverage sheet, and changes no account.
 
+The workpaper has these sheets:
+
 - Chart of Accounts
 - System-Specific Import File
 - Migration Map
 - Dimensions / Classes
 - Account Usage Analysis
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

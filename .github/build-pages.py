@@ -44,7 +44,7 @@ GROUPS = {
     15: "Further payables, receivables and compliance skills",
     16: "Tax, for a qualified professional to review",
     17: "Valuation and transactions, for a qualified professional to review",
-    18: "Movement analysis and customer deductions",
+    18: "Flux analysis and customer deductions",
 }
 
 # Anything matching these in a finished page is method detail that must not be published.
@@ -55,6 +55,10 @@ LEAKS = [
     r"reference file", r"tool name", r"capability map", r"proposed_actions", r"requires_approval",
     r"workflow\.json", r"\.schema\.json", r"sample-(?:input|output)",
 ]
+
+# Sentences a page drops because they point at something the reader cannot see.
+DROP = [r"LLM node", r"edge case", r"[Nn]ormally pulled", r"^Pulled\.?$", r"profile contradiction", r"\bprofile's\b",
+        r"[Rr]ead back", r"[Rr]ecord what was not"]
 
 # The sections every skill page carries, in order.
 SKILL_SECTIONS = ["## What it does", "## When to use it", "## What it asks you first",
@@ -104,6 +108,8 @@ def second_person(text):
                  ("the user is", "you are"), ("the user agrees", "you agree"),
                  ("their Mosofin workspace", "your Mosofin workspace"),
                  ("the user's", "your"), ("The user's", "Your"), ("the user", "you")]:
+        text = re.sub(r"\bthe user's or their\b", "yours or your", text)
+        text = re.sub(r"\bthe user's(?=[.,;:!?)]|\s*$| or\b)", "yours", text)
         text = text.replace(a, b)
     return text
 
@@ -113,7 +119,8 @@ def clean(text):
     text = re.sub(r"\s*—\s*usually\s*\*{0,2}\[(?:auto|gated|manual)\]\*{0,2}", "", text)
     text = re.sub(r"\s*\((?:Stage|Step|Gate) \d[^)]*\)", "", text)
     text = text.replace("by `display_name`", "by name").replace("`display_name`", "name")
-    kept = [s for s in sentences(text) if not any(re.search(p, s) for p in LEAKS)]
+    text = text.replace("~~", "").replace("(regex)", "(pattern)")
+    kept = [s for s in sentences(text) if not any(re.search(p, s) for p in LEAKS + DROP)]
     out = " ".join(kept).strip()
     out = re.sub(r"\s*\((?:[A-F])(?:, [A-F])*\)", "", out)
     out = re.sub(r"\*\*\s*\*\*", "", out)
@@ -194,7 +201,9 @@ def parse_description(desc):
         if p.startswith(("Triggers include", "Also trigger", "Trigger for")):
             d["examples"] += [e.rstrip(",.") for e in re.findall(r"(?<=[\s:(])'([^']{3,90}?)'(?=[,.;)\s])", p)]
         elif low.startswith("do not use"):
-            d["not_for"].append(cap(re.sub(r"^Do (?:not|NOT) use (?:this skill )?(?:for |when |to )?", "", p)))
+            item = re.sub(r"^Do (?:not|NOT) use (?:this skill )?(?:for |when |to )?", "", p)
+            item = re.sub(r"\bor for\b", "or", item)
+            d["not_for"].append(cap(item))
         elif p.startswith("Outputs "):
             d["produces"] = p + (" " + d["produces"] if d["produces"] else "")
         elif p.startswith("Read-only:"):
@@ -236,6 +245,8 @@ def output_names(text):
         n = re.sub(r"\s*\(.*?\)\s*$", "", n)
         if n and len(n) <= 60 and not any(re.search(p, n) for p in LEAKS) and n not in out:
             out.append(n)
+    if any(re.search(r"QuickBooks|Xero|NetSuite|Sage|Dynamics|Zoho", o) for o in out):
+        return []
     return out[:10]
 
 
@@ -257,9 +268,11 @@ def ask_rows(card):
         out = []
         for r in rows:
             if len(r) >= 2 and clean(r[0]):
-                why = clean(r[2]) if len(r) >= 3 and clean(r[2]) else ""
-                need = clean(r[1]) or "Recommended"
-                out.append((clean(r[0]), (why + " " if why else "") + f"({need.strip('*')})"))
+                item = re.sub(r"^(?:Confirm|Confirm any) ", "", clean(r[0]).replace("**", ""))
+                if re.match(r"(?:Scope|Manual evidence|Profile|Any profile)", item, re.I):
+                    continue
+                need = re.sub(r"\s*—.*$", "", clean(r[1]).replace("**", "")) or "Recommended"
+                out.append((cap(item), need))
         return out
     return []
 
@@ -269,9 +282,17 @@ def upload_rows(card):
     if rows:
         return [(clean(r[0]), clean(r[1]), clean(r[2])) for r in rows if len(r) >= 3 and clean(r[0])]
     rows = table_after(card, "| Input | Format | Required")
-    if rows:
-        return [(clean(r[0]), clean(r[2]).strip("*"), clean(r[1])) for r in rows if len(r) >= 3 and clean(r[0])]
-    return []
+    out = []
+    for r in rows:
+        if len(r) < 3 or not clean(r[0]):
+            continue
+        item, fmt, need = clean(r[0]).replace("**", ""), clean(r[1]), clean(r[2]).replace("**", "")
+        if not re.search(r"CSV|XLSX|PDF|chat|image|text|[Aa]ny|scan|photo", fmt):
+            if fmt and fmt.lower() != "export":
+                item = f"{item} ({fmt if re.match(r"[A-Z]{2}", fmt) else fmt[0].lower() + fmt[1:]})"
+            fmt = "Typed in the chat" if re.search(r"\bdate\b|threshold|policy|rate\b", item, re.I) else "CSV or XLSX"
+        out.append((item, need, fmt))
+    return out
 
 
 def build_skill_page(name, rows, names, wf_names):
@@ -302,19 +323,24 @@ def build_skill_page(name, rows, names, wf_names):
     if d["when"]:
         L += [clean(d["when"]), ""]
     elif d["examples"]:
-        L += ["Use it when you ask for any of these, or something like them.", ""]
+        pass
     else:
         L += [f"Use it when you need {blurb[0].lower() + blurb[1:].rstrip('.')}.", ""]
     if d["examples"]:
-        L += ["Typical requests:", ""] + [f"- \"{e}\"" for e in d["examples"][:8]] + [""]
+        L += ["Typical requests, or anything like them:", ""] + [f"- \"{e}\"" for e in d["examples"][:8]] + [""]
     nf = [clean(x) for x in d["not_for"] if clean(x)]
     if nf:
         L += ["Not for:", ""] + [f"- {x}" for x in nf] + [""]
 
     L += ["## What it asks you first", ""]
     asks = ask_rows(card)
+    old_style = bool(table_after(card, "What to confirm", "Required?")) and not table_after(card, "Ask", "Why it matters")
     if asks:
-        L += ["Before it reads anything, it asks, in one message:", "", "| It asks | Why |", "|---|---|"]
+        if old_style:
+            L += ["Before it reads anything, it confirms these with you, in one message:", "",
+                  "| It confirms | Needed? |", "|---|---|"]
+        else:
+            L += ["Before it reads anything, it asks, in one message:", "", "| It asks | Why |", "|---|---|"]
         L += [f"| {q} | {w} |" for q, w in asks] + [""]
     else:
         L += ["Before it reads anything, it asks which company and which period the work is for, "
@@ -331,22 +357,33 @@ def build_skill_page(name, rows, names, wf_names):
         L += ["If you upload the data yourself:", "", "| Upload | Needed? | Format |", "|---|---|---|"]
         L += [f"| {a} | {b or 'Recommended'} | {c or 'XLSX, CSV or PDF'} |" for a, b, c in ups] + [""]
     else:
-        L += ["If you upload the data yourself, it asks for ledger detail and listings as CSV or "
-              "XLSX exports, statements and third-party documents as PDF or CSV, and short facts "
-              "typed into the chat.", ""]
+        need = [q for q, w in asks if re.match(r"Required", w)] if asks and old_style else []
+        if need:
+            L += ["If you upload the data yourself, each item marked Required above comes from you: "
+                  + ", ".join(cap(re.sub(r"\s*—.*$", "", n)).rstrip(".") for n in need[:6])
+                  + ". Ledger detail and listings go in as CSV or XLSX exports, statements and documents "
+                  "as PDF or CSV, and short facts typed into the chat.", ""]
+        else:
+            L += ["If you upload the data yourself, it asks for the ledger detail and listings the "
+                  "work needs as CSV or XLSX exports, statements and third-party documents as PDF or "
+                  "CSV, and short facts typed into the chat.", ""]
     L += ["Every uploaded file is checked before any work starts: that it is the right kind "
           "of document, for the right company and period, and usable.", ""]
 
     L += ["## What you get", ""]
     outs = output_names(method)
-    if d["produces"]:
-        L += [cap(clean(d["produces"])), ""]
-    else:
+    produces = cap(clean(d["produces"])) if d["produces"] else ""
+    names_an_output = re.search(r"\b(?:[Pp]roduces|[Oo]utputs|[Pp]roposes|[Rr]ecommends|[Dd]rafts|[Bb]uilds|"
+                                r"workpaper|schedule|report|log|checklist|entries|memo|pack|model)\b", produces)
+    if not names_an_output:
         L += ["A workpaper you can keep, as an Excel file if you want one or as tables in the "
               "chat, with every figure traced to where it came from. Anything that would change "
               "the books is a proposal for a person to approve.", ""]
+    if produces:
+        L += [produces, ""]
+    outs = [o for o in outs if not re.match(r"[Cc]overage", o)]
     if len(outs) >= 2:
-        L += [f"- {o}" for o in outs] + [""]
+        L += ["The workpaper has these sheets:", ""] + [f"- {o}" for o in outs] + [""]
     L += ["Every run ends with a coverage sheet: what was checked, what was estimated, and what "
           "could not be done and why.", ""]
 
@@ -378,8 +415,9 @@ def wf_rows():
 def schedule_words(trigger):
     t = trigger.replace(" + webhook", "")
     if t == "webhook":
-        return "Runs when something sends it a request, for example when a file arrives."
-    return (f"Runs {t} on its own, and whenever something sends it a request.")
+        return "It runs on demand: whenever another step sends it a request, for example when a file arrives."
+    t = t.replace("days 1–7", "on days 1 to 7 of each month")
+    return (f"It runs {t} on its own, and whenever another step sends it a request.")
 
 
 def build_workflow_page(name, rows, names, wf_names):
@@ -392,19 +430,19 @@ def build_workflow_page(name, rows, names, wf_names):
 
     L = [f"# {title} (workflow)", ""]
     if proposes:
-        L += [f"> Checks Mosofin data on a schedule or on demand and proposes {proposes.rstrip('.')}.", ""]
+        how = "on a schedule or on demand" if trigger != "webhook" else "on demand"
+        L += [f"> Checks your books {how} and proposes {proposes.rstrip('.')}.", ""]
     L += ["  ·  ".join([f"**Workflow:** `{name}`", "**Runs in:** n8n", "**Read-only**"]), ""]
 
-    L += ["## What it does", ""] + [clean(p) for p in intro] + [""]
-    logic = [clean(b) for b in bullets(section(md, "What it does"))]
-    logic = [b for b in logic if b and not re.search(r"`status", b)]
-    if logic:
-        L += [f"- {b}" for b in logic] + [""]
+    L += ["## What it does", ""] + [clean(p).replace("(file fallback)", "(or from a file you send)")
+                                       .replace("file fallback", "a file you send as fallback") for p in intro] + [""]
+    L += ["It runs inside n8n, an automation tool you host, and reads your books only through "
+          "your Mosofin connection, the same read-only connection the skills use.", ""]
 
     L += ["## When it runs", "", schedule_words(trigger), ""]
     if read_words:
         L += ["With a Mosofin data source set, it reads " + ", ".join(read_words[:-1])
-              + (" and " if len(read_words) > 1 else "") + read_words[-1] + " through the Mosofin gateway. "
+              + (" and " if len(read_words) > 1 else "") + read_words[-1] + " through your Mosofin connection. "
               "Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.", ""]
     else:
         L += ["It works from the files you send it and needs no Mosofin read.", ""]
@@ -421,26 +459,28 @@ def build_workflow_page(name, rows, names, wf_names):
           "skipped and named in the result.", ""]
 
     L += ["## What you can change", "",
-          "Every setting sits in one place, and any of them can be overridden for a single run.", ""]
+          "Every setting sits in one place in the workflow, and any of them can be overridden "
+          "for a single run by the request that starts it.", ""]
     settings = table_after(md, "Setting", "Default", "Meaning")
     settings = [r for r in settings if len(r) >= 3 and r[0].strip("`") not in ("data_source_id",)]
     if settings:
         L += ["| Setting | Meaning |", "|---|---|"]
-        L += [f"| `{r[0].strip('`')}` | {clean(r[2])} |" for r in settings] + [""]
+        L += [f"| `{r[0].strip('`')}` | {clean(r[2]).replace('echoed in the envelope', 'shown in the result')} |" for r in settings] + [""]
 
     L += ["## What comes back", "",
-          "One result for the next step to use: an email connector, a chat post, a dashboard or "
-          "another tool. It holds the findings, the totals, what could not be done and why, and "
-          "the proposed actions, each waiting for a person's approval.", ""]
+          "One structured result (JSON), for the next step in your automation to use: an email tool, a "
+          "chat post, a dashboard or another workflow. It holds the findings, the totals, what "
+          "could not be done and why, and the proposed actions, each waiting for a person's "
+          "approval.", ""]
     if proposes:
         L += [f"**It proposes:** {cap(proposes.rstrip('.'))}.", ""]
 
     L += ["## What it never does", "",
-          "- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.",
+          "- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through your Mosofin connection.",
           "- **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.",
-          "- **Never trusts a file by its name.** Each file is checked on its content before it is used.", ""]
+          "- **Never takes a file at face value.** Each file is checked on its content, not its name, before it is used.", ""]
     L += footer()
-    return linkify("\n".join(L), names, "")
+    return linkify("\n".join(L), names, name)
 
 
 # ---------------------------------------------------------------- index, sitemap, gate
@@ -464,7 +504,12 @@ def build_index(names, rows, wf_names, wfs):
          "your books comes back as a proposal for a person to approve.", "",
          "**Automated** is the share of a skill's checks that run without asking you for a "
          "document when a Mosofin workspace is connected. The rest need evidence that is not in "
-         "the books, such as a bank statement or a contract.", ""]
+         "the books, such as a bank statement or a contract. Within each group, skills are listed "
+         "with the most automated first; the [sitemap](sitemap.md) lists them alphabetically.", "",
+         "Some skills sit close together. `quickbooks-ar-aging-collections` is `ar-aging-and-collections` "
+         "for books kept in QuickBooks; `ar-cash-application-lockbox` is `cash-application` for a lockbox "
+         "or bank file; `ap-invoice-processing-and-3way-match` is the whole invoice cycle around "
+         "`three-way-match`. Each page's *Not for* line says which neighbour to use instead.", ""]
     by = {}
     for n in names:
         by.setdefault(rows.get(n, (0, None, ""))[0], []).append(n)
@@ -474,8 +519,9 @@ def build_index(names, rows, wf_names, wfs):
             _, pct, blurb = rows.get(n, (0, None, ""))
             L.append(f"| [`{n}`]({n}.md) | {blurb} | {'' if pct is None else str(pct) + '%'} |")
         L.append("")
-    L += ["## n8n workflows", "", "Checks that run on a schedule or on demand, with every setting "
-          "in one place and one result for the next tool to pick up.", "",
+    L += ["## n8n workflows", "", "Checks that run on a schedule or on demand inside n8n, an "
+          "automation tool you host, with every setting in one place and one result for the next "
+          "tool to pick up. *Webhook* means another step can start the check by sending it a request.", "",
           "| Workflow | Runs | Proposes |", "|---|---|---|"]
     for n in sorted(wf_names, key=lambda x: wfs.get(x, (99,))[0]):
         _, trigger, _, proposes = wfs.get(n, (0, "", "", ""))
@@ -485,7 +531,8 @@ def build_index(names, rows, wf_names, wfs):
 
 
 def build_sitemap_md(names, rows, wf_names, wfs):
-    L = ["# Sitemap", "", f"Every page under `skill-pages/`, {len(names) + len(wf_names) + 1} in all.", "",
+    L = ["# Sitemap", "", f"Every page under `skill-pages/` in alphabetical order: {len(names)} skills, "
+         f"{len(wf_names)} workflows and this index.", "",
          "- [Index](README.md)", ""]
     by = {}
     for n in names:

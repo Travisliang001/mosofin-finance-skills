@@ -1,22 +1,20 @@
 # Cash application matcher (workflow)
 
-> Checks Mosofin data on a schedule or on demand and proposes payment-to-invoice applications.
+> Checks your books on demand and proposes payment-to-invoice applications.
 
-**Workflow:** [cash-application](cash-application.md)  ·  **Runs in:** n8n  ·  **Read-only**
+**Workflow:** `cash-application`  ·  **Runs in:** n8n  ·  **Read-only**
 
 ## What it does
 
 Proposes which open invoices each customer payment pays: invoice numbers in the remittance first, then an exact single-invoice amount, then a combination of up to three of that customer's invoices. Anything ambiguous is left for a person with the candidates listed.
 
-- Payments and open invoices come from Mosofin, or from files.
-- Order of evidence: invoice numbers quoted in the remittance (must sum to the payment); one invoice of that customer with exactly the amount; a combination of up to `max_combination` of that customer's invoices.
-- Never picks between equal candidates: several same-amount invoices is an `ambiguous_match` for a person.
+It runs inside n8n, an automation tool you host, and reads your books only through your Mosofin connection, the same read-only connection the skills use.
 
 ## When it runs
 
-Runs when something sends it a request, for example when a file arrives.
+It runs on demand: whenever another step sends it a request, for example when a file arrives.
 
-With a Mosofin data source set, it reads customer invoices and customer payments through the Mosofin gateway. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
+With a Mosofin data source set, it reads customer invoices and customer payments through your Mosofin connection. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
 
 ## What you send it
 
@@ -29,27 +27,27 @@ Every file is checked on its content before any work: right kind of document, ri
 
 ## What you can change
 
-Every setting sits in one place, and any of them can be overridden for a single run.
+Every setting sits in one place in the workflow, and any of them can be overridden for a single run by the request that starts it.
 
 | Setting | Meaning |
 |---|---|
 | `company` | Company the run is for; a file naming another company is rejected |
-| `currency` | Reporting currency, echoed in the envelope |
+| `currency` | Reporting currency, shown in the result |
 | `datasource` | Mosofin datasource name (e.g. quickbooks, xero) |
 | `amount_tolerance` | Amounts this close count as equal |
 | `max_combination` | Largest number of invoices one payment may be split across (2 or 3) |
 
 ## What comes back
 
-One result for the next step to use: an email connector, a chat post, a dashboard or another tool. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
+One structured result (JSON), for the next step in your automation to use: an email tool, a chat post, a dashboard or another workflow. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
 
 **It proposes:** Payment-to-invoice applications.
 
 ## What it never does
 
-- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.
+- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through your Mosofin connection.
 - **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.
-- **Never trusts a file by its name.** Each file is checked on its content before it is used.
+- **Never takes a file at face value.** Each file is checked on its content, not its name, before it is used.
 
 ---
 

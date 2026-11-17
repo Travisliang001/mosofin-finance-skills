@@ -14,7 +14,7 @@ Use it when you ask about XBRL or iXBRL tagging, a tag map, custom extensions, c
 
 Not for:
 
-- Preparing the filing as a whole (use [sec-10q-10k-prep](sec-10q-10k-prep.md)) or for the notes (use [notes-to-financial-statements](notes-to-financial-statements.md)).
+- Preparing the filing as a whole (use [sec-10q-10k-prep](sec-10q-10k-prep.md)) or the notes (use [notes-to-financial-statements](notes-to-financial-statements.md)).
 
 ## What it asks you first
 

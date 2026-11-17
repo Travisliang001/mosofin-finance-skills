@@ -14,7 +14,7 @@ Use it when you ask how to close the books of an insurer, broker or agent, about
 
 Not for:
 
-- A company's own insurance prepayments (use [prepaid-amortization-schedule](prepaid-amortization-schedule.md)) or for the general close (use [month-end-close-checklist](month-end-close-checklist.md)).
+- A company's own insurance prepayments (use [prepaid-amortization-schedule](prepaid-amortization-schedule.md)) or the general close (use [month-end-close-checklist](month-end-close-checklist.md)).
 
 ## What it asks you first
 
@@ -48,13 +48,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the close map, schedules tied to the ledger and a coverage sheet, and never estimates a reserve.
 
+The workpaper has these sheets:
+
 - Close Checklist Tailored to the Business Model
 - Required Data Sources and Owners
 - Schedule Templates and Tie-Out Approach
 - Risk List
 - GL Reconciliations
 - Client Money Reconciliation
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

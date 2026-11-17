@@ -14,7 +14,7 @@ Use it when you ask about payroll tax deposits, reconciling payroll tax liabilit
 
 Not for:
 
-- The payroll journal entry (use [payroll-journal-entry-builder](payroll-journal-entry-builder.md)) or for tying the register to the ledger (use [payroll-reconciliation](payroll-reconciliation.md)).
+- The payroll journal entry (use [payroll-journal-entry-builder](payroll-journal-entry-builder.md)) or tying the register to the ledger (use [payroll-reconciliation](payroll-reconciliation.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing. Works on totals where it can and saves no employee data.
 
+The workpaper has these sheets:
+
 - Filing Obligations Calendar
 - Amounts Due Computation
 - Deposit Reconciliation
@@ -56,7 +58,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Wage Statement Data
 - Open Items / Professional Review
 - Statutory Values Used
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

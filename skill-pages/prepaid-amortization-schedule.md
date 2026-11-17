@@ -10,9 +10,7 @@ Helps you build, maintain, or audit a prepaid expense amortization schedule agai
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "set up a prepaid amortization schedule"
 - "amortize this prepaid"
@@ -40,13 +38,13 @@ If you upload the data yourself:
 
 | Upload | Needed? | Format |
 |---|---|---|
-| List of prepaid items | Required | Vendor, description, amount, payment date, coverage period |
-| Currency per item | Required if multi-currency | ISO code |
-| Functional currency | Required | ISO code |
-| Chart of accounts | Required | For prepaid asset and expense accounts |
-| Tax jurisdiction | Recommended | For tax handling on the original invoice |
-| Materiality threshold | Recommended | Below which an item is expensed directly |
-| Amortization frequency | Optional | Monthly (most common), quarterly |
+| List of prepaid items (vendor, description, amount, payment date, coverage period) | Required | Typed in the chat |
+| Currency per item (ISO code) | Required if multi-currency | CSV or XLSX |
+| Functional currency (ISO code) | Required | CSV or XLSX |
+| Chart of accounts (for prepaid asset and expense accounts) | Required | CSV or XLSX |
+| Tax jurisdiction (for tax handling on the original invoice) | Recommended | CSV or XLSX |
+| Materiality threshold (below which an item is expensed directly) | Recommended | Typed in the chat |
+| Amortization frequency (monthly (most common), quarterly) | Optional | CSV or XLSX |
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -54,13 +52,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
 
+The workpaper has these sheets:
+
 - Prepaid Schedule Master
 - Period Detail
 - GL Tie-Out
 - Monthly JE
 - Cancellations / Modifications Log
 - Ledger Findings
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -12,9 +12,7 @@ Helps you reconcile a corporate or business credit card statement to the GL with
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "reconcile the corporate card"
 - "match receipts to the credit card statement"
@@ -29,30 +27,27 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Credit card statement** — PDF, CSV or XLSX from the issuer | Ask for it explicitly. Without it, say what the output will and will not be. (Recommended) |
-| **Receipts for the period** | Or a receipt-tool export. Attachment metadata is not a receipt. (Recommended) |
-| **Cardholder name** | And which employee or role each card belongs to. (Recommended) |
-| **Statement period** — date range | Note whether it matches the accounting period — see the edge case. (Required) |
-| **Statement balances** — opening, charges, payments, closing | From the statement. (Recommended) |
-| **GL credit card liability balance at period end** | Pulled from the trial balance. Confirm which account. (Required for tie-out) |
-| **Chart of accounts** | Pulled. (Required) |
-| **Tax jurisdiction** | (Recommended) |
-| **Receipt policy threshold** — below which no receipt is required | Needed to distinguish an acceptable missing receipt from an exception. (Recommended) |
-| **Capitalization threshold** | Enables the capital-purchase test. (Recommended) |
-| **Per-card-program quirks** | Auto-categorisation from spend platforms needs verifying, not trusting. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | Record what was not supplied. (Required) |
+| Credit card statement — PDF, CSV or XLSX from the issuer | Recommended |
+| Receipts for the period | Recommended |
+| Cardholder name | Recommended |
+| Statement period — date range | Required |
+| Statement balances — opening, charges, payments, closing | Recommended |
+| GL credit card liability balance at period end | Required for tie-out |
+| Chart of accounts | Required |
+| Tax jurisdiction | Recommended |
+| Receipt policy threshold — below which no receipt is required | Recommended |
+| Capitalization threshold | Recommended |
+| Per-card-program quirks | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Statement period, GL credit card liability balance at period end, Chart of accounts. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -60,12 +55,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs a reconciled credit card workpaper with receipt status, GL coding, exceptions, the posting JE, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Reconciliation Summary
 - Transaction Detail
 - Exceptions
 - GL Posting
 - Source Receipts Reference
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

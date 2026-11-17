@@ -14,7 +14,7 @@ Use it when you ask for related party disclosures, a list of related party trans
 
 Not for:
 
-- Intercompany matching (use [intercompany-reconciliation](intercompany-reconciliation.md)) or for the notes as a whole (use [notes-to-financial-statements](notes-to-financial-statements.md)).
+- Intercompany matching (use [intercompany-reconciliation](intercompany-reconciliation.md)) or the notes as a whole (use [notes-to-financial-statements](notes-to-financial-statements.md)).
 
 ## What it asks you first
 
@@ -48,13 +48,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the schedules and draft disclosure, collects only what the standard requires, and posts nothing.
 
+The workpaper has these sheets:
+
 - Related-Party Register
 - Completeness Evidence
 - Transactions and Balances
 - Disclosure Tables
 - Management Representation Draft
 - Ledger Candidates
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

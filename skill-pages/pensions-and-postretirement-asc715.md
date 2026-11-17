@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the roll-forwards and proposed entries from the actuary's figures, and never supplies an assumption.
 
+The workpaper has these sheets:
+
 - Recorded vs. Actuarial
 - Obligation Roll-Forward
 - Plan Asset Roll-Forward
@@ -56,7 +58,6 @@ Produces the roll-forwards and proposed entries from the actuary's figures, and 
 - Journal Entries
 - Disclosure Tables
 - Controls Checklist
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

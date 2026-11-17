@@ -14,7 +14,7 @@ Use it when you ask about accounting for bitcoin or other crypto, digital asset 
 
 Not for:
 
-- Foreign currency balances (use [multicurrency-fx-revaluation](multicurrency-fx-revaluation.md)) or for tax treatment.
+- Foreign currency balances (use [multicurrency-fx-revaluation](multicurrency-fx-revaluation.md)) or tax treatment.
 
 ## What it asks you first
 
@@ -46,6 +46,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the schedules and proposed entries, and never supplies a price.
+
+The workpaper has these sheets:
 
 - Digital Asset Inventory
 - Classification & Measurement Policy

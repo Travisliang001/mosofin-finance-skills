@@ -10,9 +10,7 @@ Helps you reconcile vendor statements to the AP subledger and GL against a conne
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "which suppliers should we be reconciling"
 - "do we have unrecorded liabilities"
@@ -30,11 +28,11 @@ If you upload the data yourself:
 
 | Upload | Needed? | Format |
 |---|---|---|
-| **Vendor statement** | Required | PDF / CSV |
-| **AP ageing / vendor ledger** | Required | Export |
-| Payment register | Recommended | AP payments + bank info |
-| Dispute log | Recommended | Notes of disputed invoices |
-| **Cutoff date** | Required | Month-end date |
+| Vendor statement | Required | PDF / CSV |
+| AP ageing / vendor ledger | Required | CSV or XLSX |
+| Payment register (AP payments + bank info) | Recommended | CSV or XLSX |
+| Dispute log (notes of disputed invoices) | Recommended | CSV or XLSX |
+| Cutoff date (month-end date) | Required | Typed in the chat |
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -42,12 +40,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
 
+The workpaper has these sheets:
+
 - Reconciliation Summary
 - Matched Item List
 - Exceptions Table
 - Recommended JEs
 - Vendor Prioritisation
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

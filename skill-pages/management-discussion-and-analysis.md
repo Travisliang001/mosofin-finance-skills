@@ -48,13 +48,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces a draft for management and legal review, and publishes nothing.
 
+The workpaper has these sheets:
+
 - Variance Analysis Backing
 - Number Tie-Out
 - Non-GAAP Reconciliations
 - Forward-Looking Statements Log
 - Critical Estimates Summary
 - Revenue Bridge
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

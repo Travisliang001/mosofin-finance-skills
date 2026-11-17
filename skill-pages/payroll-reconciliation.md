@@ -12,9 +12,7 @@ Helps you reconcile payroll against your books — payroll register to GL, payro
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "reconcile payroll"
 - "payroll register to GL"
@@ -30,35 +28,34 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Payroll register(s) for the period** | (Recommended) |
-| ~~GL payroll accounts activity~~ | Confirm which accounts are in scope. (Recommended) |
-| **Bank statement / payment records** | (Recommended) |
-| **Liability remittance records** | (Recommended) |
-| **Period** — month / quarter / year | **Steps 4 and 5 apply at quarter and year end.** (Required) |
-| **Tax filing figures** | See [payroll-tax-filings](payroll-tax-filings.md). (Recommended) |
-| **Prior period reconciliation** | (Recommended) |
-| **The taxable wage base rules** per tax | Pre-tax deductions, caps, ceilings. **Not derivable here.** (Recommended) |
-| **Remittance due dates** per liability | (Recommended) |
-| **Whether a third-party provider handles remittance** | **The entity remains liable**; see the edge cases. (Required — Mosofin addition) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and the period. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Payroll register(s) for the period | Recommended |
+| GL payroll accounts activity | Recommended |
+| Bank statement / payment records | Recommended |
+| Liability remittance records | Recommended |
+| Period — month / quarter / year | Required |
+| Tax filing figures | Recommended |
+| Prior period reconciliation | Recommended |
+| The taxable wage base rules per tax | Recommended |
+| Remittance due dates per liability | Recommended |
+| Whether a third-party provider handles remittance | Required |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period, Whether a third-party provider handles remittance. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs a payroll reconciliation workpaper tying register, GL, bank, and filings with flagged exceptions and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Reconciliation Summary
 - Register-to-GL Bridge
@@ -67,7 +64,6 @@ Outputs a payroll reconciliation workpaper tying register, GL, bank, and filings
 - Filing Reconciliation
 - Taxable Wage Base Reconciliation
 - Exceptions & Corrections
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -14,7 +14,7 @@ Use it when you ask for segment reporting, reportable segments, the ten percent 
 
 Not for:
 
-- A management dashboard (use [kpi-dashboard-builder](kpi-dashboard-builder.md)) or for the notes as a whole (use [notes-to-financial-statements](notes-to-financial-statements.md)).
+- A management dashboard (use [kpi-dashboard-builder](kpi-dashboard-builder.md)) or the notes as a whole (use [notes-to-financial-statements](notes-to-financial-statements.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the segment schedules, the reconciliation and a coverage sheet, and concludes on no judgment.
 
+The workpaper has these sheets:
+
 - Segment Identification
 - Reportable Segment Tests
 - Segment Financial Data
@@ -55,7 +57,6 @@ Produces the segment schedules, the reconciliation and a coverage sheet, and con
 - Entity-Wide Disclosures
 - Disclosure Draft
 - Data Quality and Coverage
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

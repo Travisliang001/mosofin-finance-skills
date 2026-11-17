@@ -14,7 +14,7 @@ Use it when you ask for variance analysis on standard costs, purchase price vari
 
 Not for:
 
-- Variance against the budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)) or for reconciling inventory to the ledger (use [inventory-to-gl-reconciliation](inventory-to-gl-reconciliation.md)).
+- Variance against the budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)) or reconciling inventory to the ledger (use [inventory-to-gl-reconciliation](inventory-to-gl-reconciliation.md)).
 
 ## What it asks you first
 
@@ -49,12 +49,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the variances, the bridge and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Variance Report by Product / Line / Plant
 - Explanations and Root-Cause Hypotheses
 - Recommended Operational Actions
 - Proposed Accounting Entries and Close Approach
 - Standards Health
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

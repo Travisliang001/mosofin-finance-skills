@@ -14,7 +14,7 @@ Use it when you ask what a business is worth, for a valuation range, a DCF with 
 
 Not for:
 
-- A full analyst package with visible WACC and a football field (use [valuation-agent-dcf-comps-football-field](valuation-agent-dcf-comps-football-field.md)) or for an impairment test (use [goodwill-and-impairment-testing](goodwill-and-impairment-testing.md)).
+- A full analyst package with visible WACC and a football field (use [valuation-agent-dcf-comps-football-field](valuation-agent-dcf-comps-football-field.md)) or an impairment test (use [goodwill-and-impairment-testing](goodwill-and-impairment-testing.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces valuation analysis for a qualified professional, not an opinion of value, and supplies no market data.
 
+The workpaper has these sheets:
+
 - Valuation Summary
 - DCF
 - Trading Comps
@@ -57,7 +59,6 @@ Produces valuation analysis for a qualified professional, not an opinion of valu
 - Adjustments
 - Sensitivities
 - Open Items / Specialist
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
@@ -67,7 +68,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Never writes, updates or deletes anything, in any system.**
 - **Produces valuation analysis, not an opinion of value.** It is not a licensed valuation professional, and a qualified one signs before anyone relies on the figure.
 - **Never supplies market data.** Discount rate inputs, multiples, comparables and prices come from you, each with its source and date.
-- **Never generates the forecast.** The cash flows are your.
+- **Never generates the forecast.** The cash flows are yours.
 - **Never gives a single number without its range and its basis.**
 
 ---

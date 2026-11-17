@@ -12,9 +12,7 @@ Helps you apply customer payments to open invoices, working from your books.
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "apply these customer payments"
 - "cash app this remittance"
@@ -30,27 +28,24 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Customer payments / receipts** — deposit listing, lockbox file, processor export | Ask which population you are working on — they are different jobs. (Required) |
-| **Open A/R invoices** | Normally pulled. Confirm the as-of date. (Required) |
-| **Remittance advice** — if separate from the payment data | The single biggest driver of match quality. Ask whether any exist and where. (Recommended) |
-| **Customer master** — helps fuzzy-match payer names | Pulled. Ask only for known payer aliases the books do not hold. (Recommended) |
-| **Tolerances for short / over pay** — currency amount or % | **Default exact** if not supplied, and say that is what you did. (Recommended) |
-| **Tax jurisdiction** | Needed only where withholding at source applies. (Recommended) |
-| **FX rates** at the receipt date | No accounting connector supplies a rate; ask for the rate and its source. (Recommended) |
-| **Application order default** — oldest-first (FIFO) or otherwise | Confirm rather than assuming. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | Remittances, FX rates and tax certificates will be among them. (Recommended) |
+| Customer payments / receipts — deposit listing, lockbox file, processor export | Required |
+| Open A/R invoices | Required |
+| Remittance advice — if separate from the payment data | Recommended |
+| Customer master — helps fuzzy-match payer names | Recommended |
+| Tolerances for short / over pay — currency amount or % | Recommended |
+| Tax jurisdiction | Recommended |
+| FX rates at the receipt date | Recommended |
+| Application order default — oldest-first (FIFO) or otherwise | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Customer payments / receipts, Open A/R invoices. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -58,11 +53,12 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs an application schedule, the corresponding proposed JE, exceptions for unidentified or short payments, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Application Summary
 - Payment-to-Invoice Mapping
 - Exceptions
 - GL Posting
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

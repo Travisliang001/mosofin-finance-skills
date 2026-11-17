@@ -1,6 +1,6 @@
 # Month-end close status (workflow)
 
-> Checks Mosofin data on a schedule or on demand and proposes nudges to task owners.
+> Checks your books on a schedule or on demand and proposes nudges to task owners.
 
 **Workflow:** `month-end-close-orchestrator`  ·  **Runs in:** n8n  ·  **Read-only**
 
@@ -8,15 +8,13 @@
 
 Checks the close from evidence, not from ticks: the trial balance balances, suspense and clearing accounts are empty, and each checklist task has a status. Lists what blocks the close and nudges each owner.
 
-- `checklist` is fully configurable: each task has an owner and a check type.
-- `tb_balances`: trial balance debits = credits within `tolerance`.
-- `suspense_zero`: every account whose name contains a `suspense_accounts` fragment is zero.
+It runs inside n8n, an automation tool you host, and reads your books only through your Mosofin connection, the same read-only connection the skills use.
 
 ## When it runs
 
-Runs days 1–7 on its own, and whenever something sends it a request.
+It runs on days 1 to 7 of each month on its own, and whenever another step sends it a request.
 
-With a Mosofin data source set, it reads the trial balance through the Mosofin gateway. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
+With a Mosofin data source set, it reads the trial balance through your Mosofin connection. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
 
 ## What you send it
 
@@ -29,12 +27,12 @@ Every file is checked on its content before any work: right kind of document, ri
 
 ## What you can change
 
-Every setting sits in one place, and any of them can be overridden for a single run.
+Every setting sits in one place in the workflow, and any of them can be overridden for a single run by the request that starts it.
 
 | Setting | Meaning |
 |---|---|
 | `company` | Company the run is for; a file naming another company is rejected |
-| `currency` | Reporting currency, echoed in the envelope |
+| `currency` | Reporting currency, shown in the result |
 | `datasource` | Mosofin datasource name (e.g. quickbooks, xero) |
 | `period_end` | Last day of the period (YYYY-MM-DD) |
 | `tolerance` | Rounding tolerance for the trial-balance check |
@@ -43,15 +41,15 @@ Every setting sits in one place, and any of them can be overridden for a single 
 
 ## What comes back
 
-One result for the next step to use: an email connector, a chat post, a dashboard or another tool. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
+One structured result (JSON), for the next step in your automation to use: an email tool, a chat post, a dashboard or another workflow. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
 
 **It proposes:** Nudges to task owners.
 
 ## What it never does
 
-- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.
+- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through your Mosofin connection.
 - **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.
-- **Never trusts a file by its name.** Each file is checked on its content before it is used.
+- **Never takes a file at face value.** Each file is checked on its content, not its name, before it is used.
 
 ---
 

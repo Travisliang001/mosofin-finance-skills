@@ -14,7 +14,7 @@ Use it when you ask to reconcile intercompany accounts, find an intercompany mis
 
 Not for:
 
-- Reconciling a balance sheet account to its support (use [balance-sheet-reconciliations](balance-sheet-reconciliations.md)) or for a bank account (use [bank-reconciliation](bank-reconciliation.md)).
+- Reconciling a balance sheet account to its support (use [balance-sheet-reconciliations](balance-sheet-reconciliations.md)) or a bank account (use [bank-reconciliation](bank-reconciliation.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the reconciliation, proposed entries and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Entity Pair Summary
 - Transaction-Level Matching
 - Mismatches
@@ -55,7 +57,6 @@ Produces the reconciliation, proposed entries and a coverage sheet, and posts no
 - Elimination Entries
 - Currency Reconciliation
 - Pair Matrix
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

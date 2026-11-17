@@ -1,6 +1,6 @@
 # Sitemap
 
-Every page under `skill-pages/`, 135 in all.
+Every page under `skill-pages/` in alphabetical order: 116 skills, 18 workflows and this index.
 
 - [Index](README.md)
 
@@ -169,7 +169,7 @@ Every page under `skill-pages/`, 135 in all.
 - [model-auditor-financial-model-review](model-auditor-financial-model-review.md)
 - [valuation-agent-dcf-comps-football-field](valuation-agent-dcf-comps-football-field.md)
 
-## Movement analysis and customer deductions
+## Flux analysis and customer deductions
 
 - [ar-deductions-and-short-pays](ar-deductions-and-short-pays.md)
 - [flux-analysis](flux-analysis.md)

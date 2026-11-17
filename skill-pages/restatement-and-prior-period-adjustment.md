@@ -14,7 +14,7 @@ Use it when you ask about a prior period error, a restatement, a prior period ad
 
 Not for:
 
-- A change in estimate handled prospectively (use [accruals-and-deferrals](accruals-and-deferrals.md)) or for routine closing entries (use [closing-entries-and-trial-balance](closing-entries-and-trial-balance.md)).
+- A change in estimate handled prospectively (use [accruals-and-deferrals](accruals-and-deferrals.md)) or routine closing entries (use [closing-entries-and-trial-balance](closing-entries-and-trial-balance.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the quantification, proposed corrections and disclosures, and concludes on no materiality.
 
+The workpaper has these sheets:
+
 - Error Assessment
 - Quantification
 - Materiality Analysis
@@ -56,7 +58,6 @@ Produces the quantification, proposed corrections and disclosures, and concludes
 - Disclosure Draft
 - Control / Governance / Regulatory
 - Prior-Period Posting Sweep
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -12,9 +12,7 @@ Helps you build a complete set of financial statements from your books — Balan
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "build financial statements from this TB"
 - "produce a P&L and balance sheet"
@@ -30,37 +28,36 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| ~~Trial balance, current period~~ | (Recommended) |
-| ~~Comparative period TB~~ | Same call, prior period end. **But see the published-comparative warning.** (Recommended) |
-| **Reporting framework** — US GAAP / IFRS / local GAAP | **Ask first.** It decides ordering, terminology and format throughout. (Recommended) |
-| ~~Functional / presentation currency~~ | From the profile. **Ask only if presentation currency differs from functional.** (Recommended) |
-| ~~Entity name and reporting period~~ | Legal name from the profile; confirm the period. (Recommended) |
-| ~~Chart of accounts with type mapping~~ | (Recommended) |
-| **Classification rules** — current / non-current criteria | **The current portion of debt and leases is the hard part**; it needs the amortization schedules. (Recommended) |
-| **Special presentation elements** — discontinued ops, extraordinary items, segments | Nothing in the ledger flags a disposal group. (Recommended) |
-| **Prior-year audited financials** — for continuity | The check that catches unposted audit adjustments. (Recommended) |
-| **Presentation currency**, if different from functional | Translation per [foreign-currency-translation-asc830](foreign-currency-translation-asc830.md). (Recommended) |
-| **Rounding basis** | Whole units, thousands, millions. (Recommended) |
-| **Share count for EPS**, if EPS is required | **Weighted average shares are not in the ledger.** (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, **and whether the package is consolidated or separate**. (Required) |
-| **Confirm any profile contradiction** | e.g. a year-end that disagrees with the period requested. (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Trial balance, current period | Recommended |
+| Comparative period TB | Recommended |
+| Reporting framework — US GAAP / IFRS / local GAAP | Recommended |
+| Functional / presentation currency | Recommended |
+| Entity name and reporting period | Recommended |
+| Chart of accounts with type mapping | Recommended |
+| Classification rules — current / non-current criteria | Recommended |
+| Special presentation elements — discontinued ops, extraordinary items, segments | Recommended |
+| Prior-year audited financials — for continuity | Recommended |
+| Presentation currency, if different from functional | Recommended |
+| Rounding basis | Recommended |
+| Share count for EPS, if EPS is required | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, it asks for the ledger detail and listings the work needs as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs a complete statement package with comparatives, classifications, tie-outs, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Trial Balance
 - Balance Sheet
@@ -70,7 +67,6 @@ Outputs a complete statement package with comparatives, classifications, tie-out
 - Statement of Changes in Equity
 - Cross-Statement Tie-Outs
 - Reclassifications and Restated Prior Period
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

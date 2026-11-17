@@ -14,7 +14,7 @@ Use it when you have a lockbox or bank deposit file and remittance advice to app
 
 Not for:
 
-- Applying payments already recorded in the books without a bank file (use [cash-application](cash-application.md)) or for the bank account itself (use [bank-reconciliation](bank-reconciliation.md)).
+- Applying payments already recorded in the books without a bank file (use [cash-application](cash-application.md)) or the bank account itself (use [bank-reconciliation](bank-reconciliation.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Proposes applications and entries for a person to post, and applies nothing.
+
+The workpaper has these sheets:
 
 - Applied cash register
 - Unapplied cash aging

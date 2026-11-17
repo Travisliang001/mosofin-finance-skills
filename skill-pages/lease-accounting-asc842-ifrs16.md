@@ -14,7 +14,7 @@ Use it when you ask about lease accounting, a right-of-use asset, a lease liabil
 
 Not for:
 
-- Owned assets (use [fixed-asset-register-and-depreciation](fixed-asset-register-and-depreciation.md)) or for prepaid rent alone (use [prepaid-amortization-schedule](prepaid-amortization-schedule.md)).
+- Owned assets (use [fixed-asset-register-and-depreciation](fixed-asset-register-and-depreciation.md)) or prepaid rent alone (use [prepaid-amortization-schedule](prepaid-amortization-schedule.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the schedules and proposed entries, and posts nothing.
 
+The workpaper has these sheets:
+
 - Lease Register & Classification
 - Initial Measurement
 - Lease Liability Schedule
@@ -57,7 +59,6 @@ Produces the schedules and proposed entries, and posts nothing.
 - Disclosures
 - Completeness
 - Tie-Out
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
@@ -67,7 +68,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Never writes, updates or deletes anything, in any system.** Every entry is a proposal for a person to post.
 - **Never fabricates a discount rate.** It asks for the rate and how it was derived.
 - **Never classifies a lease under IFRS 16**, where a lessee has one model, and never skips classification under ASC 842.
-- **Never decides that an option is reasonably certain to be exercised.** That judgment is your, and the schedule states it.
+- **Never decides that an option is reasonably certain to be exercised.** That judgment is yours, and the schedule states it.
 
 ---
 

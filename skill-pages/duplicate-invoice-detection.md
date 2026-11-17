@@ -12,9 +12,7 @@ Helps you detect duplicate or fraudulent invoices in AP from your books.
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "check for duplicate invoices"
 - "find duplicate payments"
@@ -28,26 +26,23 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **AP / payment register** | **Do not ask for an export; read it.** Confirm the population and the record count. (Recommended) |
-| **Period to scan** | Never default it. **Scan wider than the current period** — duplicates frequently straddle a boundary. (Required) |
-| **Vendor master** | Read. Needed for the alias rules. (Recommended) |
-| **Prior duplicate-detection results** | So previously cleared clusters are not re-raised. (Recommended) |
-| **Sensitivity setting** — Strict / Standard / Permissive | (Recommended) |
-| **N for Rule 3** — the date window | Default 7 days; confirm if the entity's invoicing pattern is unusual. (Optional) |
-| **Known legitimate recurring suppliers** | Rent, subscriptions and retainers legitimately repeat at identical amounts. Naming them up front removes most false positives. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and whether a cross-entity scan applies. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | Say so before reporting results. (Required) |
+| AP / payment register | Recommended |
+| Period to scan | Required |
+| Vendor master | Recommended |
+| Prior duplicate-detection results | Recommended |
+| Sensitivity setting — Strict / Standard / Permissive | Recommended |
+| N for Rule 3 — the date window | Optional |
+| Known legitimate recurring suppliers | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period to scan. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -55,13 +50,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs a duplicate-suspect list with confidence ratings, supporting evidence, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Summary
 - Flagged Pairs
 - Detail
 - Vendor Aliases to Merge
 - Recovery Plan
 - Rules Run
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

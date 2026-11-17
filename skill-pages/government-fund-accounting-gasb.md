@@ -14,7 +14,7 @@ Use it when you ask about governmental fund accounting, modified accrual, fund b
 
 Not for:
 
-- A charity (use [nonprofit-fund-accounting](nonprofit-fund-accounting.md)) or for a company's statements (use [financial-statement-builder](financial-statement-builder.md)).
+- A charity (use [nonprofit-fund-accounting](nonprofit-fund-accounting.md)) or a company's statements (use [financial-statement-builder](financial-statement-builder.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the statements, reconciliations and a coverage sheet, and posts nothing.
+
+The workpaper has these sheets:
 
 - Fund Structure
 - Governmental Fund Statements

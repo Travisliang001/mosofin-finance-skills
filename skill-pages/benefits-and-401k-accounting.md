@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the schedules and proposed entries, and remits nothing.
 
+The workpaper has these sheets:
+
 - Benefit Cost Summary
 - Defined Contribution
 - Compensated Absences
@@ -56,7 +58,6 @@ Produces the schedules and proposed entries, and remits nothing.
 - Journal Entries
 - Disclosures
 - Open Items / Actuary Required
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

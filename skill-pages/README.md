@@ -4,7 +4,9 @@ One page per skill (116) and per n8n workflow (18). Each page says what it is fo
 
 Everything here is **read-only**: it reads and analyses, and anything that would change your books comes back as a proposal for a person to approve.
 
-**Automated** is the share of a skill's checks that run without asking you for a document when a Mosofin workspace is connected. The rest need evidence that is not in the books, such as a bank statement or a contract.
+**Automated** is the share of a skill's checks that run without asking you for a document when a Mosofin workspace is connected. The rest need evidence that is not in the books, such as a bank statement or a contract. Within each group, skills are listed with the most automated first; the [sitemap](sitemap.md) lists them alphabetically.
+
+Some skills sit close together. `quickbooks-ar-aging-collections` is `ar-aging-and-collections` for books kept in QuickBooks; `ar-cash-application-lockbox` is `cash-application` for a lockbox or bank file; `ap-invoice-processing-and-3way-match` is the whole invoice cycle around `three-way-match`. Each page's *Not for* line says which neighbour to use instead.
 
 ## Everyday payables, receivables and close
 
@@ -205,7 +207,7 @@ Everything here is **read-only**: it reads and analyses, and anything that would
 | [`ipo-readiness-accounting`](ipo-readiness-accounting.md) | Finance roadmap to public-company readiness, with the close measured | 41% |
 | [`business-valuation`](business-valuation.md) | A value range from three approaches, and the bridge to equity | 40% |
 
-## Movement analysis and customer deductions
+## Flux analysis and customer deductions
 
 | Skill | What it's for | Automated |
 |---|---|---:|
@@ -214,7 +216,7 @@ Everything here is **read-only**: it reads and analyses, and anything that would
 
 ## n8n workflows
 
-Checks that run on a schedule or on demand, with every setting in one place and one result for the next tool to pick up.
+Checks that run on a schedule or on demand inside n8n, an automation tool you host, with every setting in one place and one result for the next tool to pick up. *Webhook* means another step can start the check by sending it a request.
 
 | Workflow | Runs | Proposes |
 |---|---|---|

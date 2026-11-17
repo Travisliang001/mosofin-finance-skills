@@ -14,7 +14,7 @@ Use it when you ask to build a cash flow statement or statement of cash flows, r
 
 Not for:
 
-- A forward-looking cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or for the full statement set (use [financial-statement-builder](financial-statement-builder.md)).
+- A forward-looking cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or the full statement set (use [financial-statement-builder](financial-statement-builder.md)).
 
 ## What it asks you first
 
@@ -49,6 +49,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the statement, its tie-out and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Cash Flow Statement
 - Working Capital Bridge
 - Investing Detail
@@ -56,7 +58,6 @@ Produces the statement, its tie-out and a coverage sheet, and posts nothing.
 - Tie-Out
 - Supplemental Disclosures
 - Direct Method
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

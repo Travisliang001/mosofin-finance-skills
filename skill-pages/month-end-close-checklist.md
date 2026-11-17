@@ -12,9 +12,7 @@ Helps you plan, run, or audit a monthly close against your books.
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "run the month-end close"
 - "month-end checklist"
@@ -28,35 +26,34 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Period being closed** | (Required) |
-| **Close calendar / target close date** | (Recommended) |
-| ~~Entity profile~~ — industry, size, complexity | **Multi-entity and multi-currency from Gates 1 and 3; industry from the profile.** Confirm rather than ask. (Recommended) |
-| **Reporting framework** | (Recommended) |
-| **Standard close template**, if existing | **Preferred over a generic list** where one exists. (Recommended) |
-| **Team / owners** | **Not in the ledger, and the checklist is worth little without them.** (Recommended) |
-| **Materiality threshold** | **Do not assume one**; see the startup edge case. (Recommended) |
-| ~~Sub-processes in scope~~ | **Scoped from the chart**; confirm the result. (Recommended) |
-| **Prior month's close** | (Recommended) |
-| **Whether this is a soft or hard close** | Different rigour; see the edge cases. (Required — Mosofin addition) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and the period. (Required) |
-| **Confirm any profile contradiction** | e.g. a monthly close for an entity whose periods are quarterly. (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Period being closed | Required |
+| Close calendar / target close date | Recommended |
+| Entity profile — industry, size, complexity | Recommended |
+| Reporting framework | Recommended |
+| Standard close template, if existing | Recommended |
+| Team / owners | Recommended |
+| Materiality threshold | Recommended |
+| Sub-processes in scope | Recommended |
+| Prior month's close | Recommended |
+| Whether this is a soft or hard close | Required |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period being closed, Whether this is a soft or hard close. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs a comprehensive close checklist with owners, deadlines, dependencies, status tracking, a final tie-out workpaper, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Close Calendar
 - Task Detail
@@ -66,7 +63,6 @@ Outputs a comprehensive close checklist with owners, deadlines, dependencies, st
 - Final Tie-Out
 - Lessons Learned
 - Scoping
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

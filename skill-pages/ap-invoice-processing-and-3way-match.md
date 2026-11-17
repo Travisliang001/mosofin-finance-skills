@@ -14,7 +14,7 @@ Use it when you ask to set up or review the AP invoice process, define approval 
 
 Not for:
 
-- The match alone (use [three-way-match](three-way-match.md)), for extracting fields (use [invoice-data-extractor](invoice-data-extractor.md)) or for duplicates alone (use [duplicate-invoice-detection](duplicate-invoice-detection.md)).
+- The match alone (use [three-way-match](three-way-match.md)), for extracting fields (use [invoice-data-extractor](invoice-data-extractor.md)) or duplicates alone (use [duplicate-invoice-detection](duplicate-invoice-detection.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Proposes coding and exceptions, and posts and pays nothing.
+
+The workpaper has these sheets:
 
 - SOP with roles, SLAs, evidence
 - Match rules and tolerance table

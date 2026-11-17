@@ -12,9 +12,7 @@ Use this skill whenever you upload a vendor invoice (PDF, image, or scanned doc)
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "extract the data from this invoice"
 - "pull the fields from this bill"
@@ -28,24 +26,22 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Invoice document(s)** — PDF, PNG, JPG, or multi-page scan | **Not in the workspace.** You supply them. (Recommended) |
-| ~~Entity being invoiced~~ | Legal name from the profile; **the Bill-To is validated against it.** (Recommended) |
-| **Output format** — xlsx / csv / JSON | (Optional (default xlsx)) |
-| ~~Vendor mapping file~~ | **The coding history is the mapping** — see [gl-coding-assistant](gl-coding-assistant.md). (Recommended) |
-| ~~Currency assumption~~ | The entity's currency and the vendor's history are cues; **never default silently.** (Recommended) |
-| **Which entity each invoice belongs to**, in a batch | Proposed from Bill-To; confirmed by you. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm manual evidence** | (Required) |
+| Invoice document(s) — PDF, PNG, JPG, or multi-page scan | Recommended |
+| Entity being invoiced | Recommended |
+| Output format — xlsx / csv / JSON | Optional (default xlsx) |
+| Vendor mapping file | Recommended |
+| Currency assumption | Recommended |
+| Which entity each invoice belongs to, in a batch | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, it asks for the ledger detail and listings the work needs as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -53,12 +49,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs a structured row per invoice with vendor, dates, amounts, line items, tax breakdown, validation results, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Invoices
 - Line Items
 - Tax Detail
 - Source Reference
 - Validation Results
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

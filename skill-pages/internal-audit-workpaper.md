@@ -14,7 +14,7 @@ Use it when you ask to plan or run an internal audit, write an audit program, do
 
 Not for:
 
-- Preparing for the external audit (use [audit-prep-pbc-list](audit-prep-pbc-list.md)) or for fraud red-flag testing (use [fraud-detection-and-forensics](fraud-detection-and-forensics.md)).
+- Preparing for the external audit (use [audit-prep-pbc-list](audit-prep-pbc-list.md)) or fraud red-flag testing (use [fraud-detection-and-forensics](fraud-detection-and-forensics.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the program, workpapers, findings and a coverage sheet, and changes no record.
+
+The workpaper has these sheets:
 
 - Audit Plan
 - Audit Program

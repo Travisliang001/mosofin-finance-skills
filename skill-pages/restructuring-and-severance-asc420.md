@@ -14,7 +14,7 @@ Use it when you ask about a restructuring provision, severance accrual, exit or 
 
 Not for:
 
-- Routine accruals (use [accruals-and-deferrals](accruals-and-deferrals.md)) or for payroll entries (use [payroll-journal-entry-builder](payroll-journal-entry-builder.md)).
+- Routine accruals (use [accruals-and-deferrals](accruals-and-deferrals.md)) or payroll entries (use [payroll-journal-entry-builder](payroll-journal-entry-builder.md)).
 
 ## What it asks you first
 
@@ -48,12 +48,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the accrual model and proposed entries, and handles no more personal data than the standard needs.
 
+The workpaper has these sheets:
+
 - Accrual Model by Employee / Cost Type
 - Reserve Rollforward
 - JE Package
 - Disclosure-Ready Summary
 - Reserve Challenge
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
@@ -63,7 +64,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Never writes, updates or deletes anything, in any system.** Every entry is a proposal for a person to post.
 - **Never takes or stores names of affected employees unless the accounting requires it**, and never saves them.
 - **Never recognises a cost before its trigger is evidenced.** The communication date comes from you.
-- **Never decides whether future service is required.** That judgment sets the pattern and is your.
+- **Never decides whether future service is required.** That judgment sets the pattern and is yours.
 - **Never shares the output beyond the people you name.**
 
 ---

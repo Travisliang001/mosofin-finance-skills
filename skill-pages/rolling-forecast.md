@@ -14,7 +14,7 @@ Use it when you ask for a rolling forecast, a re-forecast, a forecast refresh af
 
 Not for:
 
-- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or for variance against the budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)).
+- A weekly cash forecast (use [cash-flow-forecast-13-week](cash-flow-forecast-13-week.md)) or variance against the budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)).
 
 ## What it asks you first
 
@@ -46,7 +46,11 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 ## What you get
 
-The forward assumptions are your, and the skill posts nothing.
+A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
+
+The forward assumptions are yours, and the skill posts nothing.
+
+The workpaper has these sheets:
 
 - Rolling Forecast Summary
 - Monthly Detail
@@ -56,7 +60,6 @@ The forward assumptions are your, and the skill posts nothing.
 - Forecast Accuracy Tracker
 - Scenario Range
 - Forecast Challenge
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

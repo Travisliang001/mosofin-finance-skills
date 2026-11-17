@@ -12,9 +12,7 @@ Helps you book period-end accruals or deferrals from your books, beyond AP-speci
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "book accruals for the period"
 - "accrue bonuses"
@@ -32,34 +30,33 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Period being closed** — exact start and end dates | Never default the period. (Required) |
-| **Categories of accruals / deferrals in scope** — compensation, interest, utilities, revenue, etc. | (Required) |
-| **Supporting data per category** — bonus pool, interest rate, contract terms, time sheets | Say which is which. (Required per category) |
-| **Chart of accounts** — the accounts to post to | Normally pulled from the connected books; ask you to confirm the specific accrued-liability, accrued-revenue and deferred-revenue accounts, since naming varies. (Required) |
-| **Materiality threshold** — the dollar size below which an item isn't worth accruing | Ask; do not invent a figure. If declined, accrue everything found and say so. (Recommended) |
-| **Reporting framework** — US GAAP / IFRS / other | Affects presentation and some measurement. (Recommended) |
-| **Tax jurisdiction** | For tax recoverability and employer-side payroll tax on compensation accruals. (Recommended) |
-| **Functional currency** | Ask only to confirm a profile contradiction, or if several currencies appear. (Recommended — usually derived) |
-| **Reversal policy** | Do accruals reverse automatically on day one of the next period, or does the incoming invoice post straight against the accrual account? (Required) |
-| **Confirm scope** | Read back which company files are in scope and which are excluded, by name. (Required) |
-| **Confirm any profile contradiction** | E.g. the profile's year-end does not match the period you named. (Required if one appears) |
-| **Confirm manual evidence** | For each gap, ask whether you can supply it, and how. (Recommended) |
+| Period being closed — exact start and end dates | Required |
+| Categories of accruals / deferrals in scope — compensation, interest, utilities, revenue, etc. | Required |
+| Supporting data per category — bonus pool, interest rate, contract terms, time sheets | Required per category |
+| Chart of accounts — the accounts to post to | Required |
+| Materiality threshold — the dollar size below which an item isn't worth accruing | Recommended |
+| Reporting framework — US GAAP / IFRS / other | Recommended |
+| Tax jurisdiction | Recommended |
+| Functional currency | Recommended |
+| Reversal policy | Required |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period being closed, Categories of accruals / deferrals in scope, Supporting data per category, Chart of accounts, Reversal policy. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs an accrual / deferral schedule with reasoning, the proposed JEs, the reversing entries, and a coverage sheet showing what was pulled automatically versus supplied by hand. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Summary
 - Category Detail
@@ -68,7 +65,6 @@ Outputs an accrual / deferral schedule with reasoning, the proposed JEs, the rev
 - Deferred Revenue Roll-Forward
 - Roll-Forward by Category
 - Materiality / Excluded Items
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

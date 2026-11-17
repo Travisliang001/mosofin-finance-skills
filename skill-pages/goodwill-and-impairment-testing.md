@@ -14,7 +14,7 @@ Use it when you ask about a goodwill impairment test, triggering events, recover
 
 Not for:
 
-- The purchase accounting that created the goodwill (use [business-combinations-asc805](business-combinations-asc805.md)) or for inventory write-downs (use [inventory-obsolescence-and-reserve](inventory-obsolescence-and-reserve.md)).
+- The purchase accounting that created the goodwill (use [business-combinations-asc805](business-combinations-asc805.md)) or inventory write-downs (use [inventory-obsolescence-and-reserve](inventory-obsolescence-and-reserve.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the test and a proposed entry, concludes nothing on whether an asset is impaired, and supplies no cash flow or discount rate.
+
+The workpaper has these sheets:
 
 - Test Scope
 - Qualitative Assessment

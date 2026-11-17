@@ -14,7 +14,7 @@ Use it when you ask to consolidate entities, prepare group or consolidated accou
 
 Not for:
 
-- Matching intercompany balances pair by pair (use [intercompany-reconciliation](intercompany-reconciliation.md)) or for a single company's statements (use [financial-statement-builder](financial-statement-builder.md)).
+- Matching intercompany balances pair by pair (use [intercompany-reconciliation](intercompany-reconciliation.md)) or a single company's statements (use [financial-statement-builder](financial-statement-builder.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the workpaper, proposed eliminations and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Consolidation Workpaper
 - Currency Translation
 - Elimination Entries
@@ -56,7 +58,6 @@ Produces the workpaper, proposed eliminations and a coverage sheet, and posts no
 - Consolidated Statements
 - Tie-Outs
 - Intercompany Mismatch
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -14,7 +14,7 @@ Use it when you ask to prepare 1099s or T4As, find which vendors need an informa
 
 Not for:
 
-- Auditing the vendor master in general (use [vendor-onboarding-and-w9-tin](vendor-onboarding-and-w9-tin.md)) or for payroll forms (use [payroll-tax-filings](payroll-tax-filings.md)).
+- Auditing the vendor master in general (use [vendor-onboarding-and-w9-tin](vendor-onboarding-and-w9-tin.md)) or payroll forms (use [payroll-tax-filings](payroll-tax-filings.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing. Masks tax identifiers wherever it can.
 
+The workpaper has these sheets:
+
 - Filing Summary
 - Reportable Vendor List
 - Excluded Vendors
@@ -55,7 +57,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Per-Form Detail
 - Payment Reconciliation
 - Withholding Reconciliation
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

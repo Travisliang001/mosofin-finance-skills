@@ -1,6 +1,6 @@
 # Vendor onboarding check (workflow)
 
-> Checks Mosofin data on a schedule or on demand and proposes vendor set-up or an information request.
+> Checks your books on demand and proposes vendor set-up or an information request.
 
 **Workflow:** `vendor-onboarding`  ·  **Runs in:** n8n  ·  **Read-only**
 
@@ -8,15 +8,13 @@
 
 Checks new-vendor details before setup: required fields present, TIN in a valid format, and no existing vendor with the same name or TIN. Clean vendors are proposed for creation; the rest get a request for the missing information.
 
-- One row per new vendor; columns named as in `required_fields`.
-- Checks completeness, TIN format (digit count, not all one digit), and duplicates against existing vendors by name or TIN.
-- Only the last four TIN digits appear in the output.
+It runs inside n8n, an automation tool you host, and reads your books only through your Mosofin connection, the same read-only connection the skills use.
 
 ## When it runs
 
-Runs when something sends it a request, for example when a file arrives.
+It runs on demand: whenever another step sends it a request, for example when a file arrives.
 
-With a Mosofin data source set, it reads the vendor list through the Mosofin gateway. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
+With a Mosofin data source set, it reads the vendor list through your Mosofin connection. Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.
 
 ## What you send it
 
@@ -29,27 +27,27 @@ Every file is checked on its content before any work: right kind of document, ri
 
 ## What you can change
 
-Every setting sits in one place, and any of them can be overridden for a single run.
+Every setting sits in one place in the workflow, and any of them can be overridden for a single run by the request that starts it.
 
 | Setting | Meaning |
 |---|---|
 | `company` | Company the run is for; a file naming another company is rejected |
-| `currency` | Reporting currency, echoed in the envelope |
+| `currency` | Reporting currency, shown in the result |
 | `datasource` | Mosofin datasource name (e.g. quickbooks, xero) |
 | `required_fields` | Columns that must be filled for a vendor to be set up |
 | `tin_digits` | Digits a TIN must have (US EIN/SSN: 9) |
 
 ## What comes back
 
-One result for the next step to use: an email connector, a chat post, a dashboard or another tool. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
+One structured result (JSON), for the next step in your automation to use: an email tool, a chat post, a dashboard or another workflow. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
 
 **It proposes:** Vendor set-up or an information request.
 
 ## What it never does
 
-- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.
+- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through your Mosofin connection.
 - **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.
-- **Never trusts a file by its name.** Each file is checked on its content before it is used.
+- **Never takes a file at face value.** Each file is checked on its content, not its name, before it is used.
 
 ---
 

@@ -12,9 +12,7 @@ Helps you identify and book period-end AP accruals from your books — invoices 
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "book the AP accrual at month-end"
 - "accrue for services received but not invoiced"
@@ -30,28 +28,25 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Period being closed** — month or quarter, exact dates | Never default the period. (Required) |
-| **Open POs and receipts (GRNI candidates)** | Ask where receipts are logged. (Required for GRNI accruals) |
-| **Recurring vendor schedule** — vendors with regular monthly bills | Normally derivable from spend history; ask you to confirm and add anything the books do not show. (Recommended) |
-| **Invoices received post-period** — bills dated after period end for in-period services | Normally pulled by searching bills after period end. (Recommended) |
-| **Chart of accounts** — the accounts to post to | Pulled from the books; ask you to confirm the specific accrued-liability account, since naming varies. (Required) |
-| **Tax jurisdiction** | Do not assume. (Required if tax is recoverable) |
-| **Materiality threshold for accruals** | If not given, accrue everything identified — and say that is what you did. (Recommended) |
-| **Functional currency** | Ask only to resolve a contradiction or where several currencies appear. (Recommended — usually derived) |
-| **Subsequent-event window** — how many days after period end to look for late invoices | Common answer is "up to the date the books close". (Required) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | E.g. the profile's year-end does not match the period named. (Required if one appears) |
-| **Confirm manual evidence** | For each gap, ask whether you can supply it, and how. (Recommended) |
+| Period being closed — month or quarter, exact dates | Required |
+| Open POs and receipts (GRNI candidates) | Required for GRNI accruals |
+| Recurring vendor schedule — vendors with regular monthly bills | Recommended |
+| Invoices received post-period — bills dated after period end for in-period services | Recommended |
+| Chart of accounts — the accounts to post to | Required |
+| Tax jurisdiction | Required if tax is recoverable |
+| Materiality threshold for accruals | Recommended |
+| Functional currency | Recommended |
+| Subsequent-event window — how many days after period end to look for late invoices | Required |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period being closed, Open POs and receipts (GRNI candidates), Chart of accounts, Tax jurisdiction, Subsequent-event window. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -59,13 +54,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs an accrual schedule with proposed JEs, reversing entries for the new period, and a coverage sheet showing what was pulled automatically versus supplied by hand. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Accrual Summary
 - GRNI Accruals
 - Recurring Accruals
 - Subsequent Invoices
 - Proposed JEs
 - Exceptions / Open Items
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

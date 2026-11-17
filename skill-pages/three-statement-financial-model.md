@@ -14,7 +14,7 @@ Use it when you ask to build a three-statement model, an integrated financial mo
 
 Not for:
 
-- An operating budget alone (use [budget-builder](budget-builder.md)), for a re-forecast (use [rolling-forecast](rolling-forecast.md)) or for testing assumptions on an existing model (use [scenario-and-sensitivity-analysis](scenario-and-sensitivity-analysis.md)).
+- An operating budget alone (use [budget-builder](budget-builder.md)), for a re-forecast (use [rolling-forecast](rolling-forecast.md)) or testing assumptions on an existing model (use [scenario-and-sensitivity-analysis](scenario-and-sensitivity-analysis.md)).
 
 ## What it asks you first
 

@@ -12,9 +12,7 @@ Use this skill whenever you want an accounts payable aging analysis, a payment r
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "run an AP aging"
 - "who do we owe and when is it due"
@@ -29,28 +27,25 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Open A/P / unpaid bills** | Normally pulled from the connected books. Ask what sits outside them (a bill not yet entered, another entity's ledger). (Required) |
-| **As-of date for the aging** | Never default it. The aging changes materially day to day. (Required) |
-| **Cash available for the payment run** | Ask; do not read a bank balance and call it available. (Required for payment-run mode) |
-| **Vendor master / payment terms** | Terms are normally on the vendor record or the bill; ask only for what is missing. (Recommended) |
-| **Vendor priority tier** (critical / standard / discretionary) | The books do not know which supplier stops serving you first. (Recommended) |
-| **Early-pay discount terms** | Normally derivable from the terms record; ask where terms are held outside the books. (Optional) |
-| **Payment method per vendor** (ACH / wire / cheque / card) | (Recommended) |
-| **Aging buckets** | (Recommended) |
-| **Functional currency** | Ask only to resolve a contradiction or where several currencies appear. (Recommended — usually derived) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | For each gap, ask whether you can supply it, and how. (Recommended) |
+| Open A/P / unpaid bills | Required |
+| As-of date for the aging | Required |
+| Cash available for the payment run | Required for payment-run mode |
+| Vendor master / payment terms | Recommended |
+| Vendor priority tier (critical / standard / discretionary) | Recommended |
+| Early-pay discount terms | Optional |
+| Payment method per vendor (ACH / wire / cheque / card) | Recommended |
+| Aging buckets | Recommended |
+| Functional currency | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Open A/P / unpaid bills, As-of date for the aging, Cash available for the payment run. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -58,12 +53,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs an AP aging schedule, a prioritized payment run proposal, discount-capture analysis, and a coverage sheet showing what was pulled automatically versus supplied by hand. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Aging Summary
 - Aging Detail
 - Proposed Payment Run
 - Discount Opportunities
 - Exceptions
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -12,9 +12,7 @@ Helps you compare actual results to budget or forecast and explain the variances
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "budget vs actual"
 - "variance analysis"
@@ -31,27 +29,24 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Actual results for the period** — by line, by month | Normally pulled. (Required) |
-| **Budget / forecast for the same period** — by line, by month | **Ask which budget by name.** See the mid-year-revision edge case: comparing to the original budget, a revised budget, or the latest forecast tells three different stories. (Recommended) |
-| **Period and granularity** — month, QTD, YTD | Never default it. Confirm against the profile's year-end. (Required) |
-| **Materiality threshold for commentary** — $ and/or % | (Recommended) |
-| **Prior year actuals** — for YoY context | Normally pulled alongside. (Recommended) |
-| **Driver data** — units, headcount, price, for decomposition | (Recommended) |
-| **Account groupings / reporting hierarchy** — how lines roll up | The chart of accounts, classes and departments pull; confirm which grouping management actually reads. (Recommended) |
-| **Known one-time items** in the period | Saves misattributing a legal settlement to run-rate cost. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | Especially the thresholds and any budget not held in the system. (Recommended) |
+| Actual results for the period — by line, by month | Required |
+| Budget / forecast for the same period — by line, by month | Recommended |
+| Period and granularity — month, QTD, YTD | Required |
+| Materiality threshold for commentary — $ and/or % | Recommended |
+| Prior year actuals — for YoY context | Recommended |
+| Driver data — units, headcount, price, for decomposition | Recommended |
+| Account groupings / reporting hierarchy — how lines roll up | Recommended |
+| Known one-time items in the period | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Actual results for the period, Period and granularity. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -59,12 +54,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs a variance report with favorable/unfavorable classification, driver decomposition, commentary, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Variance Summary
 - Variance Commentary
 - Driver Decomposition Detail
 - Full-Year Outlook
 - Waterfall Data
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

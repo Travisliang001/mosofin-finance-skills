@@ -14,7 +14,7 @@ Use it when you ask for a DCF with a WACC build, a comps table, a football field
 
 Not for:
 
-- A short valuation range (use [business-valuation](business-valuation.md)) or for testing a model's formulas (use [model-auditor-financial-model-review](model-auditor-financial-model-review.md)).
+- A short valuation range (use [business-valuation](business-valuation.md)) or testing a model's formulas (use [model-auditor-financial-model-review](model-auditor-financial-model-review.md)).
 
 ## What it asks you first
 

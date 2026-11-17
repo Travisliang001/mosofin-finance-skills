@@ -14,7 +14,7 @@ Use it when you ask to prepare a corporate tax computation, convert book income 
 
 Not for:
 
-- The tax charge in the accounts (use [corporate-tax-provision-asc740](corporate-tax-provision-asc740.md)) or for an individual (use [personal-tax-return-prep](personal-tax-return-prep.md)).
+- The tax charge in the accounts (use [corporate-tax-provision-asc740](corporate-tax-provision-asc740.md)) or an individual (use [personal-tax-return-prep](personal-tax-return-prep.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing.
 
+The workpaper has these sheets:
+
 - Tax Computation Summary
 - Book-to-Tax Reconciliation
 - Capital Allowances / Tax Depreciation
@@ -57,7 +59,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Reconciliations
 - Open Items / Confirmations
 - Disallowable Candidates Sweep
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

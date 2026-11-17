@@ -14,7 +14,7 @@ Use it when you ask for a subsequent events review, events after the balance she
 
 Not for:
 
-- The notes as a whole (use [notes-to-financial-statements](notes-to-financial-statements.md)) or for contingencies in depth (use [contingencies-and-litigation-asc450](contingencies-and-litigation-asc450.md)).
+- The notes as a whole (use [notes-to-financial-statements](notes-to-financial-statements.md)) or contingencies in depth (use [contingencies-and-litigation-asc450](contingencies-and-litigation-asc450.md)).
 
 ## What it asks you first
 
@@ -48,12 +48,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the event list, classifications and a coverage sheet, and concludes for no one.
 
+The workpaper has these sheets:
+
 - Subsequent Events Log
 - Recommended Adjusting Entries
 - Draft Disclosure Language
 - Sign-Off Checklist
 - Ledger Sweep Detail
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

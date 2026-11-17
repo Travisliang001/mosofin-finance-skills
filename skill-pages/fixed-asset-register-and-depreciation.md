@@ -12,9 +12,7 @@ Helps you maintain a fixed asset register, compute depreciation, capitalize new 
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "add this asset to the FA register"
 - "compute monthly depreciation"
@@ -32,36 +30,35 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Existing FA register** | **The core gap.** Without it, you can still reconcile movements and test the threshold, but not compute asset-level depreciation. (Recommended) |
-| ~~New acquisitions for the period~~ | **Derived from debits to the FA accounts.** Confirm rather than request. (Recommended) |
-| ~~Disposals for the period~~ | Derived from credits and gain/loss accounts. Confirm the reason and proceeds. (Recommended) |
-| **Asset class policies** — useful life and method per class | Never assume a life. (Recommended) |
-| **Reporting framework** — US GAAP / IFRS / local GAAP | Decides componentization, revaluation and impairment reversal. (Recommended) |
-| **Capitalization threshold** | (Recommended) |
-| ~~Functional currency~~ | From the profile. (Recommended) |
-| ~~Chart of accounts~~ | (Recommended) |
-| **Tax jurisdiction** | For tax-book differences; the rules are not on this surface. (Recommended) |
-| **First / last period convention** | Half-month, full month or pro-rata. Changes every number. (Recommended) |
-| **Impairment indicators**, if any | Nothing in the ledger signals a triggering event. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and the period. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | Record what was supplied and as at when. (Required) |
+| Existing FA register | Recommended |
+| New acquisitions for the period | Recommended |
+| Disposals for the period | Recommended |
+| Asset class policies — useful life and method per class | Recommended |
+| Reporting framework — US GAAP / IFRS / local GAAP | Recommended |
+| Capitalization threshold | Recommended |
+| Functional currency | Recommended |
+| Chart of accounts | Recommended |
+| Tax jurisdiction | Recommended |
+| First / last period convention | Recommended |
+| Impairment indicators, if any | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, it asks for the ledger detail and listings the work needs as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs an FA register with depreciation schedule, capitalization, disposal, reconciliation workpapers, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Asset Register Master
 - Depreciation Schedule

@@ -14,7 +14,7 @@ Use it when you ask for a statement of changes in equity or stockholders' equity
 
 Not for:
 
-- The full statement set (use [financial-statement-builder](financial-statement-builder.md)) or for the year-end closing entries (use [closing-entries-and-trial-balance](closing-entries-and-trial-balance.md)).
+- The full statement set (use [financial-statement-builder](financial-statement-builder.md)) or the year-end closing entries (use [closing-entries-and-trial-balance](closing-entries-and-trial-balance.md)).
 
 ## What it asks you first
 
@@ -48,13 +48,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the statement, its tie-outs and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Statement of Changes in Equity
 - Movement Detail
 - Share Count Roll-Forward
 - Tie-Outs
 - Dividends / Distributions Detail
 - Equity Movement Source Test
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

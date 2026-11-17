@@ -14,7 +14,7 @@ Use it when you ask to audit the vendor master, onboard a vendor, check for miss
 
 Not for:
 
-- Matching invoices (use [three-way-match](three-way-match.md)) or for duplicate payments (use [duplicate-invoice-detection](duplicate-invoice-detection.md)).
+- Matching invoices (use [three-way-match](three-way-match.md)) or duplicate payments (use [duplicate-invoice-detection](duplicate-invoice-detection.md)).
 
 ## What it asks you first
 
@@ -46,7 +46,11 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 ## What you get
 
+A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
+
 Changes no vendor record, and masks bank and tax identifiers wherever the analysis allows.
+
+The workpaper has these sheets:
 
 - Vendor Record
 - Validation Results
@@ -54,7 +58,6 @@ Changes no vendor record, and masks bank and tax identifiers wherever the analys
 - Required Documents
 - Vendor Master Import
 - Master Audit
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
@@ -65,7 +68,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Never displays a full bank account number or tax identifier where a masked one will do.**
 - **Never performs or claims a sanctions screen.** It records who ran it and when.
 - **Never treats a bank detail change as fraud.** It is reported for verification by call-back.
-- **Gives no tax advice.** Withholding rules are your or their adviser's to confirm.
+- **Gives no tax advice.** Withholding rules are yours or your adviser's to confirm.
 
 ---
 

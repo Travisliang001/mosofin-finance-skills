@@ -14,7 +14,7 @@ Use it when you ask for quality of earnings, adjusted or normalised EBITDA, a wo
 
 Not for:
 
-- Valuing the business (use [business-valuation](business-valuation.md)) or for freeing cash from working capital in your own company (use [working-capital-optimization](working-capital-optimization.md)).
+- Valuing the business (use [business-valuation](business-valuation.md)) or freeing cash from working capital in your own company (use [working-capital-optimization](working-capital-optimization.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces analysis for the deal team, not an audit and not investment advice.
+
+The workpaper has these sheets:
 
 - Executive Summary
 - Adjusted EBITDA Bridge

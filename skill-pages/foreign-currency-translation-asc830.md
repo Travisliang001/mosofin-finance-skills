@@ -14,7 +14,7 @@ Use it when you ask to translate a foreign subsidiary, about the cumulative tran
 
 Not for:
 
-- Period-end revaluation of foreign balances in one company (use [multicurrency-fx-revaluation](multicurrency-fx-revaluation.md)) or for the full group consolidation (use [consolidation-and-eliminations](consolidation-and-eliminations.md)).
+- Period-end revaluation of foreign balances in one company (use [multicurrency-fx-revaluation](multicurrency-fx-revaluation.md)) or the full group consolidation (use [consolidation-and-eliminations](consolidation-and-eliminations.md)).
 
 ## What it asks you first
 

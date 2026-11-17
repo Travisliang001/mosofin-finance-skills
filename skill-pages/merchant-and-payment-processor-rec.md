@@ -14,7 +14,7 @@ Use it when you ask to reconcile Stripe or Square to the books, process processo
 
 Not for:
 
-- Bank reconciliation alone (use [bank-reconciliation](bank-reconciliation.md)) or for applying customer payments (use [cash-application](cash-application.md)).
+- Bank reconciliation alone (use [bank-reconciliation](bank-reconciliation.md)) or applying customer payments (use [cash-application](cash-application.md)).
 
 ## What it asks you first
 
@@ -48,13 +48,14 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces a reconciliation, proposed entries and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Reconciliation Summary
 - Transaction Detail
 - Payout Tie-Out
 - Exceptions
 - GL Posting
 - Presentation Checks
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

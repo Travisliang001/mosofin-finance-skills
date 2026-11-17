@@ -12,9 +12,7 @@ Helps you construct, format, or validate a journal entry against your books.
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "book a JE for"
 - "create a journal entry to record"
@@ -30,41 +28,32 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Transaction or event to record** | Your. (Recommended) |
-| **Posting date** | (Required) |
-| ~~Chart of accounts~~ | Real accounts, real types. **No placeholders unless the read fails.** (Recommended) |
-| ~~Entity / company~~ | Confirmed by name. (Recommended) |
-| ~~Functional currency~~ | From the profile. (Recommended) |
-| **Reference / source document** | Findable where the document is in the system. (Recommended) |
-| ~~Accounting system~~ | **Ask only for the import template if needed.** (Recommended) |
-| **Reversal flag** | (Optional) |
-| **Tax jurisdiction** | (Recommended) |
-| **Materiality threshold** | Needed for the large-entry flag; **do not assume one.** (Recommended) |
-| **Confirm scope** | Read back the entity by name and the period. (Required) |
-| **Confirm manual evidence** | (Required) |
+| Transaction or event to record | Recommended |
+| Posting date | Required |
+| Chart of accounts | Recommended |
+| Entity / company | Recommended |
+| Functional currency | Recommended |
+| Reference / source document | Recommended |
+| Accounting system | Recommended |
+| Reversal flag | Optional |
+| Tax jurisdiction | Recommended |
+| Materiality threshold | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Posting date. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs balanced journal entries with supporting narration, validation results, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
-
-- QuickBooks Online
-- Xero
-- NetSuite
-- Sage Intacct / 50 / 200
-- Microsoft Dynamics 365 / Business Central
-- Zoho Books / FreshBooks / Wave / Other
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

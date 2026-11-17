@@ -12,9 +12,7 @@ Helps you review journal entries for risk, propriety, or anomalies from your boo
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "review the journal entries"
 - "JE testing"
@@ -31,34 +29,34 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| ~~Journal entry population~~ | **Full population, not a sample.** Confirm the field list. (Recommended) |
-| **Period under review** | (Required) |
-| **Chart of accounts with risk-sensitive accounts noted** | (Recommended) |
-| **Approval / workflow data** — who approved, approval status | **Generally not on this surface.** Ask for the approval log. (Recommended) |
-| **Expected posting patterns** — normal volumes, timing, sources | **Derivable from history**, which is better than an expectation. (Recommended) |
-| **Materiality threshold** | Needed for magnitude screening and the below-threshold test. (Recommended) |
-| **Known risk areas** | Focuses the review. (Recommended) |
-| **Authorization thresholds** | The test is meaningless without them. (Recommended) |
-| **Whether topside entries exist and where** | They may not be in this population at all. (Required — Mosofin addition) |
-| **Who may see the output** | It names people. (Required — Mosofin addition) |
-| **Confirm scope** | Read back in-scope and excluded company files by name, and the period. (Required) |
-| **Confirm manual evidence** | (Required) |
+| Journal entry population | Recommended |
+| Period under review | Required |
+| Chart of accounts with risk-sensitive accounts noted | Recommended |
+| Approval / workflow data — who approved, approval status | Recommended |
+| Expected posting patterns — normal volumes, timing, sources | Recommended |
+| Materiality threshold | Recommended |
+| Known risk areas | Recommended |
+| Authorization thresholds | Recommended |
+| Whether topside entries exist and where | Required |
+| Who may see the output | Required |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Period under review, Whether topside entries exist and where, Who may see the output. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs a risk-scored journal entry review with flagged anomalies, characteristics tested, follow-up items, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Population Profile
 - Risk Criteria & Screening
@@ -68,7 +66,6 @@ Outputs a risk-scored journal entry review with flagged anomalies, characteristi
 - Follow-Up & Escalation
 - Control Observations
 - Criteria Not Run
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

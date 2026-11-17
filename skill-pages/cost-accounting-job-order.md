@@ -14,7 +14,7 @@ Use it when you ask for job costing, project or job profitability, work in progr
 
 Not for:
 
-- Continuous production (use [cost-accounting-process-costing](cost-accounting-process-costing.md)), for standard cost variances (use [standard-costing-and-variance-analysis](standard-costing-and-variance-analysis.md)) or for coding a single transaction (use [gl-coding-assistant](gl-coding-assistant.md)).
+- Continuous production (use [cost-accounting-process-costing](cost-accounting-process-costing.md)), for standard cost variances (use [standard-costing-and-variance-analysis](standard-costing-and-variance-analysis.md)) or coding a single transaction (use [gl-coding-assistant](gl-coding-assistant.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces job cost sheets, the roll-forward and proposed entries, and posts nothing.
+
+The workpaper has these sheets:
 
 - Job cost ledger model
 - Overhead rate and pool documentation

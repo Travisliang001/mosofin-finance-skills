@@ -14,7 +14,7 @@ Use it when you ask about bad debt, the allowance for doubtful accounts, expecte
 
 Not for:
 
-- Chasing overdue invoices (use [ar-aging-and-collections](ar-aging-and-collections.md)) or for setting a customer's credit limit (use [credit-limit-and-customer-risk](credit-limit-and-customer-risk.md)).
+- Chasing overdue invoices (use [ar-aging-and-collections](ar-aging-and-collections.md)) or setting a customer's credit limit (use [credit-limit-and-customer-risk](credit-limit-and-customer-risk.md)).
 
 ## What it asks you first
 
@@ -48,12 +48,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Proposes entries for a person to approve and post, and writes off nothing.
 
+The workpaper has these sheets:
+
 - Allowance Calculation
 - Specific Write-Offs
 - Methodology Documentation
 - Roll-Forward
 - GL Posting
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
@@ -62,7 +63,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Asks before using Mosofin.** A connected account is not permission to read it.
 - **Never writes, updates or deletes anything, in any system.** Every entry is a proposal, and no balance is written off by this skill.
 - **Never picks the reporting framework**, and never infers it from the country.
-- **Never assumes a loss rate.** Rates come from history, or are stated as your.
+- **Never assumes a loss rate.** Rates come from history, or are stated as yours.
 - **Never proposes a write-off without the approval authority named**, and never claims tax relief that has not been confirmed.
 
 ---

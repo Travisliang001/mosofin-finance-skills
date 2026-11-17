@@ -12,9 +12,7 @@ Helps you pull live A/R, build and reconcile an aging, prioritize collections, c
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "run an AR aging"
 - "who owes us money"
@@ -34,11 +32,13 @@ Before it reads anything, it asks which company and which period the work is for
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, it asks for the ledger detail and listings the work needs as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
+
+A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
 
 Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 

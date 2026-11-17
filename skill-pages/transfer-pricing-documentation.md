@@ -14,7 +14,7 @@ Use it when you ask about transfer pricing documentation, a local file or master
 
 Not for:
 
-- Matching intercompany balances (use [intercompany-reconciliation](intercompany-reconciliation.md)) or for consolidation (use [consolidation-and-eliminations](consolidation-and-eliminations.md)).
+- Matching intercompany balances (use [intercompany-reconciliation](intercompany-reconciliation.md)) or consolidation (use [consolidation-and-eliminations](consolidation-and-eliminations.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing.
 
+The workpaper has these sheets:
+
 - Transaction Inventory
 - Functional Analysis Matrix
 - Method Selection
@@ -56,7 +58,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Documentation Compliance
 - Open Items / Specialist Review
 - Risk Indicators
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -14,7 +14,7 @@ Use it when you ask whether an invoice should be paid, wants to match invoices t
 
 Not for:
 
-- Finding duplicate payments alone (use [duplicate-invoice-detection](duplicate-invoice-detection.md)) or for reconciling a vendor statement (use [vendor-statement-reconciliation](vendor-statement-reconciliation.md)).
+- Finding duplicate payments alone (use [duplicate-invoice-detection](duplicate-invoice-detection.md)) or reconciling a vendor statement (use [vendor-statement-reconciliation](vendor-statement-reconciliation.md)).
 
 ## What it asks you first
 
@@ -49,12 +49,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Recommends, posts nothing, pays nothing.
 
+The workpaper has these sheets:
+
 - Match Summary
 - Line-by-Line Match
 - Exceptions
 - Document References
 - Population Findings
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

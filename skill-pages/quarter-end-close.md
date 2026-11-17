@@ -14,7 +14,7 @@ Use it when you ask to run or plan a quarter-end close, prepare quarterly report
 
 Not for:
 
-- The monthly close (use [month-end-close-checklist](month-end-close-checklist.md)) or for computing loan covenants in depth (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
+- The monthly close (use [month-end-close-checklist](month-end-close-checklist.md)) or computing loan covenants in depth (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the checklist, the schedules and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Quarter Close Calendar
 - Quarter-Specific Procedures
 - Estimates Review
@@ -57,7 +59,6 @@ Produces the checklist, the schedules and a coverage sheet, and posts nothing.
 - Filing / Report Checklist
 - Final Tie-Out and Sign-Off
 - Ledger Diagnostics
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

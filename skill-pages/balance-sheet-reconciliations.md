@@ -12,9 +12,7 @@ Helps you reconcile balance sheet accounts to supporting subledgers or external 
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "reconcile our balance sheet accounts"
 - "reconcile [AR/AP/prepaid/accrued/intercompany/etc.] to GL"
@@ -29,27 +27,24 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Account(s) being reconciled** — number + name | The chart of accounts pulls; ask **which** accounts are in scope, or confirm "all balance sheet accounts". (Recommended) |
-| **Reporting period** — date range | Never default the period. (Required) |
-| **GL balance at period end** | Pulled from the trial balance. (Required) |
-| **Supporting subledger / schedule / external doc** | (Required — mixed) |
-| **Prior period reconciliation** | Ask for it; without it, say the carry-forward could not be performed. (Recommended) |
-| **Materiality threshold for unreconciled differences** | **Ask you. Do not silently assume** — see the edge case for how to suggest one. (Recommended) |
-| **Chart of accounts** — for posting cleanup JEs | Confirm the cleanup / suspense account by its real name. (Required) |
-| **Who prepares and who reviews** | The workpaper header needs both, and they should not be the same person. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | E.g. the profile's period-end does not match the period named. (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Account(s) being reconciled — number + name | Recommended |
+| Reporting period — date range | Required |
+| GL balance at period end | Required |
+| Supporting subledger / schedule / external doc | Required |
+| Prior period reconciliation | Recommended |
+| Materiality threshold for unreconciled differences | Recommended |
+| Chart of accounts — for posting cleanup JEs | Required |
+| Who prepares and who reviews | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Reporting period, GL balance at period end, Supporting subledger / schedule / external doc, Chart of accounts. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 

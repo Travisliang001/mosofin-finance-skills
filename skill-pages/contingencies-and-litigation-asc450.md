@@ -14,7 +14,7 @@ Use it when you ask about a loss contingency, a litigation accrual, a legal rese
 
 Not for:
 
-- General period-end accruals (use [accruals-and-deferrals](accruals-and-deferrals.md)) or for events after year-end (use [subsequent-events-asc855](subsequent-events-asc855.md)).
+- General period-end accruals (use [accruals-and-deferrals](accruals-and-deferrals.md)) or events after year-end (use [subsequent-events-asc855](subsequent-events-asc855.md)).
 
 ## What it asks you first
 
@@ -46,7 +46,11 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 ## What you get
 
+A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
+
 Applies management's assessment, never supplies a probability, and posts nothing.
+
+The workpaper has these sheets:
 
 - Contingency log with classification and treatment
 - Accrual calculation support

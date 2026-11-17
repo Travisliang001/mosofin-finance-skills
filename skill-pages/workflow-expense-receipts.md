@@ -1,6 +1,6 @@
 # Expense receipt checker (workflow)
 
-> Checks Mosofin data on a schedule or on demand and proposes reimbursement of clean lines.
+> Checks your books on demand and proposes reimbursement of clean lines.
 
 **Workflow:** `expense-receipts`  ·  **Runs in:** n8n  ·  **Read-only**
 
@@ -8,14 +8,11 @@
 
 Checks a batch of employee expense lines against policy: per-category limits, a receipt over a set amount, weekend spend and duplicates within the batch. Returns the clean lines per employee for approval and the exceptions for a person.
 
-- File-driven: one CSV of expense lines (a `receipt` yes/no column is read if present).
-- Per line: category limit, receipt over `receipt_required_over`, weekend date.
-- Across the batch: same employee + merchant + amount within `duplicate_window_days`.
-- Clean lines are proposed for reimbursement per employee; a line with any exception is held.
+It runs inside n8n, an automation tool you host, and reads your books only through your Mosofin connection, the same read-only connection the skills use.
 
 ## When it runs
 
-Runs when something sends it a request, for example when a file arrives.
+It runs on demand: whenever another step sends it a request, for example when a file arrives.
 
 It works from the files you send it and needs no Mosofin read.
 
@@ -29,12 +26,12 @@ Every file is checked on its content before any work: right kind of document, ri
 
 ## What you can change
 
-Every setting sits in one place, and any of them can be overridden for a single run.
+Every setting sits in one place in the workflow, and any of them can be overridden for a single run by the request that starts it.
 
 | Setting | Meaning |
 |---|---|
 | `company` | Company the run is for; a file naming another company is rejected |
-| `currency` | Reporting currency, echoed in the envelope |
+| `currency` | Reporting currency, shown in the result |
 | `datasource` | Mosofin datasource name (e.g. quickbooks, xero) |
 | `category_limits` | Per-line limit by category; a category not listed uses `other` |
 | `receipt_required_over` | Lines above this need a receipt |
@@ -43,15 +40,15 @@ Every setting sits in one place, and any of them can be overridden for a single 
 
 ## What comes back
 
-One result for the next step to use: an email connector, a chat post, a dashboard or another tool. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
+One structured result (JSON), for the next step in your automation to use: an email tool, a chat post, a dashboard or another workflow. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
 
 **It proposes:** Reimbursement of clean lines.
 
 ## What it never does
 
-- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.
+- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through your Mosofin connection.
 - **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.
-- **Never trusts a file by its name.** Each file is checked on its content before it is used.
+- **Never takes a file at face value.** Each file is checked on its content, not its name, before it is used.
 
 ---
 

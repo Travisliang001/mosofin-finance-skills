@@ -12,9 +12,7 @@ Helps you prepare closing entries, lock the books for a fiscal period, or produc
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "close the books for the year"
 - "closing entries"
@@ -32,36 +30,35 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Fiscal year end date** | Derived from the profile; **read it back and confirm**, since a changed year-end is common and the profile may lag. (Required) |
-| **Pre-closing trial balance** | Pulled at the year-end date. Confirm it is the **final** TB, after adjusting entries. (Required) |
-| **Entity type** — corporation / partnership / LLC / sole proprietor / nonprofit | Legal form is not a ledger field, but the **equity account names are a strong signal** (Owner's Draw, Member Capital, Net Assets). (Recommended) |
-| **Chart of accounts with account types** | Pulled. This drives the temporary / permanent split. (Required) |
-| **Functional currency** | Derived. (Required) |
-| **Dividends / distributions declared during the year** | Readable as movement on the dividends or draws account. (If applicable) |
-| **Prior year's retained earnings** (closing balance) | Pulled from the balance sheet at the prior year end. (Required for continuity) |
-| **Reporting framework** — US GAAP / IFRS / Local GAAP / Other | Affects OCI treatment. (Recommended) |
-| **Other comprehensive income items** | (Recommended) |
-| **Whether the platform auto-closes the year** | **Test it, then confirm with you.** (Required) |
-| **Whether the audit is complete** | Determines preliminary versus final close — see the edge case. (Recommended) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | (Recommended) |
+| Fiscal year end date | Required |
+| Pre-closing trial balance | Required |
+| Entity type — corporation / partnership / LLC / sole proprietor / nonprofit | Recommended |
+| Chart of accounts with account types | Required |
+| Functional currency | Required |
+| Dividends / distributions declared during the year | If applicable |
+| Prior year's retained earnings (closing balance) | Required for continuity |
+| Reporting framework — US GAAP / IFRS / Local GAAP / Other | Recommended |
+| Other comprehensive income items | Recommended |
+| Whether the platform auto-closes the year | Required |
+| Whether the audit is complete | Recommended |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Fiscal year end date, Pre-closing trial balance, Chart of accounts with account types, Functional currency, Prior year's retained earnings (closing balance), Whether the platform auto-closes the year. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
 Outputs the closing entries, post-closing trial balance, a tie-out workpaper, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Pre-Closing Trial Balance
 - Closing Entries
@@ -70,7 +67,6 @@ Outputs the closing entries, post-closing trial balance, a tie-out workpaper, an
 - Statement of Retained Earnings
 - Tie-Outs
 - Roll Forward to New Year
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

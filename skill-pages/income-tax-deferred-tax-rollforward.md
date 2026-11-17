@@ -14,7 +14,7 @@ Use it when you ask for a deferred tax roll-forward, deferred tax assets and lia
 
 Not for:
 
-- The whole provision (use [corporate-tax-provision-asc740](corporate-tax-provision-asc740.md)) or for the tax return (use [tax-return-prep-corporate](tax-return-prep-corporate.md)).
+- The whole provision (use [corporate-tax-provision-asc740](corporate-tax-provision-asc740.md)) or the tax return (use [tax-return-prep-corporate](tax-return-prep-corporate.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing.
 
+The workpaper has these sheets:
+
 - Temporary Difference Inventory
 - Inventory Mapping Checks
 - DTA / DTL Calculation
@@ -57,7 +59,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Tie to Provision
 - Journal Entries
 - Disclosure Tables
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

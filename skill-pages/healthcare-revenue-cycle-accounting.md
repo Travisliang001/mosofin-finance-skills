@@ -14,7 +14,7 @@ Use it when you ask about net patient revenue, contractual allowances, payer mix
 
 Not for:
 
-- General receivables ageing (use [ar-aging-and-collections](ar-aging-and-collections.md)) or for the allowance in a non-healthcare business (use [bad-debt-and-write-offs](bad-debt-and-write-offs.md)).
+- General receivables ageing (use [ar-aging-and-collections](ar-aging-and-collections.md)) or the allowance in a non-healthcare business (use [bad-debt-and-write-offs](bad-debt-and-write-offs.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the reconciliation, the estimates and proposed entries, and posts nothing.
 
+The workpaper has these sheets:
+
 - Net Revenue Model
 - Realization History
 - Revenue Cycle Map
@@ -57,7 +59,6 @@ Produces the reconciliation, the estimates and proposed entries, and posts nothi
 - Charity Care vs. Bad Debt
 - Cash and Unapplied
 - Close Controls Checklist and Calendar
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

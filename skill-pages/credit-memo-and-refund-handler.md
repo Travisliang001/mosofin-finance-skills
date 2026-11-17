@@ -12,9 +12,7 @@ Helps you process a credit memo, customer refund, vendor credit, or sales return
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "issue a credit memo"
 - "process a refund to a customer"
@@ -29,28 +27,25 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Credit memo type** — customer credit / customer refund / vendor credit / chargeback | Often inferable from the document type already recorded; **confirm it**, since the accounting differs materially by type. (Recommended) |
-| **Original invoice reference** — number, date, amount | Ask for the number; **the existence, amount, balance, period and currency are then all checkable**. (Recommended) |
-| **Credit memo amount** | (Required) |
-| **Reason for credit** — return, pricing dispute, goodwill, damage, error | Drives the accounting: a return hits inventory, a goodwill credit hits expense, a pricing error hits revenue. Never infer it. (Recommended) |
-| **Chart of accounts** | Confirm the sales returns, chargeback fee and write-off accounts by their real names. (Required for GL posting) |
-| **Tax jurisdiction** | (Recommended) |
-| **Original tax code(s)** — from the related invoice | Readable from the original invoice; confirm rather than ask. (Recommended) |
-| **Functional currency** | (Recommended) |
-| **Approval for any credit exceeding the invoice balance** | (Required if that check fails) |
-| **Confirm scope** | Read back in-scope and excluded company files by name. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | (Recommended) |
+| Credit memo type — customer credit / customer refund / vendor credit / chargeback | Recommended |
+| Original invoice reference — number, date, amount | Recommended |
+| Credit memo amount | Required |
+| Reason for credit — return, pricing dispute, goodwill, damage, error | Recommended |
+| Chart of accounts | Required for GL posting |
+| Tax jurisdiction | Recommended |
+| Original tax code(s) — from the related invoice | Recommended |
+| Functional currency | Recommended |
+| Approval for any credit exceeding the invoice balance | Required if that check fails |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Credit memo amount, Chart of accounts, Approval for any credit exceeding the invoice balance. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -58,12 +53,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs a credit memo record, the offsetting JE, application instructions, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Credit Memos Register
 - GL Posting Inputs
 - Application Tracking
 - Unapplied Credits
 - Validation Exceptions
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

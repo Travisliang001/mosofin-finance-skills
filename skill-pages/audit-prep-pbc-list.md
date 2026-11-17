@@ -14,7 +14,7 @@ Use it when you ask to prepare for an audit or review, build or manage a PBC lis
 
 Not for:
 
-- Running the close (use [month-end-close-checklist](month-end-close-checklist.md)) or for reconciling balance sheet accounts (use [balance-sheet-reconciliations](balance-sheet-reconciliations.md)).
+- Running the close (use [month-end-close-checklist](month-end-close-checklist.md)) or reconciling balance sheet accounts (use [balance-sheet-reconciliations](balance-sheet-reconciliations.md)).
 
 ## What it asks you first
 
@@ -48,12 +48,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the list, the schedules and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - PBC Tracker
 - Readiness Summary
 - Judgmental Area Memos
 - Prior-Year Follow-Ups
 - Timeline
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

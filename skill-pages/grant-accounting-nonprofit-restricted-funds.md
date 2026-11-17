@@ -14,7 +14,7 @@ Use it when you ask about grant accounting, restricted funds, allowable costs, a
 
 Not for:
 
-- The nonprofit statement set as a whole (use [nonprofit-fund-accounting](nonprofit-fund-accounting.md)) or for a company's budget variances (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)).
+- The nonprofit statement set as a whole (use [nonprofit-fund-accounting](nonprofit-fund-accounting.md)) or a company's budget variances (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces grant schedules, proposed entries and a reporting calendar, and posts nothing.
 
+The workpaper has these sheets:
+
 - Grant Register
 - Classification
 - Spend vs. Budget
@@ -57,7 +59,6 @@ Produces grant schedules, proposed entries and a reporting calendar, and posts n
 - JE Templates and Coding Rules
 - Audit-Ready Evidence Checklist
 - Reporting Calendar
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

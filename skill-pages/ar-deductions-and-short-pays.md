@@ -2,7 +2,7 @@
 
 > Customer deductions decided valid, invalid or needs backup on their evidence; credits, write-offs and disputes proposed.
 
-**Skill:** `ar-deductions-and-short-pays`  ·  **Area:** Movement analysis and customer deductions  ·  **Automated with Mosofin connected:** 62%  ·  **Read-only**
+**Skill:** `ar-deductions-and-short-pays`  ·  **Area:** Flux analysis and customer deductions  ·  **Automated with Mosofin connected:** 62%  ·  **Read-only**
 
 ## What it does
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the deduction log, proposed credit memos, write-offs and dispute drafts, and posts nothing.
+
+The workpaper has these sheets:
 
 - Deduction log
 - Duplicates and repeats

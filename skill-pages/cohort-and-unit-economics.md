@@ -14,7 +14,7 @@ Use it when you ask for cohort analysis, retention or churn by cohort, CAC, LTV,
 
 Not for:
 
-- A general KPI dashboard (use [kpi-dashboard-builder](kpi-dashboard-builder.md)) or for ageing receivables (use [ar-aging-and-collections](ar-aging-and-collections.md)).
+- A general KPI dashboard (use [kpi-dashboard-builder](kpi-dashboard-builder.md)) or ageing receivables (use [ar-aging-and-collections](ar-aging-and-collections.md)).
 
 ## What it asks you first
 
@@ -49,6 +49,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the cohort tables, the metrics with their definitions and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Unit Economics Summary
 - Logo Retention Cohort Table
 - Revenue Retention Cohort Table
@@ -57,7 +59,6 @@ Produces the cohort tables, the metrics with their definitions and a coverage sh
 - LTV Calculation
 - Segment Analysis
 - Definitions
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

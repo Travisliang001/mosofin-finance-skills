@@ -14,7 +14,7 @@ Use it when you ask to convert accounts between US GAAP and IFRS, list GAAP diff
 
 Not for:
 
-- Translating currencies (use [foreign-currency-translation-asc830](foreign-currency-translation-asc830.md)) or for group consolidation (use [consolidation-and-eliminations](consolidation-and-eliminations.md)).
+- Translating currencies (use [foreign-currency-translation-asc830](foreign-currency-translation-asc830.md)) or group consolidation (use [consolidation-and-eliminations](consolidation-and-eliminations.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the adjustments, the reconciliation and restated statements, and posts nothing.
 
+The workpaper has these sheets:
+
 - Conversion Summary
 - Difference Analysis
 - Conversion Adjustments
@@ -55,7 +57,6 @@ Produces the adjustments, the reconciliation and restated statements, and posts 
 - Policy Differences
 - Open Items / Technical & Audit
 - Scoping
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

@@ -1,6 +1,6 @@
 # Audit PBC chase-up (workflow)
 
-> Checks Mosofin data on a schedule or on demand and proposes one reminder per owner.
+> Checks your books on a schedule or on demand and proposes one reminder per owner.
 
 **Workflow:** `pbc-chase-up`  ·  **Runs in:** n8n  ·  **Read-only**
 
@@ -8,13 +8,11 @@
 
 Tracks a prepared-by-client (PBC) request list: what is received, overdue or due soon. Drafts one reminder per owner listing only their open items.
 
-- An item is received if its status says so or it appears on the received list.
-- Open items are overdue, due within `due_soon_days`, or missing a due date; later items are left alone.
-- One reminder per owner with only their items.
+It runs inside n8n, an automation tool you host, and reads your books only through your Mosofin connection, the same read-only connection the skills use.
 
 ## When it runs
 
-Runs weekdays on its own, and whenever something sends it a request.
+It runs weekdays on its own, and whenever another step sends it a request.
 
 It works from the files you send it and needs no Mosofin read.
 
@@ -29,12 +27,12 @@ Every file is checked on its content before any work: right kind of document, ri
 
 ## What you can change
 
-Every setting sits in one place, and any of them can be overridden for a single run.
+Every setting sits in one place in the workflow, and any of them can be overridden for a single run by the request that starts it.
 
 | Setting | Meaning |
 |---|---|
 | `company` | Company the run is for; a file naming another company is rejected |
-| `currency` | Reporting currency, echoed in the envelope |
+| `currency` | Reporting currency, shown in the result |
 | `datasource` | Mosofin datasource name (e.g. quickbooks, xero) |
 | `as_at` | As-at date (YYYY-MM-DD); empty = run date |
 | `due_soon_days` | Items due within this many days are included as due soon |
@@ -45,15 +43,15 @@ Every setting sits in one place, and any of them can be overridden for a single 
 
 ## What comes back
 
-One result for the next step to use: an email connector, a chat post, a dashboard or another tool. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
+One structured result (JSON), for the next step in your automation to use: an email tool, a chat post, a dashboard or another workflow. It holds the findings, the totals, what could not be done and why, and the proposed actions, each waiting for a person's approval.
 
 **It proposes:** One reminder per owner.
 
 ## What it never does
 
-- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.
+- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through your Mosofin connection.
 - **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.
-- **Never trusts a file by its name.** Each file is checked on its content before it is used.
+- **Never takes a file at face value.** Each file is checked on its content, not its name, before it is used.
 
 ---
 

@@ -14,7 +14,7 @@ Use it when you ask for QuickBooks receivables ageing, who owes money in QuickBo
 
 Not for:
 
-- The books are not in QuickBooks (use [ar-aging-and-collections](ar-aging-and-collections.md)) or for applying payments (use [cash-application](cash-application.md)).
+- The books are not in QuickBooks (use [ar-aging-and-collections](ar-aging-and-collections.md)) or applying payments (use [cash-application](cash-application.md)).
 
 ## What it asks you first
 
@@ -45,6 +45,8 @@ If you upload the data yourself:
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
+
+A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
 
 Writes nothing to QuickBooks and sends no message.
 

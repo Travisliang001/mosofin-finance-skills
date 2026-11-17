@@ -14,7 +14,7 @@ Use it when you ask for the tax provision, current and deferred tax expense, an 
 
 Not for:
 
-- The tax return (use [tax-return-prep-corporate](tax-return-prep-corporate.md)) or for the deferred tax schedule alone (use [income-tax-deferred-tax-rollforward](income-tax-deferred-tax-rollforward.md)).
+- The tax return (use [tax-return-prep-corporate](tax-return-prep-corporate.md)) or the deferred tax schedule alone (use [income-tax-deferred-tax-rollforward](income-tax-deferred-tax-rollforward.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces workpapers for a qualified professional to review, is not tax advice, and files nothing.
 
+The workpaper has these sheets:
+
 - Provision Summary
 - Book-to-Tax Reconciliation
 - Temporary Differences & Deferred Tax
@@ -57,7 +59,6 @@ Produces workpapers for a qualified professional to review, is not tax advice, a
 - Deferred Tax Rollforward
 - Disclosure-Ready Figures
 - Open Items / Rate Confirmations
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

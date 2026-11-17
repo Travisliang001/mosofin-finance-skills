@@ -12,9 +12,7 @@ Helps you generate customer invoices, draft invoice templates, validate invoice 
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "create an invoice for [customer]"
 - "generate invoices from this list"
@@ -29,31 +27,28 @@ Not for:
 
 ## What it asks you first
 
-Before it reads anything, it asks, in one message:
+Before it reads anything, it confirms these with you, in one message:
 
-| It asks | Why |
+| It confirms | Needed? |
 |---|---|
-| **Customer** — name, address, tax ID | Pulled from the customer record. **Confirm the tax ID is current**; the record holds what was typed. (Required) |
-| **Entity (seller)** — legal name, address, tax registration | (Recommended) |
-| **Line items** — description, qty, unit price, tax code | (Recommended) |
-| **Invoice date** | Never default it. (Required) |
-| **Payment terms** | The customer's terms pull; confirm. (Required) |
-| **Currency** | From the customer or the entity. (Required) |
-| **Jurisdiction** | Drives mandatory fields and tax. **Never infer from the profile's country** — where you are registered and where the supply takes place can differ. (Recommended) |
-| **Customer PO / reference** | Prior invoices to this customer show whether they require one. (Recommended) |
-| **Sales tax / VAT / GST rates per line** | (Recommended) |
-| **Invoice numbering scheme** | **The next number in sequence is readable.** Confirm the scheme (prefixes, resets, per-entity sequences). (Required) |
-| **Chart of accounts** | For the revenue, tax and deferred revenue accounts. (Required) |
-| **Mode** — prepare new invoices, or validate existing ones | They are different jobs; see above. (Required) |
-| **Confirm scope** | Read back the selling entity by name and any excluded company files. (Required) |
-| **Confirm any profile contradiction** | (Required if one appears) |
-| **Confirm manual evidence** | (Required) |
+| Customer — name, address, tax ID | Required |
+| Entity (seller) — legal name, address, tax registration | Recommended |
+| Line items — description, qty, unit price, tax code | Recommended |
+| Invoice date | Required |
+| Payment terms | Required |
+| Currency | Required |
+| Jurisdiction | Recommended |
+| Customer PO / reference | Recommended |
+| Sales tax / VAT / GST rates per line | Recommended |
+| Invoice numbering scheme | Required |
+| Chart of accounts | Required |
+| Mode — prepare new invoices, or validate existing ones | Required |
 
 ## With or without Mosofin
 
 With a Mosofin workspace connected, and only after you agree, the skill reads the figures from your own books. Without a connection it runs the same analysis on files you upload, and the output says which figures came from where.
 
-If you upload the data yourself, it asks for ledger detail and listings as CSV or XLSX exports, statements and third-party documents as PDF or CSV, and short facts typed into the chat.
+If you upload the data yourself, each item marked Required above comes from you: Customer, Invoice date, Payment terms, Currency, Invoice numbering scheme, Chart of accounts. Ledger detail and listings go in as CSV or XLSX exports, statements and documents as PDF or CSV, and short facts typed into the chat.
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
@@ -61,11 +56,12 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Outputs invoice documents, the corresponding AR / revenue / tax JEs, and a coverage sheet. Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
 
+The workpaper has these sheets:
+
 - Invoice Register
 - Line Detail
 - GL Posting
 - Validation Results
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

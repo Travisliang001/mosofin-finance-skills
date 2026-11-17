@@ -14,7 +14,7 @@ Use it when you ask to reconcile petty cash, replenish a float, process petty ca
 
 Not for:
 
-- A bank account (use [bank-reconciliation](bank-reconciliation.md)) or for employee expense claims (use [expense-report-processor](expense-report-processor.md)).
+- A bank account (use [bank-reconciliation](bank-reconciliation.md)) or employee expense claims (use [expense-report-processor](expense-report-processor.md)).
 
 ## What it asks you first
 
@@ -47,12 +47,13 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the reconciliation and a proposed entry, and never stands in for the physical count.
 
+The workpaper has these sheets:
+
 - Reconciliation Summary
 - Voucher Detail
 - Exceptions
 - GL Posting Inputs
 - Fund Health
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

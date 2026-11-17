@@ -14,7 +14,7 @@ Use it when you ask about derivative accounting, an interest rate swap, a forwar
 
 Not for:
 
-- Period-end revaluation of foreign balances (use [multicurrency-fx-revaluation](multicurrency-fx-revaluation.md)) or for loan covenants (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
+- Period-end revaluation of foreign balances (use [multicurrency-fx-revaluation](multicurrency-fx-revaluation.md)) or loan covenants (use [debt-and-covenant-tracking](debt-and-covenant-tracking.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces schedules and proposed entries, and never values an instrument.
+
+The workpaper has these sheets:
 
 - Hedge accounting memo per hedge relationship
 - Period-end JE package

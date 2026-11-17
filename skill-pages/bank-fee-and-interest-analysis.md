@@ -14,7 +14,7 @@ Use it when you say bank fees are too high, asks to analyse bank charges, wire o
 
 Not for:
 
-- Reconciling the bank account (use [bank-reconciliation](bank-reconciliation.md)) or for payment processor payouts (use [merchant-and-payment-processor-rec](merchant-and-payment-processor-rec.md)).
+- Reconciling the bank account (use [bank-reconciliation](bank-reconciliation.md)) or payment processor payouts (use [merchant-and-payment-processor-rec](merchant-and-payment-processor-rec.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the analysis, proposed entries and a coverage sheet, and posts nothing.
+
+The workpaper has these sheets:
 
 - Categorized fee schedule
 - Tie-out to GL

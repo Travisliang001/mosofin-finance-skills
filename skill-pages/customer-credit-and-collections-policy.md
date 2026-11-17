@@ -14,7 +14,7 @@ Use it when you ask for a credit policy, a collections policy or process, a dunn
 
 Not for:
 
-- One customer's limit (use [credit-limit-and-customer-risk](credit-limit-and-customer-risk.md)) or for running this month's collections (use [ar-aging-and-collections](ar-aging-and-collections.md)).
+- One customer's limit (use [credit-limit-and-customer-risk](credit-limit-and-customer-risk.md)) or running this month's collections (use [ar-aging-and-collections](ar-aging-and-collections.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the policy, the segmentation and a coverage sheet, and changes no terms.
+
+The workpaper has these sheets:
 
 - Detailed policy / SOP
 - Segmentation and scorecard example

@@ -14,7 +14,7 @@ Use it when you ask about nonprofit or charity accounting, net assets with and w
 
 Not for:
 
-- Tracking one grant's budget and allowable costs (use [grant-accounting-nonprofit-restricted-funds](grant-accounting-nonprofit-restricted-funds.md)) or for a government body (use [government-fund-accounting-gasb](government-fund-accounting-gasb.md)).
+- Tracking one grant's budget and allowable costs (use [grant-accounting-nonprofit-restricted-funds](grant-accounting-nonprofit-restricted-funds.md)) or a government body (use [government-fund-accounting-gasb](government-fund-accounting-gasb.md)).
 
 ## What it asks you first
 
@@ -47,6 +47,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 ## What you get
 
 Produces the statements, schedules and proposed entries, and posts nothing.
+
+The workpaper has these sheets:
 
 - Statement of Financial Position
 - Statement of Activities

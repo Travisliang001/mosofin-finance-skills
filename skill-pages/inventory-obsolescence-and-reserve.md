@@ -14,7 +14,7 @@ Use it when you ask about obsolete or slow-moving stock, an inventory reserve or
 
 Not for:
 
-- Reconciling inventory to the ledger (use [inventory-to-gl-reconciliation](inventory-to-gl-reconciliation.md)) or for freeing cash from stock levels (use [working-capital-optimization](working-capital-optimization.md)).
+- Reconciling inventory to the ledger (use [inventory-to-gl-reconciliation](inventory-to-gl-reconciliation.md)) or freeing cash from stock levels (use [working-capital-optimization](working-capital-optimization.md)).
 
 ## What it asks you first
 
@@ -49,6 +49,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the analysis, a proposed entry and a coverage sheet, and posts nothing.
 
+The workpaper has these sheets:
+
 - Reserve Summary
 - Reserve Policy
 - SKU Exception List with Rationale
@@ -57,7 +59,6 @@ Produces the analysis, a proposed entry and a coverage sheet, and posts nothing.
 - Reserve Back-Test
 - Reserve Roll-Forward
 - Journal Entries
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
@@ -67,7 +68,7 @@ Every run ends with a coverage sheet: what was checked, what was estimated, and 
 - **Never writes, updates or deletes anything, in any system.** The reserve entry is a proposal.
 - **Never treats no movement as obsolete on its own.** Seasonal, end-of-life and customer-specific stock are checked first.
 - **Never reserves the same item twice**, once as slow-moving and again as below cost.
-- **Never assumes a reserve rate without saying so.** The policy is your; a derived rate is shown as a proposal.
+- **Never assumes a reserve rate without saying so.** The policy is yours; a derived rate is shown as a proposal.
 
 ---
 

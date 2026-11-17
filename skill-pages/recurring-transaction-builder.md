@@ -10,9 +10,7 @@ Helps you design, schedule, or validate recurring transactions against a connect
 
 ## When to use it
 
-Use it when you ask for any of these, or something like them.
-
-Typical requests:
+Typical requests, or anything like them:
 
 - "set up a recurring JE for"
 - "create a recurring bill schedule"
@@ -39,31 +37,34 @@ If you upload the data yourself:
 
 | Upload | Needed? | Format |
 |---|---|---|
-| Transaction type | Required | Recurring JE / Bill / Invoice / Subscription |
-| Counterparty | Required for AP/AR | Vendor or customer name |
-| Amount and currency | Required | Per occurrence |
-| Start date | Required | First occurrence |
-| End date or number of occurrences | Required | One of the two |
-| Cadence | Required | Daily / Weekly / Bi-weekly / Semi-monthly / Monthly / Quarterly / Semi-annually / Annually / Custom |
-| Day-of-period rule | Required | First day / Last day / Specific day / Last business day / N business days into period |
-| GL account(s) and posting template | Required for JEs | From your COA |
-| Tax code | Required if tax applies | Per your jurisdiction and tax setup |
-| Description / memo template | Recommended | Text with variables `{month}`, `{year}` |
-| Escalation rule | Optional | Fixed / Annual % / CPI-linked / Step-up at date |
-| Stop / pause conditions | Optional | Termination clauses |
+| Transaction type (recurring JE / Bill / Invoice / Subscription) | Required | CSV or XLSX |
+| Counterparty (vendor or customer name) | Required for AP/AR | CSV or XLSX |
+| Amount and currency (per occurrence) | Required | CSV or XLSX |
+| Start date (first occurrence) | Required | Typed in the chat |
+| End date or number of occurrences (one of the two) | Required | Typed in the chat |
+| Cadence (daily / Weekly / Bi-weekly / Semi-monthly / Monthly / Quarterly / Semi-annually / Annually / Custom) | Required | CSV or XLSX |
+| Day-of-period rule (first day / Last day / Specific day / Last business day / N business days into period) | Required | CSV or XLSX |
+| GL account(s) and posting template (from your COA) | Required for JEs | CSV or XLSX |
+| Tax code (per your jurisdiction and tax setup) | Required if tax applies | CSV or XLSX |
+| Description / memo template (text with variables `{month}`, `{year}`) | Recommended | CSV or XLSX |
+| Escalation rule (fixed / Annual % / CPI-linked / Step-up at date) | Optional | Typed in the chat |
+| Stop / pause conditions (termination clauses) | Optional | CSV or XLSX |
 
 Every uploaded file is checked before any work starts: that it is the right kind of document, for the right company and period, and usable.
 
 ## What you get
 
+A workpaper you can keep, as an Excel file if you want one or as tables in the chat, with every figure traced to where it came from. Anything that would change the books is a proposal for a person to approve.
+
 Every entry and output is a proposal for a person to act on, and nothing is posted, sent or paid.
+
+The workpaper has these sheets:
 
 - Schedule Summary
 - Occurrence Schedule
 - Per-Occurrence JE / Bill / Invoice Detail
 - Reversal Schedule
 - Validation and Discovery
-- Coverage and Provenance
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

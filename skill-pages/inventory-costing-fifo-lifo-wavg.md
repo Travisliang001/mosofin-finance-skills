@@ -14,7 +14,7 @@ Use it when you ask about FIFO, LIFO, weighted-average or specific identificatio
 
 Not for:
 
-- Slow or obsolete stock (use [inventory-obsolescence-and-reserve](inventory-obsolescence-and-reserve.md)), for tying inventory to the ledger (use [inventory-to-gl-reconciliation](inventory-to-gl-reconciliation.md)) or for standard cost variances (use [standard-costing-and-variance-analysis](standard-costing-and-variance-analysis.md)).
+- Slow or obsolete stock (use [inventory-obsolescence-and-reserve](inventory-obsolescence-and-reserve.md)), for tying inventory to the ledger (use [inventory-to-gl-reconciliation](inventory-to-gl-reconciliation.md)) or standard cost variances (use [standard-costing-and-variance-analysis](standard-costing-and-variance-analysis.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the costing and proposed entries, and posts nothing.
 
+The workpaper has these sheets:
+
 - Method & Eligibility
 - Cost Flow
 - Per-Item / Pool Detail
@@ -55,7 +57,6 @@ Produces the costing and proposed entries, and posts nothing.
 - Journal Entries
 - Method Comparison
 - Tie-Out
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 

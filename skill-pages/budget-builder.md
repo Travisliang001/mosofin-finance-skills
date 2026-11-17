@@ -14,7 +14,7 @@ Use it when you ask to build or draft a budget, an annual plan or an operating p
 
 Not for:
 
-- Comparing actuals with a budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)), for a re-forecast during the year (use [rolling-forecast](rolling-forecast.md)) or for a balance sheet and cash projection (use [three-statement-financial-model](three-statement-financial-model.md)).
+- Comparing actuals with a budget (use [budget-vs-actual-analysis](budget-vs-actual-analysis.md)), for a re-forecast during the year (use [rolling-forecast](rolling-forecast.md)) or a balance sheet and cash projection (use [three-statement-financial-model](three-statement-financial-model.md)).
 
 ## What it asks you first
 
@@ -48,6 +48,8 @@ Every uploaded file is checked before any work starts: that it is the right kind
 
 Produces the budget, its assumptions and a coverage sheet, and loads nothing into any system.
 
+The workpaper has these sheets:
+
 - Budget Summary
 - Monthly Budget
 - Revenue Build
@@ -56,7 +58,6 @@ Produces the budget, its assumptions and a coverage sheet, and loads nothing int
 - Assumptions Register
 - Flex / Sensitivity
 - Reconciliation to Targets
-- Coverage
 
 Every run ends with a coverage sheet: what was checked, what was estimated, and what could not be done and why.
 
