@@ -1,10 +1,14 @@
 #!/usr/bin/env python3
-"""Build one public explanation page per skill, plus an index, in skill-pages/.
+"""Build the public explanation pages in skill-pages/: one per skill, one per n8n workflow,
+an index, and a sitemap (sitemap.md and sitemap.xml).
 
-A page says what a skill is for, when to use it, what it asks, what to upload and what
-comes back. It never carries the method: no steps, gates, thresholds, tool names or
-entries. Everything is read from the skill card and the README skill tables, so the pages
-can stay public even where the skill files themselves are not.
+A page says what a skill or workflow is for, when to use it, what it asks, what to upload
+and what comes back. It never carries the method: no steps, gates, thresholds, tool names
+or entries. Everything is read from the skill cards, the workflow READMEs and the README
+tables, so the pages can stay public even where the skill files themselves are not.
+
+Every page has the same sections, in the same order, and a quality gate fails the build
+when a section is missing, thin, or leaks method detail.
 
     python3 .github/build-pages.py           write the pages
     python3 .github/build-pages.py --check   fail if a page is missing, stale or leaks
@@ -12,10 +16,15 @@ can stay public even where the skill files themselves are not.
 import os
 import re
 import sys
+import json
+import subprocess
+from datetime import date
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SKILLS = os.path.join(ROOT, "skills")
+WORKFLOWS = os.path.join(ROOT, "workflows")
 OUT = os.path.join(ROOT, "skill-pages")
+BASE_URL = "https://github.com/MosoFin/mosofin-finance-skills/blob/main/skill-pages/"
 
 GROUPS = {
     1: "Everyday payables, receivables and close",
@@ -43,12 +52,26 @@ LEAKS = [
     r"references/", r"\b(?:Step|Gate|Stage) \d", r"\[(?:auto|gated|manual)\]",
     r"data_source_id", r"display_name", r"\bmock\b", r"effective_policy",
     r"`(?:get|search|list|create|invoke|update|delete)_[a-z_]+`", r"approved=",
-    r"reference file", r"tool name", r"capability map",
+    r"reference file", r"tool name", r"capability map", r"proposed_actions", r"requires_approval",
+    r"workflow\.json", r"\.schema\.json", r"sample-(?:input|output)",
 ]
+
+# The sections every skill page carries, in order.
+SKILL_SECTIONS = ["## What it does", "## When to use it", "## What it asks you first",
+                  "## With or without Mosofin", "## What you get", "## What it never does"]
+WORKFLOW_SECTIONS = ["## What it does", "## When it runs", "## What you send it",
+                     "## What you can change", "## What comes back", "## What it never does"]
 
 MARK = (r"(?:Use this skill (?:when|whenever|for)|Use when|Use for|Triggers include|Also trigger|"
         r"Trigger for|Workspace-scoped|Do not use|Do NOT use|Read-only:|Outputs |"
         r"Reads the books through|Reads your books through)")
+
+READ_WORDS = {
+    "get_profit_and_loss": "the profit and loss", "get_balance_sheet": "the balance sheet",
+    "get_trial_balance": "the trial balance", "get_general_ledger": "the general ledger",
+    "search_bills": "supplier bills", "search_invoices": "customer invoices",
+    "search_payments": "customer payments", "search_vendors": "the vendor list",
+}
 
 
 def read(path):
@@ -56,40 +79,12 @@ def read(path):
         return f.read()
 
 
-def readme_rows():
-    rows, wave = {}, 0
-    for line in read(os.path.join(ROOT, "README.md")).splitlines():
-        m = re.match(r"\*\*Wave (\d+)\*\*", line)
-        if m:
-            wave = int(m.group(1))
-            continue
-        m = re.match(r"\| `([a-z0-9-]+)` \| (\d+)% \| (.+?) \|\s*$", line)
-        if m and wave:
-            rows[m.group(1)] = (wave, int(m.group(2)), m.group(3).strip())
-    return rows
+def cap(text):
+    return text[:1].upper() + text[1:] if text else text
 
 
 def sentences(text):
     return [s for s in re.split(r"(?<=[.!?])\s+(?=[A-Z*`'\"(])", text.strip()) if s]
-
-
-def clean(text):
-    """Drop sentences that point into the method, and strip internal markers."""
-    text = re.sub(r"\s*—\s*usually\s*\*{0,2}\[(?:auto|gated|manual)\]\*{0,2}", "", text)
-    text = re.sub(r"\s*\((?:Stage|Step|Gate) \d[^)]*\)", "", text)
-    text = text.replace("by `display_name`", "by name").replace("`display_name`", "name")
-    kept = []
-    for s in sentences(text):
-        if any(re.search(p, s) for p in LEAKS):
-            continue
-        kept.append(s)
-    out = " ".join(kept).strip()
-    out = re.sub(r"\s*\((?:[A-F])(?:, [A-F])*\)", "", out)
-    out = re.sub(r"\*\*\s*\*\*", "", out)
-    out = re.sub(r"\s{2,}", " ", out)
-    if out.count("**") % 2:
-        out += "**"
-    return second_person(out)
 
 
 def second_person(text):
@@ -100,17 +95,32 @@ def second_person(text):
                   + {"supplies": "supply", "specifies": "specify", "identifies": "identify"}.get(m.group(2), m.group(2)[:-1]),
                   text)
     text = re.sub(r"\bthe user does\b", "you do", text)
+    # "when the user asks to X, or uploads Y" -> "when you ask to X, or upload Y"
+    verbs = "asks|uploads|wants|needs|mentions|pastes|sends|names|provides|gives|has|says|shares|attaches"
+    text = re.sub(r"(\bthe user (?:asks|wants|needs)\b[^.?!]*?\b(?:or|and) )(" + verbs + r")\b",
+                  lambda m: m.group(1) + ("have" if m.group(2) == "has" else m.group(2)[:-1]), text)
     for a, b in [("the user asks", "you ask"), ("the user wants", "you want"),
                  ("the user needs", "you need"), ("the user has", "you have"),
                  ("the user is", "you are"), ("the user agrees", "you agree"),
-("their Mosofin workspace", "your Mosofin workspace"),
+                 ("their Mosofin workspace", "your Mosofin workspace"),
                  ("the user's", "your"), ("The user's", "Your"), ("the user", "you")]:
         text = text.replace(a, b)
     return text
 
 
-def cap(text):
-    return text[:1].upper() + text[1:] if text else text
+def clean(text):
+    """Drop sentences that point into the method, and strip internal markers."""
+    text = re.sub(r"\s*—\s*usually\s*\*{0,2}\[(?:auto|gated|manual)\]\*{0,2}", "", text)
+    text = re.sub(r"\s*\((?:Stage|Step|Gate) \d[^)]*\)", "", text)
+    text = text.replace("by `display_name`", "by name").replace("`display_name`", "name")
+    kept = [s for s in sentences(text) if not any(re.search(p, s) for p in LEAKS)]
+    out = " ".join(kept).strip()
+    out = re.sub(r"\s*\((?:[A-F])(?:, [A-F])*\)", "", out)
+    out = re.sub(r"\*\*\s*\*\*", "", out)
+    out = re.sub(r"\s{2,}", " ", out)
+    if out.count("**") % 2:
+        out += "**"
+    return second_person(out)
 
 
 def table_after(text, *header_words):
@@ -123,9 +133,8 @@ def table_after(text, *header_words):
                 if not row.startswith("|"):
                     break
                 rows.append([c.strip() for c in re.split(r"(?<!\\)\|", row.strip().strip("|"))])
-            head = [c.strip() for c in line.strip().strip("|").split("|")]
-            return head, rows
-    return None, []
+            return rows
+    return []
 
 
 def section(text, heading_re):
@@ -148,6 +157,33 @@ def bullets(block):
     if cur:
         items.append(cur)
     return items
+
+
+def paragraphs(block):
+    return [re.sub(r"\s+", " ", p).strip() for p in re.split(r"\n\s*\n", block) if p.strip()]
+
+
+def linkify(text, names, me):
+    def sub(m):
+        n = m.group(1)
+        return f"[{n}]({n}.md)" if n in names and n != me else m.group(0)
+    text = re.sub(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`", sub, text)
+    return re.sub(r"(?<![\[\w/(-])([a-z0-9]+(?:-[a-z0-9]+)+)(?![\w\]-]|\.md)", sub, text)
+
+
+# ---------------------------------------------------------------- skills
+
+def readme_rows():
+    rows, wave = {}, 0
+    for line in read(os.path.join(ROOT, "README.md")).splitlines():
+        m = re.match(r"\*\*Wave (\d+)\*\*", line)
+        if m:
+            wave = int(m.group(1))
+            continue
+        m = re.match(r"\| `([a-z0-9-]+)` \| (\d+)% \| (.+?) \|\s*$", line)
+        if m and wave:
+            rows[m.group(1)] = (wave, int(m.group(2)), m.group(3).strip())
+    return rows
 
 
 def parse_description(desc):
@@ -180,15 +216,24 @@ def parse_description(desc):
     return d
 
 
+def plain_words(card):
+    """The card's 'In plain words' paragraph, if it has one."""
+    m = re.search(r"\*\*In plain words:\*\*\s*(.+?)(?:\n\s*\n|\Z)", card, re.S)
+    if not m:
+        return ""
+    return clean(re.sub(r"\s+", " ", m.group(1)))
+
+
 def output_names(text):
     block = section(text, r"Step \d+ — Output|Outputs")
     names = re.findall(r"\*\*Sheet \d+: ([^*]+?)\*\*", block)
     if not names:
         block = block.split("**Coverage sheet")[0]
-        names = [m for m in re.findall(r"^- \*\*([^*]+?)\*\*", block, re.M)]
+        names = re.findall(r"^- \*\*([^*]+?)\*\*", block, re.M)
     out = []
     for n in names:
         n = re.sub(r"\s*—.*$", "", n).strip().rstrip(".,:")
+        n = re.sub(r"\s*\(.*?\)\s*$", "", n)
         if n and len(n) <= 60 and not any(re.search(p, n) for p in LEAKS) and n not in out:
             out.append(n)
     return out[:10]
@@ -198,19 +243,38 @@ def title_of(card, name):
     for m in re.finditer(r"^# (.+)$", card, re.M):
         t = m.group(1).strip()
         if not re.match(r"(ONBOARDING|PART )", t):
-            return re.sub(r"\s*\(Mosofin\)\s*$", "", t)
+            return re.sub(r"\s*(?:\(Mosofin\)|—\s*Mosofin Seed|\(Mosofin Seed\)|— Mosofin)\s*$", "", t)
     return name.replace("-", " ").capitalize()
 
 
-def linkify(text, names, me):
-    def sub(m):
-        n = m.group(1)
-        return f"[{n}]({n}.md)" if n in names and n != me else m.group(0)
-    text = re.sub(r"`([a-z0-9]+(?:-[a-z0-9]+)+)`", sub, text)
-    return re.sub(r"(?<![\[\w/(-])([a-z0-9]+(?:-[a-z0-9]+)+)(?![\w\]-]|\.md)", sub, text)
+def ask_rows(card):
+    """(question, why) rows from whichever intake table the card has."""
+    rows = table_after(card, "Ask", "Why it matters")
+    if rows:
+        return [(clean(r[1]), clean(r[2])) for r in rows if len(r) >= 3 and clean(r[1])]
+    rows = table_after(card, "What to confirm", "Required?")
+    if rows:
+        out = []
+        for r in rows:
+            if len(r) >= 2 and clean(r[0]):
+                why = clean(r[2]) if len(r) >= 3 and clean(r[2]) else ""
+                need = clean(r[1]) or "Recommended"
+                out.append((clean(r[0]), (why + " " if why else "") + f"({need.strip('*')})"))
+        return out
+    return []
 
 
-def build_page(name, rows, names):
+def upload_rows(card):
+    rows = table_after(card, "Upload", "Needed?")
+    if rows:
+        return [(clean(r[0]), clean(r[1]), clean(r[2])) for r in rows if len(r) >= 3 and clean(r[0])]
+    rows = table_after(card, "| Input | Format | Required")
+    if rows:
+        return [(clean(r[0]), clean(r[2]).strip("*"), clean(r[1])) for r in rows if len(r) >= 3 and clean(r[0])]
+    return []
+
+
+def build_skill_page(name, rows, names, wf_names):
     card = read(os.path.join(SKILLS, name, "SKILL.md"))
     mpath = os.path.join(SKILLS, name, "references", "method.md")
     method = read(mpath) if os.path.exists(mpath) else card
@@ -220,7 +284,7 @@ def build_page(name, rows, names):
 
     L = [f"# {title_of(card, name)}", ""]
     if blurb:
-        L += [f"> {blurb}.", ""]
+        L += [f"> {blurb.rstrip('.')}.", ""]
     facts = [f"**Skill:** `{name}`"]
     if wave:
         facts.append(f"**Area:** {GROUPS[wave]}")
@@ -230,54 +294,61 @@ def build_page(name, rows, names):
     L += ["  ·  ".join(facts), ""]
 
     L += ["## What it does", "", clean(d["what"]) or blurb, ""]
+    pw = plain_words(card)
+    if pw:
+        L += [f"**In plain words:** {pw}", ""]
 
-    if d["when"] or d["examples"] or d["not_for"]:
-        L += ["## When to use it", ""]
-        if d["when"]:
-            L += [clean(d["when"]), ""]
-        if d["examples"]:
-            L += ["Typical requests:", ""] + [f"- \"{e}\"" for e in d["examples"][:8]] + [""]
-        nf = [clean(x) for x in d["not_for"] if clean(x)]
-        if nf:
-            L += ["Not for:", ""] + [f"- {x}" for x in nf] + [""]
-
-    head, ask = table_after(card, "Ask", "Why it matters")
-    if ask:
-        L += ["## What it asks you first", "", "| It asks | Why |", "|---|---|"]
-        for r in ask:
-            if len(r) >= 3 and clean(r[1]):
-                L.append(f"| {clean(r[1])} | {clean(r[2])} |")
-        L.append("")
+    L += ["## When to use it", ""]
+    if d["when"]:
+        L += [clean(d["when"]), ""]
+    elif d["examples"]:
+        L += ["Use it when you ask for any of these, or something like them.", ""]
     else:
-        head, ask = table_after(card, "What to confirm", "Required?")
-        if ask:
-            L += ["## What it asks you first", "", "| It confirms | Needed? |", "|---|---|"]
-            for r in ask:
-                if len(r) >= 2 and clean(r[0]):
-                    L.append(f"| {clean(r[0])} | {clean(r[1]) or 'Recommended'} |")
-            L.append("")
+        L += [f"Use it when you need {blurb[0].lower() + blurb[1:].rstrip('.')}.", ""]
+    if d["examples"]:
+        L += ["Typical requests:", ""] + [f"- \"{e}\"" for e in d["examples"][:8]] + [""]
+    nf = [clean(x) for x in d["not_for"] if clean(x)]
+    if nf:
+        L += ["Not for:", ""] + [f"- {x}" for x in nf] + [""]
+
+    L += ["## What it asks you first", ""]
+    asks = ask_rows(card)
+    if asks:
+        L += ["Before it reads anything, it asks, in one message:", "", "| It asks | Why |", "|---|---|"]
+        L += [f"| {q} | {w} |" for q, w in asks] + [""]
+    else:
+        L += ["Before it reads anything, it asks which company and which period the work is for, "
+              "whether to use your Mosofin connection or files you supply, and for the facts the "
+              "books cannot hold, such as a policy, a threshold or a date. It reads the answers "
+              "back and waits for your yes.", ""]
 
     L += ["## With or without Mosofin", "",
           "With a Mosofin workspace connected, and only after you agree, the skill reads the "
           "figures from your own books. Without a connection it runs the same analysis on "
           "files you upload, and the output says which figures came from where.", ""]
-    head, up = table_after(card, "Upload", "Needed?")
-    if up:
+    ups = upload_rows(card)
+    if ups:
         L += ["If you upload the data yourself:", "", "| Upload | Needed? | Format |", "|---|---|---|"]
-        for r in up:
-            if len(r) >= 3 and clean(r[0]):
-                L.append(f"| {clean(r[0])} | {clean(r[1])} | {clean(r[2])} |")
-        L.append("")
+        L += [f"| {a} | {b or 'Recommended'} | {c or 'XLSX, CSV or PDF'} |" for a, b, c in ups] + [""]
+    else:
+        L += ["If you upload the data yourself, it asks for ledger detail and listings as CSV or "
+              "XLSX exports, statements and third-party documents as PDF or CSV, and short facts "
+              "typed into the chat.", ""]
     L += ["Every uploaded file is checked before any work starts: that it is the right kind "
           "of document, for the right company and period, and usable.", ""]
 
+    L += ["## What you get", ""]
     outs = output_names(method)
-    if d["produces"] or outs:
-        L += ["## What you get", ""]
-        if d["produces"]:
-            L += [cap(clean(d["produces"])), ""]
-        if len(outs) >= 2:
-            L += [f"- {o}" for o in outs] + [""]
+    if d["produces"]:
+        L += [cap(clean(d["produces"])), ""]
+    else:
+        L += ["A workpaper you can keep, as an Excel file if you want one or as tables in the "
+              "chat, with every figure traced to where it came from. Anything that would change "
+              "the books is a proposal for a person to approve.", ""]
+    if len(outs) >= 2:
+        L += [f"- {o}" for o in outs] + [""]
+    L += ["Every run ends with a coverage sheet: what was checked, what was estimated, and what "
+          "could not be done and why.", ""]
 
     rules = [clean(b) for b in bullets(section(card, "Rules that never bend"))]
     rules = [r for r in rules if r]
@@ -289,18 +360,107 @@ def build_page(name, rows, names):
                  "with what you would need to supply."]
     L += ["## What it never does", ""] + [f"- {r}" for r in rules] + [""]
 
-    L += ["---", "", "[All skills](README.md) · [Getting started](../README.md#getting-started)", "",
-          "<!-- Generated by .github/build-pages.py from the skill card. Edit the skill, not this page. -->", ""]
-    page = "\n".join(L)
-    return linkify(page, names, name)
+    L += footer()
+    return linkify("\n".join(L), names, name)
 
 
-def build_index(names, rows):
+# ---------------------------------------------------------------- workflows
+
+def wf_rows():
+    rows = {}
+    for line in read(os.path.join(WORKFLOWS, "README.md")).splitlines():
+        m = re.match(r"\| (\d+) \| \[([a-z0-9-]+)\]\([^)]*\) \| ([^|]+) \| ([^|]+) \| ([^|]+) \|", line)
+        if m:
+            rows[m.group(2)] = (int(m.group(1)), m.group(3).strip(), m.group(4).strip(), m.group(5).strip())
+    return rows
+
+
+def schedule_words(trigger):
+    t = trigger.replace(" + webhook", "")
+    if t == "webhook":
+        return "Runs when something sends it a request, for example when a file arrives."
+    return (f"Runs {t} on its own, and whenever something sends it a request.")
+
+
+def build_workflow_page(name, rows, names, wf_names):
+    md = read(os.path.join(WORKFLOWS, name, "README.md"))
+    title = re.search(r"^# (.+)$", md, re.M).group(1).strip()
+    intro = paragraphs(md.split("\n**Read-only.**")[0])[1:]
+    num, trigger, reads, proposes = rows.get(name, (0, "webhook", "none", ""))
+    read_names = re.findall(r"`([a-z_]+)`", reads)
+    read_words = [READ_WORDS.get(r, r.replace("_", " ")) for r in read_names]
+
+    L = [f"# {title} (workflow)", ""]
+    if proposes:
+        L += [f"> Checks Mosofin data on a schedule or on demand and proposes {proposes.rstrip('.')}.", ""]
+    L += ["  ·  ".join([f"**Workflow:** `{name}`", "**Runs in:** n8n", "**Read-only**"]), ""]
+
+    L += ["## What it does", ""] + [clean(p) for p in intro] + [""]
+    logic = [clean(b) for b in bullets(section(md, "What it does"))]
+    logic = [b for b in logic if b and not re.search(r"`status", b)]
+    if logic:
+        L += [f"- {b}" for b in logic] + [""]
+
+    L += ["## When it runs", "", schedule_words(trigger), ""]
+    if read_words:
+        L += ["With a Mosofin data source set, it reads " + ", ".join(read_words[:-1])
+              + (" and " if len(read_words) > 1 else "") + read_words[-1] + " through the Mosofin gateway. "
+              "Where a file you send covers the same data, the Mosofin figures are used first and the file is the fallback.", ""]
+    else:
+        L += ["It works from the files you send it and needs no Mosofin read.", ""]
+
+    L += ["## What you send it", ""]
+    files = table_after(md, "File role", "What it must be")
+    if files:
+        L += ["| File | What it must be | Required |", "|---|---|---|"]
+        L += [f"| `{r[0].strip('`')}` | {clean(r[1])} | {r[3]} |" for r in files if len(r) >= 4] + [""]
+    else:
+        L += ["Nothing beyond the run settings: it reads what it needs from Mosofin.", ""]
+    L += ["Every file is checked on its content before any work: right kind of document, right "
+          "company, usable. A rejected required file stops the run; a rejected optional file is "
+          "skipped and named in the result.", ""]
+
+    L += ["## What you can change", "",
+          "Every setting sits in one place, and any of them can be overridden for a single run.", ""]
+    settings = table_after(md, "Setting", "Default", "Meaning")
+    settings = [r for r in settings if len(r) >= 3 and r[0].strip("`") not in ("data_source_id",)]
+    if settings:
+        L += ["| Setting | Meaning |", "|---|---|"]
+        L += [f"| `{r[0].strip('`')}` | {clean(r[2])} |" for r in settings] + [""]
+
+    L += ["## What comes back", "",
+          "One result for the next step to use: an email connector, a chat post, a dashboard or "
+          "another tool. It holds the findings, the totals, what could not be done and why, and "
+          "the proposed actions, each waiting for a person's approval.", ""]
+    if proposes:
+        L += [f"**It proposes:** {cap(proposes.rstrip('.'))}.", ""]
+
+    L += ["## What it never does", "",
+          "- **Never posts, sends, pays or changes anything.** The only outbound calls are reads through the Mosofin gateway.",
+          "- **Never acts on its own proposals.** An email draft, a journal entry, a hold or a payment is handed to a person to approve first.",
+          "- **Never trusts a file by its name.** Each file is checked on its content before it is used.", ""]
+    L += footer()
+    return linkify("\n".join(L), names, "")
+
+
+# ---------------------------------------------------------------- index, sitemap, gate
+
+def wf_file(n):
+    return "workflow-" + n + ".md"
+
+
+def footer():
+    return ["---", "", "[All skills and workflows](README.md) · [Sitemap](sitemap.md) · "
+            "[Getting started](../README.md#getting-started)", "",
+            "<!-- Generated by .github/build-pages.py. Edit the skill or workflow, not this page. -->", ""]
+
+
+def build_index(names, rows, wf_names, wfs):
     L = ["# Mosofin finance skills: what each one does", "",
-         f"One page per skill, {len(names)} in all. Each page says what the skill is for, when to "
-         "use it, what it asks you, what to upload if you are not connected to Mosofin, and what "
-         "you get back.", "",
-         "Every skill is **read-only**: it reads and analyses, and anything that would change "
+         f"One page per skill ({len(names)}) and per n8n workflow ({len(wf_names)}). Each page says "
+         "what it is for, when to use it, what it asks you, what to upload if you are not connected "
+         "to Mosofin, and what you get back.", "",
+         "Everything here is **read-only**: it reads and analyses, and anything that would change "
          "your books comes back as a proposal for a person to approve.", "",
          "**Automated** is the share of a skill's checks that run without asking you for a "
          "document when a Mosofin workspace is connected. The rest need evidence that is not in "
@@ -314,37 +474,124 @@ def build_index(names, rows):
             _, pct, blurb = rows.get(n, (0, None, ""))
             L.append(f"| [`{n}`]({n}.md) | {blurb} | {'' if pct is None else str(pct) + '%'} |")
         L.append("")
+    L += ["## n8n workflows", "", "Checks that run on a schedule or on demand, with every setting "
+          "in one place and one result for the next tool to pick up.", "",
+          "| Workflow | Runs | Proposes |", "|---|---|---|"]
+    for n in sorted(wf_names, key=lambda x: wfs.get(x, (99,))[0]):
+        _, trigger, _, proposes = wfs.get(n, (0, "", "", ""))
+        L.append(f"| [`{n}`]({wf_file(n)}) | {trigger} | {proposes} |")
+    L += ["", "[Sitemap](sitemap.md)", "", "<!-- Generated by .github/build-pages.py. -->", ""]
+    return "\n".join(L)
+
+
+def build_sitemap_md(names, rows, wf_names, wfs):
+    L = ["# Sitemap", "", f"Every page under `skill-pages/`, {len(names) + len(wf_names) + 1} in all.", "",
+         "- [Index](README.md)", ""]
+    by = {}
+    for n in names:
+        by.setdefault(rows.get(n, (0, None, ""))[0], []).append(n)
+    for wave in sorted(by):
+        L += [f"## {GROUPS.get(wave, 'Other skills')}", ""]
+        L += [f"- [{n}]({n}.md)" for n in sorted(by[wave])] + [""]
+    L += ["## n8n workflows", ""] + [f"- [{n} (workflow)]({wf_file(n)})" for n in sorted(wf_names, key=lambda x: wfs.get(x, (99,))[0])] + [""]
     L += ["<!-- Generated by .github/build-pages.py. -->", ""]
     return "\n".join(L)
+
+
+def last_changed(paths):
+    """Date of the last commit touching any of the paths, else today."""
+    try:
+        out = subprocess.run(["git", "log", "-1", "--format=%cs", "--"] + paths, cwd=ROOT,
+                             capture_output=True, text=True, timeout=20).stdout.strip()
+        return out or date.today().isoformat()
+    except Exception:
+        return date.today().isoformat()
+
+
+def build_sitemap_xml(names, wf_names):
+    entries = [("README.md", last_changed(["README.md", "workflows/README.md"]), "1.0")]
+    entries += [(n + ".md", last_changed([f"skills/{n}"]), "0.8") for n in names]
+    entries += [(wf_file(n), last_changed([f"workflows/{n}"]), "0.6") for n in wf_names]
+    L = ['<?xml version="1.0" encoding="UTF-8"?>',
+         '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
+    for fn, d, pr in entries:
+        L += ["  <url>", f"    <loc>{BASE_URL}{fn}</loc>", f"    <lastmod>{d}</lastmod>",
+              f"    <priority>{pr}</priority>", "  </url>"]
+    L += ["</urlset>", ""]
+    return "\n".join(L)
+
+
+def gate(fn, text, sections):
+    """Quality rules every page must pass. Returns a list of problems."""
+    p = []
+    for pat in LEAKS:
+        m = re.search(pat, text)
+        if m:
+            p.append(f"{fn}: method detail in page: {m.group(0)!r}")
+    heads = [l for l in text.splitlines() if l.startswith("## ")]
+    if heads != sections:
+        p.append(f"{fn}: sections are {heads}, expected {sections}")
+    for i, h in enumerate(sections):
+        body = section(text, re.escape(h[3:]))
+        words = len(re.sub(r"[|*`#>-]", " ", body).split())
+        if words < 12:
+            p.append(f"{fn}: section {h!r} is thin ({words} words)")
+    if re.search(r"\b[Tt]he user\b", text):
+        p.append(f"{fn}: says 'the user' instead of 'you'")
+    if re.search(r"\|[ \t]*\|", text):
+        p.append(f"{fn}: empty table cell")
+    for line in text.splitlines():
+        if line.count("**") % 2:
+            p.append(f"{fn}: unbalanced bold in {line[:60]!r}")
+            break
+    for m in re.finditer(r"\]\(([a-z0-9-]+\.md)\)", text):
+        if not os.path.exists(os.path.join(OUT, m.group(1))) and m.group(1) not in KNOWN:
+            p.append(f"{fn}: dead link {m.group(1)}")
+    if not text.startswith("# "):
+        p.append(f"{fn}: no title")
+    return p
+
+
+KNOWN = set()
 
 
 def main():
     check = "--check" in sys.argv
     names = sorted(n for n in os.listdir(SKILLS) if os.path.isfile(os.path.join(SKILLS, n, "SKILL.md")))
-    rows = readme_rows()
-    files = {"README.md": build_index(names, rows)}
+    wf_names = sorted(n for n in os.listdir(WORKFLOWS) if os.path.isfile(os.path.join(WORKFLOWS, n, "README.md")))
+    rows, wfs = readme_rows(), wf_rows()
+    KNOWN.update({n + ".md" for n in names} | {wf_file(n) for n in wf_names} | {"README.md", "sitemap.md"})
+
+    files = {}
     for n in names:
-        files[n + ".md"] = build_page(n, rows, set(names))
+        files[n + ".md"] = build_skill_page(n, rows, set(names), set(wf_names))
+    for n in wf_names:
+        files[wf_file(n)] = build_workflow_page(n, wfs, set(names), set(wf_names))
+    files["README.md"] = build_index(names, rows, wf_names, wfs)
+    files["sitemap.md"] = build_sitemap_md(names, rows, wf_names, wfs)
+    files["sitemap.xml"] = build_sitemap_xml(names, wf_names)
 
     problems = []
-    for fn, text in files.items():
-        for p in LEAKS:
-            m = re.search(p, text)
-            if m:
-                problems.append(f"{fn}: method detail in page: {m.group(0)!r}")
     for n in names:
+        problems += gate(n + ".md", files[n + ".md"], SKILL_SECTIONS)
         if n not in rows:
             problems.append(f"{n}: no row in the README skill tables")
+    for n in wf_names:
+        problems += gate(wf_file(n), files[wf_file(n)], WORKFLOW_SECTIONS)
+        if n not in wfs:
+            problems.append(f"{n}: no row in workflows/README.md")
 
     os.makedirs(OUT, exist_ok=True)
-    on_disk = {f for f in os.listdir(OUT) if f.endswith(".md")}
+    on_disk = {f for f in os.listdir(OUT) if f.endswith((".md", ".xml"))}
     if check:
         for fn, text in files.items():
             p = os.path.join(OUT, fn)
+            if fn == "sitemap.xml":
+                continue  # lastmod moves with every commit; the .md sitemap is the checked one
             if not os.path.exists(p) or read(p) != text:
                 problems.append(f"{fn}: out of date; run .github/build-pages.py")
         for fn in sorted(on_disk - set(files)):
-            problems.append(f"{fn}: no matching skill")
+            problems.append(f"{fn}: no matching skill or workflow")
     else:
         for fn, text in files.items():
             with open(os.path.join(OUT, fn), "w", encoding="utf-8") as f:
@@ -354,7 +601,7 @@ def main():
 
     for p in problems:
         print("PROBLEM", p)
-    print(f"{len(names)} skill pages, {len(problems)} problems")
+    print(f"{len(names)} skill pages, {len(wf_names)} workflow pages, {len(problems)} problems")
     return 1 if problems else 0
 
 
